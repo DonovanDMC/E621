@@ -1,0 +1,30 @@
+{
+    "name": "e621",
+    "version": "1.0.0",
+    "description": "A module for fetching posts from e621.",
+    "main": "index.js",
+    "scripts": {
+        "prepare": "rm -rf build && tsc && echo Build Finished",
+        "build": "npm run prepare"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FurryBotCo/E621.git"
+    },
+    "keywords": [
+        "e621",
+        "api",
+        "e621-api",
+        "e926",
+        "e926-api"
+    ],
+    "author": "Donovan_DMC",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/FurryBotCo/E621/issues"
+    },
+    "homepage": "https://github.com/FurryBotCo/E621#readme",
+    "devDependencies": {
+        "@types/node": "^14.14.22"
+    }
+}
