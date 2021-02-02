@@ -2,7 +2,8 @@
   "name": "e621",
   "version": "1.0.0",
   "description": "A module for fetching posts from e621.",
-  "main": "index.js",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
   "scripts": {
     "prepare": "rm -rf build && tsc && echo Build Finished",
     "build": "npm run prepare"
