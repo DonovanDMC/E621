@@ -128,6 +128,7 @@ export interface NullableURLPost {
 
 class E621<N extends boolean = true> {
 	apiKey: string | null;
+	username: string | null;
 	blacklist: string[];
 	userAgent: string;
 	fixNullURLs: boolean;
@@ -138,17 +139,20 @@ class E621<N extends boolean = true> {
 	 * @param {string }[userAgent] - A user agent to use for requests 
 	 * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
 	 * @example new E621();
-	 * @example new E621("yourAPIKey");
-	 * @example new E621("yourAPIKey", ["watersports"]);
-	 * @example new E621("yourAPIKey", ["watersports"], "MyAwesomeProject/1.0.0");
-	 * @example new E621("yourAPIKey", ["watersports"], "MyAwesomeProject/1.0.0", false);
+	 * @example new E621("YourAPIKey", "YourUsername");
+	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"]);
+	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"], "MyAwesomeProject/1.0.0");
+	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"], "MyAwesomeProject/1.0.0", false);
 	 */
-	constructor(apiKey?: string, blacklist?: string[], userAgent?: string, fixNullURLs?: N) {
+	constructor(apiKey?: string, username?: string, blacklist?: string[], userAgent?: string, fixNullURLs?: N) {
 		this.apiKey = apiKey || null;
+		this.username = username || null;
 		this.blacklist = blacklist || [];
 		this.userAgent = userAgent || `E621/${pkg.version} (https://github.com/FurryBotCo/E621)`;
 		this.fixNullURLs = fixNullURLs ?? true;
 	}
+
+	private get auth() { return this.username && this.apiKey ? Buffer.from(`${this.username}:${this.apiKey}`).toString("base64") : null; }
 
 	/**
 	 * Get posts from e621
@@ -173,8 +177,8 @@ class E621<N extends boolean = true> {
 					path: `/posts.json?${tags ? `tags=${encodeURIComponent(tags.join(" "))}&` : ""}${limit ? `limit=${limit}&` : ""}${page ? `page=${page}&` : ""}`,
 					headers: {
 						"User-Agent": this.userAgent,
-						...(this.apiKey ? {
-							"Authorization": this.apiKey
+						...(this.auth ? {
+							"Authorization": this.auth
 						} : {})
 					}
 				}, (res) => {
@@ -213,8 +217,8 @@ class E621<N extends boolean = true> {
 					path: `/posts/${id}.json`,
 					headers: {
 						"User-Agent": this.userAgent,
-						...(this.apiKey ? {
-							"Authorization": this.apiKey
+						...(this.auth ? {
+							"Authorization": this.auth
 						} : {})
 					}
 				}, (res) => {
@@ -255,8 +259,8 @@ class E621<N extends boolean = true> {
 					path: `/posts.json?md5=${md5}`,
 					headers: {
 						"User-Agent": this.userAgent,
-						...(this.apiKey ? {
-							"Authorization": this.apiKey
+						...(this.auth ? {
+							"Authorization": this.auth
 						} : {})
 					}
 				}, (res) => {
