@@ -1,5 +1,7 @@
 # 621
 A module for fetching posts from e621.
+
+[![](https://nodei.co/npm/e621.png)](https://npm.im/e621)
 <hr>
 
 ## Usage
