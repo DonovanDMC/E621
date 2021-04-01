@@ -1,5 +1,5 @@
-import * as https from "https";
 import pkg from "../package.json";
+import * as https from "https";
 
 export class APIError extends Error {
 	code: number;
@@ -44,26 +44,26 @@ export interface Post {
 		height: number;
 		width: number;
 		url: string;
-		alternates: {}; // @TODO
+		alternates: Record<string, unknown>; // @TODO
 	};
 	score: {
 		up: number;
 		down: number;
 		total: number;
 	};
-	tags: Record<"general" | "species" | "character" | "copyright" | "artist" | "invalid" | "lore" | "meta", string[]>;
-	locked_tags: string[];
+	tags: Record<"general" | "species" | "character" | "copyright" | "artist" | "invalid" | "lore" | "meta", Array<string>>;
+	locked_tags: Array<string>;
 	change_seq: number;
 	flags: Record<"pending" | "flagged" | "note_locked" | "status_locked" | "rating_locked" | "deleted", boolean>;
 	rating: "s" | "q" | "e";
 	fav_count: number;
-	sources: string[];
-	pools: number[];
+	sources: Array<string>;
+	pools: Array<number>;
 	relationships: {
 		parent_id: number | null;
 		has_children: boolean;
 		has_active_children: boolean;
-		children: number[]
+		children: Array<number>;
 	};
 	approver_id: number | null;
 	uploader_id: number | null;
@@ -95,26 +95,26 @@ export interface NullableURLPost {
 		height: number;
 		width: number;
 		url: string | null;
-		alternates: {}; // @TODO
+		alternates: Record<string, unknown>; // @TODO
 	};
 	score: {
 		up: number;
 		down: number;
 		total: number;
 	};
-	tags: Record<"general" | "species" | "character" | "copyright" | "artist" | "invalid" | "lore" | "meta", string[]>;
-	locked_tags: string[];
+	tags: Record<"general" | "species" | "character" | "copyright" | "artist" | "invalid" | "lore" | "meta", Array<string>>;
+	locked_tags: Array<string>;
 	change_seq: number;
 	flags: Record<"pending" | "flagged" | "note_locked" | "status_locked" | "rating_locked" | "deleted", boolean>;
 	rating: "s" | "q" | "e";
 	fav_count: number;
-	sources: string[];
-	pools: number[];
+	sources: Array<string>;
+	pools: Array<number>;
 	relationships: {
 		parent_id: number | null;
 		has_children: boolean;
 		has_active_children: boolean;
-		children: number[]
+		children: Array<number>;
 	};
 	approver_id: number | null;
 	uploader_id: number | null;
@@ -129,14 +129,15 @@ export interface NullableURLPost {
 class E621<N extends boolean = true> {
 	apiKey: string | null;
 	username: string | null;
-	blacklist: string[];
+	blacklist: Array<string>;
 	userAgent: string;
 	fixNullURLs: boolean;
 	/**
 	 * Construct an instance of E621
-	 * @param {string} [apiKey] - an api key to use for requests 
-	 * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts 
-	 * @param {string }[userAgent] - A user agent to use for requests 
+	 *
+	 * @param {string} [apiKey] - an api key to use for requests
+	 * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts
+	 * @param {string }[userAgent] - A user agent to use for requests
 	 * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
 	 * @example new E621();
 	 * @example new E621("YourAPIKey", "YourUsername");
@@ -144,7 +145,7 @@ class E621<N extends boolean = true> {
 	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"], "MyAwesomeProject/1.0.0");
 	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"], "MyAwesomeProject/1.0.0", false);
 	 */
-	constructor(apiKey?: string, username?: string, blacklist?: string[], userAgent?: string, fixNullURLs?: N) {
+	constructor(apiKey?: string, username?: string, blacklist?: Array<string>, userAgent?: string, fixNullURLs?: N) {
 		this.apiKey = apiKey || null;
 		this.username = username || null;
 		this.blacklist = blacklist || [];
@@ -152,12 +153,15 @@ class E621<N extends boolean = true> {
 		this.fixNullURLs = fixNullURLs ?? true;
 	}
 
-	private get auth() { return this.username && this.apiKey ? Buffer.from(`${this.username}:${this.apiKey}`).toString("base64") : null; }
+	private get auth() {
+		return this.username && this.apiKey ? Buffer.from(`${this.username}:${this.apiKey}`).toString("base64") : null;
+	}
 
 	/**
 	 * Get posts from e621
+	 *
 	 * @param {string[]} [tags=[]] - The tags to fetch posts for, 40 max
-	 * @param {number} [limit=25] - The, maximum amount of posts to get, 320 max 
+	 * @param {number} [limit=25] - The, maximum amount of posts to get, 320 max
 	 * @param {number} [page=1] - The page of posts to get, see {@link https://e621.net/help/api#posts_list|E621 API Posts#List}
 	 * @returns {Promise<(Post | NullableURLPost)[]>}
 	 * @example getPosts()
@@ -165,10 +169,11 @@ class E621<N extends boolean = true> {
 	 * @example getPosts(["male/male"], 5);
 	 * @example getPosts(["male/male"], 5, 1);
 	 */
-	async getPosts(tags?: string[], limit?: number, page?: number | string): Promise<(N extends true ? Post : NullableURLPost)[]> {
+	async getPosts(tags?: Array<string>, limit?: number, page?: number | string): Promise<Array<N extends true ? Post : NullableURLPost>> {
 		if (tags && tags.length > 40) throw new TypeError("You may only supply up to 40 tags.");
 		if (limit && limit > 320) throw new TypeError("You may only request up to 320 posts at a time.");
 
+		// eslint-disable-next-line
 		return new Promise<any>((a, b) =>
 			https
 				.request({
@@ -178,11 +183,11 @@ class E621<N extends boolean = true> {
 					headers: {
 						"User-Agent": this.userAgent,
 						...(this.auth ? {
-							"Authorization": this.auth
+							Authorization: this.auth
 						} : {})
 					}
 				}, (res) => {
-					const data: Buffer[] = [];
+					const data: Array<Buffer> = [];
 
 					res
 						.on("data", (d) => data.push(d))
@@ -192,8 +197,8 @@ class E621<N extends boolean = true> {
 							if (res.statusCode !== 200) {
 								throw new APIError(res.statusCode, res.statusMessage!, "GET", "/posts.json");
 							} else {
-								if (this.fixNullURLs) return a(this.filterPosts(JSON.parse(Buffer.concat(data).toString()).posts).map(this.fixURL.bind(this)));
-								else return a(this.filterPosts(JSON.parse(Buffer.concat(data).toString()).posts));
+								if (this.fixNullURLs) return a(this.filterPosts((JSON.parse(Buffer.concat(data).toString()) as { posts: Array<Post>; }).posts).map(this.fixURL.bind(this)));
+								else return a(this.filterPosts((JSON.parse(Buffer.concat(data).toString()) as { posts: Array<NullableURLPost>; }).posts));
 							}
 						});
 				})
@@ -203,12 +208,14 @@ class E621<N extends boolean = true> {
 
 	/**
 	 * Get a specifc post from e621, by id
+	 *
 	 * @param {number} id - The id of the post to get
 	 * @returns {Promise<(Post | NullableURLPost)>}
 	 * @example getPostById(1391357)
 	 */
 	async getPostById(id: number): Promise<(N extends true ? Post : NullableURLPost)> {
 		if (isNaN(id) || id < 1 || !id) throw new TypeError("Invalid id provided.");
+		// eslint-disable-next-line
 		return new Promise<any>((a, b) =>
 			https
 				.request({
@@ -218,11 +225,11 @@ class E621<N extends boolean = true> {
 					headers: {
 						"User-Agent": this.userAgent,
 						...(this.auth ? {
-							"Authorization": this.auth
+							Authorization: this.auth
 						} : {})
 					}
 				}, (res) => {
-					const data: Buffer[] = [];
+					const data: Array<Buffer> = [];
 
 					res
 						.on("data", (d) => data.push(d))
@@ -232,8 +239,8 @@ class E621<N extends boolean = true> {
 							if (res.statusCode !== 200) {
 								throw new APIError(res.statusCode, res.statusMessage!, "GET", `/posts/${id}.json`);
 							} else {
-								if (this.fixNullURLs) return a(this.fixURL(JSON.parse(Buffer.concat(data).toString()).post));
-								else return a(JSON.parse(Buffer.concat(data).toString()).post);
+								if (this.fixNullURLs) return a(this.fixURL((JSON.parse(Buffer.concat(data).toString()) as { post: Post; }).post));
+								else return a((JSON.parse(Buffer.concat(data).toString()) as { post: Post; }).post);
 							}
 						});
 				})
@@ -244,6 +251,7 @@ class E621<N extends boolean = true> {
 
 	/**
 	 * Get a specifc post from e621, by md5
+	 *
 	 * @param {string} md5 - the md5 of the post to get
 	 * @returns {Promise<(Post | NullableURLPost)>}
 	 * @example getPostById("6fd0b0f2237543bfeee5ca9318a97b46")
@@ -251,6 +259,7 @@ class E621<N extends boolean = true> {
 	async getPostByMD5(md5: string): Promise<(N extends true ? Post : NullableURLPost)> {
 		// md5 hashes are always 32 characters
 		if (!md5 || md5.length !== 32) throw new TypeError("Invalid md5 provided.");
+		// eslint-disable-next-line
 		return new Promise<any>((a, b) =>
 			https
 				.request({
@@ -260,11 +269,11 @@ class E621<N extends boolean = true> {
 					headers: {
 						"User-Agent": this.userAgent,
 						...(this.auth ? {
-							"Authorization": this.auth
+							Authorization: this.auth
 						} : {})
 					}
 				}, (res) => {
-					const data: Buffer[] = [];
+					const data: Array<Buffer> = [];
 
 					res
 						.on("data", (d) => data.push(d))
@@ -274,8 +283,8 @@ class E621<N extends boolean = true> {
 							if (res.statusCode !== 200) {
 								throw new APIError(res.statusCode, res.statusMessage!, "GET", `/posts.json?md5=${md5}`);
 							} else {
-								if (this.fixNullURLs) return a(this.fixURL(JSON.parse(Buffer.concat(data).toString()).post));
-								else return a(JSON.parse(Buffer.concat(data).toString()).post);
+								if (this.fixNullURLs) return a(this.fixURL((JSON.parse(Buffer.concat(data).toString()) as { post: Post; }).post));
+								else return a((JSON.parse(Buffer.concat(data).toString()) as { post: NullableURLPost; }).post);
 							}
 						});
 				})
@@ -283,14 +292,15 @@ class E621<N extends boolean = true> {
 		);
 	}
 
-	private filterPosts(p: (Post | NullableURLPost)[]) {
-		return p.filter(v => !this.blacklist.some(bl => Object.values(v.tags).reduce((a, b) => a.concat(b), []).includes(bl)));
+	private filterPosts(p: Array<Post | NullableURLPost>) {
+		return p.filter((v) => !this.blacklist.some((bl) => Object.values(v.tags).reduce((a, b) => a.concat(b), []).includes(bl)));
 	}
 
 	/**
 	 * Convert null urls on a post into proper urls.
+	 *
 	 * @param {NullableURLPost} p - The post to fix
-	 * @returns {Post} 
+	 * @returns {Post}
 	 */
 	fixURL(p: NullableURLPost) {
 		if (p.file.url === null) p.file.url = this.constructURLFromMD5(p.file.md5, p.file.ext, false);
@@ -301,9 +311,10 @@ class E621<N extends boolean = true> {
 
 	/**
 	 * Construct a url from its md5 counterpart
+	 *
 	 * @param {string} md5 - the md5
 	 * @param {string} [ext="png"] - The extension, assumed png if not provided
-	 * @param {boolean} [preview=false] 
+	 * @param {boolean} [preview=false]
 	 */
 	constructURLFromMD5(md5: string, ext = "png", preview = false) {
 		return `https://static1.e621.net/data${preview ? "/preview" : ""}/${md5.slice(0, 2)}/${md5.slice(2, 4)}/${md5}.${ext}`;

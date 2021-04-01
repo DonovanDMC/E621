@@ -1,6 +1,6 @@
 {
   "name": "e621",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A module for fetching posts from e621.",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/FurryBotCo/E621#readme",
   "devDependencies": {
-    "@types/node": "^14.14.22"
+    "@types/node": "^14.14.22",
+    "@uwu-codes/eslint-config": "^1.0.8",
+    "@uwu-codes/tsconfig": "^1.0.1"
   }
 }
