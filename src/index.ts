@@ -24,7 +24,7 @@ export class APIError extends Error {
 }
 
 export interface Post {
-	id: string;
+	id: number;
 	created_at: string;
 	updated_at: string;
 	file: {
@@ -75,7 +75,7 @@ export interface Post {
 }
 
 export interface NullableURLPost {
-	id: string;
+	id: number;
 	created_at: string;
 	updated_at: string;
 	file: {
