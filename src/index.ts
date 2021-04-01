@@ -135,19 +135,20 @@ class E621<N extends boolean = true> {
 	/**
 	 * Construct an instance of E621
 	 *
+	 * @param {string} [username] - your e621 username to use for requests
 	 * @param {string} [apiKey] - an api key to use for requests
 	 * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts
 	 * @param {string }[userAgent] - A user agent to use for requests
 	 * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
 	 * @example new E621();
-	 * @example new E621("YourAPIKey", "YourUsername");
-	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"]);
-	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"], "MyAwesomeProject/1.0.0");
-	 * @example new E621("YourAPIKey", "YourUsername", ["watersports"], "MyAwesomeProject/1.0.0", false);
+	 * @example new E621("YourUsername", "YourAPIKey");
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"]);
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0");
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false);
 	 */
-	constructor(apiKey?: string, username?: string, blacklist?: Array<string>, userAgent?: string, fixNullURLs?: N) {
-		this.apiKey = apiKey || null;
+	constructor(username?: string, apiKey?: string, blacklist?: Array<string>, userAgent?: string, fixNullURLs?: N) {
 		this.username = username || null;
+		this.apiKey = apiKey || null;
 		this.blacklist = blacklist || [];
 		this.userAgent = userAgent || `E621/${pkg.version} (https://github.com/FurryBotCo/E621)`;
 		this.fixNullURLs = fixNullURLs ?? true;
