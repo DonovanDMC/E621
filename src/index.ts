@@ -375,7 +375,6 @@ class E621<N extends boolean = true> {
 						.on("end", () => {
 							if (res.statusCode === undefined) throw new Error("recieved undefined statusCode");
 							if (res.statusCode !== 200) {
-								console.log(Buffer.concat(data).toString());
 								throw new APIError(res.statusCode, res.statusMessage!, "PATCH", `/posts/${id}.json`);
 							} else {
 								if (this.fixNullURLs) return a(this.fixURL((JSON.parse(Buffer.concat(data).toString()) as { post: Post; }).post));
@@ -383,7 +382,6 @@ class E621<N extends boolean = true> {
 							}
 						});
 				});
-			console.log(q.join("&"));
 			req.write(q.join("&"));
 			req.end();
 		});
