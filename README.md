@@ -11,17 +11,23 @@ To use this module, simply make an instance of the main class and call one of th
 // For regular javascript usage, switch out this for `const E621 = require("e621");
 import E621 from "e621";
 /**
- * Construct an instance of E621
- * @param {string} [apiKey] - an api key to use for requests 
- * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts 
- * @param {string }[userAgent] - A user agent to use for requests 
- * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
- * @example new E621();
- * @example new E621("yourAPIKey");
- * @example new E621("yourAPIKey", ["watersports"]);
- * @example new E621("yourAPIKey", ["watersports"], "MyAwesomeProject/1.0.0");
- * @example new E621("yourAPIKey", ["watersports"], "MyAwesomeProject/1.0.0", false);
- */
+	 * Construct an instance of E621
+	 *
+	 * @param {string} [username] - your e621 username to use for requests
+	 * @param {string} [apiKey] - an api key to use for requests
+	 * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts
+	 * @param {string }[userAgent] - A user agent to use for requests
+	 * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
+	 * @param {string} [baseDomain=this.baseDomain] - The domain to use for api requests
+	 * @param {boolean} [setHost=false] - If we should set the Host header on requests to e621.net (useful for proxies).
+	 * @example new E621();
+	 * @example new E621("YourUsername", "YourAPIKey");
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"]);
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0");
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false);
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local");
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local", false);
+	 */
 const e = new E621();
 
 /**
@@ -31,9 +37,10 @@ const e = new E621();
  * @param {number} [page=1] - The page of posts to get, see {@link https://e621.net/help/api#posts_list|E621 API Posts#List}
  * @returns {Promise<(Post | NullableURLPost)[]>}
  * @example getPosts()
- * @example getPosts(["male/male"]);
- * @example getPosts(["male/male"], 5);
- * @example getPosts(["male/male"], 5, 1);
+ * @example getPosts("male bulge");
+ * @example getPosts(["male", "bulge"]);
+ * @example getPosts(["male", "bulge"], 5);
+ * @example getPosts(["male", "bulge"], 5, 1);
  */
 e.getPosts(["male/male"]).then(console.log) // array of posts, see Post Structure
 
@@ -52,6 +59,49 @@ e.getPostById(1391357).then(console.log) // single post, see Post Structure
  * @example getPostById(1391357)
  */
 e.getPostByMD5("6fd0b0f2237543bfeee5ca9318a97b46").then(console.log) // single post, see Post Structure
+```
+
+## Edit Post
+This is mostyly untested, but should work
+```ts
+import E621 from "e621";
+// both username & apikey are required for edits!
+const e = new E621("YourUsername", "YourAPIKey");
+
+// they all return a post, see Post Structure
+// if no reason is provided, "Edit via https://npm.im/e621" will be used.
+
+// add tag
+e.editPost(1022094, "Some Reason Here", "added_tag");
+
+// remove tag (notice the minus)
+e.editPost(1022094, "Some Reason Here", "-remove_tag");
+
+// the undefined parts are REQUIRED if you are not using the previous parameters
+
+// add source
+e.editPost(1022094, "Some Reason Here", undefined, "https://some.added/source");
+
+// remove source (notice the minus)
+e.editPost(1022094, "Some Reason Here", undefined, "-https://some.removed/source");
+
+// update parent id
+e.editPost(1022094, "Some Reason Here", undefined, undefined, 1097929);
+
+// set description
+e.editPost(1022094, "Some Reason Here", undefined, undefined, undefined, "My Amazing Post Description");
+
+// set rating - s: safe, q: questionable, e: explicit
+e.editPost(1022094, "Some Reason Here", undefined, undefined, undefined, undefined, "e");
+
+// set rating locked
+e.editPost(1022094, "Some Reason Here", undefined, undefined, undefined, undefined, undefined, true);
+
+// set note locked
+e.editPost(1022094, "Some Reason Here", undefined, undefined, undefined, undefined, undefined, undefined, false);
+
+// set has embedded notes
+e.editPost(1022094, "Some Reason Here", undefined, undefined, undefined, undefined, undefined, undefined, undefined, true);
 ```
 
 ## Post Structure
@@ -89,6 +139,7 @@ interface NullableURLPost {
 		down: number;
 		total: number;
 	};
+	// a record is just a key-value pair, every key here is an array of strings
 	tags: Record<"general" | "species" | "character" | "copyright" | "artist" | "invalid" | "lore" | "meta", string[]>;
 	locked_tags: string[];
 	change_seq: number;

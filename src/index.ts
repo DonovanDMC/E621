@@ -132,6 +132,8 @@ class E621<N extends boolean = true> {
 	blacklist: Array<string>;
 	userAgent: string;
 	fixNullURLs: boolean;
+	baseDomain: string;
+	setHost: boolean;
 	/**
 	 * Construct an instance of E621
 	 *
@@ -140,18 +142,24 @@ class E621<N extends boolean = true> {
 	 * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts
 	 * @param {string }[userAgent] - A user agent to use for requests
 	 * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
+	 * @param {string} [baseDomain=this.baseDomain] - The domain to use for api requests
+	 * @param {boolean} [setHost=false] - If we should set the Host header on requests to e621.net (useful for proxies).
 	 * @example new E621();
 	 * @example new E621("YourUsername", "YourAPIKey");
 	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"]);
 	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0");
 	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false);
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local");
+	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local", false);
 	 */
-	constructor(username?: string, apiKey?: string, blacklist?: Array<string>, userAgent?: string, fixNullURLs?: N) {
+	constructor(username?: string, apiKey?: string, blacklist?: Array<string>, userAgent?: string, fixNullURLs?: N, baseDomain?: string, setHost?: boolean) {
 		this.username = username || null;
 		this.apiKey = apiKey || null;
 		this.blacklist = blacklist || [];
 		this.userAgent = userAgent || `E621/${pkg.version} (https://github.com/FurryBotCo/E621)`;
 		this.fixNullURLs = fixNullURLs ?? true;
+		this.baseDomain = baseDomain ?? "e621.net";
+		this.setHost = !!setHost;
 	}
 
 	private get auth() {
@@ -166,11 +174,13 @@ class E621<N extends boolean = true> {
 	 * @param {number} [page=1] - The page of posts to get, see {@link https://e621.net/help/api#posts_list|E621 API Posts#List}
 	 * @returns {Promise<(Post | NullableURLPost)[]>}
 	 * @example getPosts()
-	 * @example getPosts(["male/male"]);
-	 * @example getPosts(["male/male"], 5);
-	 * @example getPosts(["male/male"], 5, 1);
+	 * @example getPosts("male bulge");
+	 * @example getPosts(["male", "bulge"]);
+	 * @example getPosts(["male", "bulge"], 5);
+	 * @example getPosts(["male", "bulge"], 5, 1);
 	 */
-	async getPosts(tags?: Array<string>, limit?: number, page?: number | string): Promise<Array<N extends true ? Post : NullableURLPost>> {
+	async getPosts(tags?: Array<string> | string, limit?: number, page?: number | string): Promise<Array<N extends true ? Post : NullableURLPost>> {
+		if (tags && !Array.isArray(tags)) tags = tags.split(" ");
 		if (tags && tags.length > 40) throw new TypeError("You may only supply up to 40 tags.");
 		if (limit && limit > 320) throw new TypeError("You may only request up to 320 posts at a time.");
 
@@ -179,12 +189,15 @@ class E621<N extends boolean = true> {
 			https
 				.request({
 					method: "GET",
-					host: "e621.net",
-					path: `/posts.json?${tags ? `tags=${encodeURIComponent(tags.join(" "))}&` : ""}${limit ? `limit=${limit}&` : ""}${page ? `page=${page}&` : ""}`,
+					host: this.baseDomain,
+					path: `/posts.json?${tags ? `tags=${encodeURIComponent((tags as Array<string>).join(" "))}&` : ""}${limit ? `limit=${limit}&` : ""}${page ? `page=${page}&` : ""}`,
 					headers: {
 						"User-Agent": this.userAgent,
 						...(this.auth ? {
 							Authorization: this.auth
+						} : {}),
+						...(this.setHost ? {
+							Host: "e621.net"
 						} : {})
 					}
 				}, (res) => {
@@ -212,7 +225,7 @@ class E621<N extends boolean = true> {
 	 *
 	 * @param {number} id - The id of the post to get
 	 * @returns {Promise<(Post | NullableURLPost)>}
-	 * @example getPostById(1391357)
+	 * @example getPostById(1022094)
 	 */
 	async getPostById(id: number): Promise<(N extends true ? Post : NullableURLPost)> {
 		if (isNaN(id) || id < 1 || !id) throw new TypeError("Invalid id provided.");
@@ -221,12 +234,15 @@ class E621<N extends boolean = true> {
 			https
 				.request({
 					method: "GET",
-					host: "e621.net",
+					host: this.baseDomain,
 					path: `/posts/${id}.json`,
 					headers: {
 						"User-Agent": this.userAgent,
 						...(this.auth ? {
 							Authorization: this.auth
+						} : {}),
+						...(this.setHost ? {
+							Host: "e621.net"
 						} : {})
 					}
 				}, (res) => {
@@ -255,7 +271,7 @@ class E621<N extends boolean = true> {
 	 *
 	 * @param {string} md5 - the md5 of the post to get
 	 * @returns {Promise<(Post | NullableURLPost)>}
-	 * @example getPostById("6fd0b0f2237543bfeee5ca9318a97b46")
+	 * @example getPostByMD5("6fd0b0f2237543bfeee5ca9318a97b46")
 	 */
 	async getPostByMD5(md5: string): Promise<(N extends true ? Post : NullableURLPost)> {
 		// md5 hashes are always 32 characters
@@ -265,12 +281,15 @@ class E621<N extends boolean = true> {
 			https
 				.request({
 					method: "GET",
-					host: "e621.net",
+					host: this.baseDomain,
 					path: `/posts.json?md5=${md5}`,
 					headers: {
 						"User-Agent": this.userAgent,
 						...(this.auth ? {
 							Authorization: this.auth
+						} : {}),
+						...(this.setHost ? {
+							Host: "e621.net"
 						} : {})
 					}
 				}, (res) => {
@@ -291,6 +310,83 @@ class E621<N extends boolean = true> {
 				})
 				.end()
 		);
+	}
+
+	/**
+	 * Get a specifc post from e621, by md5
+	 *
+	 * @param {number} id - the id of the post to edit
+	 * @param {string} [reason="Edit via https://npm.im/e621"] - The edit reason
+	 * @param {string} [tagChanges] - the tags to change, see {@link https://e621.net/help/api#posts_update|Posts Update Documentation} (list tag to add, list tag with a minus to remove)
+	 * @param {string} [sourceChanges] - the sources to change, see {@link https://e621.net/help/api#posts_update|Posts Update Documentation} (same as above, with sources)
+	 * @param {number} [parentId] - the id of the parent of this image
+	 * @param {string} [description] - the description of this image
+	 * @param {("s"|"q"|"e")} [rating] - the rating of this image
+	 * @param {boolean} [ratingLocked] - if the rating of this image should be locked
+	 * @param {boolean} [noteLocked] - if this image should be note locked
+	 * @param {boolean} [hasEmbeddedNotes] - if this image has embedded notes
+	 * @returns {Promise<(Post | NullableURLPost)>}
+	 * @example editPost(1022094, "I dunno", "dog -cat")
+	 * @example editPost(1022094, "I dunno", undefined, "-https://furaffinity.net/(...) https://inkbunny.net/(...)")
+	 * @example editPost(1022094, "I dunno", undefined, undefined, 1097929)
+	 * @example editPost(1022094, "I dunno", undefined, undefined, undefined, "Some stuff here")
+	 * @example editPost(1022094, "I dunno", undefined, undefined, undefined, undefined, "e")
+	 * @example editPost(1022094, "I dunno", undefined, undefined, undefined, undefined, undefined, true)
+	 * @example editPost(1022094, "I dunno", undefined, undefined, undefined, undefined, undefined, undefined, false)
+	 * @example editPost(1022094, "I dunno", undefined, undefined, undefined, undefined, undefined, undefined, undefined, true)
+	 */
+	async editPost(id: number, reason?: string, tagChanges?: string, sourceChanges?: string, parentId?: number, description?: string, rating?: "s" | "q" | "e", ratingLocked?: boolean, noteLocked?: boolean, hasEmbeddedNotes?: boolean): Promise<(N extends true ? Post : NullableURLPost)> {
+		if (isNaN(id) || id < 1 || !id) throw new TypeError("Invalid id provided.");
+		if (!this.auth) throw new Error("Authentication is required to use this.");
+		const p = await this.getPostById(id);
+		const q = [
+			`post[edit_reason]=${encodeURIComponent(reason ? reason : "Edit via https://npm.im/e621")}`
+		];
+		if (tagChanges) q.push(`post[tag_string_diff]=${encodeURIComponent(tagChanges)}`);
+		if (sourceChanges) q.push(`post[source_diff]=${encodeURIComponent(sourceChanges)}`);
+		if (parentId) q.push(`post[parent_id]=${parentId}`, `post[old_parent_id]=${p.relationships.parent_id ?? "null"}`);
+		if (description) q.push(`post[description]=${encodeURIComponent(description)}`, `post[old_description]=${encodeURIComponent(p.description)}`);
+		if (rating) q.push(`post[rating]=${rating}`, `post[old_rating]=${p.rating}`);
+		if (ratingLocked) q.push(`post[is_rating_locked]=${ratingLocked ? "true" : "false"}`);
+		if (noteLocked) q.push(`post[is_note_locked]=${noteLocked ? "true" : "false"}`);
+		if (hasEmbeddedNotes) q.push(`post[has_embedded_notes]=${hasEmbeddedNotes ? "true" : "false"}`);
+
+		// eslint-disable-next-line
+		return new Promise<any>((a, b) => {
+			const req = https
+				.request({
+					method: "PATCH",
+					host: this.baseDomain,
+					path: `/posts/${id}.json`,
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+						"User-Agent": this.userAgent,
+						"Authorization": this.auth!,
+						...(this.setHost ? {
+							Host: "e621.net"
+						} : {})
+					}
+				}, (res) => {
+					const data: Array<Buffer> = [];
+
+					res
+						.on("data", (d) => data.push(d))
+						.on("error", b)
+						.on("end", () => {
+							if (res.statusCode === undefined) throw new Error("recieved undefined statusCode");
+							if (res.statusCode !== 200) {
+								console.log(Buffer.concat(data).toString());
+								throw new APIError(res.statusCode, res.statusMessage!, "PATCH", `/posts/${id}.json`);
+							} else {
+								if (this.fixNullURLs) return a(this.fixURL((JSON.parse(Buffer.concat(data).toString()) as { post: Post; }).post));
+								else return a((JSON.parse(Buffer.concat(data).toString()) as { post: NullableURLPost; }).post);
+							}
+						});
+				});
+			console.log(q.join("&"));
+			req.write(q.join("&"));
+			req.end();
+		});
 	}
 
 	private filterPosts(p: Array<Post | NullableURLPost>) {
