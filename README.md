@@ -7,27 +7,28 @@ A module for fetching posts from e621.
 ## Usage
 To use this module, simply make an instance of the main class and call one of the methods. I'll be listing parameters by providing the jsdoc.
 
+## Get Posts
 ```ts
 // For regular javascript usage, switch out this for `const E621 = require("e621");
 import E621 from "e621";
 /**
-	 * Construct an instance of E621
-	 *
-	 * @param {string} [username] - your e621 username to use for requests
-	 * @param {string} [apiKey] - an api key to use for requests
-	 * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts
-	 * @param {string }[userAgent] - A user agent to use for requests
-	 * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
-	 * @param {string} [baseDomain=this.baseDomain] - The domain to use for api requests
-	 * @param {boolean} [setHost=false] - If we should set the Host header on requests to e621.net (useful for proxies).
-	 * @example new E621();
-	 * @example new E621("YourUsername", "YourAPIKey");
-	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"]);
-	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0");
-	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false);
-	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local");
-	 * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local", false);
-	 */
+ * Construct an instance of E621
+ *
+ * @param {string} [username] - your e621 username to use for requests
+ * @param {string} [apiKey] - an api key to use for requests
+ * @param {string[]} [blacklist=[]] - a list of tags to use to filter out posts
+ * @param {string }[userAgent] - A user agent to use for requests
+ * @param {boolean} [fixNullURLs=true] - If null urls should be converted to proper urls
+ * @param {string} [baseDomain=this.baseDomain] - The domain to use for api requests
+ * @param {boolean} [setHost=false] - If we should set the Host header on requests to e621.net (useful for proxies).
+ * @example new E621();
+ * @example new E621("YourUsername", "YourAPIKey");
+ * @example new E621("YourUsername", "YourAPIKey", ["male/male"]);
+ * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0");
+ * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false);
+ * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local");
+ * @example new E621("YourUsername", "YourAPIKey", ["male/male"], "MyAwesomeProject/1.0.0", false, "mye621.local", false);
+ */
 const e = new E621();
 
 /**
@@ -62,7 +63,7 @@ e.getPostByMD5("6fd0b0f2237543bfeee5ca9318a97b46").then(console.log) // single p
 ```
 
 ## Edit Post
-This is mostyly untested, but should work
+This is mostly untested, but should work
 ```ts
 import E621 from "e621";
 // both username & apikey are required for edits!
@@ -102,6 +103,35 @@ e.editPost(1022094, "Some Reason Here", undefined, undefined, undefined, undefin
 
 // set has embedded notes
 e.editPost(1022094, "Some Reason Here", undefined, undefined, undefined, undefined, undefined, undefined, undefined, true);
+```
+
+## Create Post
+This is mostly untested, but should work
+```ts
+import E621 from "e621";
+// both username & apikey are required for uploading!
+const e = new E621("YourUsername", "YourAPIKey");
+
+// they all return a post, see Post Structure
+
+// minimum requirements: fileURL, tags, rating
+e.createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e");
+
+// sources
+e.createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", 
+["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"]);
+
+// description
+e.createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here");
+
+// parent id
+e.createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here", 1234);
+
+// referer (?)
+e.createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here", 1234, "https://npm.im/e621");
+
+// md5 confirmation
+e.createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here", 1234, "https://npm.im/e621", "abcdefghijklmnopqrstuvwxyz123456");
 ```
 
 ## Post Structure

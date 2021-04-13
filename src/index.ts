@@ -387,6 +387,73 @@ class E621<N extends boolean = true> {
 		});
 	}
 
+	/**
+	 *
+	 * @param {string} fileURL - the url of the file to send to Discord
+	 * @param {(string[]|string)} tags - the tags to put on the post -- if you upload a post with less than 4 tags, e621 mods will not like you
+	 * @param {("s"|"q"|"e")} rating - the rating for the image
+	 * @param {(string[]|string)} [sources] - The sources of the image
+	 * @param {string} [description] - A description for the post
+	 * @param {number} [parent] - id of the parent post of this image
+	 * @param {string} [referer] - I dunno
+	 * @param {string} [md5Confirmation] - the md5 of the provided fileURL, to confirm it matches
+	 * @example createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e")
+	 * @example createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"])
+	 * @example createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here")
+	 * @example createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here", 1234)
+	 * @example createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here", 1234, "https://npm.im/e621")
+	 * @example createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here", 1234, "https://npm.im/e621", "abcdefghijklmnopqrstuvwxyz123456")
+	 * @returns
+	 */
+	async createPost(fileURL: string, tags: string | Array<string>, rating: "s" | "q" | "e", sources?: Array<string> | string, description?: string, parent?: number, referer?: string, md5Confirmation?: string): Promise<(N extends true ? Post : NullableURLPost)> {
+		if (!this.auth) throw new Error("Authentication is required to use this.");
+		const q = [
+			`upload[direct_url]=${encodeURIComponent(fileURL)}`,
+			`upload[tag_string]=${encodeURIComponent(Array.isArray(tags) ? tags.join(" ") : tags)}`,
+			`upload[rating]=${rating}`
+		];
+		if (sources) q.push(`upload[source]=${encodeURIComponent(Array.isArray(sources) ? sources.join(" ") : sources)}`);
+		if (description) q.push(`upload[description]=${encodeURIComponent(description)}`);
+		if (parent) q.push(`upload[parent_id]=${parent}`);
+		if (referer) q.push(`upload[referer]=${encodeURIComponent(referer)}`);
+		if (md5Confirmation) q.push(`upload[md5_confirmation]=${md5Confirmation}`);
+
+		// eslint-disable-next-line
+		return new Promise<any>((a, b) => {
+			const req = https
+				.request({
+					method: "POST",
+					host: this.baseDomain,
+					path: "/uploads.json",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+						"User-Agent": this.userAgent,
+						"Authorization": this.auth!,
+						...(this.setHost ? {
+							Host: "e621.net"
+						} : {})
+					}
+				}, (res) => {
+					const data: Array<Buffer> = [];
+
+					res
+						.on("data", (d) => data.push(d))
+						.on("error", b)
+						.on("end", () => {
+							if (res.statusCode === undefined) throw new Error("recieved undefined statusCode");
+							if (res.statusCode !== 200) {
+								throw new APIError(res.statusCode, res.statusMessage!, "POST", "/uploads.json");
+							} else {
+								if (this.fixNullURLs) return a(this.fixURL((JSON.parse(Buffer.concat(data).toString()) as { post: Post; }).post));
+								else return a((JSON.parse(Buffer.concat(data).toString()) as { post: NullableURLPost; }).post);
+							}
+						});
+				});
+			req.write(q.join("&"));
+			req.end();
+		});
+	}
+
 	private filterPosts(p: Array<Post | NullableURLPost>) {
 		return p.filter((v) => !this.blacklist.some((bl) => Object.values(v.tags).reduce((a, b) => a.concat(b), []).includes(bl)));
 	}
