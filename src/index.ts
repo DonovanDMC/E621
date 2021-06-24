@@ -125,6 +125,64 @@ export interface NullableURLPost {
 	duration: number | null;
 }
 
+export interface UploadLimit {
+	id: number;
+	created_at: number;
+	name: string;
+	level: number;
+	base_upload_limit: number;
+	post_upload_count: number;
+	post_update_count: number;
+	note_update_count: number;
+	is_banned: boolean;
+	can_approve_posts: boolean;
+	can_upload_free: boolean;
+	level_string: string;
+	avatar_id: number;
+	show_avatars: boolean;
+	blacklist_avatars: boolean;
+	blacklist_users: boolean;
+	description_collapsed_initially: boolean;
+	hide_comments: boolean;
+	show_hidden_comments: boolean;
+	show_post_statistics: boolean;
+	has_mail: boolean;
+	receive_email_notifications: boolean;
+	enable_keyboard_navigation: boolean;
+	enable_privacy_mode: boolean;
+	style_usernames: boolean;
+	enable_auto_complete: boolean;
+	has_saved_searches: boolean;
+	disable_cropped_thumbnails: boolean;
+	disable_mobile_gestures: boolean;
+	enable_safe_mode: boolean;
+	disable_responsive_mode: boolean;
+	disable_post_tooltips: boolean;
+	no_flagging: boolean;
+	no_feedback: boolean;
+	disable_user_dmails: boolean;
+	enable_compact_uploader: boolean;
+	updated_at: string;
+	email: string;
+	last_logged_in_at: string;
+	last_forum_read_at: string;
+	recent_tags: string;
+	comment_threshold: number;
+	default_image_size: string;
+	favorite_tags: string;
+	blacklisted_tags: string;
+	time_zone: string;
+	per_page: number;
+	custom_style: string;
+	favorite_count: number;
+	api_regen_multiplier: number;
+	api_burst_limit: number;
+	remaining_api_limit: number;
+	statement_timeout: number;
+	favorite_limit: number;
+	tag_query_limit: number;
+}
+
 
 class E621<N extends boolean = true> {
 	apiKey: string | null;
@@ -480,6 +538,45 @@ class E621<N extends boolean = true> {
 	 */
 	constructURLFromMD5(md5: string, ext = "png", preview = false) {
 		return `https://static1.e621.net/data${preview ? "/preview" : ""}/${md5.slice(0, 2)}/${md5.slice(2, 4)}/${md5}.${ext}`;
+	}
+
+	/**
+	 * Fetch your "upload limit" info (this seems to just be general account info, along with upload limit)
+	 *
+	 * authentication is REQUIRED
+	 *
+	 * @returns {Promise<UploadLimit>}
+	 */
+	async getUploadLimit() {
+		return new Promise<UploadLimit>((a, b) => {
+			if (!this.auth) return b("E621#getUploadLimit requires authentication.");
+			https
+				.request({
+					method: "GET",
+					host: this.baseDomain,
+					path: "/users/upload_limit.json",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+						"User-Agent": this.userAgent,
+						"Authorization": this.auth,
+						...(this.setHost ? {
+							Host: "e621.net"
+						} : {})
+					}
+				}, (res) => {
+					const data: Array<Buffer> = [];
+
+					res
+						.on("data", (d) => data.push(d))
+						.on("error", b)
+						.on("end", () => {
+							if (res.statusCode === undefined) throw new Error("recieved undefined statusCode");
+							if (res.statusCode !== 200) {
+								throw new APIError(res.statusCode, res.statusMessage!, "GET", "/users/upload_limit.json");
+							} else return a((JSON.parse(Buffer.concat(data).toString()) as unknown as UploadLimit));
+						});
+				}).end();
+		});
 	}
 }
 
