@@ -463,7 +463,7 @@ class E621<N extends boolean = true> {
 	 * @example createPost("https://pbs.twimg.com/media/EbOwnXpXkAIC5ZX.jpg:orig", ["gaokun", "bulge", "penis_outline" (...)], "e", ["https://twitter.com/Gaokunx3", "https://twitter.com/Gaokunx3/status/1275559030522556417"], "Some Description Stuff Here", 1234, "https://npm.im/e621", "abcdefghijklmnopqrstuvwxyz123456")
 	 * @returns
 	 */
-	async createPost(fileURL: string, tags: string | Array<string>, rating: "s" | "q" | "e", sources?: Array<string> | string, description?: string, parent?: number, referer?: string, md5Confirmation?: string): Promise<(N extends true ? Post : NullableURLPost)> {
+	async createPost(fileURL: string, tags: string | Array<string>, rating: "s" | "q" | "e", sources?: Array<string> | string, description?: string, parent?: number, referer?: string, md5Confirmation?: string): Promise<{ success: boolean; location: string; post_id: number; }> {
 		if (!this.auth) throw new Error("Authentication is required to use this.");
 		const q = [
 			`upload[direct_url]=${encodeURIComponent(fileURL)}`,
@@ -501,10 +501,7 @@ class E621<N extends boolean = true> {
 							if (res.statusCode === undefined) throw new Error("recieved undefined statusCode");
 							if (res.statusCode !== 200) {
 								throw new APIError(res.statusCode, res.statusMessage!, "POST", "/uploads.json");
-							} else {
-								if (this.fixNullURLs) return a(this.fixURL((JSON.parse(Buffer.concat(data).toString()) as { post: Post; }).post));
-								else return a((JSON.parse(Buffer.concat(data).toString()) as { post: NullableURLPost; }).post);
-							}
+							} else return a((JSON.parse(Buffer.concat(data).toString())));
 						});
 				});
 			req.write(q.join("&"));
