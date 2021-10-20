@@ -54,7 +54,7 @@ export default class Posts {
 	 * @returns {Promise<(Post | null)>}
 	 */
 	async getByMD5(md5: string) {
-		const res = await this.main.request.get<{ post: PostProperties; }>(`/posts/.json?md5=${md5}`).catch(err => {
+		const res = await this.main.request.get<{ post: PostProperties; }>(`/posts.json?md5=${md5}`).catch(err => {
 			if (err instanceof APIError && err.statusCode === 404) return null;
 			throw err;
 		});
