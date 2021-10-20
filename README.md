@@ -32,8 +32,15 @@ import E621 from "e621"; // or const E621 = require("e621");
 
 // no options are required, see below for the options
 const e621 = new E621();
+
+// the options are all an object in the first parameter, e.g.
+const e621 = new E621({
+	authUser: "",
+	authKey:  ""
+});
+
 // all of the available modules stem from this main class,
-// e.g. use e621.posts.X(), e621.users.Y()
+// e.g. use e621.posts.METHOD(), e621.users.METHOD()
 ```
 
 #### Options
