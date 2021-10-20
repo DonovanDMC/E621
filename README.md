@@ -26,9 +26,33 @@ We support almost anything normal users can do, with plans to bring everything e
 
 <hr>
 
-This module is structures with submodules corresponding to separate areas of the site.
+This module is structures with submodules corresponding to separate areas of the site. All of these modules are on the primary class, which can be constructed like so:
+```typescript
+import E621 from "e621"; // or const E621 = require("e621");
 
-A map of things you may want to do, to their methods is listed below.
+// no options are required, see below for the options
+const e621 = new E621();
+// all of the available modules stem from this main class,
+// e.g. use e621.posts.X(), e621.users.Y()
+```
+
+#### Options
+Most of these options shouldn't be used unless you know what you're doing (you probably only need `authUser` and `authKey`, and you can set `userAgent`)
+| Option                    | Type                  | Default                                           | Description                                                                                                           |
+|---------------------------|-----------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| `authUser`                | String                | None                                              | User for authentication                                                                                               |
+| `authKey`                 | String                | None                                              | Token for authentication                                                                                              |
+| `userAgent`               | String                | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L63-L65) | UserAgent for requests                                                                                                |
+| `imageReconstructionType` | "heirarchy" or "root" | "heirarchy"                                       | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L59) |
+| `instanceSSL`             | Boolean               | true                                              | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L07) |
+| `instancePort`            | Number                | 443                                               | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L13) |
+| `instanceHost`            | String                | e621.net                                          | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L19) |
+| `staticSSL`               | Boolean               | true                                              | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L25) |
+| `staticPort`              | Number                | 443                                               | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L31) |
+| `staticHost`              | String                | static1.e621.net                                  | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L37) |
+
+
+A map of features we support to their methods is listed below.
 
 ## Methods
 The legend for the symbols can be found after the table.
