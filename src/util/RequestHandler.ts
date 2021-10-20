@@ -2,13 +2,11 @@
 import type FormHelper from "./FormHelper";
 import MultipartData from "./MultipartData";
 import type E621 from "..";
-import http from "http";
-import https from "https";
-
-export const ErrorTypes = {};
+import * as http from "http";
+import * as https from "https";
 export class APIError extends Error {
 	name = "APIError";
-	type: "UNEXPECTED" | "PARSE";
+	type: "UNEXPECTED" | "PARSE" | "UNKNOWN";
 	statusCode: number;
 	statusMessage: string;
 	method: string;
@@ -28,8 +26,6 @@ export class APIError extends Error {
 		this.path = path;
 		this.reqBody = reqBody;
 		this.resBody = resBody;
-		console.log(reqBody);
-		console.log((resBody as { errors: string; }).errors);
 	}
 }
 

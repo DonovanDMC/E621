@@ -5,6 +5,12 @@ import UserFeedback from "./modules/UserFeedback";
 import Users from "./modules/Users";
 import PostSets from "./modules/PostSets";
 import Pools from "./modules/Pools";
+import AuthenticatedUser from "./structures/AuthenticatedUser";
+import Pool from "./structures/Pool";
+import PoolHistory from "./structures/PoolHistory";
+import Post from "./structures/Post";
+import PostSet from "./structures/PostSet";
+import User from "./structures/User";
 import pkg from "../package.json";
 
 // note for future reference (browser compatibility?)
@@ -58,3 +64,5 @@ export default class E621 {
 	}
 }
 export * from "./types";
+export { APIError } from "./util/RequestHandler";
+export { AuthenticatedUser, Pool, PoolHistory, Post, PostSet, User };
