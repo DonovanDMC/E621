@@ -2,3 +2,4 @@ test/
 src/
 .eslintrc.json
 tsconfig.json
+tsc.json

@@ -1,12 +1,10 @@
 {
   "name": "e621",
-  "version": "1.0.9",
-  "description": "A module for fetching posts from e621.",
+  "version": "2.0.0",
+  "description": "A module for interfacing with e621.",
   "main": "build/src/index.js",
-  "types": "build/src/index.d.ts",
   "scripts": {
-    "prepare": "rm -rf build && tsc && echo Build Finished",
-    "build": "npm run prepare"
+    "build": "rm -rf build && tsc -p tsc.json && sed -i '/__exportStar(require(\".\\/types\"), exports);/d' build/src/index.js && cp -r src/types build/src"
   },
   "repository": {
     "type": "git",
@@ -14,20 +12,23 @@
   },
   "keywords": [
     "e621",
-    "api",
     "e621-api",
+    "api",
     "e926",
-    "e926-api"
+    "e926-api",
+    "e6",
+    "e9"
   ],
-  "author": "Donovan_DMC <hewwo@yiff.rocks> (https://donovan.is.gay)",
+  "author": "Donovan Daniels <hewwo@yiff.rocks>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/DonovanDMC/E621/issues"
   },
   "homepage": "https://github.com/DonovanDMC/E621#readme",
   "devDependencies": {
-    "@types/node": "^14.14.22",
-    "@uwu-codes/eslint-config": "^1.0.8",
-    "@uwu-codes/tsconfig": "^1.0.1"
+    "@uwu-codes/eslint-config": "^1.0.25",
+    "@uwu-codes/tsconfig": "^1.0.1",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
   }
 }
