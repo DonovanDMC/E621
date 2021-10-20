@@ -76,8 +76,8 @@ export default class Posts {
 		if (Array.isArray(options.tags) || typeof options.tags === "string")  qs.add("tags", Array.isArray(options.tags) ? options.tags.join(" ") : options.tags);
 		if (typeof options.page === "number") qs.add("page", options.page);
 		if (typeof options.limit === "number" || typeof options.limit === "string") qs.add("limit", options.limit);
-		const res = await this.main.request.get<Array<PostProperties>>(`/posts.json?${qs.build()}`);
-		return res!.map(info => new Post(this.main, info));
+		const res = await this.main.request.get<{ posts: Array<PostProperties>; }>(`/posts.json?${qs.build()}`);
+		return res!.posts.map(info => new Post(this.main, info));
 	}
 
 	/**
