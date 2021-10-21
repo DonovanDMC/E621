@@ -5,7 +5,8 @@
   "main": "build/src/index.js",
   "scripts": {
     "build": "rm -rf build && tsc -p tsc.json && sed -i '/__exportStar(require(\".\\/types\"), exports);/d' build/src/index.js && cp -r src/types build/src",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "dev": "npm publish --tag dev"
   },
   "repository": {
     "type": "git",
