@@ -1,6 +1,6 @@
 {
   "name": "e621",
-  "version": "1.0.9",
+  "version": "1.0.9-hotfix.0",
   "description": "A module for fetching posts from e621.",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
