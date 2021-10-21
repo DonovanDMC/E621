@@ -28,12 +28,19 @@ export default class E621 {
 		if (!options) options = {};
 
 		if (!options.instanceHost) options.instanceHost = "e621.net";
-		options.instanceSSL = options.instanceSSL ?? options.instanceHost === "e621.net";
+		options.instanceSSL = options.instanceSSL ?? ["e621.net", "yiff.rest"].includes(options.instanceHost);
 		if (!options.instancePort) options.instancePort = options.instanceSSL ? 443 : 80;
-
-		if (!options.staticHost) options.staticHost = options.instanceHost === "e621.net" ? "static1.e621.net" : options.instanceHost;
-		options.staticSSL = options.staticSSL ?? (/^static\d+\.e621\.net/.test(options.staticHost) || options.instanceHost === "e621.net" || options.instanceSSL);
-		if (!options.staticPort) options.staticPort = options.staticSSL ? 443 : options.instancePort;
+		if (!options.imageReconstructionType) {
+			switch (options.instanceHost) {
+				case "e621.net": options.imageReconstructionType = "e621"; break;
+				case "yiff.rest": options.imageReconstructionType = "yiffy"; break;
+				case "e621.local": options.imageReconstructionType = "dev"; break;
+				default: {
+					options.imageReconstructionType = null;
+					if (!options.reconstructStaticURL) process.emitWarning("You specified a host that wasn't in our known list (e621.net, yiff.rest, e621.local) and didn't also specify imageReconstructionType or reconstructStaticURL. This WILL cause an error if we see any null file urls.");
+				}
+			}
+		}
 
 		Object.defineProperties(this, {
 			auth: {
@@ -48,11 +55,9 @@ export default class E621 {
 					instanceHost: options.instanceHost,
 					instancePort: options.instancePort,
 					instanceSSL: options.instanceSSL,
-					staticHost: options.staticHost,
-					staticPort: options.staticPort,
-					staticSSL: options.staticSSL,
 					authUser: options.authUser ?? null,
 					authKey: options.authKey ?? null,
+					reconstructStaticURL: options.reconstructStaticURL || null,
 					imageReconstructionType: options.imageReconstructionType || "hierarchy",
 					userAgent: options.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${!options.authUser ? "" : `; "${options.authUser}"`})`,
 					requestTimeout: options.requestTimeout ?? 30

@@ -18,23 +18,27 @@ export interface Options {
 	 */
 	instanceHost?: string;
 	/**
-	 * If the static server of the instance you are targeting supports ssl
+	 * Override our default url reconstruction when we see a null file url
 	 *
-	 * Default: true if `staticHost` is "static*.e621.net", or `instanceHost` is "e621.net", same as `instanceSSL` otherwise
+	 * Default (e621.net): https://static1.e621.net/data/(preview/|sample/)MD5[0,2]/MD5[2,4]/MD5.EXT
+	 *
+	 * Default (yiff.rest): https://v3.yiff.media/(preview/|sample/)MD5[0,2]/MD5[2,4]/MD5.EXT
+	 *
+	 * Default (e621.local): http://e621.local/data/(preview/|sample/)MD5.EXT
+	 *
+	 * If you use a host that is not supported, and do not implement this, or set a construction type, an error will be thrown.
+	 *
+	 * @param {string} md5 - the md5 of the image
+	 * @param {("original" | "preview" | "sample")} type - the type of url being constructed
+	 * @param {string} ext - the extension of the file
 	 */
-	staticSSL?: boolean;
+	reconstructStaticURL?(this: void, md5: string, type: "original" | "preview" | "sample", ext: string): string;
 	/**
-	 * The port of static server of the instance you are targeting
+	 * The method to use for image reconstructon (if you are not using E621, YiffyAPI, or e621ng, you MUST override the reconstructStaticURL function, as the static urls are hardcoded for these)
 	 *
-	 * Default: 443 if `staticSSL` is true, same as `instancePort` otherwise
+	 * Default: based on `instanceHost` - e621.net = e621 | yiff.rest = yiffy | e621.local = dev | other = null
 	 */
-	staticPort?: number;
-	/**
-	 * The host of the instance you are targeting
-	 *
-	 * Default: static1.e621.net if `instanceHost` is "e621.net", same as `instanceHost` otherwise
-	 */
-	staticHost?: string;
+	imageReconstructionType?: "e621" | "yiffy" | "dev" | null;
 	/**
 	 * The uername of the user you want to authenticate with
 	 *
@@ -47,16 +51,6 @@ export interface Options {
 	 * Default: none
 	 */
 	authKey?: string;
-	/**
-	 * The method to use for image reconstructon (e621.net uses "hierarchy", default instances of e621ng use "root")
-	 *
-	 * * `hierarchy` - images sorted into sub folders based on md5
-	 *
-	 * * `root` - everything in the same top directory)
-	 *
-	 * Default: hierarchy
-	 */
-	imageReconstructionType?: "hierarchy" | "root";
 	/**
 	 * The user agent to use for requests
 	 *
@@ -77,12 +71,10 @@ export interface InstanceOptions {
 	instanceSSL: boolean;
 	instancePort: number;
 	instanceHost: string;
-	staticSSL: boolean;
-	staticPort: number;
-	staticHost: string;
 	authUser: string | null;
 	authKey: string | null;
-	imageReconstructionType: "hierarchy" | "root";
+	reconstructStaticURL: ((this: void, md5: string, type: "original" | "preview" | "sample", ext: string) => string) | null;
+	imageReconstructionType: "e621" | "yiffy" | "dev" | null;
 	userAgent: string;
 	requestTimeout: number;
 }

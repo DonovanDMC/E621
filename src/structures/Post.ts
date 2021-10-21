@@ -65,6 +65,11 @@ export default class Post implements PostProperties {
 			enumerable: false,
 			writable: false
 		});
+
+		// blacklisted or deleted
+		if (this.file.url === null) this.file.url = this.flags.deleted ? this.main.request.deletedImageURL : this.main.request.constructURL(this.file.md5, "original", this.file.ext);
+		if (this.preview.url === null) this.preview.url = this.flags.deleted ? this.main.request.deletedImageURL : this.main.request.constructURL(this.file.md5, "preview", this.file.ext);
+		if (this.sample.has && this.sample.url === null) this.sample.url = this.flags.deleted ? this.main.request.deletedImageURL : this.main.request.constructURL(this.file.md5, "sample", this.file.ext);
 	}
 
 	/**

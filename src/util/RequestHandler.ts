@@ -238,4 +238,23 @@ export default class RequestHandler {
 			r.end();
 		});
 	}
+
+	get instanceURL() {
+		return `http${this.main.options.instanceSSL ? "s" : ""}://${this.main.options.instanceHost}${[80, 443].includes(this.main.options.instancePort) ? "" : `:${this.main.options.instancePort}`}`;
+	}
+
+	// the deleted image url is on the instance itself by default
+	get deletedImageURL() {
+		return `${this.instanceURL}/images/deleted-preview.png`;
+	}
+
+	constructURL(md5: string, type: "original" | "preview" | "sample", ext = "png") {
+		if (this.main.options.reconstructStaticURL) return this.main.options.reconstructStaticURL(md5, type, ext);
+		switch (this.main.options.imageReconstructionType) {
+			case "e621": return `https://static1.e621.net/data/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2,4)}/${md5}.${ext}`;
+			case "yiffy": return `https://v3.yiff.media/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2,4)}/${md5}.${ext}`;
+			case "dev": return `http://e621.local/data/${type === "original" ? "" : `${type}/`}${md5}.${ext}`;
+			default: throw new Error(`Image reconstruction failed with no implemented method (type: ${String(this.main.options.imageReconstructionType)}, host: ${this.main.options.instanceHost})`);
+		}
+	}
 }
