@@ -63,7 +63,7 @@ export default class RequestHandler {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method: "GET",
-					timeout: this.main.options.requestTimeout,
+					timeout: this.main.options.requestTimeout * 1000,
 					hostname: this.main.options.instanceHost,
 					port: this.main.options.instancePort,
 					path,
@@ -119,7 +119,7 @@ export default class RequestHandler {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method,
-					timeout: this.main.options.requestTimeout,
+					timeout: this.main.options.requestTimeout * 1000,
 					hostname: this.main.options.instanceHost,
 					port: this.main.options.instancePort,
 					path,
@@ -191,7 +191,7 @@ export default class RequestHandler {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method,
-					timeout: this.main.options.requestTimeout,
+					timeout: this.main.options.requestTimeout * 1000,
 					hostname: this.main.options.instanceHost,
 					port: this.main.options.instancePort,
 					path,

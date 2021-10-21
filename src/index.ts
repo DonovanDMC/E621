@@ -55,7 +55,7 @@ export default class E621 {
 					authKey: options.authKey ?? null,
 					imageReconstructionType: options.imageReconstructionType || "hierarchy",
 					userAgent: options.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${!options.authUser ? "" : `; "${options.authUser}"`})`,
-					requestTimeout: options.requestTimeout ?? 60000
+					requestTimeout: options.requestTimeout ?? 30
 				},
 				configurable: false,
 				enumerable: false,

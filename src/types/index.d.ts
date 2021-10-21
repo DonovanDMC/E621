@@ -66,9 +66,9 @@ export interface Options {
 	 */
 	userAgent?: string;
 	/**
-	 * The number of milliseconds before a request times out
+	 * The number of seconds before a request times out
 	 *
-	 * Default: 60000
+	 * Default: 30
 	 */
 	requestTimeout?: number;
 }
