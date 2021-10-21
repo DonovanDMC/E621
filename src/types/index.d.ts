@@ -65,6 +65,12 @@ export interface Options {
 	 * Default (With Auth): E621/VERSION (https://github.com/DonovanDMC/E621; "{authUser}")
 	 */
 	userAgent?: string;
+	/**
+	 * The number of milliseconds before a request times out
+	 *
+	 * Default: 60000
+	 */
+	requestTimeout?: number;
 }
 
 export interface InstanceOptions {
@@ -78,6 +84,7 @@ export interface InstanceOptions {
 	authKey: string | null;
 	imageReconstructionType: "hierarchy" | "root";
 	userAgent: string;
+	requestTimeout: number;
 }
 
 export interface GenericSearchOptions {

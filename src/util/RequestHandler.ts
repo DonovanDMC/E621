@@ -60,9 +60,10 @@ export default class RequestHandler {
 	// null = 204 No Content
 	async get<T = unknown>(path: string) {
 		return new Promise<T | null>((resolve, reject) => {
-			(this.main.options.instanceSSL ? https : http)
+			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method: "GET",
+					timeout: this.main.options.requestTimeout,
 					hostname: this.main.options.instanceHost,
 					port: this.main.options.instancePort,
 					path,
@@ -100,7 +101,10 @@ export default class RequestHandler {
 							}
 						});
 				})
-				.end();
+				.setTimeout(this.main.options.requestTimeout, () => {
+					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout}ms`));
+				});
+			r.end();
 		});
 	}
 
@@ -115,6 +119,7 @@ export default class RequestHandler {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method,
+					timeout: this.main.options.requestTimeout,
 					hostname: this.main.options.instanceHost,
 					port: this.main.options.instancePort,
 					path,
@@ -152,6 +157,9 @@ export default class RequestHandler {
 								reject(new APIError("UNEXPECTED", req.statusCode!, req.statusMessage!, method, path, body ?? null, d));
 							}
 						});
+				})
+				.setTimeout(this.main.options.requestTimeout, () => {
+					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout}ms`));
 				});
 			if (body) r.write(body);
 			r.end();
@@ -183,6 +191,7 @@ export default class RequestHandler {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method,
+					timeout: this.main.options.requestTimeout,
 					hostname: this.main.options.instanceHost,
 					port: this.main.options.instancePort,
 					path,
@@ -221,6 +230,9 @@ export default class RequestHandler {
 								reject(new APIError("UNEXPECTED", req.statusCode!, req.statusMessage!, method, path, "Multipart Form Data", d));
 							}
 						});
+				})
+				.setTimeout(this.main.options.requestTimeout, () => {
+					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout}ms`));
 				});
 			for (const chunk of formData) r.write(chunk);
 			r.end();
