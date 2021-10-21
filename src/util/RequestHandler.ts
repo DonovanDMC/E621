@@ -101,8 +101,8 @@ export default class RequestHandler {
 							}
 						});
 				})
-				.setTimeout(this.main.options.requestTimeout, () => {
-					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout}ms`));
+				.setTimeout(this.main.options.requestTimeout * 1000, () => {
+					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout * 1000}ms`));
 				});
 			r.end();
 		});
@@ -158,8 +158,8 @@ export default class RequestHandler {
 							}
 						});
 				})
-				.setTimeout(this.main.options.requestTimeout, () => {
-					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout}ms`));
+				.setTimeout(this.main.options.requestTimeout * 1000, () => {
+					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout * 1000}ms`));
 				});
 			if (body) r.write(body);
 			r.end();
@@ -231,8 +231,8 @@ export default class RequestHandler {
 							}
 						});
 				})
-				.setTimeout(this.main.options.requestTimeout, () => {
-					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout}ms`));
+				.setTimeout(this.main.options.requestTimeout * 1000, () => {
+					r.destroy(new Error(`Request Went Over The Limit Of ${this.main.options.requestTimeout * 1000}ms`));
 				});
 			for (const chunk of formData) r.write(chunk);
 			r.end();
