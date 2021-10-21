@@ -45,26 +45,23 @@ const e621 = new E621({
 
 #### Options
 Most of these options shouldn't be used unless you know what you're doing (you probably only need `authUser` and `authKey`, and you can set `userAgent`)
-| Option                    | Type                  | Default                                           | Description                                                                                                           |
-|---------------------------|-----------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| `authUser`                | String                | None                                              | User for authentication                                                                                               |
-| `authKey`                 | String                | None                                              | Token for authentication                                                                                              |
-| `userAgent`               | String                | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L63-L65) | UserAgent for requests                                                                                                |
-| `imageReconstructionType` | "heirarchy" or "root" | "heirarchy"                                       | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L59) |
-| `instanceSSL`             | Boolean               | true                                              | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L07) |
-| `instancePort`            | Number                | 443                                               | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L13) |
-| `instanceHost`            | String                | e621.net                                          | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L19) |
-| `staticSSL`               | Boolean               | true                                              | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L25) |
-| `staticPort`              | Number                | 443                                               | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L31) |
-| `staticHost`              | String                | static1.e621.net                                  | [See Code](https://github.com/DonovanDMC/E621/blob/484de793b5fe5d870d72bfe65d8a7c57ef41215a/src/types/index.d.ts#L37) |
-
+| Option | Type | Default | Description |
+|:---:|:---:|:---:|:---:|
+| `authUser` | String | None | User for authentication |
+| `authKey` | String | None | Token for authentication |
+| `userAgent` | String | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L57-L59) | UserAgent for requests |
+| `reconstructStaticURL` | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/util/RequestHandler.ts#L254-L256) | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L63-L65) | Override default url reconstruction |
+| `imageReconstructionType` | "e621" \| "yiffy" \| "local" \| null | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L39) | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L41) |
+| `instanceSSL` | Boolean | true | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L03) |
+| `instancePort` | Number | 443 | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L9) |
+| `instanceHost` | String | e621.net | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L15) |
 
 A map of features we support to their methods is listed below.
 
 ## Methods
 The legend for the symbols can be found after the table.
 | Section       | Description              | Location               |
-|---------------|--------------------------|------------------------|
+|:-------------:|:------------------------:|:----------------------:|
 | Pools         | Get Pool                 | `pools.get`            |
 | Pools         | Get Pool By Name         | `pools.getByName`      |
 | Pools         | Search Pools             | `pools.search`         |
@@ -108,7 +105,7 @@ The legend for the symbols can be found after the table.
 
 #### Method Symbol Legend
 | Symbol | Meaning                 |
-|--------|-------------------------|
+|:------:|:-----------------------:|
 | *      | Requires Authentication |
 | $      | Requires Privileged     |
 | ^      | Requires Janitor        |
