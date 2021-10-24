@@ -89,3 +89,4 @@ export * from "./post_sets";
 export * from "./posts";
 export * from "./user_feedback";
 export * from "./users";
+export * from "./wiki_pages";

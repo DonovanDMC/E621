@@ -11,6 +11,7 @@ import PoolHistory from "./structures/PoolHistory";
 import Post from "./structures/Post";
 import PostSet from "./structures/PostSet";
 import User from "./structures/User";
+import WikiPages from "./modules/WikiPages";
 import pkg from "../package.json";
 
 // note for future reference (browser compatibility?)
@@ -22,6 +23,7 @@ export default class E621 {
 	posts = new Posts(this);
 	userFeedback = new UserFeedback(this);
 	users = new Users(this);
+	wikiPages = new WikiPages(this);
 	private readonly auth: string | null;
 	readonly options: InstanceOptions;
 	constructor(options?: Options) {
