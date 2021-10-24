@@ -1,4 +1,3 @@
-import type Post from "./Post";
 import type User from "./User";
 import type Pool from "./Pool";
 import type { PoolCategory, PoolHistoryProperties } from "../types";
@@ -32,13 +31,6 @@ export default class PoolHistory implements PoolHistoryProperties {
 	}
 
 	/**
-	 * Get the post object for this history
-	 *
-	 * @returns {Promise<Post | null>}
-	 */
-	async getPost() { return this.main.posts.get(this.id); }
-
-	/**
 	 * Get the updater for this history
 	 *
 	 * @returns {Promise<User | null>}
@@ -54,7 +46,7 @@ export default class PoolHistory implements PoolHistoryProperties {
 
 
 	/**
-	 * Revert the post to this version
+	 * Revert the pool to this version
 	 *
 	 * * Requires Authentication
 	 *

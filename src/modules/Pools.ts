@@ -70,7 +70,7 @@ export default class Pools {
 	 * @param {string} [options.name] - narrow the results by the name of the pool
 	 * @param {string} [options.description] - narrow the results by the description of the pool
 	 * @param {string} [options.creator] - narrow the results by the (name of the) creator of the pool
-	 * @param {Pool} [options.active] - narrow the results by the pool being active or not
+	 * @param {boolean} [options.active] - narrow the results by the pool being active or not
 	 * @param {PoolCategory} [options.category] - narrow the results by the category of the pool
 	 * @param {PoolOrder} [options.order] - the order of the results
 	 * @param {number} [options.page] - page of results to get
@@ -88,8 +88,8 @@ export default class Pools {
 		if (typeof options.order       === "string")  qs.add("search[order]", options.order);
 		if (typeof options.page        === "number")  qs.add("page", options.page);
 		if (typeof options.limit       === "number")  qs.add("limit", options.limit);
-		const res = await this.main.request.get<{ post_sets: Array<PoolProperties>; }>(`/pools.json?${qs.build()}`);
-		return res!.post_sets.map(info => new Pool(this.main, info));
+		const res = await this.main.request.get<Array<PoolProperties>>(`/pools.json?${qs.build()}`);
+		return res!.map(info => new Pool(this.main, info));
 	}
 
 	/**
@@ -98,7 +98,7 @@ export default class Pools {
 	 * * Requires Authentication
 	 *
 	 * @param {object} options
-	 * @param {string} options.name - the name of the set
+	 * @param {string} options.name - the name of the pool
 	 * @param {string} [options.description] - the description of the pool
 	 * @param {Array<number>} [options.posts] - the posts to add to the pool
 	 * @param {PoolCategory} options.category - the category of the pool
