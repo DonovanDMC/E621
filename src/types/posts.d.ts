@@ -118,3 +118,49 @@ export interface PostVoteResult {
 	down: number;
 	our_score: number;
 }
+
+export interface SearchPostHistoryOptions extends GenericSearchOptions {
+	user?: string;
+	userID?: number;
+	post?: number;
+	reason?: string;
+	description?: string;
+	ratingChangedTo?: Ratings;
+	finalRating?: Ratings;
+	parent?: number;
+	parentChangedTo?: number;
+	finalTags?: Array<string> |string;
+	addedTags?: Array<string> | string;
+	removedTags?: Array<string> | string;
+	finalLockedTags?: Array<string> | string;
+	addedLockedTags?: Array<string> | string;
+	removedLockedTags?: Array<string> | string;
+	source?: string;
+}
+
+export interface PostHistoryProperties {
+	id: number;
+	post_id: number;
+	tags: string;
+	updater_id: number;
+	updater_name: string;
+	updated_at: string;
+	rating: Ratings;
+	parent_id: number | null;
+	source: string;
+	description: string;
+	reason: string;
+	locked_tags: string | null;
+	added_tags: Array<string>;
+	removed_tags: Array<string>;
+	added_locked_tags: Array<string>;
+	removed_locked_tags: Array<string>;
+	rating_changed: boolean;
+	parent_changed: boolean;
+	source_changed: boolean;
+	description_changed: boolean;
+	version: number;
+	obsolete_added_tags: string;
+	obsolete_removed_tags: string;
+	unchanged_tags: string;
+}

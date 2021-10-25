@@ -79,6 +79,8 @@ The legend for the symbols can be found after the table.
 | Posts | Create Post* | `posts.create` |
 | Posts | Modify Post* | `posts.modify` |
 | Posts | Vote On Post* | `posts.vote` |
+| Posts | Revert Post* | `posts.revert` |
+| Posts | Search Post History | `posts.searchHistory` |
 | Type | Description | Location |
 | Post Sets | Get Post Set | `postSets.get` |
 | Post Sets | Search Sets | `postSets.search` |

@@ -1,5 +1,6 @@
 import type E621 from "..";
 import Post from "../structures/Post";
+import PostHistory from "../structures/PostHistory";
 import type {
 	CreatePostOptions,
 	SearchPostsOptions,
@@ -7,6 +8,8 @@ import type {
 	NewPost,
 	ModifyPostOptions,
 	PostVoteResult,
+	SearchPostHistoryOptions,
+	PostHistoryProperties,
 	Ratings
 } from "../types";
 import FormHelper from "../util/FormHelper";
@@ -186,6 +189,71 @@ export default class Posts {
 	}
 
 	// @TODO delete/approved/unapproved - not a high priority
+
+	/**
+	 * Revert a post to a previous version
+	 *
+	 * * Requires Authentication
+	 *
+	 * @param {number} id - the id of the post to revert
+	 * @param {number} versionID - the version id to revert to (see history)
+	 */
+	async revert(id: number, versionID: number) {
+		this.main.request.authCheck.call(this, "Posts#revert");
+		const qs = new FormHelper()
+			.add("version_id", versionID);
+		return this.main.request.put<null>(`/posts/${id}/revert.json`, qs.build());
+	}
+
+	/**
+	 * Search the post history
+	 *
+	 * @param {object} [options]
+	 * @param {string} [options.user] - narrow the results by username
+	 * @param {number} [options.userID] - narrow the results by user id
+	 * @param {number} [options.post] - narrow the results by post id
+	 * @param {string} [options.reason] - narrow the results by edit reason
+	 * @param {string} [options.description] - narrow the results by description content
+	 * @param {Ratings} [options.ratingChangedTo] - narrow the results by rating change
+	 * @param {Ratings} [options.finalRating] - narrow the results by final rating
+	 * @param {number} [options.parent] - narrow the results by parent id
+	 * @param {number} [options.parentChangedTo] - narrow the results by changed parent id
+	 * @param {(Array<string> | string)} [options.finalTags] - narrow the results by final tags
+	 * @param {(Array<string> | string)} [options.addedTags] - narrow the results by added tags
+	 * @param {(Array<string> | string)} [options.removedTags] - narrow the results by removed tags
+	 * @param {(Array<string> | string)} [options.finalLockedTags] - narrow the results by final locked tags
+	 * @param {(Array<string> | string)} [options.addedLockedTags] - narrow the results by added locked tags
+	 * @param {(Array<string> | string)} [options.removedLockedTags] - narrow the results by removed locked tags
+	 * @param {string} [options.source] - narrow the results by sources
+	 * @param {number} [options.page] - page of results to get
+	 * @param {number} [options.limit] - limit the maximum amount of results returned
+	 * @param
+	 * @returns {Promise<Array<PostHistory>>}
+	 */
+	async searchHistory(options?: SearchPostHistoryOptions) {
+		options = options ?? {};
+		const qs = new FormHelper();
+		if (typeof options.user              === "string") qs.add("search[updater_name]", options.user);
+		if (typeof options.userID            === "number") qs.add("search[updater_id]", options.userID);
+		if (typeof options.post              === "number") qs.add("search[post_id]", options.post);
+		if (typeof options.reason            === "string") qs.add("search[reason]", options.reason);
+		if (typeof options.description       === "string") qs.add("search[description]", options.description);
+		if (typeof options.ratingChangedTo   === "string") qs.add("search[rating_changed]", options.ratingChangedTo);
+		if (typeof options.finalRating       === "string") qs.add("search[rating]", options.finalRating);
+		if (typeof options.parent            === "number") qs.add("search[parent_id]", options.parent);
+		if (typeof options.parentChangedTo   === "string") qs.add("search[parent_id_changed]", options.parentChangedTo);
+		if (typeof options.finalTags         === "string") qs.add("search[tags]", options.finalTags);
+		if (typeof options.addedTags         === "string") qs.add("search[tags_added]", options.addedTags);
+		if (typeof options.removedTags       === "string") qs.add("search[tags_removed]", options.removedTags);
+		if (typeof options.finalLockedTags   === "string") qs.add("search[locked_tags]", options.finalLockedTags);
+		if (typeof options.addedLockedTags   === "string") qs.add("search[locked_tags_added]", options.addedLockedTags);
+		if (typeof options.removedLockedTags === "string") qs.add("search[locked_tags_removed]", options.removedLockedTags);
+		if (typeof options.source            === "string") qs.add("search[source]", options.source);
+		if (typeof options.page              === "number") qs.add("page", options.page);
+		if (typeof options.limit             === "number") qs.add("limit", options.limit);
+		const res = await this.main.request.get<Array<PostHistoryProperties>>(`/post_versions.json?${qs.build()}`);
+		return res!.map(info => new PostHistory(this.main, info));
+	}
 
 	/**
 	 * Vote on a post
