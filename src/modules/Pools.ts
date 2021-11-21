@@ -6,7 +6,7 @@ import type {
 	SearchPoolsOptions,
 	CreatePoolOptions,
 	ModifyPoolOptions,
-	PoolOrder,
+	SearchPoolsOrder,
 	PoolCategory,
 	SearchPoolHistoryOptions,
 	PoolHistoryProperties
@@ -72,7 +72,7 @@ export default class Pools {
 	 * @param {string} [options.creator] - narrow the results by the (name of the) creator of the pool
 	 * @param {boolean} [options.active] - narrow the results by the pool being active or not
 	 * @param {PoolCategory} [options.category] - narrow the results by the category of the pool
-	 * @param {PoolOrder} [options.order] - the order of the results
+	 * @param {SearchPoolsOrder} [options.order] - the order of the results
 	 * @param {number} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<Pool>>}

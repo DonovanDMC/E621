@@ -15,14 +15,14 @@ export interface PoolProperties {
 	post_count: number;
 }
 
-export type PoolOrder = "updated_at" | "name" | "created_at" | "post_count";
+export type SearchPoolsOrder = "updated_at" | "name" | "created_at" | "post_count";
 export interface SearchPoolsOptions extends GenericSearchOptions {
 	name?: string;
 	description?: string;
 	creator?: string;
 	active?: boolean;
 	category?: PoolCategory;
-	order?: PoolOrder;
+	order?: SearchPoolsOrder;
 }
 
 // the api docs list is_locked, but it isn't a permitted parameter, and I can't find any references in the source code

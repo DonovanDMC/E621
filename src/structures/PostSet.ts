@@ -31,14 +31,14 @@ export default class PostSet implements PostSetProperties {
 	 *
 	 * @returns {Promise<Array<Post>>}
 	 */
-	async getPosts() { return this.main.posts.search({ tags: this.post_ids.map(p => `id:${p}`) }); }
+	async getPosts() { return this.main.posts.search.call(this.main.posts, { tags: this.post_ids.map(p => `id:${p}`) }); }
 
 	/**
 	 * Get the user object of the creator of this set
 	 *
 	 * @returns {Promise<User | null>}
 	 */
-	async getCreator() { return this.main.users.get(this.creator_id); }
+	async getCreator() { return this.main.users.get.call(this.main.users, this.creator_id); }
 
 	/**
 	 * Add a post to this set
@@ -50,7 +50,7 @@ export default class PostSet implements PostSetProperties {
 	 */
 	async addPost(id: number) {
 		this.main.request.authCheck("PostSet#addPost");
-		return this.main.postSets.addPost(this.id, id);
+		return this.main.postSets.addPost.call(this.main.posts, this.id, id);
 	}
 
 	/**
@@ -63,7 +63,7 @@ export default class PostSet implements PostSetProperties {
 	 */
 	async removePost(id: number) {
 		this.main.request.authCheck("PostSet#removePost");
-		return this.main.postSets.removePost(this.id, id);
+		return this.main.postSets.removePost.call(this.main.postSets, this.id, id);
 	}
 
 	/**
@@ -81,7 +81,8 @@ export default class PostSet implements PostSetProperties {
 	 */
 	async modify(options: ModifyPostSetOptions) {
 		this.main.request.authCheck("PostSet#modify");
-		return this.main.postSets.modify(this.id, options);
+		if (!options) throw new Error("options is required in PostSet#modify");
+		return this.main.postSets.modify.call(this.main.postSets, this.id, options);
 	}
 
 	/**
@@ -93,6 +94,6 @@ export default class PostSet implements PostSetProperties {
 	 */
 	async delete() {
 		this.main.request.authCheck("PostSet#delete");
-		return this.main.postSets.delete(this.id);
+		return this.main.postSets.delete.call(this.main.postSets, this.id);
 	}
 }

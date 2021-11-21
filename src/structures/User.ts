@@ -54,7 +54,7 @@ export default class User implements UserProperties {
 	 * @param {number} [options.limit] - the maximum amount of feedback to fetch
 	 * @returns {Array<UserFeedbackProperties>}
 	 */
-	async getFeedback(options: Omit<SearchUserFeedbackOptions, "username">) { return this.main.userFeedback.search({ username: this.name, ...options }); }
+	async getFeedback(options: Omit<SearchUserFeedbackOptions, "username">) { return this.main.userFeedback.search.call(this.main.userFeedback, { username: this.name, ...options }); }
 	/**
 	 * Create a feedback for this user
 	 *
@@ -69,7 +69,7 @@ export default class User implements UserProperties {
 	 */
 	async createFeedback(options: Omit<CreateUserFeedbackOptions, "username">) {
 		this.main.request.authCheck.call(this, "User#createFeedback");
-		return this.main.userFeedback.create({ username: this.name, ...options });
+		return this.main.userFeedback.create.call(this.main.userFeedback, { username: this.name, ...options });
 	}
 
 	/**
@@ -80,8 +80,8 @@ export default class User implements UserProperties {
 	async getFavorites() { return this.main.users.getFavorites(this.id); }
 
 	async asAuthenticatedUser() {
-		this.main.request.authCheck.call(this, "User#asAuthenticatedUser");
-		const info = await this.main.users.getSelf();
+		this.main.request.authCheck("User#asAuthenticatedUser");
+		const info = await this.main.users.getSelf.call(this.main.users);
 		if (info.id !== this.id) throw new Error("User#asAuthenticatedUser called on a different user");
 		return info;
 	}

@@ -7,17 +7,17 @@ We support almost anything normal users can do, with plans to bring everything e
 ### Features:
 - [x] Creating Posts (Buffer & URL)
 - [x] Listing/Creating/Editing/Voting On/Favoriting Posts
-- [x] Listing/Creating/Editing/Deleting/Modifying/Adding To/Removing From Post Sets
-- [x] Listing/Creating/Editing/Deleting/Modifying/Adding To/Removing From Pools
+- [x] Listing/Creating/Editing/Deleting/Adding To/Removing From Post Sets
+- [x] Listing/Creating/Editing/Deleting/Adding To/Removing From Pools
+- [x] Listing/Creating/Editing/Deleting Wiki Pages
+- [x] Listing/Creating/Editing/Deleting Artists
 - [x] Listing/Creating/Deleting/Editing User Feedback
 - [x] Reverting Pool Changes
 - [x] Listing Post History
 - [x] Editing The Authenticated User (all properties minus password and email)
 - [ ] Deleting/Approving/Unapproving/Destroying Posts
 - [ ] Creating/Solving/Deleting Post Flags
-- [ ] Listing/Creating/Editing/Deleting/Modifying Wiki Pages
-- [ ] Listing/Creating/Editing/Deleting/Modifying Artists
-- [ ] Listing/Editing/Deleting/Modifying Tags
+- [ ] Listing/Editing/Deleting Tags
 - [ ] General Janitorial/Moderative/Admninistrative Actions
 - [ ] More Planned!
 
@@ -62,7 +62,15 @@ A map of features we support to their methods is listed below.
 The legend for the symbols can be found after the table.
 | Section | Description | Location |
 |:---:|:---:|:---:|
-| Pools | Get Pool | `pools.get` |
+| Artists | Get Artist | `artists.get` |
+| Artists | Get Artist By Name | `artists.getByName` |
+| Artists | Search Artists | `artists.search` |
+| Artists | Create Artist* | `artists.create` |
+| Artists | Modify Artist* | `artists.modify` |
+| Artists | Delete Artist^ | `artists.delete` |
+| Artists | Revert Artist* | `artists.revert` |
+| Artists | Search Artist History | `artists.searchHistory` |
+| Type | Description | Location || Pools | Get Pool | `pools.get` |
 | Pools | Get Pool By Name | `pools.getByName` |
 | Pools | Search Pools | `pools.search` |
 | Pools | Create Pool* | `pools.create` |

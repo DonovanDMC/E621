@@ -4,7 +4,7 @@ import type {
 	PostSetProperties,
 	SearchPostSetsOptions,
 	CreatePostSetOptions,
-	PostSetOrder,
+	SearchPostSetsOrder,
 	ModifyPostSetOptions
 } from "../types";
 import FormHelper from "../util/FormHelper";
@@ -52,7 +52,7 @@ export default class PostSets {
 	 * @param {string} [options.name] - the name of the set
 	 * @param {string} [options.shortname] - the shortname of the set
 	 * @param {string} [options.username] - the creator of the set
-	 * @param {PostSetOrder} [options.order] - the order of the results
+	 * @param {SearchPostSetsOrder} [options.order] - the order of the results
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<PostSet>>}

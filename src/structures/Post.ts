@@ -77,14 +77,14 @@ export default class Post implements PostProperties {
 	 *
 	 * @returns {Promise<User | null>}
 	 */
-	async getUploader() { return this.main.users.get(this.uploader_id); }
+	async getUploader() { return this.main.users.get.call(this.main.users, this.uploader_id); }
 
 	/**
 	 * Get the user object for approver of this post (will be null if self approved)
 	 *
 	 * @returns {Promise<User | null>}
 	 */
-	async getApprover() { return this.approver_id === null ? null : this.main.users.get(this.approver_id); }
+	async getApprover() { return this.approver_id === null ? null : this.main.users.get.call(this.main.users, this.approver_id); }
 
 	/**
 	 * Add this post to a set
@@ -96,7 +96,7 @@ export default class Post implements PostProperties {
 	 */
 	async addToSet(id: number) {
 		this.main.request.authCheck("Post#addToSet");
-		return this.main.postSets.addPost(id, this.id);
+		return this.main.postSets.addPost.call(this.main.postSets, id, this.id);
 	}
 
 	/**
@@ -109,7 +109,7 @@ export default class Post implements PostProperties {
 	 */
 	async removeFromSet(id: number) {
 		this.main.request.authCheck("Post#removeFromSet");
-		return this.main.postSets.removePost(id, this.id);
+		return this.main.postSets.removePost.call(this.main.postSets, id, this.id);
 	}
 
 	/**
@@ -122,7 +122,7 @@ export default class Post implements PostProperties {
 	 */
 	async addToPool(id: number) {
 		this.main.request.authCheck("Post#addToPool");
-		return this.main.pools.addPost(id, this.id);
+		return this.main.pools.addPost.call(this.main.postSets, id, this.id);
 	}
 
 	/**
@@ -135,7 +135,7 @@ export default class Post implements PostProperties {
 	 */
 	async removeFromPool(id: number) {
 		this.main.request.authCheck("Post#removeFromPool");
-		return this.main.pools.removePost(id, this.id);
+		return this.main.pools.removePost.call(this.main.pools, id, this.id);
 	}
 
 	/**
@@ -164,7 +164,8 @@ export default class Post implements PostProperties {
 	 */
 	async modify(options: ModifyPostOptions) {
 		this.main.request.authCheck("Post#modify");
-		return this.main.posts.modify(this.id, options);
+		if (!options) throw new Error("options is required in Post#modify");
+		return this.main.posts.modify.call(this.main.posts, this.id, options);
 	}
 
 	/**
@@ -177,15 +178,6 @@ export default class Post implements PostProperties {
 	 */
 	async vote(up: boolean) {
 		this.main.request.authCheck("Post#vote");
-		return this.main.posts.vote(this.id, up);
-	}
-
-	/**
-	 * Remove tags from this post with implication checks (this WILL fire a request for EVERY SINGLE TAG specified.)
-	 *
-	 * @param tags
-	 */
-	async removeTagsWithImplicationChecks(tags: Array<string> | string) {
-		if (!Array.isArray(tags)) tags =  tags.split(" ");
+		return this.main.posts.vote.call(this.main.posts, this.id, up);
 	}
 }

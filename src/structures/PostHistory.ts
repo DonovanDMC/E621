@@ -79,14 +79,14 @@ export default class PostHistory implements PostHistoryProperties {
 	 *
 	 * @returns {Promise<User | null>}
 	 */
-	async getUpdater() { return this.main.users.get(this.updater_id); }
+	async getUpdater() { return this.main.users.get.call(this.main.users, this.updater_id); }
 
 	/**
 	 * Get the post object for this history
 	 *
 	 * @returns {Promise<Post | null>}
 	 */
-	async getPost() { return this.main.posts.get(this.post_id); }
+	async getPost() { return this.main.posts.get.call(this.main.posts, this.post_id); }
 
 
 	/**
@@ -97,6 +97,6 @@ export default class PostHistory implements PostHistoryProperties {
 	 */
 	async revertTo() {
 		this.main.request.authCheck("PostHistory#revertTo");
-		return this.main.posts.revert(this.post_id, this.id);
+		return this.main.posts.revert.call(this.main.posts, this.post_id, this.id);
 	}
 }

@@ -14,12 +14,12 @@ export interface PostSetProperties {
 	updated_at: string;
 }
 
-export type PostSetOrder = "name" | "shortname" | "postcount" | "created_at" | "update";
+export type SearchPostSetsOrder = "name" | "shortname" | "postcount" | "created_at" | "update";
 export interface SearchPostSetsOptions extends GenericSearchOptions {
 	name?: string;
 	shortname?: string;
 	username?: string;
-	order?: PostSetOrder;
+	order?: SearchPostSetsOrder;
 }
 
 export interface CreatePostSetOptions {

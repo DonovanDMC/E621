@@ -5,7 +5,7 @@ import type {
 	SearchWikiPagesOptions,
 	CreateWikiPageOptions,
 	ModifyWikiPageOptions,
-	WikiPageOrder,
+	SearchWikiPagesOrder,
 	SearchWikiPageHistoryOptions,
 	WikiPageHistoryProperties
 } from "../types";
@@ -72,7 +72,7 @@ export default class WikiPages {
 	 * @param {string} [options.otherNames] - narrow the results by the other names of the wiki page
 	 * @param {boolean} [options.hasOtherNames] - narrow the results by the wiki page having other names
 	 * @param {boolean} [options.hideDeleted] - narrow the results by the wiki page being deleted or not
-	 * @param {WikiPageOrder} [options.order] - the order of the results
+	 * @param {SearchWikiPagesOrder} [options.order] - the order of the results
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<WikiPage>>}
@@ -113,7 +113,7 @@ export default class WikiPages {
 			.add("wiki_page[title]", options.title)
 			.add("wiki_page[body]", options.body);
 		if (typeof options.locked         === "boolean") qs.add("wiki_page[is_locked]", options.locked);
-		if (typeof options.forceOverwrite === "boolean") qs.add("wiki_page[is_locked]", options.forceOverwrite);
+		if (typeof options.forceOverwrite === "boolean") qs.add("wiki_page[skip_secondary_validations]", options.forceOverwrite);
 		if (typeof options.reason         === "string")  qs.add("wiki_page[edit_reason]", options.reason);
 		const res = await this.main.request.post<WikiPageProperties>("/wiki_pages.json", qs.build());
 		return new WikiPage(this.main, res!);

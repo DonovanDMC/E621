@@ -84,6 +84,7 @@ export interface GenericSearchOptions {
 	page?: number | `${"a" | "b" | ""}${number}`;
 }
 
+export * from "./artists";
 export * from "./pools";
 export * from "./post_sets";
 export * from "./posts";

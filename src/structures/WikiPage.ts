@@ -1,7 +1,8 @@
 import type { WikiPageProperties } from "../types";
 import type E621 from "..";
 
-export default class Pool implements WikiPageProperties {
+export default class WikiPage implements WikiPageProperties {
+	private main: E621;
 	id: number;
 	creator_id: number;
 	creator_name: string;

@@ -31,14 +31,14 @@ export default class WikiPageHistory implements WikiPageHistoryProperties {
 	 *
 	 * @returns {Promise<User | null>}
 	 */
-	async getUpdater() { return this.main.users.get(this.updater_id); }
+	async getUpdater() { return this.main.users.get.call(this.main.users, this.updater_id); }
 
 	/**
 	 * Get the wiki page object for this history
 	 *
 	 * @returns {Promise<WikiPage | null>}
 	 */
-	async getWikiPage() { return this.main.pools.get(this.wiki_page_id); }
+	async getWikiPage() { return this.main.wikiPages.get.call(this.main.pools, this.wiki_page_id); }
 
 
 	/**
@@ -49,6 +49,6 @@ export default class WikiPageHistory implements WikiPageHistoryProperties {
 	 */
 	async revertTo() {
 		this.main.request.authCheck("WikiPageHistory#revertTo");
-		return this.main.pools.revert(this.wiki_page_id, this.id);
+		return this.main.wikiPages.revert.call(this.main.pools, this.wiki_page_id, this.id);
 	}
 }

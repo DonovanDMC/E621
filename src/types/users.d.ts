@@ -79,7 +79,7 @@ export type UploadLimit = Omit<AuthenticatedUserProperties,
 "neutral_feedback_count" | "negative_feedback_count" | "upload_limit"
 >;
 
-export type UserOrder = "date" | "name" | "post_upload_count" | "note_count" | "post_update_count";
+export type SearchUsersOrder = "date" | "name" | "post_upload_count" | "note_count" | "post_update_count";
 export interface SearchUsersOptions extends GenericSearchOptions {
 	/** use asterisks for wildcards */
 	name?: string;
@@ -90,7 +90,7 @@ export interface SearchUsersOptions extends GenericSearchOptions {
 	maxLevel?: number;
 	unrestrictedUploads?: boolean;
 	approver?: boolean;
-	order?: UserOrder;
+	order?: SearchUsersOrder;
 }
 
 export type Timezones =

@@ -105,7 +105,7 @@ export default class AuthenticatedUser extends User implements AuthenticatedUser
 	 */
 	async addFavorite(id: number) {
 		this.main.request.authCheck("AuthenticatedUser#addFavorite");
-		return this.main.users.addFavorite(id);
+		return this.main.users.addFavorite.call(this.main.users, id);
 	}
 
 	/**
@@ -118,7 +118,7 @@ export default class AuthenticatedUser extends User implements AuthenticatedUser
 	 */
 	async removeFavorite(id: number) {
 		this.main.request.authCheck("AuthenticatedUser#removeFavorite");
-		return this.main.users.removeFavorite(id);
+		return this.main.users.removeFavorite.call(this.main.users, id);
 	}
 
 	/**
@@ -130,6 +130,6 @@ export default class AuthenticatedUser extends User implements AuthenticatedUser
 	 */
 	async getUploadLimit() {
 		this.main.request.authCheck("AuthenticatedUser#getUploadLimit");
-		return this.main.users.getUploadLimit();
+		return this.main.users.getUploadLimit.call(this.main.users);
 	}
 }

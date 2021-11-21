@@ -14,7 +14,7 @@ export interface WikiPageProperties {
 	is_deleted: boolean;
 }
 
-export type WikiPageOrder = "title" | "time" | "post_count";
+export type SearchWikiPagesOrder = "title" | "time" | "post_count";
 export interface SearchWikiPagesOptions extends GenericSearchOptions {
 	title?: string;
 	creator?: string;
@@ -22,7 +22,7 @@ export interface SearchWikiPagesOptions extends GenericSearchOptions {
 	otherNames?: string;
 	hasOtherNames?: boolean;
 	hideDeleted?: boolean;
-	order?: WikiPageOrder;
+	order?: SearchWikiPagesOrder;
 }
 
 export interface CreateWikiPageOptions {

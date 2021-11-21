@@ -8,7 +8,7 @@ import type {
 	UserProperties,
 	SearchUsersOptions,
 	EditSelfUserOptions,
-	UserOrder,
+	SearchUsersOrder,
 	Timezones,
 	DefaultImageSize,
 	PostProperties
@@ -64,7 +64,7 @@ export default class Users {
 	 * @param {number} [options.maxLevel] - narrow the search by maximum user level
 	 * @param {boolean} [options.unrestrictedUploads] - narrow the search by unrestricted uploaders
 	 * @param {boolean} [options.approver] - narrow the search by approvers
-	 * @param {UserOrder} [options.order] - order the search results
+	 * @param {SearchUsersOrder} [options.order] - order the search results
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} - page to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<User>>}

@@ -35,14 +35,14 @@ export default class PoolHistory implements PoolHistoryProperties {
 	 *
 	 * @returns {Promise<User | null>}
 	 */
-	async getUpdater() { return this.main.users.get(this.updater_id); }
+	async getUpdater() { return this.main.users.get.call(this.main.users, this.updater_id); }
 
 	/**
 	 * Get the pool object for this history
 	 *
 	 * @returns {Promise<Pool | null>}
 	 */
-	async getPool() { return this.main.pools.get(this.pool_id); }
+	async getPool() { return this.main.pools.get.call(this.main.pools, this.pool_id); }
 
 
 	/**
@@ -53,6 +53,6 @@ export default class PoolHistory implements PoolHistoryProperties {
 	 */
 	async revertTo() {
 		this.main.request.authCheck("PoolHistory#revertTo");
-		return this.main.pools.revert(this.pool_id, this.id);
+		return this.main.pools.revert.call(this.main.pools, this.pool_id, this.id);
 	}
 }

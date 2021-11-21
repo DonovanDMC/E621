@@ -31,7 +31,7 @@ export default class Pool implements PoolProperties {
 	 *
 	 * @returns {Promise<Array<Post>>}
 	 */
-	async getPosts() { return this.main.posts.search({ tags: this.post_ids.map(p => `id:${p}`) }); }
+	async getPosts() { return this.main.posts.search.call(this.main.posts, { tags: this.post_ids.map(p => `id:${p}`) }); }
 
 	/**
 	 * Add a post to this pool
@@ -43,7 +43,7 @@ export default class Pool implements PoolProperties {
 	 */
 	async addPost(id: number) {
 		this.main.request.authCheck("Pool#addPost");
-		return this.main.postSets.addPost(this.id, id);
+		return this.main.postSets.addPost.call(this.main.pools, this.id, id);
 	}
 
 	/**
@@ -56,7 +56,7 @@ export default class Pool implements PoolProperties {
 	 */
 	async removePost(id: number) {
 		this.main.request.authCheck("Pool#removePost");
-		return this.main.postSets.removePost(this.id, id);
+		return this.main.postSets.removePost.call(this.main.pools, this.id, id);
 	}
 
 	/**
@@ -74,7 +74,8 @@ export default class Pool implements PoolProperties {
 	 */
 	async modify(options: ModifyPoolOptions) {
 		this.main.request.authCheck("Pool#modify");
-		return this.main.pools.modify(this.id, options);
+		if (!options) throw new Error("options is required in Pool#modify");
+		return this.main.pools.modify.call(this.main.pools, this.id, options);
 	}
 
 	/**
@@ -88,7 +89,7 @@ export default class Pool implements PoolProperties {
 	 */
 	async delete() {
 		this.main.request.authCheck("Pool#delete");
-		return this.main.pools.delete(this.id);
+		return this.main.pools.delete.call(this.main.pools, this.id);
 	}
 
 	/**
@@ -100,7 +101,7 @@ export default class Pool implements PoolProperties {
 	 */
 	async revert(versionID: number) {
 		this.main.request.authCheck("Pool#revert");
-		return this.main.pools.revert(this.id, versionID);
+		return this.main.pools.revert.call(this.main.pools, this.id, versionID);
 	}
 
 	/**
@@ -113,6 +114,6 @@ export default class Pool implements PoolProperties {
 	 * @returns {Promise<Array<PoolHistory>>}
 	 */
 	async getHistory(options?: Omit<SearchPoolHistoryOptions, "pool">) {
-		return this.main.pools.searchHistory({ pool: this.id, ...options });
+		return this.main.pools.searchHistory.call(this.main.pools, { pool: this.id, ...options });
 	}
 }
