@@ -52,18 +52,19 @@ export default class UserFeedback {
 	 * @param {string} [options.creator] - narrow the search by a specific creator
 	 * @param {string} [options.body] - narrow the search by the content of the feedback
 	 * @param {FeedbackCategories} [options.category] - narrow the search by the type
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} - page of results to get
 	 * @param {number} [options.limit] - limit the maximum returned results
 	 * @returns {Promise<Array<UserFeedbackProperties>>}
 	 */
 	async search(options?: SearchUserFeedbackOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.username === "string") qs.add("search[user_name]", options.username);
-		if (typeof options.creator  === "string") qs.add("search[creator_name]", options.creator);
-		if (typeof options.body     === "string") qs.add("search[body_matches]", options.body);
-		if (typeof options.category === "string") qs.add("search[category]", options.category);
-		if (typeof options.page     === "number") qs.add("page", options.page);
-		if (typeof options.limit    === "number") qs.add("limit", options.limit);
+		if (typeof options.username === "string")    qs.add("search[user_name]", options.username);
+		if (typeof options.creator  === "string")    qs.add("search[creator_name]", options.creator);
+		if (typeof options.body     === "string")    qs.add("search[body_matches]", options.body);
+		if (typeof options.category === "string")    qs.add("search[category]", options.category);
+		if (typeof options.page     !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit    === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<UserFeedbackProperties>>(`/user_feedbacks.json?${qs.build()}`);
 		return res!;
 	}

@@ -57,7 +57,6 @@ export interface PostProperties {
 
 export interface SearchPostsOptions extends GenericSearchOptions {
 	tags?: string | Array<string>;
-	page?: number | `${number}` | `${"a" | "b"}${number}`;
 }
 
 export type CreatePostOptions = {

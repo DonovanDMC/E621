@@ -65,22 +65,23 @@ export default class Users {
 	 * @param {boolean} [options.unrestrictedUploads] - narrow the search by unrestricted uploaders
 	 * @param {boolean} [options.approver] - narrow the search by approvers
 	 * @param {UserOrder} [options.order] - order the search results
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} - page to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<User>>}
 	 */
 	async search(options?: SearchUsersOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.name                === "string")  qs.add("search[name_matches]", options.name);
-		if (typeof options.email               === "string")  qs.add("search[email_matches]", options.email);
-		if (typeof options.level               === "number")  qs.add("search[level]", options.level);
-		if (typeof options.minLevel            === "number")  qs.add("search[min_level]", options.minLevel);
-		if (typeof options.maxLevel            === "number")  qs.add("search[max_level]", options.maxLevel);
-		if (typeof options.unrestrictedUploads === "boolean") qs.add("search[can_upload_free]", options.unrestrictedUploads);
-		if (typeof options.approver            === "boolean") qs.add("search[can_approve_posts]", options.approver);
-		if (typeof options.order               === "string")  qs.add("search[order]", options.order);
-		if (typeof options.page                === "number")  qs.add("page", options.page);
-		if (typeof options.limit               === "number")  qs.add("limit", options.limit);
+		if (typeof options.name                === "string")     qs.add("search[name_matches]", options.name);
+		if (typeof options.email               === "string")     qs.add("search[email_matches]", options.email);
+		if (typeof options.level               === "number")     qs.add("search[level]", options.level);
+		if (typeof options.minLevel            === "number")     qs.add("search[min_level]", options.minLevel);
+		if (typeof options.maxLevel            === "number")     qs.add("search[max_level]", options.maxLevel);
+		if (typeof options.unrestrictedUploads === "boolean")    qs.add("search[can_upload_free]", options.unrestrictedUploads);
+		if (typeof options.approver            === "boolean")    qs.add("search[can_approve_posts]", options.approver);
+		if (typeof options.order               === "string")     qs.add("search[order]", options.order);
+		if (typeof options.page                !== "undefined")  qs.add("page", options.page);
+		if (typeof options.limit               === "number")     qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<UserProperties>>(`/user_feedbacks.json?${qs.build()}`);
 		return res!.map(info => new User(this.main, info));
 	}

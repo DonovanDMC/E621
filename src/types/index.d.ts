@@ -81,7 +81,7 @@ export interface InstanceOptions {
 
 export interface GenericSearchOptions {
 	limit?: number;
-	page?: number;
+	page?: number | `${"a" | "b" | ""}${number}`;
 }
 
 export * from "./pools";

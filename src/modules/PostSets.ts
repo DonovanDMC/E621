@@ -53,19 +53,19 @@ export default class PostSets {
 	 * @param {string} [options.shortname] - the shortname of the set
 	 * @param {string} [options.username] - the creator of the set
 	 * @param {PostSetOrder} [options.order] - the order of the results
-	 * @param {number} [options.page] - page of results to get
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<PostSet>>}
 	 */
 	async search(options?: SearchPostSetsOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.name      === "string") qs.add("search[name]", options.name);
-		if (typeof options.shortname === "string") qs.add("search[shortname]", options.shortname);
-		if (typeof options.username  === "string") qs.add("search[creator_name]", options.username);
-		if (typeof options.order     === "string") qs.add("search[order]", options.order);
-		if (typeof options.page      === "number") qs.add("page", options.page);
-		if (typeof options.limit     === "number") qs.add("limit", options.limit);
+		if (typeof options.name      === "string")    qs.add("search[name]", options.name);
+		if (typeof options.shortname === "string")    qs.add("search[shortname]", options.shortname);
+		if (typeof options.username  === "string")    qs.add("search[creator_name]", options.username);
+		if (typeof options.order     === "string")    qs.add("search[order]", options.order);
+		if (typeof options.page      !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit     === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<{ post_sets: Array<PostSetProperties>; }>(`/posts_sets.json?${qs.build()}`);
 		return res!.post_sets.map(info => new PostSet(this.main, info));
 	}

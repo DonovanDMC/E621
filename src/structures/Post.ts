@@ -179,4 +179,13 @@ export default class Post implements PostProperties {
 		this.main.request.authCheck("Post#vote");
 		return this.main.posts.vote(this.id, up);
 	}
+
+	/**
+	 * Remove tags from this post with implication checks (this WILL fire a request for EVERY SINGLE TAG specified.)
+	 *
+	 * @param tags
+	 */
+	async removeTagsWithImplicationChecks(tags: Array<string> | string) {
+		if (!Array.isArray(tags)) tags =  tags.split(" ");
+	}
 }

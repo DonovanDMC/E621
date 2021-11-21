@@ -69,7 +69,7 @@ export default class Posts {
 	 *
 	 * @param {object} [options]
 	 * @param {(Array<string> | string)} [options.tags] - narrow the search by specific tags
-	 * @param {(number |`${"a" | "b"}${number}`)} [options.page] - number for exact page, a${number} posts after ${number}, b${number} posts before ${number}
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - number for exact page, a${number} posts after ${number}, b${number} posts before ${number}
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<Post>>}
 	 */
@@ -77,7 +77,7 @@ export default class Posts {
 		options = options ?? {};
 		const qs = new FormHelper();
 		if (Array.isArray(options.tags) || typeof options.tags === "string")  qs.add("tags", Array.isArray(options.tags) ? options.tags.join(" ") : options.tags);
-		if (typeof options.page === "number") qs.add("page", options.page);
+		if (typeof options.page !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit === "number" || typeof options.limit === "string") qs.add("limit", options.limit);
 		const res = await this.main.request.get<{ posts: Array<PostProperties>; }>(`/posts.json?${qs.build()}`);
 		return res!.posts.map(info => new Post(this.main, info));
@@ -225,7 +225,7 @@ export default class Posts {
 	 * @param {(Array<string> | string)} [options.addedLockedTags] - narrow the results by added locked tags
 	 * @param {(Array<string> | string)} [options.removedLockedTags] - narrow the results by removed locked tags
 	 * @param {string} [options.source] - narrow the results by sources
-	 * @param {number} [options.page] - page of results to get
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @param
 	 * @returns {Promise<Array<PostHistory>>}
@@ -233,24 +233,24 @@ export default class Posts {
 	async searchHistory(options?: SearchPostHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.user              === "string") qs.add("search[updater_name]", options.user);
-		if (typeof options.userID            === "number") qs.add("search[updater_id]", options.userID);
-		if (typeof options.post              === "number") qs.add("search[post_id]", options.post);
-		if (typeof options.reason            === "string") qs.add("search[reason]", options.reason);
-		if (typeof options.description       === "string") qs.add("search[description]", options.description);
-		if (typeof options.ratingChangedTo   === "string") qs.add("search[rating_changed]", options.ratingChangedTo);
-		if (typeof options.finalRating       === "string") qs.add("search[rating]", options.finalRating);
-		if (typeof options.parent            === "number") qs.add("search[parent_id]", options.parent);
-		if (typeof options.parentChangedTo   === "string") qs.add("search[parent_id_changed]", options.parentChangedTo);
-		if (typeof options.finalTags         === "string") qs.add("search[tags]", options.finalTags);
-		if (typeof options.addedTags         === "string") qs.add("search[tags_added]", options.addedTags);
-		if (typeof options.removedTags       === "string") qs.add("search[tags_removed]", options.removedTags);
-		if (typeof options.finalLockedTags   === "string") qs.add("search[locked_tags]", options.finalLockedTags);
-		if (typeof options.addedLockedTags   === "string") qs.add("search[locked_tags_added]", options.addedLockedTags);
-		if (typeof options.removedLockedTags === "string") qs.add("search[locked_tags_removed]", options.removedLockedTags);
-		if (typeof options.source            === "string") qs.add("search[source]", options.source);
-		if (typeof options.page              === "number") qs.add("page", options.page);
-		if (typeof options.limit             === "number") qs.add("limit", options.limit);
+		if (typeof options.user              === "string")    qs.add("search[updater_name]", options.user);
+		if (typeof options.userID            === "number")    qs.add("search[updater_id]", options.userID);
+		if (typeof options.post              === "number")    qs.add("search[post_id]", options.post);
+		if (typeof options.reason            === "string")    qs.add("search[reason]", options.reason);
+		if (typeof options.description       === "string")    qs.add("search[description]", options.description);
+		if (typeof options.ratingChangedTo   === "string")    qs.add("search[rating_changed]", options.ratingChangedTo);
+		if (typeof options.finalRating       === "string")    qs.add("search[rating]", options.finalRating);
+		if (typeof options.parent            === "number")    qs.add("search[parent_id]", options.parent);
+		if (typeof options.parentChangedTo   === "string")    qs.add("search[parent_id_changed]", options.parentChangedTo);
+		if (typeof options.finalTags         === "string")    qs.add("search[tags]", options.finalTags);
+		if (typeof options.addedTags         === "string")    qs.add("search[tags_added]", options.addedTags);
+		if (typeof options.removedTags       === "string")    qs.add("search[tags_removed]", options.removedTags);
+		if (typeof options.finalLockedTags   === "string")    qs.add("search[locked_tags]", options.finalLockedTags);
+		if (typeof options.addedLockedTags   === "string")    qs.add("search[locked_tags_added]", options.addedLockedTags);
+		if (typeof options.removedLockedTags === "string")    qs.add("search[locked_tags_removed]", options.removedLockedTags);
+		if (typeof options.source            === "string")    qs.add("search[source]", options.source);
+		if (typeof options.page              !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit             === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<PostHistoryProperties>>(`/post_versions.json?${qs.build()}`);
 		return res!.map(info => new PostHistory(this.main, info));
 	}

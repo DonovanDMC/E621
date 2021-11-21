@@ -73,22 +73,22 @@ export default class WikiPages {
 	 * @param {boolean} [options.hasOtherNames] - narrow the results by the wiki page having other names
 	 * @param {boolean} [options.hideDeleted] - narrow the results by the wiki page being deleted or not
 	 * @param {WikiPageOrder} [options.order] - the order of the results
-	 * @param {number} [options.page] - page of results to get
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<WikiPage>>}
 	 */
 	async search(options?: SearchWikiPagesOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.title         === "string")  qs.add("search[title]", options.title);
-		if (typeof options.creator       === "string")  qs.add("search[creator_name]", options.creator);
-		if (typeof options.body          === "string")  qs.add("search[body_matches]", options.body);
-		if (typeof options.otherNames    === "string")  qs.add("search[other_names_match]", options.otherNames);
-		if (typeof options.hasOtherNames === "boolean") qs.add("search[other_names_present]", options.hasOtherNames);
-		if (typeof options.hideDeleted   === "boolean") qs.add("search[hide_deleted]", options.hideDeleted);
-		if (typeof options.order         === "string")  qs.add("search[order]", options.order);
-		if (typeof options.page          === "number")  qs.add("page", options.page);
-		if (typeof options.limit         === "number")  qs.add("limit", options.limit);
+		if (typeof options.title         === "string")     qs.add("search[title]", options.title);
+		if (typeof options.creator       === "string")     qs.add("search[creator_name]", options.creator);
+		if (typeof options.body          === "string")     qs.add("search[body_matches]", options.body);
+		if (typeof options.otherNames    === "string")     qs.add("search[other_names_match]", options.otherNames);
+		if (typeof options.hasOtherNames === "boolean")    qs.add("search[other_names_present]", options.hasOtherNames);
+		if (typeof options.hideDeleted   === "boolean")    qs.add("search[hide_deleted]", options.hideDeleted);
+		if (typeof options.order         === "string")     qs.add("search[order]", options.order);
+		if (typeof options.page          !== "undefined")  qs.add("page", options.page);
+		if (typeof options.limit         === "number")     qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<WikiPageProperties>>(`/wiki_pages.json?${qs.build()}`);
 		return res!.map(info => new WikiPage(this.main, info));
 	}
@@ -181,7 +181,7 @@ export default class WikiPages {
 	 *
 	 * @param {object} [options]
 	 * @param {number} [options.wikiPage] - narrow the results by the wiki page id
-	 * @param {number} [options.page] - page of results to get
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @param
 	 * @returns {Promise<Array<WikiPageHistory>>}
@@ -189,9 +189,9 @@ export default class WikiPages {
 	async searchHistory(options?: SearchWikiPageHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.wikiPage  === "number") qs.add("search[wiki_page_id]", options.wikiPage);
-		if (typeof options.page      === "number") qs.add("page", options.page);
-		if (typeof options.limit     === "number") qs.add("limit", options.limit);
+		if (typeof options.wikiPage  === "number")    qs.add("search[wiki_page_id]", options.wikiPage);
+		if (typeof options.page      !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit     === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<WikiPageHistoryProperties>>(`/wiki_page_versions.json?${qs.build()}`);
 		return res!.map(info => new WikiPageHistory(this.main, info));
 	}
