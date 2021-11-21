@@ -1,6 +1,6 @@
 {
   "name": "e621",
-  "version": "2.0.0-dev.11",
+  "version": "2.0.0",
   "description": "A module for interfacing with e621.",
   "main": "build/src/index.js",
   "scripts": {
