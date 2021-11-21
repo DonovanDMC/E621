@@ -180,7 +180,7 @@ export default class Pools {
 	 *
 	 * @param {object} [options]
 	 * @param {number} [options.pool] - narrow the results by the pool id
-	 * @param {number} [options.page] - page of results to get
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @param
 	 * @returns {Promise<Array<PoolHistory>>}
@@ -188,10 +188,11 @@ export default class Pools {
 	async searchHistory(options?: SearchPoolHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.pool  === "number") qs.add("search[pool_id]", options.pool);
-		if (typeof options.page  === "number") qs.add("page", options.page);
-		if (typeof options.limit === "number") qs.add("limit", options.limit);
-		const res = await this.main.request.get<Array<PoolHistoryProperties>>(`/pool_versions.json?${qs.build()}`);
+		if (typeof options.pool  === "number")    qs.add("search[pool_id]", options.pool);
+		if (typeof options.page  !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit === "number")    qs.add("limit", options.limit);
+		const res = await this.main.request.get<Array<PoolHistoryProperties> | { pool_archives: []; }>(`/pool_versions.json?${qs.build()}`);
+		if (res && !Array.isArray(res) && "pool_archives" in res) return [];
 		return res!.map(info => new PoolHistory(this.main, info));
 	}
 

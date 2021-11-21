@@ -192,7 +192,8 @@ export default class WikiPages {
 		if (typeof options.wikiPage  === "number")    qs.add("search[wiki_page_id]", options.wikiPage);
 		if (typeof options.page      !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit     === "number")    qs.add("limit", options.limit);
-		const res = await this.main.request.get<Array<WikiPageHistoryProperties>>(`/wiki_page_versions.json?${qs.build()}`);
+		const res = await this.main.request.get<Array<WikiPageHistoryProperties> | { wiki_page_versions: []; }>(`/wiki_page_versions.json?${qs.build()}`);
+		if (res && !Array.isArray(res) && "wiki_page_versions" in res) return [];
 		return res!.map(info => new WikiPageHistory(this.main, info));
 	}
 }
