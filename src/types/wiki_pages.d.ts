@@ -49,7 +49,7 @@ export interface ModifyWikiPageOptions {
 export interface WikiPageHistoryProperties {
 	id: number;
 	wiki_page_id: number;
-	updater_id: number;
+	updater_id: number | null; // through testing I've seen nulls
 	title: string;
 	body: string;
 	is_locked: boolean;
