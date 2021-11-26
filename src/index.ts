@@ -46,7 +46,7 @@ export default class E621 {
 			switch (options.instanceHost) {
 				case "e621.net": options.imageReconstructionType = "e621"; break;
 				case "yiff.rest": options.imageReconstructionType = "yiffy"; break;
-				case "e621.local": options.imageReconstructionType = "dev"; break;
+				case "e621.local": case "localhost": options.imageReconstructionType = "dev"; break;
 				default: {
 					options.imageReconstructionType = null;
 					if (!options.reconstructStaticURL) process.emitWarning("You specified a host that wasn't in our known list (e621.net, yiff.rest, e621.local) and didn't also specify imageReconstructionType or reconstructStaticURL. This WILL cause an error if we see any null file urls.");

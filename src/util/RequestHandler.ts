@@ -172,9 +172,9 @@ export default class RequestHandler {
 		return new Promise<T | null>((resolve, reject) => {
 			const multi = new MultipartData();
 			files.forEach(({ content, name }, i) => {
-				const magic = [...(new Uint8Array(content.slice(0,4)))].map(v => v.toString(16).toUpperCase()).join("");
+				const magic = [...(new Uint8Array(content.slice(0, 4)))].map(v => v.toString(16).toUpperCase()).join("");
 				let filename;
-				switch (magic){
+				switch (magic) {
 					case "47494638": filename = `upload${i}.gif`; break;
 					case "89504E47": filename = `upload${i}.png`; break;
 					case "FFD8FFDB": case "FFD8FFE0": case "49460001": case "FFD8FFEE": case "69660000": filename = `upload${i}.jpeg`; break;
@@ -251,9 +251,9 @@ export default class RequestHandler {
 	constructURL(md5: string, type: "original" | "preview" | "sample", ext = "png") {
 		if (this.main.options.reconstructStaticURL) return this.main.options.reconstructStaticURL(md5, type, ext);
 		switch (this.main.options.imageReconstructionType) {
-			case "e621": return `https://static1.e621.net/data/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2,4)}/${md5}.${ext}`;
-			case "yiffy": return `https://v3.yiff.media/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2,4)}/${md5}.${ext}`;
-			case "dev": return `http://e621.local/data/${type === "original" ? "" : `${type}/`}${md5}.${ext}`;
+			case "e621": return `https://static1.e621.net/data/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2, 4)}/${md5}.${ext}`;
+			case "yiffy": return `https://v3.yiff.media/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2, 4)}/${md5}.${ext}`;
+			case "dev": return `http${this.main.options.instanceSSL ? "s" : ""}://${this.main.options.instanceHost}${[80, 443].includes(this.main.options.instancePort) ? "" : `:${this.main.options.instancePort}`}/data/${type === "original" ? "" : `${type}/`}${md5}.${ext}`;
 			default: throw new Error(`Image reconstruction failed with no implemented method (type: ${String(this.main.options.imageReconstructionType)}, host: ${this.main.options.instanceHost})`);
 		}
 	}
