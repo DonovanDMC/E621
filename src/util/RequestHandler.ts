@@ -11,9 +11,10 @@ export class APIError extends Error {
 	statusMessage: string;
 	method: string;
 	path: string;
-	reqBody: unknown | null;
+	reqBody: string | null;
+	reqBodyDecoded: Record<string, unknown> | null;
 	resBody: unknown | null;
-	constructor(type: APIError["type"], statusCode: number, statusMessage: string, method: string, path: string, reqBody: unknown | null, resBody: unknown | null) {
+	constructor(type: APIError["type"], statusCode: number, statusMessage: string, method: string, path: string, reqBody: string | null, resBody: unknown | null) {
 		if (type === "UNEXPECTED") super(`Unexpected ${statusCode} ${statusMessage} on "${method.toUpperCase()} ${path}"`);
 		else if (type === "PARSE") super(`Parse Error on "${method.toUpperCase()} ${path}"`);
 		else super(`Unknown Error on "${method.toUpperCase()} ${path}" (${statusCode} ${statusMessage})`);
@@ -25,6 +26,14 @@ export class APIError extends Error {
 		this.method = method;
 		this.path = path;
 		this.reqBody = reqBody;
+		this.reqBodyDecoded = null;
+		if (reqBody) {
+			try {
+				this.reqBodyDecoded = decodeURIComponent(reqBody).split("&").map(v => ({ [v.split("=")[0]]: v.split("=")[1] })).reduce((a, b) => ({ ...a, ...b }), {});
+			} catch {
+				// ignore
+			}
+		}
 		this.resBody = resBody;
 	}
 }
@@ -253,7 +262,7 @@ export default class RequestHandler {
 		switch (this.main.options.imageReconstructionType) {
 			case "e621": return `https://static1.e621.net/data/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2, 4)}/${md5}.${ext}`;
 			case "yiffy": return `https://v3.yiff.media/${type === "original" ? "" : `${type}/`}${md5.slice(0, 2)}/${md5.slice(2, 4)}/${md5}.${ext}`;
-			case "dev": return `http${this.main.options.instanceSSL ? "s" : ""}://${this.main.options.instanceHost}${[80, 443].includes(this.main.options.instancePort) ? "" : `:${this.main.options.instancePort}`}/data/${type === "original" ? "" : `${type}/`}${md5}.${ext}`;
+			case "dev": return `${this.instanceURL}/data/${type === "original" ? "" : `${type}/`}${md5}.${ext}`;
 			default: throw new Error(`Image reconstruction failed with no implemented method (type: ${String(this.main.options.imageReconstructionType)}, host: ${this.main.options.instanceHost})`);
 		}
 	}
