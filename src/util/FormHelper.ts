@@ -4,7 +4,7 @@ export default class FormHelper {
 	// eslint-disable-next-line @typescript-eslint/unified-signatures
 	add(name: string, value: string | number | boolean): this;
 	add(first: string, second?: string | number | boolean) {
-		this.parts.push(!second ? encodeURIComponent(first) : `${first}=${encodeURIComponent(second)}`);
+		this.parts.push(second === undefined ? encodeURIComponent(first) : `${first}=${encodeURIComponent(second)}`);
 		return this;
 	}
 
