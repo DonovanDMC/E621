@@ -4,7 +4,7 @@ The most comprehensive wrapper for e621 you'll ever find.
 
 We support almost anything normal users can do, with plans to bring everything else in, and more later in development.
 
-See the [Features Directory](Features/README.md) for all of the things this module supports.
+See the [Features List](Features/README.md) for all of the things this module supports, and what is planned.
 
 <hr>
 
