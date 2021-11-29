@@ -1,4 +1,4 @@
 {
-  "extends": "@uwu-codes/eslint-config",
+  "extends": "@uwu-codes/eslint-config/ts.json",
   "rules": {}
 }

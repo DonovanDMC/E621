@@ -88,6 +88,7 @@ export * from "./artists";
 export * from "./pools";
 export * from "./post_sets";
 export * from "./posts";
+export * from "./tags";
 export * from "./user_feedback";
 export * from "./users";
 export * from "./wiki_pages";

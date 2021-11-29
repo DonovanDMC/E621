@@ -54,11 +54,24 @@ export default class Users {
 	}
 
 	/**
+	 * Get a user by their name
+	 *
+	 * @param {string} name - The name of the user to get
+	 * @returns {Promise<(User | null)>}
+	 */
+	async getByName(name: string) {
+		return this.search({
+			name,
+			limit: 1
+		}).then(r => r.length === 0 ? null : r[0]);
+	}
+
+	/**
 	 * Search for users
 	 *
 	 * @param {object} [options]
 	 * @param {string} [options.name] - narrow the search by usernames
-	 * @param {string} [options.email] - narrow the search by email (requires elevated privileges)
+	 * @param {string} [options.email] - narrow the search by email (requires admin)
 	 * @param {number} [options.level] - narrow the search by user level
 	 * @param {number} [options.minLevel] - narrow the search by minimum user level
 	 * @param {number} [options.maxLevel] - narrow the search by maximum user level
@@ -82,7 +95,7 @@ export default class Users {
 		if (typeof options.order               === "string")     qs.add("search[order]", options.order);
 		if (typeof options.page                !== "undefined")  qs.add("page", options.page);
 		if (typeof options.limit               === "number")     qs.add("limit", options.limit);
-		const res = await this.main.request.get<Array<UserProperties>>(`/user_feedbacks.json?${qs.build()}`);
+		const res = await this.main.request.get<Array<UserProperties>>(`/users.json?${qs.build()}`);
 		return res!.map(info => new User(this.main, info));
 	}
 

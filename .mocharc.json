@@ -1,0 +1,6 @@
+{
+	"bail": true,
+	"require": "ts-node/register",
+	"timeout": 20000,
+	"spec": "test/**/*.ts"
+}

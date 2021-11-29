@@ -11,14 +11,15 @@ export default class PoolHistory implements PoolHistoryProperties {
 	added_post_ids: Array<number>;
 	removed_post_ids: Array<number>;
 	updater_id: number;
-	description: string;
+	description: string | null;
 	description_changed: boolean;
-	name: string;
+	name: string | null;
 	created_at: string;
 	updated_at: string;
 	is_active: boolean;
 	is_deleted: boolean;
-	category: PoolCategory;
+	is_locked: boolean;
+	category: PoolCategory | null;
 	version: number;
 	constructor(main: E621, info: PoolHistoryProperties) {
 		Object.assign(this, info);

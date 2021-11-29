@@ -178,6 +178,8 @@ export default class Pools {
 	/**
 	 * Search the pool history
 	 *
+	 * * Requires Authentication
+	 *
 	 * @param {object} [options]
 	 * @param {number} [options.pool] - narrow the results by the pool id
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get

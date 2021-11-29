@@ -46,6 +46,32 @@ export default class PostSets {
 	}
 
 	/**
+	 * Get a post set by its name
+	 *
+	 * @param {string} name - The name of the post set to get
+	 * @returns {Promise<(PostSet | null)>}
+	 */
+	async getByName(name: string) {
+		return this.search({
+			name,
+			limit: 1
+		}).then(r => r.length === 0 ? null : r[0]);
+	}
+
+	/**
+	 * Get a post set by its short name
+	 *
+	 * @param {string} name - The short name of the post set to get
+	 * @returns {Promise<(PostSet | null)>}
+	 */
+	async getByShortName(shortname: string) {
+		return this.search({
+			shortname,
+			limit: 1
+		}).then(r => r.length === 0 ? null : r[0]);
+	}
+
+	/**
 	 * Search for post sets
 	 *
 	 * @param {object} [options]
@@ -66,8 +92,9 @@ export default class PostSets {
 		if (typeof options.order     === "string")    qs.add("search[order]", options.order);
 		if (typeof options.page      !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit     === "number")    qs.add("limit", options.limit);
-		const res = await this.main.request.get<{ post_sets: Array<PostSetProperties>; }>(`/posts_sets.json?${qs.build()}`);
-		return res!.post_sets.map(info => new PostSet(this.main, info));
+		const res = await this.main.request.get<Array<PostSetProperties> | { post_sets: []; }>(`/post_sets.json?${qs.build()}`);
+		if (res && !Array.isArray(res) && "post_sets" in res) return [];
+		return res!.map(info => new PostSet(this.main, info));
 	}
 
 	/**
@@ -92,7 +119,7 @@ export default class PostSets {
 		if (typeof options.description        === "string")  qs.add("post_set[description]", options.description);
 		if (typeof options.public             === "boolean") qs.add("post_set[is_public]", options.public);
 		if (typeof options.transferOnDeletion === "boolean") qs.add("post_set[transfer_on_delete]", options.transferOnDeletion);
-		const res = await this.main.request.post<PostSetProperties>("/posts_sets.json", qs.build());
+		const res = await this.main.request.post<PostSetProperties>("/post_sets.json", qs.build());
 		return new PostSet(this.main, res!);
 	}
 

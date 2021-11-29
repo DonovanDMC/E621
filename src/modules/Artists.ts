@@ -55,7 +55,7 @@ export default class Artists {
 	 * @param {string} name - The name of the artist to get
 	 * @returns {Promise<(Artist | null)>}
 	 */
-	async getByTitle(name: string) {
+	async getByName(name: string) {
 		return this.search({
 			name,
 			limit: 1
@@ -190,6 +190,8 @@ export default class Artists {
 
 	/**
 	 * Search the artist history
+	 *
+	 * * Requires Authentication
 	 *
 	 * @param {object} [options]
 	 * @param {number} [options.artistID] - narrow the results by artist id

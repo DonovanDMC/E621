@@ -76,7 +76,7 @@ export default class Posts {
 	async search(options?: SearchPostsOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (Array.isArray(options.tags) || typeof options.tags === "string")  qs.add("tags", Array.isArray(options.tags) ? options.tags.join(" ") : options.tags);
+		if (Array.isArray(options.tags) || typeof options.tags === "string") qs.add("tags", Array.isArray(options.tags) ? options.tags.join(" ") : options.tags);
 		if (typeof options.page !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit === "number" || typeof options.limit === "string") qs.add("limit", options.limit);
 		const res = await this.main.request.get<{ posts: Array<PostProperties>; }>(`/posts.json?${qs.build()}`);
@@ -91,7 +91,7 @@ export default class Posts {
 	 * @param {object} options
 	 * @param {(Array<string> | string)} options.tags - the tags for the post
 	 * @param {Ratings} options.rating - the rating for the post
-	 * @param {(Array<string> | string)} [options.sources] - the sources for the post
+	 * @param {(Array<string> | string)} options.sources - the sources for the post (required, even if empty)
 	 * @param {string} [options.description] - the description of the post
 	 * @param {number} [options.parentID] - the parent of the post
 	 * @param {string} [options.refererURL] - dunno, api doc specifies it though
@@ -108,6 +108,8 @@ export default class Posts {
 		if (!options) throw new Error("options is required for Posts#create");
 		if (!("fileURL" in options || "file" in options)) throw new Error("one of options.file, options.fileURL is required for Posts#create");
 		if ("fileURL" in options && "file" in options) process.emitWarning("only one of options.file, options.fileURL should be provided to Posts#create. options.fileURL overrides options.file.");
+		// e621 requires sources to be provided
+		if (!options.sources) options.sources = "";
 		const qs = new FormHelper();
 		if (typeof options.tags            === "string")  qs.add("upload[tag_string]", options.tags);
 		if (typeof options.sources         === "string")  qs.add("upload[source]", options.sources);
@@ -127,7 +129,7 @@ export default class Posts {
 			qs.add("upload[direct_url]", options.fileURL);
 			res = await this.main.request.post<NewPost>("/uploads.json", qs.build());
 		} else if ("file" in options) {
-			res = await this.main.request.postWithFile<NewPost>("/uploads.json", qs, [ { content: options.file, name: "upload[file]" }]);
+			res = await this.main.request.postWithFile<NewPost>("/uploads.json", qs, [{ content: options.file, name: "upload[file]" }]);
 		}
 		return res!.post_id;
 	}
@@ -188,7 +190,7 @@ export default class Posts {
 		return new Post(this.main, res!.post);
 	}
 
-	// @TODO delete/approved/unapproved - not a high priority
+	// @TODO delete/approved/unapprove - not a high priority
 
 	/**
 	 * Revert a post to a previous version
@@ -207,6 +209,8 @@ export default class Posts {
 
 	/**
 	 * Search the post history
+	 *
+	 * * Requires Authentication
 	 *
 	 * @param {object} [options]
 	 * @param {string} [options.user] - narrow the results by username

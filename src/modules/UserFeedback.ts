@@ -52,7 +52,7 @@ export default class UserFeedback {
 	 * @param {string} [options.creator] - narrow the search by a specific creator
 	 * @param {string} [options.body] - narrow the search by the content of the feedback
 	 * @param {FeedbackCategories} [options.category] - narrow the search by the type
-	 * @param {(number |`${"" | "a" | "b"}${number}`)} - page of results to get
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum returned results
 	 * @returns {Promise<Array<UserFeedbackProperties>>}
 	 */

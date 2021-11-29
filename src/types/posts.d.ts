@@ -62,7 +62,8 @@ export interface SearchPostsOptions extends GenericSearchOptions {
 export type CreatePostOptions = {
 	tags: Array<string> | string;
 	rating: Ratings;
-	sources?: Array<string> | string;
+	/** required, even if empty */
+	sources: Array<string> | string;
 	description?: string;
 	parentID?: number;
 	refererURL?: string;
@@ -128,7 +129,7 @@ export interface SearchPostHistoryOptions extends GenericSearchOptions {
 	finalRating?: Ratings;
 	parent?: number;
 	parentChangedTo?: number;
-	finalTags?: Array<string> |string;
+	finalTags?: Array<string> | string;
 	addedTags?: Array<string> | string;
 	removedTags?: Array<string> | string;
 	finalLockedTags?: Array<string> | string;

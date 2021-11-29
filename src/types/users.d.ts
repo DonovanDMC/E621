@@ -83,7 +83,7 @@ export type SearchUsersOrder = "date" | "name" | "post_upload_count" | "note_cou
 export interface SearchUsersOptions extends GenericSearchOptions {
 	/** use asterisks for wildcards */
 	name?: string;
-	/** requires elevated privileges */
+	/** requires admin */
 	email?: string;
 	level?: number;
 	minLevel?: number;

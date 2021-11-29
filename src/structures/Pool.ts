@@ -12,8 +12,8 @@ export default class Pool implements PoolProperties {
 	creator_id: number;
 	creator_name: string;
 	is_active: boolean;
-	category: PoolCategory;
 	is_deleted: boolean;
+	category: PoolCategory;
 	post_ids: Array<number>;
 	post_count: number;
 	constructor(main: E621, info: PoolProperties) {

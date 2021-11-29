@@ -2,11 +2,12 @@ import type { Options, InstanceOptions } from "./types";
 import RequestHandler from "./util/RequestHandler";
 // Modules
 import Artists from "./modules/Artists";
+import Pools from "./modules/Pools";
 import Posts from "./modules/Posts";
+import PostSets from "./modules/PostSets";
+import Tags from "./modules/Tags";
 import UserFeedback from "./modules/UserFeedback";
 import Users from "./modules/Users";
-import PostSets from "./modules/PostSets";
-import Pools from "./modules/Pools";
 import WikiPages from "./modules/WikiPages";
 // Structures
 import Artist from "./structures/Artist";
@@ -17,6 +18,8 @@ import PoolHistory from "./structures/PoolHistory";
 import Post from "./structures/Post";
 import PostHistory from "./structures/PostHistory";
 import PostSet from "./structures/PostSet";
+import Tag from "./structures/Tag";
+import TagHistory from "./structures/TagHistory";
 import User from "./structures/User";
 import WikiPage from "./structures/WikiPage";
 import WikiPageHistory from "./structures/WikiPageHistory";
@@ -26,11 +29,13 @@ import pkg from "../package.json";
 // note for future reference (browser compatibility?)
 // POST with "_method=*" can be used in place of PUT/PATCH/DELETE
 export default class E621 {
-	artists = new Artists(this);
+	POST_LIMIT_PER_REQUEST = 320;
 	request = new RequestHandler(this);
-	postSets = new PostSets(this);
+	artists = new Artists(this);
 	pools = new Pools(this);
 	posts = new Posts(this);
+	postSets = new PostSets(this);
+	tags = new Tags(this);
 	userFeedback = new UserFeedback(this);
 	users = new Users(this);
 	wikiPages = new WikiPages(this);
@@ -92,6 +97,8 @@ export {
 	Post,
 	PostHistory,
 	PostSet,
+	Tag,
+	TagHistory,
 	User,
 	WikiPage,
 	WikiPageHistory
