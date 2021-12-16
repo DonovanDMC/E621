@@ -8,14 +8,14 @@ export default class PostHistory implements PostHistoryProperties {
 	id: number;
 	post_id: number;
 	tags: string;
-	updater_id: number;
+	updater_id: number | null;
 	updater_name: string;
 	updated_at: string;
-	rating: Ratings;
+	rating: Ratings | null;
 	parent_id: number | null;
-	source: string;
-	description: string;
-	reason: string;
+	source: string | null;
+	description: string | null;
+	reason: string | null;
 	locked_tags: string | null;
 	added_tags: Array<string>;
 	removed_tags: Array<string>;
@@ -54,7 +54,7 @@ export default class PostHistory implements PostHistoryProperties {
 			get obsoleteAddedTags() { return info.obsolete_added_tags.split(" "); },
 			get obsoleteRemovedTags() { return info.obsolete_removed_tags.split(" "); },
 			get unchangedTags() { return info.unchanged_tags.split(" "); },
-			get sources() { return info.source.split("\n").filter(Boolean); },
+			get sources() { return (info.source || "").split("\n").filter(Boolean); },
 			// convinence method
 			get oldRating() {
 				if (!info.rating_changed) return null;
@@ -79,7 +79,7 @@ export default class PostHistory implements PostHistoryProperties {
 	 *
 	 * @returns {Promise<User | null>}
 	 */
-	async getUpdater() { return this.main.users.get.call(this.main.users, this.updater_id); }
+	async getUpdater() { return this.updater_id === null ? null : this.main.users.get.call(this.main.users, this.updater_id); }
 
 	/**
 	 * Get the post object for this history
