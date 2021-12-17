@@ -1,8 +1,12 @@
-import { expect } from "chai";
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { E6Client } from "./E6Client";
+import { expect } from "chai";
+import debug from "debug";
 import "mocha";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;
+debug.enable("e621:*");
 describe("User Feedback", function() {
 	it("get user feedback by id", async function() {
 		const feedback = await E6Client.userFeedback.get(48702);
@@ -13,22 +17,22 @@ describe("User Feedback", function() {
 		const search = await E6Client.userFeedback.search();
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search user feedback by username", async function() {
 		const search = await E6Client.userFeedback.search({ username: "donovan_dmc" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search user feedback by creator", async function() {
 		const search = await E6Client.userFeedback.search({ username: "millcore" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search user feedback by body", async function() {
 		const search = await E6Client.userFeedback.search({ body: "Thanks for helping out so much with tags, sources, and ratings!! [color=#add8e6]<3[/color]" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search user feedback by category", async function() {
 		const search1 = await E6Client.userFeedback.search({ category: "positive" });
 		const search2 = await E6Client.userFeedback.search({ category: "neutral" });

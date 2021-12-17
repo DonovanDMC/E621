@@ -1,8 +1,11 @@
-import { expect } from "chai";
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { E6Client } from "./E6Client";
+import { expect } from "chai";
+import debug from "debug";
 import "mocha";
 
 const skipAuthRequired = true;
+debug.enable("e621:*");
 describe("Artists", function() {
 	it("get artist by id", async function() {
 		const artist = await E6Client.artists.get(6698);
@@ -71,7 +74,7 @@ describe("Artists", function() {
 
 	// @TODO Modify Artist Test
 	it.skip("modify artist", async function() {});
-	
+
 	// @TODO Delete Artist Test
 	it.skip("delete artist", async function() {});
 
@@ -79,31 +82,31 @@ describe("Artists", function() {
 	it.skip("revert artist", async function() {});
 
 	it("search artist history without query", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.artists.searchHistory();
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search artist history by artist id", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.artists.searchHistory({ artistID: 6698 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search artist history by artist name", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.artists.searchHistory({ artistName: "vallhund" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search artist history by updater id", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.artists.searchHistory({ updaterID: 1 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search artist history by updater name", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.artists.searchHistory({ updaterName: "administrator" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});

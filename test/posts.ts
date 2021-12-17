@@ -1,8 +1,11 @@
-import { expect } from "chai";
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { E6Client } from "./E6Client";
+import { expect } from "chai";
+import debug from "debug";
 import "mocha";
 
 const skipAuthRequired = true;
+debug.enable("e621:*");
 describe("Posts", function() {
 	it("get post by id", async function() {
 		const post = await E6Client.posts.get(2907536);
@@ -37,43 +40,43 @@ describe("Posts", function() {
 	it.skip("revert post", async function() {});
 
 	it("search post history without query", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory();
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search post history with user", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory({ user: "donovan_dmc" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search post history with user id", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory({ userID: 323290 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search post history with post id", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory({ post: 2907536 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search post history with reason", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory({ reason: "explicit" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search post history with description", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory({ description: "I did the thing" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search post history with rating changed to", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search1 = await E6Client.posts.searchHistory({ ratingChangedTo: "e" });
 		const search2 = await E6Client.posts.searchHistory({ ratingChangedTo: "q" });
 		const search3 = await E6Client.posts.searchHistory({ ratingChangedTo: "s" });
@@ -83,7 +86,7 @@ describe("Posts", function() {
 	});
 
 	it("search post history with final rating", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search1 = await E6Client.posts.searchHistory({ finalRating: "e" });
 		const search2 = await E6Client.posts.searchHistory({ finalRating: "q" });
 		const search3 = await E6Client.posts.searchHistory({ finalRating: "s" });
@@ -93,20 +96,20 @@ describe("Posts", function() {
 	});
 
 	it("search post history with parent", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory({ parent: 2936946 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search post history with parent changed to", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 		const search = await E6Client.posts.searchHistory({ parentChangedTo: 2936946 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	// seems to not do anything, even via e621's interface
 	it.skip("search post history with source", async function() {
-		if(skipAuthRequired) this.skip();
+		if (skipAuthRequired) this.skip();
 	});
 
 	// @TODO Post Vote Up Test

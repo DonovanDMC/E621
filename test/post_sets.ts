@@ -1,8 +1,12 @@
-import { expect } from "chai";
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { E6Client } from "./E6Client";
+import { expect } from "chai";
+import debug from "debug";
 import "mocha";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;
+debug.enable("e621:*");
 describe("Post Sets", function() {
 	it("get post set by id", async function() {
 		const postSet = await E6Client.postSets.get(26062);
@@ -18,27 +22,27 @@ describe("Post Sets", function() {
 		const postSet = await E6Client.postSets.getByShortName("pawbeans");
 		expect(postSet).to.not.equal(null, "failed to get post set");
 	});
-	
+
 	it("search post sets without query", async function() {
 		const search = await E6Client.postSets.search();
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search post sets by name", async function() {
 		const search = await E6Client.postSets.search({ name: "Paw Beans" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search post sets by short name", async function() {
 		const search = await E6Client.postSets.search({ shortname: "pawbeans" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search post sets by creator name", async function() {
 		const search = await E6Client.postSets.search({ username: "donovan_dmc" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
-	
+
 	it("search post sets with order", async function() {
 		const search1 = await E6Client.postSets.search({ order: "name" });
 		const search2 = await E6Client.postSets.search({ order: "shortname" });

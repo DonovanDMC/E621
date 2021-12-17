@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import type FormHelper from "./FormHelper";
 import MultipartData from "./MultipartData";
+import Debug from "./Debug";
+import Timer from "./Timer";
 import type E621 from "..";
 import * as http from "http";
 import * as https from "https";
@@ -68,6 +70,8 @@ export default class RequestHandler {
 
 	// null = 204 No Content
 	async get<T = unknown>(path: string) {
+		const start = Timer.now();
+		Debug("requestHandler", `-> GET ${path}`);
 		return new Promise<T | null>((resolve, reject) => {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
@@ -89,7 +93,9 @@ export default class RequestHandler {
 						.on("error", (err) => reject(err))
 						.on("data", (d) => data.push(d))
 						.on("end", () => {
+							const end = Timer.now();
 							if (!req.statusCode || !req.statusMessage) reject(new Error("No Status Information"));
+							Debug("requestHandler", `<- GET ${path} - ${req.statusCode!} ${req.statusMessage!} [${Buffer.concat(data).toString().length}] - ${Timer.calc(start, end, 3)}`);
 							if (req.statusCode === 204) return resolve(null);
 							else if (req.statusCode === 200 || req.statusCode === 201) {
 								try {

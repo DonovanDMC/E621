@@ -1,8 +1,12 @@
-import { expect } from "chai";
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { E6Client } from "./E6Client";
+import { expect } from "chai";
+import debug from "debug";
 import "mocha";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;
+debug.enable("e621:*");
 describe("Wiki Pages", function() {
 	it("get wiki page by id", async function() {
 		const wikiPage = await E6Client.wikiPages.get(35009);
@@ -50,7 +54,7 @@ describe("Wiki Pages", function() {
 		expect(searchTrue.length, "hideDeleted=true").to.not.equal(0, "true search returned zero results");
 		expect(searchFalse.length, "hideDeleted=false").to.not.equal(0, "false search returned zero results");
 	});
-	
+
 	it("search wiki pages with order", async function() {
 		const search1 = await E6Client.wikiPages.search({ order: "title" });
 		const search2 = await E6Client.wikiPages.search({ order: "time" });

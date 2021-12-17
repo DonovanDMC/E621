@@ -9,5 +9,5 @@
     "declaration": true
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "build", "tmp", "logs"]
+  "exclude": ["node_modules", "build"]
 }
