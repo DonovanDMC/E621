@@ -3,24 +3,25 @@
 - [Future Plans](FuturePlans.md)
 - [E621 Search Inconsistencies](E621SearchInconsistencies.md)
 - [Artists](Artists.md)
-- [Notes](Notes.md)
+- **Notes**
 - [Pools](Pools.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)
-- **User Feedback**
+- [User Feedback](UserFeedback.md)
 - [Users](Users.md)
-- [Wiki Pages](WikiPages.md)
+- **Wiki Pages**
 
 <hr>
 
 |     Feature    | Implemented |         Method        |
 |:--------------:|:-----------:|:---------------------:|
-|    Get By ID   |      ✔️      |   `userFeedback.get`  |
-|     Search     |      ✔️      | `userFeedback.search` |
-| Create[^1][^4] |      ✔️      | `userFeedback.create` |
-| Modify[^1][^4] |      ✔️      | `userFeedback.modify` |
-| Delete[^1][^4] |      ✔️      | `userFeedback.delete` |
+|    Get By ID   |      ✔️      |      `notes.get`      |
+|     Search     |      ✔️      |     `notes.search`    |
+|   Create[^1]   |      ✔️      |     `notes.create`    |
+|   Modify[^1]   |      ✔️      |     `notes.modify`    |
+|   Delete[^1]   |      ✔️      |     `notes.delete`    |
+| Search History |      ✔️      | `notes.searchHistory` |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged

@@ -2,6 +2,7 @@ import type { Options, InstanceOptions } from "./types";
 import RequestHandler from "./util/RequestHandler";
 // Modules
 import Artists from "./modules/Artists";
+import Notes from "./modules/Notes";
 import Pools from "./modules/Pools";
 import Posts from "./modules/Posts";
 import PostSets from "./modules/PostSets";
@@ -12,10 +13,13 @@ import WikiPages from "./modules/WikiPages";
 // Structures
 import Artist from "./structures/Artist";
 import ArtistHistory from "./structures/ArtistHistory";
+import Note from "./structures/Note";
+import NoteHistory from "./structures/NoteHistory";
 import AuthenticatedUser from "./structures/AuthenticatedUser";
 import Pool from "./structures/Pool";
 import PoolHistory from "./structures/PoolHistory";
 import Post from "./structures/Post";
+import PostApproval from "./structures/PostApproval";
 import PostHistory from "./structures/PostHistory";
 import PostSet from "./structures/PostSet";
 import Tag from "./structures/Tag";
@@ -32,6 +36,7 @@ export default class E621 {
 	POST_LIMIT_PER_REQUEST = 320;
 	request = new RequestHandler(this);
 	artists = new Artists(this);
+	notes = new Notes(this);
 	pools = new Pools(this);
 	posts = new Posts(this);
 	postSets = new PostSets(this);
@@ -91,10 +96,13 @@ export { APIError } from "./util/RequestHandler";
 export {
 	Artist,
 	ArtistHistory,
+	Notes,
+	NoteHistory,
 	AuthenticatedUser,
 	Pool,
 	PoolHistory,
 	Post,
+	PostApproval,
 	PostHistory,
 	PostSet,
 	Tag,

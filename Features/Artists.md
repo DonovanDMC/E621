@@ -3,6 +3,7 @@
 - [Future Plans](FuturePlans.md)
 - [E621 Search Inconsistencies](E621SearchInconsistencies.md)
 - **Artists**
+- [Notes](Notes.md)
 - [Pools](Pools.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
