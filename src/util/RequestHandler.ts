@@ -94,8 +94,8 @@ export default class RequestHandler {
 						.on("data", (d) => data.push(d))
 						.on("end", () => {
 							const end = Timer.now();
-							if (!req.statusCode || !req.statusMessage) reject(new Error("No Status Information"));
 							Debug("requestHandler", `<- GET ${path} - ${req.statusCode!} ${req.statusMessage!} [${Buffer.concat(data).toString().length}] - ${Timer.calc(start, end, 3)}`);
+							if (!req.statusCode || !req.statusMessage) reject(new Error("No Status Information"));
 							if (req.statusCode === 204) return resolve(null);
 							else if (req.statusCode === 200 || req.statusCode === 201) {
 								try {
@@ -130,6 +130,8 @@ export default class RequestHandler {
 	async delete<T = unknown>(path: string, body?: string) { return this.other<T>("DELETE", path, body); }
 
 	async other<T = unknown>(method: string, path: string, body?: string) {
+		const start = Timer.now();
+		Debug("requestHandler", `-> ${method} ${path}`);
 		return new Promise<T | null>((resolve, reject) => {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
@@ -152,6 +154,8 @@ export default class RequestHandler {
 						.on("error", (err) => reject(err))
 						.on("data", (d) => data.push(d))
 						.on("end", () => {
+							const end = Timer.now();
+							Debug("requestHandler", `<- ${method} ${path} - ${req.statusCode!} ${req.statusMessage!} [${Buffer.concat(data).toString().length}] - ${Timer.calc(start, end, 3)}`);
 							if (!req.statusCode || !req.statusMessage) reject(new Error("No Status Information"));
 							if (req.statusCode === 204) return resolve(null);
 							else if (req.statusCode === 200 || req.statusCode === 201) {
@@ -184,6 +188,8 @@ export default class RequestHandler {
 	// the things I do for zero dependencies
 	// not well tested at all
 	async otherWithFile<T = unknown>(method: string, path: string, body: FormHelper, files: Array<{ content: Buffer; name: string; }>) {
+		const start = Timer.now();
+		Debug("requestHandler", `-> ${method} ${path}`);
 		return new Promise<T | null>((resolve, reject) => {
 			const multi = new MultipartData();
 			files.forEach(({ content, name }, i) => {
@@ -224,7 +230,8 @@ export default class RequestHandler {
 						.on("error", (err) => reject(err))
 						.on("data", (d) => data.push(d))
 						.on("end", () => {
-							console.log(JSON.parse(Buffer.concat(data).toString()));
+							const end = Timer.now();
+							Debug("requestHandler", `<- ${method} ${path} - ${req.statusCode!} ${req.statusMessage!} [${Buffer.concat(data).toString().length}] - ${Timer.calc(start, end, 3)}`);
 							if (!req.statusCode || !req.statusMessage) reject(new Error("No Status Information"));
 							if (req.statusCode === 204) return resolve(null);
 							else if (req.statusCode === 200 || req.statusCode === 201) {
