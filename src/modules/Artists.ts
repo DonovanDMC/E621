@@ -7,7 +7,8 @@ import type {
 	ModifyArtistOptions,
 	SearchArtistsOrder,
 	SearchArtistHistoryOptions,
-	ArtistHistoryProperties
+	ArtistHistoryProperties,
+	DoNotPostList
 } from "../types";
 import FormHelper from "../util/FormHelper";
 import { APIError } from "../util/RequestHandler";
@@ -103,7 +104,7 @@ export default class Artists {
 	 * @param {number} [options.linkedUserID] - the id of the user associated with this artist (requires janitor)
 	 * @param {boolean} [options.locked] - if the artist should be locked (requires janitor)
 	 * @param {(Array<string> | string)} [options.otherNames] - the other names for this artist
-	 * @param {string} [options.groupName] - the group name of this artist
+	 * @param {string} [options.groupName] - the group name of this artist (this is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357))
 	 * @param {(Array<string> | string)} [options.urls] - the urls associated with this artist
 	 * @param {string} [options.notes] - notes for this artist
 	 * @returns {Promise<Artist>}
@@ -136,7 +137,7 @@ export default class Artists {
 	 * @param {number} [options.linkedUserID] - the id of the user associated with this artist (requires janitor)
 	 * @param {boolean} [options.locked] - if the artist should be locked (requires janitor)
 	 * @param {(Array<string> | string)} [options.otherNames] - the other names for this artist
-	 * @param {string} [options.groupName] - the group name of this artist
+	 * @param {string} [options.groupName] - the group name of this artist (this is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357))
 	 * @param {(Array<string> | string)} [options.urls] - the urls associated with this artist
 	 * @param {string} [options.notes] - notes for this artist
 	 * @returns {Promise<Artist>}
@@ -215,5 +216,44 @@ export default class Artists {
 		const res = await this.main.request.get<Array<ArtistHistoryProperties> | { artist_versions: []; }>(`/artist_versions.json?${qs.build()}`);
 		if (res && !Array.isArray(res) && "artist_versions" in res) return [];
 		return res!.map(info => new ArtistHistory(this.main, info));
+	}
+
+	/**
+	 * Get the list of do not post & conditional do not post artists.
+	 *
+	 * This assumes whatever instance you're running against has the same structure as e621!
+	 *
+	 * @param {number} [id=85] - the id of the dnp wiki page (85 on e621)
+	 * @returns {Promise<DoNotPostList>}
+	 */
+	async getDoNotPost(id = 85) {
+		const res = await this.main.wikiPages.get.call(this.main.wikiPages, id);
+		if (res === null) throw new Error("failed to get dnp wiki page");
+		const body = res.body.split("\n");
+		const dnpStart = body.findIndex(line => line.includes("[#number]#"));
+		const dnpEnd = body.findIndex(line => line.startsWith("h4") && line.includes("Conditional Do Not Post"));
+		const condStart = dnpEnd;
+		const condEnd = body.findIndex(line => line.includes("DNP List, Do-Not-Post List"));
+		const dnp: Array<string> = [], cond: Array<string> = [];
+		for (let i = dnpStart; i < dnpEnd; i++) {
+			const line = body[i];
+			if (!line || !line.startsWith("*")) continue;
+			const names = line.slice(2).split("-")[0];
+			if (names.includes("/")) dnp.push(...names.split("/").map(n => n.split(" on ")[0].trim()));
+			else dnp.push(names.split(" on ")[0].trim());
+		}
+
+		for (let i = condStart; i < condEnd; i++) {
+			const line = body[i];
+			if (!line || !line.startsWith("*")) continue;
+			const names = line.slice(2).split("-")[0].replace(/\[\/?b\]/g, "");
+			if (names.includes("/")) cond.push(...names.split("/").map(n => n.split(" on ")[0].trim()));
+			else cond.push(names.split(" on ")[0].trim());
+		}
+
+		return {
+			dnp: Array.from(new Set(dnp)),
+			conditionalDNP: Array.from(new Set(cond))
+		};
 	}
 }

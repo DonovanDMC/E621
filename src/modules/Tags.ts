@@ -87,6 +87,7 @@ export default class Tags {
 		if (typeof options.page      === "number")  qs.add("page", options.page);
 		if (typeof options.limit     === "number")  qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<TagProperties>>(`/tags.json?${qs.build()}`);
+		if (res && !Array.isArray(res) && "tags" in res) return [];
 		return res!.map(info => new Tag(this.main, info));
 	}
 
@@ -99,7 +100,7 @@ export default class Tags {
 	 * @param {object} options
 	 * @param {number} [options.category] - the category of the tag
 	 * @param {boolean} [options.locked] - if the tag is locked (requires moderator)
-	 * @returns {Promise<Pool>}
+	 * @returns {Promise<Tag>}
 	 */
 	async modify(id: number, options: ModifyTagOptions) {
 		this.main.request.authCheck.call(this, "Tags#modify");

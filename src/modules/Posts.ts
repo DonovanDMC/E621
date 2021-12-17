@@ -1,5 +1,6 @@
 import type E621 from "..";
 import Post from "../structures/Post";
+import PostApproval from "../structures/PostApproval";
 import PostHistory from "../structures/PostHistory";
 import type {
 	CreatePostOptions,
@@ -10,7 +11,9 @@ import type {
 	PostVoteResult,
 	SearchPostHistoryOptions,
 	PostHistoryProperties,
-	Ratings
+	Ratings,
+	SearchPostApprovalsOptions,
+	PostApprovalProperties
 } from "../types";
 import FormHelper from "../util/FormHelper";
 import { APIError } from "../util/RequestHandler";
@@ -274,5 +277,28 @@ export default class Posts {
 			.add("score", up ? 1 : -1);
 		const res = await this.main.request.post<PostVoteResult>(`/posts/${id}/votes.json`, qs.build());
 		return res!;
+	}
+
+	/**
+	 * Search the post approvals
+	 *
+	 * @param {object} [options]
+	 * @param {string} [options.approver] - filter by the username of the user that approved the post
+	 * @param {(Array<string> | string)} [options.tags] - filter by the tags on the post
+	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
+	 * @param {number} [options.limit] - limit the maximum amount of results returned
+	 * @returns {Promise<Array<PostApproval>>}
+	 */
+	async searchPostApprovals(options?: SearchPostApprovalsOptions) {
+		options = options ?? {};
+		const qs = new FormHelper();
+		if (typeof options.approver                   === "string") qs.add("search[user_name]", options.approver);
+		if (typeof options.tags                       === "number") qs.add("search[post_tags_match]", options.tags);
+		if (Array.isArray(options.tags) && options.tags.length > 0) qs.add("search[post_tags_match]", options.tags.join(" "));
+		if (typeof options.page                    !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit                      === "number") qs.add("limit", options.limit);
+		const res = await this.main.request.get<Array<PostApprovalProperties>>(`/post_versions.json?${qs.build()}`);
+		if (res && !Array.isArray(res) && "post_approvals" in res) return [];
+		return res!.map(info => new PostApproval(this.main, info));
 	}
 }

@@ -1,6 +1,7 @@
 ## Table Of Contents
 - [Index](README.md)
 - [Future Plans](FuturePlans.md)
+- [E621 Search Inconsistencies](E621SearchInconsistencies.md)
 - [Artists](Artists.md)
 - [Pools](Pools.md)
 - [Posts](Posts.md)

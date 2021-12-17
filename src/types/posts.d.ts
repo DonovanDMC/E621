@@ -164,3 +164,16 @@ export interface PostHistoryProperties {
 	obsolete_removed_tags: string;
 	unchanged_tags: string;
 }
+
+export interface SearchPostApprovalsOptions extends GenericSearchOptions {
+	approver?: string;
+	tags?: Array<string> | string;
+}
+
+export interface PostApprovalProperties {
+	id: number;
+	user_id: number;
+	post_id: number;
+	created_at: string;
+	updated_at: string;
+}

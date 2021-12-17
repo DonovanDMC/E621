@@ -45,6 +45,7 @@ export interface CreateArtistOptions {
 	/** requires janitor */
 	locked?: boolean;
 	otherNames?: Array<string> | string;
+	/** This is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357) */
 	groupName?: string;
 	urls?: Array<string> | string;
 	notes?: string;
@@ -72,4 +73,9 @@ export interface SearchArtistHistoryOptions extends GenericSearchOptions {
 	artistName?: string;
 	updaterID?: number;
 	updaterName?: string;
+}
+
+interface DoNotPostList {
+	dnp: Array<string>;
+	conditionalDNP: Array<string>;
 }

@@ -1,6 +1,7 @@
 ## Table Of Contents
 - [Index](README.md)
 - [Future Plans](FuturePlans.md)
+- [E621 Search Inconsistencies](E621SearchInconsistencies.md)
 - [Artists](Artists.md)
 - [Pools](Pools.md)
 - **Posts**
@@ -12,24 +13,25 @@
 
 <hr>
 
-|            Feature            | Implemented |         Method         |
-|:-----------------------------:|:-----------:|:----------------------:|
-|           Get By ID           |      ✔️      |       `posts.get`      |
-|          Get By Name          |      ✔️      |    `posts.getByName`   |
-|             Search            |      ✔️      |     `posts.search`     |
-|           Create[^1]          |      ✔️      |     `posts.create`     |
-|           Modify[^1]          |      ✔️      |     `posts.modify`     |
-|         Delete[^1][^3]        |      ✖️      |           N/A          |
-|        Approve[^1][^3]        |      ✖️      |           N/A          |
-|       Unapprove[^1][^3]       |      ✖️      |           N/A          |
-|        Destroy[^1][^5]        |      ✖️      |           N/A          |
-| Regenerate Thumbnails[^1][^3] |      ✖️      |           N/A          |
-|   Regenerate Videos[^1][^3]   |      ✖️      |           N/A          |
-|           Revert[^1]          |      ✔️      |     `posts.revert`     |
-|       Search History[^1]      |      ✔️      |  `posts.searchHistory` |
-|            Vote[^1]           |      ✔️      |      `posts.vote`      |
-|        Add Favorite[^1]       |      ✔️      |   `users.addFavorite`  |
-|      Remove Favorite[^1]      |      ✔️      | `users.removeFavorite` |
+|            Feature            | Implemented |            Method           |
+|:-----------------------------:|:-----------:|:---------------------------:|
+|           Get By ID           |      ✔️      |         `posts.get`         |
+|          Get By Name          |      ✔️      |      `posts.getByName`      |
+|             Search            |      ✔️      |        `posts.search`       |
+|           Create[^1]          |      ✔️      |        `posts.create`       |
+|           Modify[^1]          |      ✔️      |        `posts.modify`       |
+|         Delete[^1][^3]        |      ✖️      |             N/A             |
+|        Approve[^1][^3]        |      ✖️      |             N/A             |
+|       Unapprove[^1][^3]       |      ✖️      |             N/A             |
+|        Destroy[^1][^5]        |      ✖️      |             N/A             |
+| Regenerate Thumbnails[^1][^3] |      ✖️      |             N/A             |
+|   Regenerate Videos[^1][^3]   |      ✖️      |             N/A             |
+|           Revert[^1]          |      ✔️      |        `posts.revert`       |
+|       Search History[^1]      |      ✔️      |    `posts.searchHistory`    |
+|            Vote[^1]           |      ✔️      |         `posts.vote`        |
+|        Add Favorite[^1]       |      ✔️      |     `users.addFavorite`     |
+|      Remove Favorite[^1]      |      ✔️      |    `users.removeFavorite`   |
+|     Search Post Approvals     |      ✔️      | `posts.searchPostApprovals` |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged

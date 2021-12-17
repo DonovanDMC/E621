@@ -66,6 +66,7 @@ export default class UserFeedback {
 		if (typeof options.page     !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit    === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<UserFeedbackProperties>>(`/user_feedbacks.json?${qs.build()}`);
+		if (res && !Array.isArray(res) && "user_feedbacks" in res) return [];
 		return res!;
 	}
 

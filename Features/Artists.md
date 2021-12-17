@@ -1,6 +1,7 @@
 ## Table Of Contents
 - [Index](README.md)
 - [Future Plans](FuturePlans.md)
+- [E621 Search Inconsistencies](E621SearchInconsistencies.md)
 - **Artists**
 - [Pools](Pools.md)
 - [Posts](Posts.md)
@@ -24,6 +25,7 @@
 |    Unban[^1][^5]   |      ✖️      |           N/A           |
 |     Revert[^1]     |      ✔️      |     `artists.revert`    |
 | Search History[^1] |      ✔️      | `artists.searchHistory` |
+|    Get DNP List    |      ✔️      |  `artists.getDoNotPost` |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged
