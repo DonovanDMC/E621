@@ -297,7 +297,7 @@ export default class Posts {
 		if (Array.isArray(options.tags) && options.tags.length > 0) qs.add("search[post_tags_match]", options.tags.join(" "));
 		if (typeof options.page                    !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit                      === "number") qs.add("limit", options.limit);
-		const res = await this.main.request.get<Array<PostApprovalProperties>>(`/post_versions.json?${qs.build()}`);
+		const res = await this.main.request.get<Array<PostApprovalProperties>>(`/post_approvals.json?${qs.build()}`);
 		if (res && !Array.isArray(res) && "post_approvals" in res) return [];
 		return res!.map(info => new PostApproval(this.main, info));
 	}
