@@ -45,15 +45,15 @@ export default class PostHistory implements PostHistoryProperties {
 		});
 
 		this.extra = {
-			get tags() { return info.tags.split(" "); },
+			get tags() { return info.tags.split(" ").filter(Boolean); },
 			get lockedTags() { return (info.locked_tags || "").split(" "); },
-			get addedTags() { return info.added_tags; },
-			get removedTags() { return info.removed_tags; },
-			get addedLockedTags() { return info.added_locked_tags; },
-			get removedLockedTags() { return info.added_locked_tags; },
-			get obsoleteAddedTags() { return info.obsolete_added_tags.split(" "); },
-			get obsoleteRemovedTags() { return info.obsolete_removed_tags.split(" "); },
-			get unchangedTags() { return info.unchanged_tags.split(" "); },
+			get addedTags() { return (info.added_tags || []).filter(Boolean); },
+			get removedTags() { return (info.removed_tags || []).filter(Boolean); },
+			get addedLockedTags() { return (info.added_locked_tags || []).filter(Boolean); },
+			get removedLockedTags() { return (info.added_locked_tags || []).filter(Boolean); },
+			get obsoleteAddedTags() { return (info.obsolete_added_tags || "").split(" ").filter(Boolean); },
+			get obsoleteRemovedTags() { return (info.obsolete_removed_tags || "").split(" ").filter(Boolean); },
+			get unchangedTags() { return (info.unchanged_tags || "").split(" ").filter(Boolean); },
 			get sources() { return (info.source || "").split("\n").filter(Boolean); },
 			// convinence method
 			get oldRating() {
