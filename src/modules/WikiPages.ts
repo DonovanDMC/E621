@@ -177,9 +177,18 @@ export default class WikiPages {
 	}
 
 	/**
+	 * Get a specific wiki page history
+	 *
+	 * @param {number} id - the id of the history to get
+	 * @returns {Promise<WikiPageHistory | null>}
+	 */
+	async getHistory(id: number) { return this.searchHistory({ id }).then(r => r.length === 0 ? null : r[0]); }
+
+	/**
 	 * Search the wiki page history
 	 *
 	 * @param {object} [options]
+	 * @param {number} [options.id] - get a specific wiki page history entry
 	 * @param {number} [options.wikiPage] - narrow the results by the wiki page id
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
@@ -189,6 +198,7 @@ export default class WikiPages {
 	async searchHistory(options?: SearchWikiPageHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
+		if (typeof options.id  === "number")    qs.add("search[id]", options.id);
 		if (typeof options.wikiPage  === "number")    qs.add("search[wiki_page_id]", options.wikiPage);
 		if (typeof options.page      !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit     === "number")    qs.add("limit", options.limit);

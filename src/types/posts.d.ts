@@ -119,25 +119,6 @@ export interface PostVoteResult {
 	our_score: number;
 }
 
-export interface SearchPostHistoryOptions extends GenericSearchOptions {
-	user?: string;
-	userID?: number;
-	post?: number;
-	reason?: string;
-	description?: string;
-	ratingChangedTo?: Ratings;
-	finalRating?: Ratings;
-	parent?: number;
-	parentChangedTo?: number;
-	finalTags?: Array<string> | string;
-	addedTags?: Array<string> | string;
-	removedTags?: Array<string> | string;
-	finalLockedTags?: Array<string> | string;
-	addedLockedTags?: Array<string> | string;
-	removedLockedTags?: Array<string> | string;
-	source?: string;
-}
-
 export interface PostHistoryProperties {
 	id: number;
 	post_id: number;
@@ -165,9 +146,24 @@ export interface PostHistoryProperties {
 	unchanged_tags: string;
 }
 
-export interface SearchPostApprovalsOptions extends GenericSearchOptions {
-	approver?: string;
-	tags?: Array<string> | string;
+export interface SearchPostHistoryOptions extends GenericSearchOptions {
+	id?: number;
+	user?: string;
+	userID?: number;
+	post?: number;
+	reason?: string;
+	description?: string;
+	ratingChangedTo?: Ratings;
+	finalRating?: Ratings;
+	parent?: number;
+	parentChangedTo?: number;
+	finalTags?: Array<string> | string;
+	addedTags?: Array<string> | string;
+	removedTags?: Array<string> | string;
+	finalLockedTags?: Array<string> | string;
+	addedLockedTags?: Array<string> | string;
+	removedLockedTags?: Array<string> | string;
+	source?: string;
 }
 
 export interface PostApprovalProperties {
@@ -176,4 +172,10 @@ export interface PostApprovalProperties {
 	post_id: number;
 	created_at: string;
 	updated_at: string;
+}
+
+export interface SearchPostApprovalsOptions extends GenericSearchOptions {
+	id?: number;
+	approver?: string;
+	tags?: Array<string> | string;
 }

@@ -113,9 +113,18 @@ export default class Tags {
 	}
 
 	/**
+	 * Get a specific tag type history
+	 *
+	 * @param {number} id - the id of the history to get
+	 * @returns {Promise<TagHistory | null>}
+	 */
+	async getHistory(id: number) { return this.searchHistory({ id }).then(r => r.length === 0 ? null : r[0]); }
+
+	/**
 	 * Search the tag type history
 	 *
 	 * @param {object} [options]
+	 * @param {number} [options.id] - get a specific tag type history entry
 	 * @param {string} [options.tag] - narrow the results by the tag name
 	 * @param {string} [options.userName] - narrow the results by the editor name
 	 * @param {number} [options.userID] - narrow the results by the editor id
@@ -127,11 +136,12 @@ export default class Tags {
 	async searchHistory(options?: SearchTagHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.tag      === "string") qs.add("search[tag]", options.tag);
-		if (typeof options.userName === "string") qs.add("search[user_name]", options.userName);
-		if (typeof options.userID   === "number") qs.add("search[user_id]", options.userID);
+		if (typeof options.id       === "number")    qs.add("search[id]", options.id);
+		if (typeof options.tag      === "string")    qs.add("search[tag]", options.tag);
+		if (typeof options.userName === "string")    qs.add("search[user_name]", options.userName);
+		if (typeof options.userID   === "number")    qs.add("search[user_id]", options.userID);
 		if (typeof options.page     !== "undefined") qs.add("page", options.page);
-		if (typeof options.limit    === "number") qs.add("limit", options.limit);
+		if (typeof options.limit    === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<TagHistoryProperties> | { tag_type_versions: []; }>(`/tag_type_versions.json?${qs.build()}`);
 		if (res && !Array.isArray(res) && "tag_type_versions" in res) return [];
 		return res!.map(info => new TagHistory(this.main, info));

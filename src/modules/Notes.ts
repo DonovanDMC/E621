@@ -141,9 +141,18 @@ export default class Notes {
 	}
 
 	/**
+	 * Get a specific notes history
+	 *
+	 * @param {number} id - the id of the history to get
+	 * @returns {Promise<NoteHistory | null>}
+	 */
+	async getHistory(id: number) { return this.searchHistory({ id }).then(r => r.length === 0 ? null : r[0]); }
+
+	/**
 	 * Search the notes history
 	 *
 	 * @param {object} [options]
+	 * @param {number} [options.id] - get a specific notes history entry
 	 * @param {number} [options.noteId] - narrow the results by the note id
 	 * @param {number} [options.postId] - narrow the results by the id of the post the note is on
 	 * @param {string} [options.body] - narrow the results by the content
@@ -155,6 +164,7 @@ export default class Notes {
 	async searchHistory(options?: SearchNoteHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
+		if (typeof options.id     === "number")    qs.add("search[id]", options.id);
 		if (typeof options.noteId === "number")    qs.add("search[note_id]", options.noteId);
 		if (typeof options.postId === "number")    qs.add("search[post_id]", options.postId);
 		if (typeof options.body   === "string")    qs.add("search[body_matches]", options.body);

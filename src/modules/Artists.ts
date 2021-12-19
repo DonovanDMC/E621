@@ -190,11 +190,20 @@ export default class Artists {
 	}
 
 	/**
+	 * Get a specific artist history
+	 *
+	 * @param {number} id - the id of the history to get
+	 * @returns {Promise<ArtistHistory | null>}
+	 */
+	async getHistory(id: number) { return this.searchHistory({ id }).then(r => r.length === 0 ? null : r[0]); }
+
+	/**
 	 * Search the artist history
 	 *
 	 * * Requires Authentication
 	 *
 	 * @param {object} [options]
+	 * @param {number} [options.id] - get a specific artist history entry
 	 * @param {number} [options.artistID] - narrow the results by artist id
 	 * @param {string} [options.artistName] - narrow the results by artist name
 	 * @param {number} [options.updaterID] - narrow the results by updater id
@@ -207,6 +216,7 @@ export default class Artists {
 	async searchHistory(options?: SearchArtistHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
+		if (typeof options.id          === "number")    qs.add("search[id]", options.id);
 		if (typeof options.artistID    === "number")    qs.add("search[artist_id]", options.artistID);
 		if (typeof options.artistName  === "number")    qs.add("search[name]", options.artistName);
 		if (typeof options.updaterID   === "number")    qs.add("search[updater_id]", options.updaterID);

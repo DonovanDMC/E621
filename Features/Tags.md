@@ -21,6 +21,7 @@
 |     Search     |      ✔️      |     `tags.search`    |
 |   Modify[^1]   |      ✔️      |     `tags.modify`    |
 | Search History |      ✔️      | `tags.searchHistory` |
+|  Get History   |      ✔️      |  `tags.getHistory`   |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged

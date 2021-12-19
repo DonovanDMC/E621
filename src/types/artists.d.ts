@@ -69,6 +69,7 @@ export interface ArtistHistoryProperties {
 }
 
 export interface SearchArtistHistoryOptions extends GenericSearchOptions {
+	id?: number;
 	artistID?: number;
 	artistName?: string;
 	updaterID?: number;

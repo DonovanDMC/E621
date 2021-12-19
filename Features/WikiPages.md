@@ -24,6 +24,7 @@
 | Delete[^1][^3] |      ✔️      |     `wikiPages.delete`    |
 |   Revert[^1]   |      ✔️      |     `wikiPages.revert`    |
 | Search History |      ✔️      | `wikiPages.searchHistory` |
+|  Get History   |      ✔️      |  `wikiPages.getHistory`   |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged

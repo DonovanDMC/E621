@@ -57,6 +57,7 @@ export interface NoteHistoryProperties {
 }
 
 export interface SearchNoteHistoryOptions extends GenericSearchOptions {
+	id?: number;
 	noteId?: number;
 	postId?: number;
 	body?: string;

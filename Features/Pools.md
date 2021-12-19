@@ -23,6 +23,7 @@
 |     Modify[^1]     |      ✔️      |     `pools.modify`    |
 |   Delete[^1][^3]   |      ✔️      |     `pools.delete`    |
 |     Revert[^1]     |      ✔️      |     `pools.revert`    |
+|  Get History[^1]   |      ✔️      |  `pools.getHistory`   |
 | Search History[^1] |      ✔️      | `pools.searchHistory` |
 |    Add Post[^1]    |      ✔️      |    `pools.addPost`    |
 |   Remove Post[^1]  |      ✔️      |   `pools.removePost`  |

@@ -176,11 +176,20 @@ export default class Pools {
 	}
 
 	/**
+	 * Get a specific pools history
+	 *
+	 * @param {number} id - the id of the history to get
+	 * @returns {Promise<PoolHistory | null>}
+	 */
+	async getHistory(id: number) { return this.searchHistory({ id }).then(r => r.length === 0 ? null : r[0]); }
+
+	/**
 	 * Search the pool history
 	 *
 	 * * Requires Authentication
 	 *
 	 * @param {object} [options]
+	 * @param {number} [options.id] - get a specific pools history entry
 	 * @param {number} [options.pool] - narrow the results by the pool id
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
@@ -190,6 +199,7 @@ export default class Pools {
 	async searchHistory(options?: SearchPoolHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
+		if (typeof options.id    === "number")    qs.add("search[id]", options.id);
 		if (typeof options.pool  === "number")    qs.add("search[pool_id]", options.pool);
 		if (typeof options.page  !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit === "number")    qs.add("limit", options.limit);

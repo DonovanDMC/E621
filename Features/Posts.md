@@ -28,10 +28,12 @@
 | Regenerate Thumbnails[^1][^3] |      ✖️      |             N/A             |
 |   Regenerate Videos[^1][^3]   |      ✖️      |             N/A             |
 |           Revert[^1]          |      ✔️      |        `posts.revert`       |
+|        Get History[^1]        |      ✔️      |      `posts.getHistory`     |
 |       Search History[^1]      |      ✔️      |    `posts.searchHistory`    |
 |            Vote[^1]           |      ✔️      |         `posts.vote`        |
 |        Add Favorite[^1]       |      ✔️      |     `users.addFavorite`     |
 |      Remove Favorite[^1]      |      ✔️      |    `users.removeFavorite`   |
+|       Get Post Approval       |      ✔️      |   `posts.getPostApproval`   |
 |     Search Post Approvals     |      ✔️      | `posts.searchPostApprovals` |
 
 [^1]: Requires Authentication

@@ -25,6 +25,7 @@
 |     Ban[^1][^5]    |      ✖️      |           N/A           |
 |    Unban[^1][^5]   |      ✖️      |           N/A           |
 |     Revert[^1]     |      ✔️      |     `artists.revert`    |
+|  Get History[^1]   |      ✔️      |  `artists.getHistory`   |
 | Search History[^1] |      ✔️      | `artists.searchHistory` |
 |    Get DNP List    |      ✔️      |  `artists.getDoNotPost` |
 

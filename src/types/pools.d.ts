@@ -57,5 +57,6 @@ export interface PoolHistoryProperties {
 }
 
 export interface SearchPoolHistoryOptions extends GenericSearchOptions {
+	id?: number;
 	pool?: number;
 }

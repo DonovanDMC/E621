@@ -41,6 +41,7 @@ export interface TagHistoryProperties {
 }
 
 export interface SearchTagHistoryOptions extends GenericSearchOptions {
+	id?: number;
 	tag?: string;
 	userName?: string;
 	userID?: number;

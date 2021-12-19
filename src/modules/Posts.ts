@@ -211,11 +211,20 @@ export default class Posts {
 	}
 
 	/**
+	 * Get a specific post history
+	 *
+	 * @param {number} id - the id of the history to get
+	 * @returns {Promise<PostHistory | null>}
+	 */
+	async getHistory(id: number) { return this.searchHistory({ id }).then(r => r.length === 0 ? null : r[0]); }
+
+	/**
 	 * Search the post history
 	 *
 	 * * Requires Authentication
 	 *
 	 * @param {object} [options]
+	 * @param {number} [options.id] - get a specific post history entry
 	 * @param {string} [options.user] - narrow the results by username
 	 * @param {number} [options.userID] - narrow the results by user id
 	 * @param {number} [options.post] - narrow the results by post id
@@ -240,6 +249,7 @@ export default class Posts {
 	async searchHistory(options?: SearchPostHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
+		if (typeof options.id                === "number")    qs.add("search[id]", options.id);
 		if (typeof options.user              === "string")    qs.add("search[updater_name]", options.user);
 		if (typeof options.userID            === "number")    qs.add("search[updater_id]", options.userID);
 		if (typeof options.post              === "number")    qs.add("search[post_id]", options.post);
@@ -280,9 +290,18 @@ export default class Posts {
 	}
 
 	/**
+	 * Get a specific post approval
+	 *
+	 * @param {number} id - the id of the approval to get
+	 * @returns {Promise<PostApproval | null>}
+	 */
+	async getPostApproval(id: number) { return this.searchPostApprovals({ id }).then(r => r.length === 0 ? null : r[0]); }
+
+	/**
 	 * Search the post approvals
 	 *
 	 * @param {object} [options]
+	 * @param {number} [options.id] - get a specific post approvals entry
 	 * @param {string} [options.approver] - filter by the username of the user that approved the post
 	 * @param {(Array<string> | string)} [options.tags] - filter by the tags on the post
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
@@ -292,11 +311,12 @@ export default class Posts {
 	async searchPostApprovals(options?: SearchPostApprovalsOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.approver                   === "string") qs.add("search[user_name]", options.approver);
-		if (typeof options.tags                       === "number") qs.add("search[post_tags_match]", options.tags);
-		if (Array.isArray(options.tags) && options.tags.length > 0) qs.add("search[post_tags_match]", options.tags.join(" "));
-		if (typeof options.page                    !== "undefined") qs.add("page", options.page);
-		if (typeof options.limit                      === "number") qs.add("limit", options.limit);
+		if (typeof options.id                         === "number")    qs.add("search[id]", options.id);
+		if (typeof options.approver                   === "string")    qs.add("search[user_name]", options.approver);
+		if (typeof options.tags                       === "number")    qs.add("search[post_tags_match]", options.tags);
+		if (Array.isArray(options.tags) && options.tags.length > 0)    qs.add("search[post_tags_match]", options.tags.join(" "));
+		if (typeof options.page                       !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit                      === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<PostApprovalProperties>>(`/post_approvals.json?${qs.build()}`);
 		if (res && !Array.isArray(res) && "post_approvals" in res) return [];
 		return res!.map(info => new PostApproval(this.main, info));

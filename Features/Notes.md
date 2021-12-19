@@ -14,14 +14,15 @@
 
 <hr>
 
-|     Feature    | Implemented |         Method        |
-|:--------------:|:-----------:|:---------------------:|
-|    Get By ID   |      ✔️      |      `notes.get`      |
-|     Search     |      ✔️      |     `notes.search`    |
-|   Create[^1]   |      ✔️      |     `notes.create`    |
-|   Modify[^1]   |      ✔️      |     `notes.modify`    |
-|   Delete[^1]   |      ✔️      |     `notes.delete`    |
-| Search History |      ✔️      | `notes.searchHistory` |
+|     Feature     | Implemented |         Method        |
+|:---------------:|:-----------:|:---------------------:|
+|    Get By ID    |      ✔️      |      `notes.get`      |
+|      Search     |      ✔️      |     `notes.search`    |
+|    Create[^1]   |      ✔️      |     `notes.create`    |
+|    Modify[^1]   |      ✔️      |     `notes.modify`    |
+|    Delete[^1]   |      ✔️      |     `notes.delete`    |
+|   Get History   |      ✔️      |   `notes.getHistory`  |
+|  Search History |      ✔️      | `notes.searchHistory` |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged
