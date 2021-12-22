@@ -46,3 +46,11 @@ export interface SearchTagHistoryOptions extends GenericSearchOptions {
 	userName?: string;
 	userID?: number;
 }
+
+interface AutocompleteResult {
+	id: number;
+	name: string;
+	post_count: number;
+	category: number;
+	antecedent_name: string;
+}

@@ -14,14 +14,15 @@
 
 <hr>
 
-|     Feature    | Implemented |        Method        |
-|:--------------:|:-----------:|:--------------------:|
-|    Get By ID   |      ✔️      |      `tags.get`      |
-|   Get By Name  |      ✔️      |   `tags.getByName`   |
-|     Search     |      ✔️      |     `tags.search`    |
-|   Modify[^1]   |      ✔️      |     `tags.modify`    |
-| Search History |      ✔️      | `tags.searchHistory` |
-|  Get History   |      ✔️      |  `tags.getHistory`   |
+|          Feature         | Implemented |         Method         |
+|:------------------------:|:-----------:|:----------------------:|
+|         Get By ID        |      ✔️      |       `tags.get`       |
+|        Get By Name       |      ✔️      |    `tags.getByName`    |
+|          Search          |      ✔️      |      `tags.search`     |
+|        Modify[^1]        |      ✔️      |      `tags.modify`     |
+|      Search History      |      ✔️      |  `tags.searchHistory`  |
+|        Get History       |      ✔️      |    `tags.getHistory`   |
+| Get Autocomplete Results |      ✔️      | `tags.getAutocomplete` |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged

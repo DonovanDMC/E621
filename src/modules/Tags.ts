@@ -7,7 +7,8 @@ import type {
 	ModifyTagOptions,
 	SearchTagsOrder,
 	SearchTagHistoryOptions,
-	TagHistoryProperties
+	TagHistoryProperties,
+	AutocompleteResult
 } from "../types";
 import FormHelper from "../util/FormHelper";
 import { APIError } from "../util/RequestHandler";
@@ -145,5 +146,19 @@ export default class Tags {
 		const res = await this.main.request.get<Array<TagHistoryProperties> | { tag_type_versions: []; }>(`/tag_type_versions.json?${qs.build()}`);
 		if (res && !Array.isArray(res) && "tag_type_versions" in res) return [];
 		return res!.map(info => new TagHistory(this.main, info));
+	}
+
+	/**
+	 * Get autocomplete results
+	 *
+	 * @param {string} match - the string to get results for
+	 * @returns {Promise<Array<AutocompleteResult>>}
+	 */
+	async getAutocomplete(match: string) {
+		if (!match) throw new Error("string to match is required in Tags#getAutocomplete");
+		const qs = new FormHelper().add("search[name_matches]", match);
+		const res = await this.main.request.get<Array<AutocompleteResult>>(`/tags/autocomplete.json?${qs.build()}`);
+		if (res && !Array.isArray(res)) return [];
+		return res;
 	}
 }
