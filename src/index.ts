@@ -33,8 +33,7 @@ import pkg from "../package.json";
 // note for future reference (browser compatibility?)
 // POST with "_method=*" can be used in place of PUT/PATCH/DELETE
 export default class E621 {
-	static Yiffy: typeof Yiffy;
-	static YiffyAPI: typeof Yiffy;
+	static YiffyAPI: typeof YiffyAPI;
 	static Dev: typeof Dev;
 	static Custom: typeof Custom;
 	POST_LIMIT_PER_REQUEST = 320;
@@ -102,7 +101,7 @@ export default class E621 {
 	}
 }
 
-class Yiffy extends E621 {
+class YiffyAPI extends E621 {
 	constructor(options: Options) {
 		super(options);
 		this.setInstance({
@@ -131,6 +130,11 @@ class Custom extends E621 {
 	}
 }
 
+// due to extending the main class, neither of these (E621 class & sub-class) can happen "first", when both need to
+E621.YiffyAPI = YiffyAPI;
+E621.Dev = Dev;
+E621.Custom = Custom;
+
 export * from "./types";
 export { APIError } from "./util/RequestHandler";
 export {
@@ -150,8 +154,7 @@ export {
 	User,
 	WikiPage,
 	WikiPageHistory,
-	Yiffy,
-	Yiffy as YiffyAPI,
+	YiffyAPI,
 	Dev,
 	Custom
 };
