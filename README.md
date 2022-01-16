@@ -48,7 +48,7 @@ These are set via the `setInstance` function.
 ### Using YiffyAPI or E621 Dev?
 We've got built in classes for both. E621 dev assumes you're using Zwagoth/e621ng@ce871e412c4d2e1e2478a0e5049d20c77cd3f4d7 or later, as they changed where the dev site is accessed in this commit.
 you can use the built in sub-classes `E621.YiffyAPI` `E621.Dev` to access these, and for anything else: there's `E621.Custom`
-```
+```ts
 import E621 from "e621"; // or import { YiffyAPI, Dev, Custom } from "e621";
 
 // first and only parameter is Options
