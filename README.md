@@ -35,6 +35,8 @@ Most of these options shouldn't be used unless you know what you're doing (you p
 
 #### Instance Options
 These are set via the `setInstance` function.
+| Option | Type | Default | Description |
+|:---:|:---:|:---:|:---:|
 | `reconstructStaticURL` | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/util/RequestHandler.ts#L254-L256) | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L19-L23) | Override default url reconstruction |
 | `imageReconstructionType` | "e621" \| "yiffy" \| "local" \| null | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L35) | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L37) |
 | `ssl` | Boolean | [^1] | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L5) |
