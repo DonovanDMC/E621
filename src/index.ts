@@ -33,10 +33,10 @@ import pkg from "../package.json";
 // note for future reference (browser compatibility?)
 // POST with "_method=*" can be used in place of PUT/PATCH/DELETE
 export default class E621 {
-	static Yiffy: Yiffy;
-	static YiffyAPI: Yiffy;
-	static Dev: Dev;
-	static Custom: Custom;
+	static Yiffy: typeof Yiffy;
+	static YiffyAPI: typeof Yiffy;
+	static Dev: typeof Dev;
+	static Custom: typeof Custom;
 	POST_LIMIT_PER_REQUEST = 320;
 	request = new RequestHandler(this);
 	artists = new Artists(this);

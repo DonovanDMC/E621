@@ -8,7 +8,7 @@ See the [Features List](Features/README.md) for all of the things this module su
 
 <hr>
 
-This module is structures with submodules corresponding to separate areas of the site. All of these modules are on the primary class, which can be constructed like so:
+This module is structured with submodules corresponding to separate areas of the site. All of these modules are on the primary class, which can be constructed like so:
 ```typescript
 import E621 from "e621"; // or const E621 = require("e621");
 
@@ -46,7 +46,7 @@ These are set via the `setInstance` function.
 [^1]: This is very dependent on where this function is used. If used on a subclass, like `Yiffy` or `Dev` the defaults will be set to something else, but otherwise they are: true, 443, e621.net
 
 ### Using YiffyAPI or E621 Dev?
-We've got built in classes for both. E621 dev assumes you're using Zwagoth/e621ng@ce871e412c4d2e1e2478a0e5049d20c77cd3f4d7 or later, as they changed where the dev site is accessed in this commit.
+We've got built in classes for both. E621 dev assumes you're using [e621ng@ce871e4](https://github.com/zwagoth/e621ng/commit/ce871e412c4d2e1e2478a0e5049d20c77cd3f4d7) or later, as they changed where the dev site is accessed in this commit.
 you can use the built in sub-classes `E621.YiffyAPI` `E621.Dev` to access these, and for anything else: there's `E621.Custom`
 ```ts
 import E621 from "e621"; // or import { YiffyAPI, Dev, Custom } from "e621";
