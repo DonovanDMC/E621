@@ -1,32 +1,28 @@
-export interface Options {
+export interface InstanceOptions {
 	/**
 	 * If the instance you are targeting supports ssl
-	 *
-	 * Default: true if `instanceHost` is "e621.net", false otherwise
 	 */
-	instanceSSL?: boolean;
+	ssl?: boolean;
 	/**
 	 * The port of the instance you are targeting
 	 *
 	 * Default: 443 if `instanceSSL` is true, 80 otherwise
 	 */
-	instancePort?: number;
+	port?: number;
 	/**
 	 * The host of the instance you are targeting
-	 *
-	 * Default: e621.net
 	 */
-	instanceHost?: string;
+	host?: string;
 	/**
 	 * Override our default url reconstruction when we see a null file url
 	 *
-	 * Default (e621.net): https://static1.e621.net/data/(preview/|sample/)MD5[0,2]/MD5[2,4]/MD5.EXT
+	 * Default (E621): https://static1.e621.net/data/(preview/|sample/)MD5[0,2]/MD5[2,4]/MD5.EXT
 	 *
-	 * Default (yiff.rest): https://v3.yiff.media/(preview/|sample/)MD5[0,2]/MD5[2,4]/MD5.EXT
+	 * Default (YiffyAPI): https://v3.yiff.media/(preview/|sample/)MD5[0,2]/MD5[2,4]/MD5.EXT
 	 *
-	 * Default (e621.local): http://e621.local/data/(preview/|sample/)MD5.EXT
+	 * Default (Dev): http://e621ng.local/data/(preview/|sample/)MD5.EXT
 	 *
-	 * If you use a host that is not supported, and do not implement this, or set a construction type, an error will be thrown.
+	 * If you use a host that is not supported, and do not implement this, an error will be thrown.
 	 *
 	 * @param {string} md5 - the md5 of the image
 	 * @param {("original" | "preview" | "sample")} type - the type of url being constructed
@@ -36,9 +32,11 @@ export interface Options {
 	/**
 	 * The method to use for image reconstructon (if you are not using E621, YiffyAPI, or e621ng, you MUST override the reconstructStaticURL function, as the static urls are hardcoded for these)
 	 *
-	 * Default: based on `instanceHost` - e621.net = e621 | yiff.rest = yiffy | e621.local = dev | other = null
+	 * Default: based on `instanceHost` - e621.net = e621 | yiff.rest = yiffy | e621ng.local = dev | other = null
 	 */
 	imageReconstructionType?: "e621" | "yiffy" | "dev" | null;
+}
+export interface Options {
 	/**
 	 * The uername of the user you want to authenticate with
 	 *
@@ -67,7 +65,7 @@ export interface Options {
 	requestTimeout?: number;
 }
 
-export interface InstanceOptions {
+export interface ConstructedOptions {
 	instanceSSL: boolean;
 	instancePort: number;
 	instanceHost: string;

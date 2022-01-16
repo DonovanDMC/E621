@@ -1,4 +1,4 @@
-import type { Options, InstanceOptions } from "./types";
+import type { Options, InstanceOptions, ConstructedOptions } from "./types";
 import RequestHandler from "./util/RequestHandler";
 // Modules
 import Artists from "./modules/Artists";
@@ -33,6 +33,10 @@ import pkg from "../package.json";
 // note for future reference (browser compatibility?)
 // POST with "_method=*" can be used in place of PUT/PATCH/DELETE
 export default class E621 {
+	static Yiffy: Yiffy;
+	static YiffyAPI: Yiffy;
+	static Dev: Dev;
+	static Custom: Custom;
 	POST_LIMIT_PER_REQUEST = 320;
 	request = new RequestHandler(this);
 	artists = new Artists(this);
@@ -45,24 +49,9 @@ export default class E621 {
 	users = new Users(this);
 	wikiPages = new WikiPages(this);
 	private readonly auth: string | null;
-	readonly options: InstanceOptions;
+	readonly options: ConstructedOptions;
 	constructor(options?: Options) {
 		if (!options) options = {};
-
-		if (!options.instanceHost) options.instanceHost = "e621.net";
-		options.instanceSSL = options.instanceSSL ?? ["e621.net", "yiff.rest"].includes(options.instanceHost);
-		if (!options.instancePort) options.instancePort = options.instanceSSL ? 443 : 80;
-		if (!options.imageReconstructionType) {
-			switch (options.instanceHost) {
-				case "e621.net": options.imageReconstructionType = "e621"; break;
-				case "yiff.rest": options.imageReconstructionType = "yiffy"; break;
-				case "e621.local": case "localhost": options.imageReconstructionType = "dev"; break;
-				default: {
-					options.imageReconstructionType = null;
-					if (!options.reconstructStaticURL) process.emitWarning("You specified a host that wasn't in our known list (e621.net, yiff.rest, e621.local) and didn't also specify imageReconstructionType or reconstructStaticURL. This WILL cause an error if we see any null file urls.");
-				}
-			}
-		}
 
 		Object.defineProperties(this, {
 			auth: {
@@ -74,13 +63,8 @@ export default class E621 {
 			},
 			options: {
 				value: {
-					instanceHost: options.instanceHost,
-					instancePort: options.instancePort,
-					instanceSSL: options.instanceSSL,
 					authUser: options.authUser ?? null,
 					authKey: options.authKey ?? null,
-					reconstructStaticURL: options.reconstructStaticURL || null,
-					imageReconstructionType: options.imageReconstructionType || "hierarchy",
 					userAgent: options.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${!options.authUser ? "" : `; "${options.authUser}"`})`,
 					requestTimeout: options.requestTimeout ?? 30
 				},
@@ -89,14 +73,70 @@ export default class E621 {
 				writable: false
 			}
 		});
+		this.setInstance({});
+	}
+
+	setInstance(opt: InstanceOptions) {
+		if (!opt.host) opt.host = "e621.net";
+		opt.ssl = opt.ssl ?? ["e621.net", "yiff.rest"].includes(opt.host);
+		if (!opt.port) opt.port = opt.ssl ? 443 : 80;
+		if (!opt.imageReconstructionType) {
+			switch (opt.host) {
+				case "e621.net": opt.imageReconstructionType = "e621"; break;
+				case "yiff.rest": opt.imageReconstructionType = "yiffy"; break;
+				case "e621.local": case "e621ng.local": case "localhost": opt.imageReconstructionType = "dev"; break;
+				default: {
+					opt.imageReconstructionType = null;
+					if (!opt.reconstructStaticURL) process.emitWarning("You specified a host that wasn't in our known list (e621.net, yiff.rest, e621.local) and didn't also specify imageReconstructionType or reconstructStaticURL. This WILL cause an error if we see any null file urls.");
+				}
+			}
+		}
+
+		Object.assign(this.options, {
+			instanceHost: opt.host,
+			instancePort: opt.port,
+			instanceSSL: opt.ssl,
+			reconstructStaticURL: opt.reconstructStaticURL || null,
+			imageReconstructionType: opt.imageReconstructionType || "hierarchy"
+		});
 	}
 }
+
+class Yiffy extends E621 {
+	constructor(options: Options) {
+		super(options);
+		this.setInstance({
+			host: "yiff.rest",
+			port: 443,
+			ssl: true
+		});
+	}
+}
+
+class Dev extends E621 {
+	constructor(options: Options, ssl = false) {
+		super(options);
+		this.setInstance({
+			host: "localhost",
+			port: 3000,
+			ssl
+		});
+	}
+}
+
+class Custom extends E621 {
+	constructor(options: Options, instanceOptions: InstanceOptions) {
+		super(options);
+		this.setInstance(instanceOptions);
+	}
+}
+
 export * from "./types";
 export { APIError } from "./util/RequestHandler";
 export {
 	Artist,
 	ArtistHistory,
-	Notes,
+	Note,
 	NoteHistory,
 	AuthenticatedUser,
 	Pool,
@@ -109,5 +149,9 @@ export {
 	TagHistory,
 	User,
 	WikiPage,
-	WikiPageHistory
+	WikiPageHistory,
+	Yiffy,
+	Yiffy as YiffyAPI,
+	Dev,
+	Custom
 };
