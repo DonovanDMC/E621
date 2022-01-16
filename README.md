@@ -31,9 +31,31 @@ Most of these options shouldn't be used unless you know what you're doing (you p
 |:---:|:---:|:---:|:---:|
 | `authUser` | String | None | User for authentication |
 | `authKey` | String | None | Token for authentication |
-| `userAgent` | String | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L57-L59) | UserAgent for requests |
-| `reconstructStaticURL` | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/util/RequestHandler.ts#L254-L256) | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L63-L65) | Override default url reconstruction |
-| `imageReconstructionType` | "e621" \| "yiffy" \| "local" \| null | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L39) | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L41) |
-| `instanceSSL` | Boolean | true | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L03) |
-| `instancePort` | Number | 443 | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L9) |
-| `instanceHost` | String | e621.net | [See Code](https://github.com/DonovanDMC/E621/blob/89d662f19dc76c77e28f40b18a96f9043c4e2a3a/src/types/index.d.ts#L15) |
+| `userAgent` | String | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L57-L59) | UserAgent for requests |
+
+#### Instance Options
+These are set via the `setInstance` function.
+| `reconstructStaticURL` | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/util/RequestHandler.ts#L254-L256) | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L19-L23) | Override default url reconstruction |
+| `imageReconstructionType` | "e621" \| "yiffy" \| "local" \| null | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L35) | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L37) |
+| `ssl` | Boolean | [^1] | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L5) |
+| `port` | Number | [^1] | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L11) |
+| `host` | String | [^1] | [See Code](https://github.com/DonovanDMC/E621/blob/4bc4e2db7cc8389635d710a852ab6a88a0570602/src/types/index.d.ts#L15) |
+
+[^1]: This is very dependent on where this function is used. If used on a subclass, like `Yiffy` or `Dev` the defaults will be set to something else, but otherwise they are: true, 443, e621.net
+
+### Using YiffyAPI or E621 Dev?
+We've got built in classes for both. E621 dev assumes you're using Zwagoth/e621ng@ce871e412c4d2e1e2478a0e5049d20c77cd3f4d7 or later, as they changed where the dev site is accessed in this commit.
+you can use the built in sub-classes `E621.YiffyAPI` `E621.Dev` to access these, and for anything else: there's `E621.Custom`
+```
+import E621 from "e621"; // or import { YiffyAPI, Dev, Custom } from "e621";
+
+// first and only parameter is Options
+const yapi = new E621.Yiffy();
+const dev = new E621.Dev();
+// first parameter is Options, second is InstanceOptions
+const custom = new E621.Custom({}, {
+	host: "example.com",
+	port: 443,
+	ssl: true
+});
+```
