@@ -5,7 +5,7 @@ import debug from "debug";
 import "mocha";
 
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("Pools", function() {
 	it("get pool by id", async function() {
 		const pool = await E6Client.pools.get(11686);

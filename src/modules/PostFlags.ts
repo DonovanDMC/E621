@@ -75,7 +75,7 @@ export default class PostFlags {
 		if (typeof options.category     === "string")    qs.add("search[creator_name]", options.category);
 		if (typeof options.page         !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit        === "number")    qs.add("limit", options.limit);
-		const res = await this.main.request.get<Array<PostFlagProperties>>(`/notes.json?${qs.build()}`);
+		const res = await this.main.request.get<Array<PostFlagProperties>>(`/post_flags.json?${qs.build()}`);
 		return res!.map(info => new PostFlag(this.main, info));
 	}
 

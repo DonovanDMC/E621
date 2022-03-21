@@ -5,7 +5,7 @@ import debug from "debug";
 import "mocha";
 
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("Notes", function() {
 	it("get note by id", async function() {
 		const note = await E6Client.notes.get(308103);

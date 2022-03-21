@@ -6,7 +6,7 @@ import "mocha";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("User Feedback", function() {
 	it("get user feedback by id", async function() {
 		const feedback = await E6Client.userFeedback.get(48702);

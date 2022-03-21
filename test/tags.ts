@@ -6,7 +6,7 @@ import "mocha";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("Tags", function() {
 	it("get tag by id", async function() {
 		const tag = await E6Client.tags.get(159510);

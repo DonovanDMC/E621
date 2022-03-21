@@ -5,7 +5,7 @@ import debug from "debug";
 import "mocha";
 
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("Posts", function() {
 	it("get post by id", async function() {
 		const post = await E6Client.posts.get(2907536);

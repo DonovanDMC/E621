@@ -6,7 +6,7 @@ import "mocha";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("Post Sets", function() {
 	it("get post set by id", async function() {
 		const postSet = await E6Client.postSets.get(26062);
@@ -54,7 +54,7 @@ describe("Post Sets", function() {
 		expect(search3.length, "order=postcount").to.not.equal(0, "order=postcount search returned zero results");
 		expect(search4.length, "order=created_at").to.not.equal(0, "order=created_at search returned zero results");
 		expect(search5.length, "order=update").to.not.equal(0, "order=update search returned zero results");
-	});
+	}).timeout(30_000);
 
 	// @TODO Create Post Set Test
 	it.skip("create post set", async function() {});

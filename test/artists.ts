@@ -5,7 +5,7 @@ import debug from "debug";
 import "mocha";
 
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("Artists", function() {
 	it("get artist by id", async function() {
 		const artist = await E6Client.artists.get(6698);

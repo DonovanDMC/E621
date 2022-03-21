@@ -6,7 +6,7 @@ import "mocha";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;
-debug.enable("e621:*");
+// debug.enable("e621:*");
 describe("Wiki Pages", function() {
 	it("get wiki page by id", async function() {
 		const wikiPage = await E6Client.wikiPages.get(35009);
