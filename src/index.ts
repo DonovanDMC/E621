@@ -5,6 +5,7 @@ import Artists from "./modules/Artists";
 import Notes from "./modules/Notes";
 import Pools from "./modules/Pools";
 import Posts from "./modules/Posts";
+import PostFlags from "./modules/PostFlags";
 import PostSets from "./modules/PostSets";
 import Tags from "./modules/Tags";
 import UserFeedback from "./modules/UserFeedback";
@@ -18,6 +19,7 @@ import NoteHistory from "./structures/NoteHistory";
 import AuthenticatedUser from "./structures/AuthenticatedUser";
 import Pool from "./structures/Pool";
 import PoolHistory from "./structures/PoolHistory";
+import PostFlag from "./structures/PostFlag";
 import Post from "./structures/Post";
 import PostApproval from "./structures/PostApproval";
 import PostHistory from "./structures/PostHistory";
@@ -42,6 +44,7 @@ export default class E621 {
 	notes = new Notes(this);
 	pools = new Pools(this);
 	posts = new Posts(this);
+	postFlags = new PostFlags(this);
 	postSets = new PostSets(this);
 	tags = new Tags(this);
 	userFeedback = new UserFeedback(this);
@@ -145,6 +148,7 @@ export {
 	AuthenticatedUser,
 	Pool,
 	PoolHistory,
+	PostFlag,
 	Post,
 	PostApproval,
 	PostHistory,

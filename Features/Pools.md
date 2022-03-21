@@ -5,6 +5,7 @@
 - [Artists](Artists.md)
 - [Notes](Notes.md)
 - **Pools**
+- [Pool Flags](PoolFlags.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)

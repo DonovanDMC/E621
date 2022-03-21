@@ -85,6 +85,7 @@ export interface GenericSearchOptions {
 export * from "./artists";
 export * from "./notes";
 export * from "./pools";
+export * from "./post_flags";
 export * from "./post_sets";
 export * from "./posts";
 export * from "./tags";

@@ -4,6 +4,7 @@
 - [E621 Search Inconsistencies](E621SearchInconsistencies.md)
 - [Artists](Artists.md)
 - [Pools](Pools.md)
+- [Pool Flags](PoolFlags.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)
@@ -15,7 +16,6 @@
 
 |                               Feature                               | Planned |
 |:-------------------------------------------------------------------:|:-------:|
-|              [Post Flags](https://e621.net/post_flags)              |    ✔️    |
 |                   [Blips](https://e621.net/blips)                   |    ✔️    |
 |               [Takedowns](https://e621.net/takedowns)               |    ✔️    |
 |    [Bulk Update Requests](https://e621.net/bulk_update_requests)    |    ✔️    |

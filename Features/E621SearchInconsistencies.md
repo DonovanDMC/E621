@@ -4,6 +4,7 @@
 - **E621 Search Inconsistencies**
 - [Artists](Artists.md)
 - [Pools](Pools.md)
+- [Pool Flags](PoolFlags.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)

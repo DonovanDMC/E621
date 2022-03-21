@@ -5,12 +5,13 @@
 - [Artists](Artists.md)
 - **Notes**
 - [Pools](Pools.md)
+- [Pool Flags](PoolFlags.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)
 - [User Feedback](UserFeedback.md)
 - [Users](Users.md)
-- **Wiki Pages**
+- [Wiki Pages](WikiPages.md)
 
 <hr>
 
