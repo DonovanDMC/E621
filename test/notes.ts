@@ -52,7 +52,7 @@ describe("Notes", function() {
 	});
 
 	it("search note history by post id", async function() {
-		const search = await E6Client.notes.searchHistory({ postId: 2998111 });
+		const search = await E6Client.notes.searchHistory({ post_id: 2998111 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 

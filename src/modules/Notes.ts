@@ -77,7 +77,7 @@ export default class Notes {
 	 * * Requires Authentication
 	 *
 	 * @param {object} options
-	 * @param {number} options.postId - the id of the post to make the note on
+	 * @param {number} options.post_id - the id of the post to make the note on
 	 * @param {number} options.x - the x location of the note
 	 * @param {number} options.y - the y location of the note
 	 * @param {number} options.width - the width of the note
@@ -89,7 +89,7 @@ export default class Notes {
 		this.main.request.authCheck.call(this, "Notes#create");
 		if (!options) throw new Error("options is required in Notes#create");
 		const qs = new FormHelper()
-			.add("note[post_id]", options.postId)
+			.add("note[post_id]", options.post_id)
 			.add("note[x]", options.x)
 			.add("note[y]", options.y)
 			.add("note[width]", options.width)
@@ -154,7 +154,7 @@ export default class Notes {
 	 * @param {object} [options]
 	 * @param {number} [options.id] - get a specific notes history entry
 	 * @param {number} [options.noteId] - narrow the results by the note id
-	 * @param {number} [options.postId] - narrow the results by the id of the post the note is on
+	 * @param {number} [options.post_id] - narrow the results by the id of the post the note is on
 	 * @param {string} [options.body] - narrow the results by the content
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
@@ -166,7 +166,7 @@ export default class Notes {
 		const qs = new FormHelper();
 		if (typeof options.id     === "number")    qs.add("search[id]", options.id);
 		if (typeof options.noteId === "number")    qs.add("search[note_id]", options.noteId);
-		if (typeof options.postId === "number")    qs.add("search[post_id]", options.postId);
+		if (typeof options.post_id === "number")    qs.add("search[post_id]", options.post_id);
 		if (typeof options.body   === "string")    qs.add("search[body_matches]", options.body);
 		if (typeof options.page   !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit  === "number")    qs.add("limit", options.limit);

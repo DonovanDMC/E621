@@ -108,11 +108,11 @@ export default class PostFlags {
 	 *
 	 * * Requires Janitor
 	 *
-	 * @param {number} postID - the id of post to unflag
+	 * @param {number} post_id - the id of post to unflag
 	 * @returns {Promise<null>}
 	 */
-	async delete(postID: number) {
+	async delete(post_id: number) {
 		this.main.request.authCheck.call(this, "PostFlags#delete");
-		return this.main.request.delete<null>(`/post_flags/${postID}.json`);
+		return this.main.request.delete<null>(`/post_flags/${post_id}.json`);
 	}
 }

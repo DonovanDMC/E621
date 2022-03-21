@@ -24,7 +24,7 @@ export interface SearchNotesOptions extends GenericSearchOptions {
 
 // POST /notes/:id.json
 export interface CreateNoteOptions {
-	postId: number;
+	post_id: number;
 	x: number;
 	y: number;
 	width: number;
@@ -59,6 +59,6 @@ export interface NoteHistoryProperties {
 export interface SearchNoteHistoryOptions extends GenericSearchOptions {
 	id?: number;
 	noteId?: number;
-	postId?: number;
+	post_id?: number;
 	body?: string;
 }
