@@ -144,21 +144,21 @@ export default class Post implements PostProperties {
 	 * * Requires Authentication
 	 *
 	 * @param {object} options
-	 * @param {string} [options.editReason] - the reason for the edit
-	 * @param {(Array<string> | string)} [options.addTags] - the tags to add to the post
-	 * @param {(Array<string> | string)} [options.removeTags] - the tags to remove from the post
-	 * @param {(Array<string> | string)} [options.addSources] - the sources to add to the post
-	 * @param {(Array<string> | string)} [options.removeSources] - the sources to remove from the post
+	 * @param {string} [options.edit_reason] - the reason for the edit
+	 * @param {(Array<string> | string)} [options.add_tags] - the tags to add to the post
+	 * @param {(Array<string> | string)} [options.remove_tags] - the tags to remove from the post
+	 * @param {(Array<string> | string)} [options.add_sources] - the sources to add to the post
+	 * @param {(Array<string> | string)} [options.remove_sources] - the sources to remove from the post
 	 * @param {Ratings} [options.rating] - the rating for the post
 	 * @param {string} [options.description] - the description of the post
-	 * @param {number} [options.parentID] - the parent of the post
-	 * @param {boolean} [options.hasEmbeddedNotes] - I don't know what this is, api docs list it though
-	 * @param {boolean} [options.ratingLocked] - upload as rating locked (requires privileged)
-	 * @param {boolean} [options.noteLocked] - upload as rating locked (requires janitor)
-	 * @param {boolean} [options.statusLocked] - upload as rating locked (requires admin)
-	 * @param {boolean} [options.hideFromAnonymous] - upload as rating locked (requires admin)
-	 * @param {boolean} [options.hideFromSearch] - upload as rating locked (requires admin)
-	 * @param {string} [options.backgroundColor] - the background color of the post (requires janitor)
+	 * @param {number} [options.parent_id] - the parent of the post
+	 * @param {boolean} [options.has_embedded_notes] - I don't know what this is, api docs list it though
+	 * @param {boolean} [options.rating_locked] - upload as rating locked (requires privileged)
+	 * @param {boolean} [options.note_locked] - upload as rating locked (requires janitor)
+	 * @param {boolean} [options.status_locked] - upload as rating locked (requires admin)
+	 * @param {boolean} [options.hide_from_anonymous] - upload as rating locked (requires admin)
+	 * @param {boolean} [options.hide_from_search] - upload as rating locked (requires admin)
+	 * @param {string} [options.background_color] - the background color of the post (requires janitor)
 	 * @param {(Array<string> | string)} [options.lockedTags] - tags to lock on the post (requires admin)
 	 * @returns {Promise<Post>}
 	 */

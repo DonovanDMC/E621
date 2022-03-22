@@ -101,10 +101,10 @@ export default class Artists {
 	 *
 	 * @param {object} options
 	 * @param {string} options.name - the name of artist
-	 * @param {number} [options.linkedUserID] - the id of the user associated with this artist (requires janitor)
+	 * @param {number} [options.linked_user_id] - the id of the user associated with this artist (requires janitor)
 	 * @param {boolean} [options.locked] - if the artist should be locked (requires janitor)
-	 * @param {(Array<string> | string)} [options.otherNames] - the other names for this artist
-	 * @param {string} [options.groupName] - the group name of this artist (this is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357))
+	 * @param {(Array<string> | string)} [options.other_names] - the other names for this artist
+	 * @param {string} [options.group_name] - the group name of this artist (this is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357))
 	 * @param {(Array<string> | string)} [options.urls] - the urls associated with this artist
 	 * @param {string} [options.notes] - notes for this artist
 	 * @returns {Promise<Artist>}
@@ -114,14 +114,14 @@ export default class Artists {
 		if (!options) throw new Error("options is required in Artists#create");
 		const qs = new FormHelper()
 			.add("artist[name]", options.name);
-		if (typeof options.linkedUserID === "number")  qs.add("artist[linked_user_id]", options.linkedUserID);
-		if (typeof options.locked       === "boolean") qs.add("artist[is_locked]", options.locked);
-		if (typeof options.otherNames   === "string")  qs.add("artist[other_names_string]", options.otherNames);
-		if (Array.isArray(options.otherNames))         qs.add("artist[other_names_string]", options.otherNames.join(" "));
-		if (typeof options.groupName    === "string")  qs.add("artist[group_name]", options.groupName);
-		if (typeof options.urls         === "string")  qs.add("artist[url_string]", options.urls);
-		if (Array.isArray(options.urls))               qs.add("artist[url_string]", options.urls.join("\n"));
-		if (typeof options.notes        === "string")  qs.add("artist[notes]", options.notes);
+		if (typeof options.linked_user_id === "number")  qs.add("artist[linked_user_id]", options.linked_user_id);
+		if (typeof options.locked         === "boolean") qs.add("artist[is_locked]", options.locked);
+		if (typeof options.other_names    === "string")  qs.add("artist[other_names_string]", options.other_names);
+		if (Array.isArray(options.other_names))          qs.add("artist[other_names_string]", options.other_names.join(" "));
+		if (typeof options.group_name     === "string")  qs.add("artist[group_name]", options.group_name);
+		if (typeof options.urls           === "string")  qs.add("artist[url_string]", options.urls);
+		if (Array.isArray(options.urls))                 qs.add("artist[url_string]", options.urls.join("\n"));
+		if (typeof options.notes          === "string")  qs.add("artist[notes]", options.notes);
 		const res = await this.main.request.post<ArtistProperties>("/artists.json", qs.build());
 		return new Artist(this.main, res!);
 	}
@@ -134,10 +134,10 @@ export default class Artists {
 	 * @param {number} id - the id  of the artists to edit
 	 * @param {object} options
 	 * @param {string} [options.name] - the name of artist (requires janitor)
-	 * @param {number} [options.linkedUserID] - the id of the user associated with this artist (requires janitor)
+	 * @param {number} [options.linked_user_id] - the id of the user associated with this artist (requires janitor)
 	 * @param {boolean} [options.locked] - if the artist should be locked (requires janitor)
-	 * @param {(Array<string> | string)} [options.otherNames] - the other names for this artist
-	 * @param {string} [options.groupName] - the group name of this artist (this is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357))
+	 * @param {(Array<string> | string)} [options.other_names] - the other names for this artist
+	 * @param {string} [options.group_name] - the group name of this artist (this is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357))
 	 * @param {(Array<string> | string)} [options.urls] - the urls associated with this artist
 	 * @param {string} [options.notes] - notes for this artist
 	 * @returns {Promise<Artist>}
@@ -147,11 +147,11 @@ export default class Artists {
 		if (!options) throw new Error("options is required in Artists#modify");
 		const qs = new FormHelper();
 		if (typeof options.name         === "string")  qs.add("artist[name]", options.name);
-		if (typeof options.linkedUserID === "number")  qs.add("artist[linked_user_id]", options.linkedUserID);
+		if (typeof options.linked_user_id === "number")  qs.add("artist[linked_user_id]", options.linked_user_id);
 		if (typeof options.locked       === "boolean") qs.add("artist[is_locked]", options.locked);
-		if (typeof options.otherNames   === "string")  qs.add("artist[other_names_string]", options.otherNames);
-		if (Array.isArray(options.otherNames))         qs.add("artist[other_names_string]", options.otherNames.join(" "));
-		if (typeof options.groupName    === "string")  qs.add("artist[group_name]", options.groupName);
+		if (typeof options.other_names   === "string")  qs.add("artist[other_names_string]", options.other_names);
+		if (Array.isArray(options.other_names))         qs.add("artist[other_names_string]", options.other_names.join(" "));
+		if (typeof options.group_name    === "string")  qs.add("artist[group_name]", options.group_name);
 		if (typeof options.urls         === "string")  qs.add("artist[url_string]", options.urls);
 		if (Array.isArray(options.urls))               qs.add("artist[url_string]", options.urls.join("\n"));
 		if (typeof options.notes        === "string")  qs.add("artist[notes]", options.notes);
@@ -204,10 +204,10 @@ export default class Artists {
 	 *
 	 * @param {object} [options]
 	 * @param {number} [options.id] - get a specific artist history entry
-	 * @param {number} [options.artistID] - narrow the results by artist id
-	 * @param {string} [options.artistName] - narrow the results by artist name
-	 * @param {number} [options.updaterID] - narrow the results by updater id
-	 * @param {string} [options.updaterName] - narrow the results by updater name
+	 * @param {string} [options.artist] - narrow the results by artist name
+	 * @param {number} [options.artist_id] - narrow the results by artist id
+	 * @param {number} [options.updater_id] - narrow the results by updater id
+	 * @param {string} [options.updater] - narrow the results by updater name
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @param
@@ -217,10 +217,10 @@ export default class Artists {
 		options = options ?? {};
 		const qs = new FormHelper();
 		if (typeof options.id          === "number")    qs.add("search[id]", options.id);
-		if (typeof options.artistID    === "number")    qs.add("search[artist_id]", options.artistID);
-		if (typeof options.artistName  === "number")    qs.add("search[name]", options.artistName);
-		if (typeof options.updaterID   === "number")    qs.add("search[updater_id]", options.updaterID);
-		if (typeof options.updaterName === "number")    qs.add("search[updater]", options.updaterName);
+		if (typeof options.artist  === "number")    qs.add("search[name]", options.artist);
+		if (typeof options.artist_id    === "number")    qs.add("search[artist_id]", options.artist_id);
+		if (typeof options.updater === "number")    qs.add("search[updater]", options.updater);
+		if (typeof options.updater_id   === "number")    qs.add("search[updater_id]", options.updater_id);
 		if (typeof options.page        !== "undefined") qs.add("page", options.page);
 		if (typeof options.limit       === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<ArtistHistoryProperties> | { artist_versions: []; }>(`/artist_versions.json?${qs.build()}`);

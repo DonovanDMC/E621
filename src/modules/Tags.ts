@@ -68,9 +68,9 @@ export default class Tags {
 	 * @param {object} [options]
 	 * @param {string} [options.name] - narrow the results by the name of the tag
 	 * @param {number} [options.category] - narrow the results by the category of the tag
-	 * @param {boolean} [options.hideEmpty] - narrow the results by the tag being empty or not
-	 * @param {boolean} [options.hasWiki] - narrow the results by the tag having a wiki or not
-	 * @param {boolean} [options.hasArtist] - narrow the results by the tag having an artist or not
+	 * @param {boolean} [options.hide_empty] - narrow the results by the tag being empty or not
+	 * @param {boolean} [options.has_wiki] - narrow the results by the tag having a wiki or not
+	 * @param {boolean} [options.has_artist] - narrow the results by the tag having an artist or not
 	 * @param {SearchTagsOrder} [options.order] - the order of the results
 	 * @param {number} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
@@ -79,14 +79,14 @@ export default class Tags {
 	async search(options?: SearchTagsOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.name      === "string")  qs.add("search[name_matches]", options.name);
-		if (typeof options.category  === "string")  qs.add("search[category]", options.category);
-		if (typeof options.hideEmpty === "boolean") qs.add("search[hide_empty]", options.hideEmpty);
-		if (typeof options.hasWiki   === "string")  qs.add("search[has_wiki]", options.hasWiki);
-		if (typeof options.hasArtist === "string")  qs.add("search[has_artist]", options.hasArtist);
-		if (typeof options.order     === "string")  qs.add("search[order]", options.order);
-		if (typeof options.page      === "number")  qs.add("page", options.page);
-		if (typeof options.limit     === "number")  qs.add("limit", options.limit);
+		if (typeof options.name       === "string")  qs.add("search[name_matches]", options.name);
+		if (typeof options.category   === "string")  qs.add("search[category]", options.category);
+		if (typeof options.hide_empty === "boolean") qs.add("search[hide_empty]", options.hide_empty);
+		if (typeof options.has_wiki   === "string")  qs.add("search[has_wiki]", options.has_wiki);
+		if (typeof options.has_artist === "string")  qs.add("search[has_artist]", options.has_artist);
+		if (typeof options.order      === "string")  qs.add("search[order]", options.order);
+		if (typeof options.page       === "number")  qs.add("page", options.page);
+		if (typeof options.limit      === "number")  qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<TagProperties>>(`/tags.json?${qs.build()}`);
 		if (res && !Array.isArray(res) && "tags" in res) return [];
 		return res!.map(info => new Tag(this.main, info));
@@ -127,8 +127,8 @@ export default class Tags {
 	 * @param {object} [options]
 	 * @param {number} [options.id] - get a specific tag type history entry
 	 * @param {string} [options.tag] - narrow the results by the tag name
-	 * @param {string} [options.userName] - narrow the results by the editor name
-	 * @param {number} [options.userID] - narrow the results by the editor id
+	 * @param {string} [options.user] - narrow the results by the editor name
+	 * @param {number} [options.user_id] - narrow the results by the editor id
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @param
@@ -137,12 +137,12 @@ export default class Tags {
 	async searchHistory(options?: SearchTagHistoryOptions) {
 		options = options ?? {};
 		const qs = new FormHelper();
-		if (typeof options.id       === "number")    qs.add("search[id]", options.id);
-		if (typeof options.tag      === "string")    qs.add("search[tag]", options.tag);
-		if (typeof options.userName === "string")    qs.add("search[user_name]", options.userName);
-		if (typeof options.userID   === "number")    qs.add("search[user_id]", options.userID);
-		if (typeof options.page     !== "undefined") qs.add("page", options.page);
-		if (typeof options.limit    === "number")    qs.add("limit", options.limit);
+		if (typeof options.id        === "number")    qs.add("search[id]", options.id);
+		if (typeof options.tag       === "string")    qs.add("search[tag]", options.tag);
+		if (typeof options.user      === "string")    qs.add("search[user_name]", options.user);
+		if (typeof options.user_id   === "number")    qs.add("search[user_id]", options.user_id);
+		if (typeof options.page      !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit     === "number")    qs.add("limit", options.limit);
 		const res = await this.main.request.get<Array<TagHistoryProperties> | { tag_type_versions: []; }>(`/tag_type_versions.json?${qs.build()}`);
 		if (res && !Array.isArray(res) && "tag_type_versions" in res) return [];
 		return res!.map(info => new TagHistory(this.main, info));

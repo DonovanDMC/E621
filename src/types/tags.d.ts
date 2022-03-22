@@ -18,9 +18,9 @@ export interface SearchTagsOptions extends GenericSearchOptions {
 	name?: string;
 	category?: number;
 	order?: SearchTagsOrder;
-	hideEmpty?: boolean;
-	hasWiki?: boolean;
-	hasArtist?: boolean;
+	hide_empty?: boolean;
+	has_wiki?: boolean;
+	has_artist?: boolean;
 }
 
 export interface ModifyTagOptions {
@@ -43,8 +43,8 @@ export interface TagHistoryProperties {
 export interface SearchTagHistoryOptions extends GenericSearchOptions {
 	id?: number;
 	tag?: string;
-	userName?: string;
-	userID?: number;
+	user?: string;
+	user_id?: number;
 }
 
 interface AutocompleteResult {

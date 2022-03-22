@@ -35,10 +35,10 @@ export default class Artist implements ArtistProperties {
 	 *
 	 * @param {object} options
 	 * @param {string} [options.name] - the name of artist (requires janitor)
-	 * @param {number} [options.linkedUserID] - the id of the user associated with this artist (requires janitor)
+	 * @param {number} [options.linked_user_id] - the id of the user associated with this artist (requires janitor)
 	 * @param {boolean} [options.locked] - if the artist should be locked (requires janitor)
-	 * @param {(Array<string> | string)} [options.otherNames] - the other names for this artist
-	 * @param {string} [options.groupName] - the group name of this artist
+	 * @param {(Array<string> | string)} [options.other_names] - the other names for this artist
+	 * @param {string} [options.group_name] - the group name of this artist
 	 * @param {(Array<string> | string)} [options.urls] - the urls associated with this artist
 	 * @param {string} [options.notes] - notes for this artist
 	 * @returns {Promise<Artist>}

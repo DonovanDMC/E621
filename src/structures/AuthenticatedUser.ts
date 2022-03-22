@@ -63,31 +63,31 @@ export default class AuthenticatedUser extends User implements AuthenticatedUser
 	 * * Requires Authentication
 	 *
 	 * @param {object} options
-	 * @param {(number | null)} [options.avatarID] - post id to use as avatar
+	 * @param {(number | null)} [options.avatar_id] - post id to use as avatar
 	 * @param {string} [options.about] - about section
 	 * @param {string} [options.artinfo] - commissions section
 	 * @param {Timezones} [options.timezone] - timezone
-	 * @param {boolean} [options.receiveEmailNotifications] - if you should receive notifications via email
-	 * @param {number} [options.commentThreshold] - the threshold at which comments should be hidden (usually negative)
-	 * @param {DefaultImageSize} [options.defaultImageSize] - default image display size
-	 * @param {number} [options.postsPerPage] - default posts per page, between 25 and 250
-	 * @param {boolean} [options.safeMode] - toggle safe mode
-	 * @param {(Array<string> | string)} [options.blacklistedTags] - the list of tags to hide in searches
-	 * @param {boolean} [options.blacklistUsers] - hide things from users that have been blocked from the site
-	 * @param {boolean} [options.coloredUsernames] - Color each user's name depending on their level. See the [legend](https://e621.net/wiki_pages/e621:colored_usernames) for what the colors are.
-	 * @param {boolean} [options.enableKeyboardShortcuts] - Enables the use of keyboard shortcuts for a majority of site actions related to posts. A list of keyboard shortcuts is available [here](https://e621.net/static/keyboard_shortcuts).
-	 * @param {boolean} [options.enableAutoComplete] - Enables auto-completion on most tag and user entry fields.
-	 * @param {boolean} [options.enablePrivacyMode] - Makes a cursory effort to prevent showing your favorites to others users. Has not been well tested.
-	 * @param {boolean} [options.enablePostStatistics] - Show post statistics below posts on search pages.
-	 * @param {boolean} [options.descriptionCollapsed] - Don't expand post descriptions on page load.
-	 * @param {boolean} [options.hideComments] - Do not show the comments section on post pages.
-	 * @param {boolean} [options.disableCroppedThumbnails] - Prevent other users from sending you DMails. You will be prevented from sending DMails to non-staff members while this option is enabled. Staff are always allowed to send you DMails.
-	 * @param {boolean} [options.showOwnHiddenComments] - Disables displaying cropped thumbnails on the mobile layout of the site in favor of scaled thumbnails. Has no effect on the desktop site.
-	 * @param {boolean} [options.enableCompactUploader] - Show your own hidden comments on comment pages.
-	 * @param {string} [options.dmailFilter] - A list of banned words (space delimited). Any dmail you receive with a banned word will automatically be deleted.
-	 * @param {string} [options.frequentTags] - A list of tags that you use often. They will appear when using the list of Related Tags.
-	 * @param {boolean} [options.disableResponsiveMode] - Disable alternative layout for mobile and tablet.
-	 * @param {string} [options.customCSSStyle] - Style to apply to the whole site.
+	 * @param {boolean} [options.receive_email_notifications] - if you should receive notifications via email
+	 * @param {number} [options.comment_threshold] - the threshold at which comments should be hidden (usually negative)
+	 * @param {DefaultImageSize} [options.default_image_size] - default image display size
+	 * @param {number} [options.posts_per_page] - default posts per page, between 25 and 250
+	 * @param {boolean} [options.safe_mode] - toggle safe mode
+	 * @param {(Array<string> | string)} [options.blacklisted_tags] - the list of tags to hide in searches
+	 * @param {boolean} [options.blacklist_users] - hide things from users that have been blocked from the site
+	 * @param {boolean} [options.colored_usernames] - Color each user's name depending on their level. See the [legend](https://e621.net/wiki_pages/e621:colored_usernames) for what the colors are.
+	 * @param {boolean} [options.enable_keyboard_shortcuts] - Enables the use of keyboard shortcuts for a majority of site actions related to posts. A list of keyboard shortcuts is available [here](https://e621.net/static/keyboard_shortcuts).
+	 * @param {boolean} [options.enable_auto_complete] - Enables auto-completion on most tag and user entry fields.
+	 * @param {boolean} [options.enable_privacy_mode] - Makes a cursory effort to prevent showing your favorites to others users. Has not been well tested.
+	 * @param {boolean} [options.enable_post_statistics] - Show post statistics below posts on search pages.
+	 * @param {boolean} [options.description_collapsed] - Don't expand post descriptions on page load.
+	 * @param {boolean} [options.hide_comments] - Do not show the comments section on post pages.
+	 * @param {boolean} [options.disable_cropped_thumbnails] - Prevent other users from sending you DMails. You will be prevented from sending DMails to non-staff members while this option is enabled. Staff are always allowed to send you DMails.
+	 * @param {boolean} [options.show_own_hidden_comments] - Disables displaying cropped thumbnails on the mobile layout of the site in favor of scaled thumbnails. Has no effect on the desktop site.
+	 * @param {boolean} [options.enable_compact_uploader] - Show your own hidden comments on comment pages.
+	 * @param {string} [options.dmail_filter] - A list of banned words (space delimited). Any dmail you receive with a banned word will automatically be deleted.
+	 * @param {string} [options.frequent_tags] - A list of tags that you use often. They will appear when using the list of Related Tags.
+	 * @param {boolean} [options.disable_responsive_mode] - Disable alternative layout for mobile and tablet.
+	 * @param {string} [options.custom_css_style] - Style to apply to the whole site.
 	 * @returns {Promise<null>}
 	 */
 	async edit(options: EditSelfUserOptions) {

@@ -86,9 +86,9 @@ export interface SearchUsersOptions extends GenericSearchOptions {
 	/** requires admin */
 	email?: string;
 	level?: number;
-	minLevel?: number;
-	maxLevel?: number;
-	unrestrictedUploads?: boolean;
+	min_level?: number;
+	max_level?: number;
+	unrestricted_uploads?: boolean;
 	approver?: boolean;
 	order?: SearchUsersOrder;
 }
@@ -247,31 +247,31 @@ export type Timezones =
 "Tokelau Is."; // (GMT+13:00) Tokelau Is.
 
 export interface EditSelfUserOptions {
-	avatarID?: number | null;
+	avatar_id?: number | null;
 	about?: string;
 	artinfo?: string;
 	timezone?: Timezones;
-	receiveEmailNotifications?: boolean;
-	commentThreshold?: number;
-	defaultImageSize?: DefaultImageSize;
+	receive_email_notifications?: boolean;
+	comment_threshold?: number;
+	default_image_size?: DefaultImageSize;
 	/** between 25 and 250 */
-	postsPerPage?: number;
-	safeMode: boolean;
-	blacklistedTags?: string | Array<string>;
-	blacklistUsers?: boolean;
+	posts_per_page?: number;
+	safe_mode: boolean;
+	blacklisted_tags?: string | Array<string>;
+	blacklist_users?: boolean;
 	// advanced
-	coloredUsernames?: boolean;
-	enableKeyboardShortcuts?: boolean;
-	enableAutoComplete?: boolean;
-	enablePrivacyMode?: boolean;
-	enablePostStatistics?: boolean;
-	descriptionCollapsed?: boolean;
-	hideComments?: boolean;
-	disableCroppedThumbnails?: boolean;
-	showOwnHiddenComments?: boolean;
-	enableCompactUploader?: boolean;
-	dmailFilter?: string;
-	frequentTags?: string;
-	disableResponsiveMode?: boolean;
-	customCSSStyle?: string;
+	colored_usernames?: boolean;
+	enable_keyboard_shortcuts?: boolean;
+	enable_auto_complete?: boolean;
+	enable_privacy_mode?: boolean;
+	enable_post_statistics?: boolean;
+	description_collapsed?: boolean;
+	hide_comments?: boolean;
+	disable_cropped_thumbnails?: boolean;
+	show_own_hidden_comments?: boolean;
+	enable_compact_uploader?: boolean;
+	dmail_filter?: string;
+	frequent_tags?: string;
+	disable_responsive_mode?: boolean;
+	custom_css_style?: string;
 }

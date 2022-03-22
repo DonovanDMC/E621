@@ -107,7 +107,7 @@ export default class PostSets {
 	 * @param {string} options.shortname - the shortname of the set
 	 * @param {string} [options.description] - the description of the set
 	 * @param {boolean} [options.public] - if the set is public
-	 * @param {boolean} [options.transferOnDeletion] - if deleted posts should be replaced with parents
+	 * @param {boolean} [options.transfer_on_deletion] - if deleted posts should be replaced with parents
 	 * @returns {Promise<PostSet>}
 	 */
 	async create(options: CreatePostSetOptions) {
@@ -118,7 +118,7 @@ export default class PostSets {
 		if (typeof options.shortname          === "string")  qs.add("post_set[shortname]", options.shortname);
 		if (typeof options.description        === "string")  qs.add("post_set[description]", options.description);
 		if (typeof options.public             === "boolean") qs.add("post_set[is_public]", options.public);
-		if (typeof options.transferOnDeletion === "boolean") qs.add("post_set[transfer_on_delete]", options.transferOnDeletion);
+		if (typeof options.transfer_on_deletion === "boolean") qs.add("post_set[transfer_on_delete]", options.transfer_on_deletion);
 		const res = await this.main.request.post<PostSetProperties>("/post_sets.json", qs.build());
 		return new PostSet(this.main, res!);
 	}
@@ -134,7 +134,7 @@ export default class PostSets {
 	 * @param {string} [options.shortname] - the short name of the set
 	 * @param {string} [options.description] - the description of the set
 	 * @param {boolean} [options.active] - if the set is public
-	 * @param {boolean} [options.transferOnDeletion] - if deleted posts should be replaced with parents
+	 * @param {boolean} [options.transfer_on_deletion] - if deleted posts should be replaced with parents
 	 * @returns {Promise<PostSet>}
 	 */
 	async modify(id: number, options: ModifyPostSetOptions) {
@@ -145,7 +145,7 @@ export default class PostSets {
 		if (typeof options.shortname          === "string")  qs.add("post_set[shortname]", options.shortname);
 		if (typeof options.description        === "string")  qs.add("post_set[description]", options.description);
 		if (typeof options.public             === "boolean") qs.add("post_set[is_public]", options.public);
-		if (typeof options.transferOnDeletion === "boolean") qs.add("post_set[transfer_on_delete]", options.transferOnDeletion);
+		if (typeof options.transfer_on_deletion === "boolean") qs.add("post_set[transfer_on_delete]", options.transfer_on_deletion);
 		const res = await this.main.request.patch<PostSetProperties>(`/post_sets/${id}.json`, qs.build());
 		return new PostSet(this.main, res!);
 	}

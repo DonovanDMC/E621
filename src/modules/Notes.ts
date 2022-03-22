@@ -153,7 +153,7 @@ export default class Notes {
 	 *
 	 * @param {object} [options]
 	 * @param {number} [options.id] - get a specific notes history entry
-	 * @param {number} [options.noteId] - narrow the results by the note id
+	 * @param {number} [options.note_id] - narrow the results by the note id
 	 * @param {number} [options.post_id] - narrow the results by the id of the post the note is on
 	 * @param {string} [options.body] - narrow the results by the content
 	 * @param {(number |`${"" | "a" | "b"}${number}`)} [options.page] - page of results to get
@@ -165,7 +165,7 @@ export default class Notes {
 		options = options ?? {};
 		const qs = new FormHelper();
 		if (typeof options.id     === "number")    qs.add("search[id]", options.id);
-		if (typeof options.noteId === "number")    qs.add("search[note_id]", options.noteId);
+		if (typeof options.note_id === "number")    qs.add("search[note_id]", options.note_id);
 		if (typeof options.post_id === "number")    qs.add("search[post_id]", options.post_id);
 		if (typeof options.body   === "string")    qs.add("search[body_matches]", options.body);
 		if (typeof options.page   !== "undefined") qs.add("page", options.page);

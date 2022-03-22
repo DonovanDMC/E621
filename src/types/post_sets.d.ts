@@ -27,7 +27,7 @@ export interface CreatePostSetOptions {
 	shortname: string;
 	description?: string;
 	public?: boolean;
-	transferOnDeletion?: boolean;
+	transfer_on_deletion?: boolean;
 }
 
 export type ModifyPostSetOptions = Partial<CreatePostSetOptions>;

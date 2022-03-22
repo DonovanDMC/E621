@@ -1,6 +1,7 @@
 import type Post from "./Post";
 import type { TagProperties, SearchPostsOptions, ModifyTagOptions, SearchTagHistoryOptions } from "../types";
 import type E621 from "..";
+import type { TagHistory } from "../../build/src";
 
 export default class Tag implements TagProperties {
 	private main: E621;
@@ -74,14 +75,14 @@ export default class Tag implements TagProperties {
 	 * Search this tag's history
 	 *
 	 * @param {object} [options]
-	 * @param {number} [options.uerName] - page of results to get
-	 * @param {number} [options.userID] - page of results to get
+	 * @param {number} [options.user] - page of results to get
+	 * @param {number} [options.user_id] - page of results to get
 	 * @param {number} [options.page] - page of results to get
 	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @param
-	 * @returns {Promise<Array<PoolHistory>>}
+	 * @returns {Promise<Array<TagHistory>>}
 	 */
-	async getHistory(options?: Omit<SearchTagHistoryOptions, "tag">) {
-		return this.main.pools.searchHistory.call(this.main.pools, { pool: this.id, ...options });
+	async getHistory(options?: Omit<SearchTagHistoryOptions, "tag" | "id">) {
+		return this.main.tags.searchHistory.call(this.main.tags, { id: this.id, ...options });
 	}
 }

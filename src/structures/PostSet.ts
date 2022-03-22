@@ -76,7 +76,7 @@ export default class PostSet implements PostSetProperties {
 	 * @param {string} [options.shortname] - the short name of the set
 	 * @param {string} [options.escription] - the description of the set
 	 * @param {boolean} [options.active] - if the set is public
-	 * @param {boolean} [options.transferOnDeletion] - if deleted posts should be replaced with parents
+	 * @param {boolean} [options.transfer_on_deletion] - if deleted posts should be replaced with parents
 	 * @returns {Promise<PostSet>}
 	 */
 	async modify(options: ModifyPostSetOptions) {

@@ -30,11 +30,11 @@ export default class PostHistory implements PostHistoryProperties {
 	obsolete_removed_tags: string;
 	unchanged_tags: string;
 	extra: Readonly<Record<
-	"tags" | "lockedTags" | "addedTags" |
-	"removedTags" | "addedLockedTags" | "removedLockedTags" |
-	"obsoleteAddedTags" | "obsoleteRemovedTags" | "unchangedTags" |
-	"sources" | "addedSources" | "removedSources",
-	Array<string>> & Record<"oldRating" | "newRating", Ratings | null>>;
+	"tags" | "locked_tags" | "added_tags" |
+	"removed_tags" | "added_locked_tags" | "removed_locked_tags" |
+	"obsolete_added_tags" | "obsolete_removed_tags" | "unchanged_tags" |
+	"sources" | "added_sources" | "removed_sources",
+	Array<string>> & Record<"old_rating" | "new_rating", Ratings | null>>;
 	constructor(main: E621, info: PostHistoryProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
@@ -46,31 +46,31 @@ export default class PostHistory implements PostHistoryProperties {
 
 		this.extra = {
 			get tags() { return info.tags.split(" ").filter(Boolean); },
-			get lockedTags() { return (info.locked_tags || "").split(" "); },
-			get addedTags() { return (info.added_tags || []).filter(Boolean); },
-			get removedTags() { return (info.removed_tags || []).filter(Boolean); },
-			get addedLockedTags() { return (info.added_locked_tags || []).filter(Boolean); },
-			get removedLockedTags() { return (info.added_locked_tags || []).filter(Boolean); },
-			get obsoleteAddedTags() { return (info.obsolete_added_tags || "").split(" ").filter(Boolean); },
-			get obsoleteRemovedTags() { return (info.obsolete_removed_tags || "").split(" ").filter(Boolean); },
-			get unchangedTags() { return (info.unchanged_tags || "").split(" ").filter(Boolean); },
+			get locked_tags() { return (info.locked_tags || "").split(" "); },
+			get added_tags() { return (info.added_tags || []).filter(Boolean); },
+			get removed_tags() { return (info.removed_tags || []).filter(Boolean); },
+			get added_locked_tags() { return (info.added_locked_tags || []).filter(Boolean); },
+			get removed_locked_tags() { return (info.added_locked_tags || []).filter(Boolean); },
+			get obsolete_added_tags() { return (info.obsolete_added_tags || "").split(" ").filter(Boolean); },
+			get obsolete_removed_tags() { return (info.obsolete_removed_tags || "").split(" ").filter(Boolean); },
+			get unchanged_tags() { return (info.unchanged_tags || "").split(" ").filter(Boolean); },
 			get sources() { return (info.source || "").split("\n").filter(Boolean); },
 			// convinence method
-			get oldRating() {
+			get old_rating() {
 				if (!info.rating_changed) return null;
-				const r = this.removedTags.find(t => t.startsWith("rating:"));
+				const r = this.removed_tags.find(t => t.startsWith("rating:"));
 				return !r ? null : r.replace(/rating:/, "") as "s";
 			},
 			// convinence method
-			get newRating() {
+			get new_rating() {
 				if (!info.rating_changed) return null;
-				const r = this.addedTags.find(t => t.startsWith("rating:"));
+				const r = this.added_tags.find(t => t.startsWith("rating:"));
 				return !r ? null : r.replace(/rating:/, "") as "s";
 			},
 			// convinence method
-			get addedSources() { return (this.addedTags.find(t => t.startsWith("source:"))?.replace(/source:/, "") ?? "").split("\n"); },
+			get added_sources() { return (this.added_tags.find(t => t.startsWith("source:"))?.replace(/source:/, "") ?? "").split("\n"); },
 			// convinence method
-			get removedSources() { return (this.removedTags.find(t => t.startsWith("source:"))?.replace(/source:/, "") ?? "").split("\n"); }
+			get removed_sources() { return (this.removed_tags.find(t => t.startsWith("source:"))?.replace(/source:/, "") ?? "").split("\n"); }
 		};
 	}
 

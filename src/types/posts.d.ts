@@ -65,19 +65,19 @@ export type CreatePostOptions = {
 	/** required, even if empty */
 	sources: Array<string> | string;
 	description?: string;
-	parentID?: number;
-	refererURL?: string;
-	md5Confirmation?: string;
+	parent_id?: number;
+	referer_url?: string;
+	md5_confirmation?: string;
 	/** requires approver */
-	asPending?: boolean;
+	as_pending?: boolean;
 	/** requires privileged */
-	ratingLocked?: boolean;
+	rating_locked?: boolean;
 	/** requires admin */
-	lockedTags?: Array<string> | string;
+	locked_tags?: Array<string> | string;
 } & ({
 	file: Buffer;
 } | {
-	fileURL: string;
+	file_url: string;
 });
 
 export interface NewPost {
@@ -87,29 +87,29 @@ export interface NewPost {
 }
 
 export interface ModifyPostOptions {
-	editReason?: string;
-	addTags?: Array<string> | string;
-	removeTags?: Array<string> | string;
-	addSources?: Array<string> | string;
-	removeSources?: Array<string> | string;
+	edit_reason?: string;
+	add_tags?: Array<string> | string;
+	remove_tags?: Array<string> | string;
+	add_sources?: Array<string> | string;
+	remove_sources?: Array<string> | string;
 	rating?: Ratings;
 	description?: string;
-	parentID?: number;
-	hasEmbeddedNotes?: boolean;
+	parent_id?: number;
+	has_embedded_notes?: boolean;
 	/** requires privileged */
-	ratingLocked?: boolean;
+	rating_locked?: boolean;
 	/** requires janitor */
-	noteLocked?: boolean;
+	note_locked?: boolean;
 	/** requires admin */
-	statusLocked?: boolean;
+	status_locked?: boolean;
 	/** requires admin */
-	hideFromAnonymous?: boolean;
+	hide_from_anonymous?: boolean;
 	/** requires admin */
-	hideFromSearch?: boolean;
+	hide_from_search?: boolean;
 	/** requires janitor */
-	backgroundColor?: string;
+	background_color?: string;
 	/** requires admin */
-	lockedTags?: Array<string> | string;
+	locked_tags?: Array<string> | string;
 }
 
 export interface PostVoteResult {
@@ -149,20 +149,20 @@ export interface PostHistoryProperties {
 export interface SearchPostHistoryOptions extends GenericSearchOptions {
 	id?: number;
 	user?: string;
-	userID?: number;
+	user_id?: number;
 	post?: number;
 	reason?: string;
 	description?: string;
-	ratingChangedTo?: Ratings;
-	finalRating?: Ratings;
+	rating_changed_to?: Ratings;
+	final_rating?: Ratings;
 	parent?: number;
-	parentChangedTo?: number;
-	finalTags?: Array<string> | string;
-	addedTags?: Array<string> | string;
-	removedTags?: Array<string> | string;
-	finalLockedTags?: Array<string> | string;
-	addedLockedTags?: Array<string> | string;
-	removedLockedTags?: Array<string> | string;
+	parent_changed_to?: number;
+	final_tags?: Array<string> | string;
+	added_tags?: Array<string> | string;
+	removed_tags?: Array<string> | string;
+	final_locked_tags?: Array<string> | string;
+	added_locked_tags?: Array<string> | string;
+	removed_locked_tags?: Array<string> | string;
 	source?: string;
 }
 

@@ -62,5 +62,5 @@ export interface WikiPageHistoryProperties {
 
 export interface SearchWikiPageHistoryOptions extends GenericSearchOptions {
 	id?: number;
-	wikiPage?: number;
+	wiki_page?: number;
 }

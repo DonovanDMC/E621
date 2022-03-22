@@ -37,5 +37,14 @@ export default class PostFlag implements PostFlagProperties {
 	 */
 	async getPost() { return this.main.posts.get.call(this.main.posts, this.post_id); }
 
+	/**
+	 * Unflag this post
+	 *
+	 * * Requires Authentication
+	 *
+	 * * Requires Janitor
+	 *
+	 * @returns {Promise<null>}
+	 */
 	async delete() { return this.main.postFlags.delete.call(this.main.posts, this.post_id); }
 }

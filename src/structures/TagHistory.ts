@@ -1,6 +1,7 @@
 import type User from "./User";
 import type { TagHistoryProperties } from "../types";
 import type E621 from "..";
+import { Tag } from "../../build/src";
 
 export default class TagHistory implements TagHistoryProperties {
 	private main: E621;

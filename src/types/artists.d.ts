@@ -41,12 +41,12 @@ export interface SearchArtistsOptions extends GenericSearchOptions {
 export interface CreateArtistOptions {
 	name: string;
 	/** requires janitor */
-	linkedUserID?: number;
+	linked_user_id?: number;
 	/** requires janitor */
 	locked?: boolean;
-	otherNames?: Array<string> | string;
+	other_names?: Array<string> | string;
 	/** This is [planned to be removed](https://github.com/zwagoth/e621ng/pull/357) */
-	groupName?: string;
+	group_name?: string;
 	urls?: Array<string> | string;
 	notes?: string;
 }
@@ -70,13 +70,13 @@ export interface ArtistHistoryProperties {
 
 export interface SearchArtistHistoryOptions extends GenericSearchOptions {
 	id?: number;
-	artistID?: number;
-	artistName?: string;
-	updaterID?: number;
-	updaterName?: string;
+	artist?: string;
+	artist_id?: number;
+	updater?: string;
+	updater_id?: number;
 }
 
 interface DoNotPostList {
 	dnp: Array<string>;
-	conditionalDNP: Array<string>;
+	conditional_dnp: Array<string>;
 }
