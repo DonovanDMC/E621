@@ -38,10 +38,10 @@ export default class PostHistory implements PostHistoryProperties {
 	constructor(main: E621, info: PostHistoryProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
-			value: main,
+			value:        main,
 			configurable: false,
-			enumerable: false,
-			writable: false
+			enumerable:   false,
+			writable:     false
 		});
 
 		this.extra = {

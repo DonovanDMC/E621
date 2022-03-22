@@ -19,10 +19,10 @@ export default class WikiPageHistory implements WikiPageHistoryProperties {
 	constructor(main: E621, info: WikiPageHistoryProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
-			value: main,
+			value:        main,
 			configurable: false,
-			enumerable: false,
-			writable: false
+			enumerable:   false,
+			writable:     false
 		});
 	}
 

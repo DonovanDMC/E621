@@ -22,13 +22,13 @@ export default class Notes {
 					return !this.main.options.authUser || !this.main.options.authKey ? null : `Basic ${Buffer.from(`${this.main.options.authUser}:${this.main.options.authKey}`).toString("base64")}`;
 				},
 				configurable: false,
-				enumerable: false
+				enumerable:   false
 			},
 			main: {
-				value: main,
+				value:        main,
 				configurable: false,
-				enumerable: false,
-				writable: false
+				enumerable:   false,
+				writable:     false
 			}
 		});
 	}

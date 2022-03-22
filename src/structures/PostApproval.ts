@@ -13,10 +13,10 @@ export default class PostApproval implements PostApprovalProperties {
 	constructor(main: E621, info: PostApprovalProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
-			value: main,
+			value:        main,
 			configurable: false,
-			enumerable: false,
-			writable: false
+			enumerable:   false,
+			writable:     false
 		});
 	}
 

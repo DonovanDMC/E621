@@ -1,7 +1,7 @@
 import type User from "./User";
+import Tag from "./Tag";
 import type { TagHistoryProperties } from "../types";
 import type E621 from "..";
-import { Tag } from "../../build/src";
 
 export default class TagHistory implements TagHistoryProperties {
 	private main: E621;
@@ -16,10 +16,10 @@ export default class TagHistory implements TagHistoryProperties {
 	constructor(main: E621, info: TagHistoryProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
-			value: main,
+			value:        main,
 			configurable: false,
-			enumerable: false,
-			writable: false
+			enumerable:   false,
+			writable:     false
 		});
 	}
 

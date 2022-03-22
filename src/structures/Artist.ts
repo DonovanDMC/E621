@@ -20,10 +20,10 @@ export default class Artist implements ArtistProperties {
 	constructor(main: E621, info: ArtistProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
-			value: main,
+			value:        main,
 			configurable: false,
-			enumerable: false,
-			writable: false
+			enumerable:   false,
+			writable:     false
 		});
 	}
 

@@ -19,10 +19,10 @@ export default class PostSet implements PostSetProperties {
 	constructor(main: E621, info: PostSetProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
-			value: main,
+			value:        main,
 			configurable: false,
-			enumerable: false,
-			writable: false
+			enumerable:   false,
+			writable:     false
 		});
 	}
 

@@ -1,7 +1,7 @@
 import type Post from "./Post";
+import type TagHistory from "./TagHistory";
 import type { TagProperties, SearchPostsOptions, ModifyTagOptions, SearchTagHistoryOptions } from "../types";
 import type E621 from "..";
-import type { TagHistory } from "../../build/src";
 
 export default class Tag implements TagProperties {
 	private main: E621;
@@ -18,10 +18,10 @@ export default class Tag implements TagProperties {
 	constructor(main: E621, info: TagProperties) {
 		Object.assign(this, info);
 		Object.defineProperty(this, "main", {
-			value: main,
+			value:        main,
 			configurable: false,
-			enumerable: false,
-			writable: false
+			enumerable:   false,
+			writable:     false
 		});
 	}
 
@@ -47,8 +47,8 @@ export default class Tag implements TagProperties {
 	 */
 	async getAllPosts(extraTags?: Array<string>, lastID?: number, lastPosts: Array<Post> = []): Promise<Array<Post>> {
 		const posts = await this.main.posts.search({
-			tags: [this.name, ...(extraTags ?? [])],
-			page: lastID === undefined ? undefined : `b${lastID}`,
+			tags:  [this.name, ...(extraTags ?? [])],
+			page:  lastID === undefined ? undefined : `b${lastID}`,
 			limit: this.main.POST_LIMIT_PER_REQUEST
 		});
 		lastPosts.push(...posts);

@@ -28,13 +28,13 @@ export default class Posts {
 					return !this.main.options.authUser || !this.main.options.authKey ? null : `Basic ${Buffer.from(`${this.main.options.authUser}:${this.main.options.authKey}`).toString("base64")}`;
 				},
 				configurable: false,
-				enumerable: false
+				enumerable:   false
 			},
 			main: {
-				value: main,
+				value:        main,
 				configurable: false,
-				enumerable: false,
-				writable: false
+				enumerable:   false,
+				writable:     false
 			}
 		});
 	}
@@ -102,15 +102,15 @@ export default class Posts {
 	 * @param {boolean} [options.as_pending] - upload as pending (requires approver)
 	 * @param {boolean} [options.rating_locked] - upload as rating locked (requires privileged)
 	 * @param {(Array<string> | string)} [options.locked_tags] - tags to lock on the post (requires admin)
-	 * @param {Buffer} [options.file] - file upload (mutually exclusive with fileURL, not well tested)
+	 * @param {Buffer} [options.file] - file upload (mutually exclusive with file_url, not well tested)
 	 * @param {string} [options.file_url] - url of file to upload (mutually exclusive with file)
 	 * @returns {Promise<number>}
 	 */
 	async create(options: CreatePostOptions) {
 		this.main.request.authCheck.call(this, "Posts#create");
 		if (!options) throw new Error("options is required for Posts#create");
-		if (!("fileURL" in options || "file" in options)) throw new Error("one of options.file, options.fileURL is required for Posts#create");
-		if ("fileURL" in options && "file" in options) process.emitWarning("only one of options.file, options.fileURL should be provided to Posts#create. options.fileURL overrides options.file.");
+		if (!("file_url" in options || "file" in options)) throw new Error("one of options.file, options.file_url is required for Posts#create");
+		if ("file_url" in options && "file" in options) process.emitWarning("only one of options.file, options.file_url should be provided to Posts#create. options.file_url overrides options.file.");
 		// e621 requires sources to be provided
 		if (!options.sources) options.sources = "";
 		const qs = new FormHelper();
