@@ -92,7 +92,7 @@ export default class PostFlags {
 	 */
 	async create(options: CreatePostFlagOptions) {
 		this.main.request.authCheck.call(this, "PostFlag#create");
-		if (!options) throw new Error("options is required in Notes#create");
+		if (!options) throw new Error("options is required in PostFlags#create");
 		const qs = new FormHelper()
 			.add("post_flag[post_id]", options.post_id)
 			.add("post_flag[reason_name]", options.reason_name);

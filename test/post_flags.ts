@@ -23,7 +23,7 @@ describe("Post Flags", function() {
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
-	it("search post sets by resolved", async function() {
+	it("search post flags by resolved", async function() {
 		const searchTrue = await E6Client.postFlags.search({ resolved: true });
 		const searchFalse = await E6Client.postFlags.search({ resolved: false });
 		expect(searchTrue.length, "resolved=true").length.to.not.equal(0, "true search returned zero results");

@@ -3,8 +3,9 @@
 - **Future Plans**
 - [E621 Search Inconsistencies](E621SearchInconsistencies.md)
 - [Artists](Artists.md)
+- [Blips](Blips.md)
 - [Pools](Pools.md)
-- [Pool Flags](PoolFlags.md)
+- [Post Flags](PostFlags.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)
@@ -16,7 +17,6 @@
 
 |                               Feature                               | Planned |
 |:-------------------------------------------------------------------:|:-------:|
-|                   [Blips](https://e621.net/blips)                   |    ✔️    |
 |               [Takedowns](https://e621.net/takedowns)               |    ✔️    |
 |    [Bulk Update Requests](https://e621.net/bulk_update_requests)    |    ✔️    |
 |        [Tag Implications](https://e621.net/tag_implications)        |    ✔️    |
@@ -38,6 +38,7 @@
 |         [Deleted Posts](https://e621.net/deleted_posts)[^1]         |    ✖️    |
 |     [Post Replacements](https://e621.net/post_replacements)[^1]     |    ✖️    |
 |                 [Stats](https://e621.net/stats)[^1]                 |    ✖️    |
+|      [Edit Histories](https://e621.net/edit_histories)[^1][^2]      |    ✖️    |
 | [Post Report Reasons](https://e621.net/post_report_reasons)[^1][^2] |    ✖️    |
 |        [Post Appeals](https://e621.net/post_appeals)[^2][^4]        |    ✖️    |
 

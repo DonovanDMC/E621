@@ -83,6 +83,7 @@ export interface GenericSearchOptions {
 }
 
 export * from "./artists";
+export * from "./blips";
 export * from "./notes";
 export * from "./pools";
 export * from "./post_flags";

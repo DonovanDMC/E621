@@ -2,6 +2,7 @@ import type { Options, InstanceOptions, ConstructedOptions } from "./types";
 import RequestHandler from "./util/RequestHandler";
 // Modules
 import Artists from "./modules/Artists";
+import Blips from "./modules/Blips";
 import Notes from "./modules/Notes";
 import Pools from "./modules/Pools";
 import Posts from "./modules/Posts";
@@ -14,6 +15,7 @@ import WikiPages from "./modules/WikiPages";
 // Structures
 import Artist from "./structures/Artist";
 import ArtistHistory from "./structures/ArtistHistory";
+import Blip from "./structures/Blip";
 import Note from "./structures/Note";
 import NoteHistory from "./structures/NoteHistory";
 import AuthenticatedUser from "./structures/AuthenticatedUser";
@@ -41,6 +43,7 @@ export default class E621 {
 	POST_LIMIT_PER_REQUEST = 320;
 	request = new RequestHandler(this);
 	artists = new Artists(this);
+	blips = new Blips(this);
 	notes = new Notes(this);
 	pools = new Pools(this);
 	posts = new Posts(this);
@@ -141,11 +144,12 @@ E621.Custom = Custom;
 export * from "./types";
 export { APIError } from "./util/RequestHandler";
 export {
+	AuthenticatedUser,
 	Artist,
 	ArtistHistory,
+	Blip,
 	Note,
 	NoteHistory,
-	AuthenticatedUser,
 	Pool,
 	PoolHistory,
 	PostFlag,

@@ -3,8 +3,9 @@
 - [Future Plans](FuturePlans.md)
 - **E621 Search Inconsistencies**
 - [Artists](Artists.md)
+- [Blips](Blips.md)
 - [Pools](Pools.md)
-- [Pool Flags](PoolFlags.md)
+- [Post Flags](PostFlags.md)
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)

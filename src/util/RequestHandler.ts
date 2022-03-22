@@ -8,7 +8,7 @@ import * as http from "http";
 import * as https from "https";
 export class APIError extends Error {
 	name = "APIError";
-	type: "UNEXPECTED" | "PARSE" | "UNKNOWN";
+	type: "UNEXPECTED" | "PARSE" | "UNKNOWN" | "BLIP_OLD";
 	statusCode: number;
 	statusMessage: string;
 	method: string;
@@ -19,6 +19,7 @@ export class APIError extends Error {
 	constructor(type: APIError["type"], statusCode: number, statusMessage: string, method: string, path: string, reqBody: string | null, resBody: unknown | null) {
 		if (type === "UNEXPECTED") super(`Unexpected ${statusCode} ${statusMessage} on "${method.toUpperCase()} ${path}"`);
 		else if (type === "PARSE") super(`Parse Error on "${method.toUpperCase()} ${path}"`);
+		else if (type === "BLIP_OLD") super(`Blips older than 5 minutes cannot be edited on "${method.toUpperCase()} ${path}"`);
 		else super(`Unknown Error on "${method.toUpperCase()} ${path}" (${statusCode} ${statusMessage})`);
 
 		this.name = `APIError[${type || "UNKNOWN"}]`;
@@ -165,6 +166,8 @@ export default class RequestHandler {
 									reject(new APIError("PARSE", req.statusCode, req.statusMessage!, method, path, body ?? null, Buffer.concat(data).toString()));
 								}
 							} else {
+								// Editing a blip older than 5 minutes returns a 302 Found
+								if (req.statusCode === 302 && /\/blips\/\d+\.json/.test(path)) throw new APIError("BLIP_OLD", req.statusCode, req.statusMessage!, method, path, body ?? null, Buffer.concat(data).toString());
 								let d: unknown | string;
 								try {
 									d = Buffer.concat(data).toString();
