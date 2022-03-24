@@ -14,7 +14,7 @@
 - [Users](Users.md)
 - [Wiki Pages](WikiPages.md)
 
-h3. Some of E621's searches are inconsistent with the rest of the site, as such some methods might randomly error if some route doesn't follow standard practices.
+### Some of E621's searches are inconsistent with the rest of the site, as such some methods might randomly error if some route doesn't follow standard practices.
 
 Below is a table of all of the routes I can currently think of and what they return
 
