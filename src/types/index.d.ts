@@ -90,6 +90,7 @@ export * from "./post_flags";
 export * from "./post_sets";
 export * from "./posts";
 export * from "./tags";
+export * from "./takedowns";
 export * from "./user_feedback";
 export * from "./users";
 export * from "./wiki_pages";

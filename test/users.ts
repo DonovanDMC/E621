@@ -53,10 +53,10 @@ describe("Users", function() {
 	// there's anywhere between 0 and infinity levels with ids that change, no test can cover that
 
 	it("search users by unrestricted uploads", async function() {
-		const searchTrue = await E6Client.users.search({ unrestrictedUploads: true });
-		const searchFalse = await E6Client.users.search({ unrestrictedUploads: false  });
-		expect(searchTrue.length, "unrestrictedUploads=true").to.not.equal(0, "true search returned zero results");
-		expect(searchFalse.length, "unrestrictedUploads=false").to.not.equal(0, "false search returned zero results");
+		const searchTrue = await E6Client.users.search({ unrestricted_uploads: true });
+		const searchFalse = await E6Client.users.search({ unrestricted_uploads: false  });
+		expect(searchTrue.length, "unrestricted_uploads=true").to.not.equal(0, "unrestricted_uploads=true search returned zero results");
+		expect(searchFalse.length, "unrestricted_uploads=false").to.not.equal(0, "unrestricted_uploads=false search returned zero results");
 	});
 
 	it("search users by approver", async function() {

@@ -55,6 +55,7 @@ export default class User implements UserProperties {
 	 * @returns {Array<UserFeedbackProperties>}
 	 */
 	async getFeedback(options: Omit<SearchUserFeedbackOptions, "username">) { return this.main.userFeedback.search.call(this.main.userFeedback, { username: this.name, ...options }); }
+
 	/**
 	 * Create a feedback for this user
 	 *

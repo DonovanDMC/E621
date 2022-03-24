@@ -31,24 +31,24 @@ describe("Tags", function() {
 	// there's anywhere between 0 and infinity tag categories with ids that change, no test can cover that
 
 	it("search tags by hide empty", async function() {
-		const searchTrue = await E6Client.tags.search({ hideEmpty: true });
-		const searchFalse = await E6Client.tags.search({ hideEmpty: false });
-		expect(searchTrue.length, "hideEmpty=true").to.not.equal(0, "true search returned zero results");
-		expect(searchFalse.length, "hideEmpty=false").to.not.equal(0, "false search returned zero results");
+		const searchTrue = await E6Client.tags.search({ hide_empty: true });
+		const searchFalse = await E6Client.tags.search({ hide_empty: false });
+		expect(searchTrue.length, "hide_empty=true").to.not.equal(0, "hide_empty=true search returned zero results");
+		expect(searchFalse.length, "hide_empty=false").to.not.equal(0, "hide_empty=false search returned zero results");
 	});
 
 	it("search tags by has wiki", async function() {
-		const searchTrue = await E6Client.tags.search({ hasWiki: true });
-		const searchFalse = await E6Client.tags.search({ hasWiki: false });
-		expect(searchTrue.length, "hasWiki=true").to.not.equal(0, "true search returned zero results");
-		expect(searchFalse.length, "hasWiki=false").to.not.equal(0, "false search returned zero results");
+		const searchTrue = await E6Client.tags.search({ has_wiki: true });
+		const searchFalse = await E6Client.tags.search({ has_wiki: false });
+		expect(searchTrue.length, "has_wiki=true").to.not.equal(0, "has_wiki=true search returned zero results");
+		expect(searchFalse.length, "has_wiki=false").to.not.equal(0, "has_wiki=false search returned zero results");
 	});
 
 	it("search tags by has artist", async function() {
-		const searchTrue = await E6Client.tags.search({ hasArtist: true });
-		const searchFalse = await E6Client.tags.search({ hasArtist: false });
-		expect(searchTrue.length, "hasArtist=true").to.not.equal(0, "true search returned zero results");
-		expect(searchFalse.length, "hasArtist=false").to.not.equal(0, "false search returned zero results");
+		const searchTrue = await E6Client.tags.search({ has_artist: true });
+		const searchFalse = await E6Client.tags.search({ has_artist: false });
+		expect(searchTrue.length, "has_artist=true").to.not.equal(0, "has_artist=true search returned zero results");
+		expect(searchFalse.length, "has_artist=false").to.not.equal(0, "has_artist=false search returned zero results");
 	});
 
 	it("search tags with order", async function() {
@@ -74,12 +74,12 @@ describe("Tags", function() {
 	});
 
 	it("search tag history by updater name", async function() {
-		const search = await E6Client.tags.searchHistory({ userName: "millcore" });
+		const search = await E6Client.tags.searchHistory({ user: "millcore" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search tag history by updater id", async function() {
-		const search = await E6Client.tags.searchHistory({ userID: 169756 });
+		const search = await E6Client.tags.searchHistory({ user_id: 169756 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 });

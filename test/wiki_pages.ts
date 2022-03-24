@@ -82,7 +82,7 @@ describe("Wiki Pages", function() {
 	});
 
 	it("search wiki page history with wiki page", async function() {
-		const search = await E6Client.wikiPages.searchHistory({ wikiPage: 35009 });
+		const search = await E6Client.wikiPages.searchHistory({ wiki_page: 35009 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 });

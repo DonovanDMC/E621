@@ -32,6 +32,7 @@ import User from "./structures/User";
 import WikiPage from "./structures/WikiPage";
 import WikiPageHistory from "./structures/WikiPageHistory";
 
+import Takedowns from "./modules/Takedowns";
 import pkg from "../package.json";
 
 // note for future reference (browser compatibility?)
@@ -50,6 +51,7 @@ export default class E621 {
 	postFlags = new PostFlags(this);
 	postSets = new PostSets(this);
 	tags = new Tags(this);
+	takedowns = new Takedowns(this);
 	userFeedback = new UserFeedback(this);
 	users = new Users(this);
 	wikiPages = new WikiPages(this);
@@ -64,18 +66,18 @@ export default class E621 {
 					return !this.options.authUser || !this.options.authKey ? null : `Basic ${Buffer.from(`${this.options.authUser}:${this.options.authKey}`).toString("base64")}`;
 				},
 				configurable: false,
-				enumerable: false
+				enumerable:   false
 			},
 			options: {
 				value: {
-					authUser: options.authUser ?? null,
-					authKey: options.authKey ?? null,
-					userAgent: options.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${!options.authUser ? "" : `; "${options.authUser}"`})`,
+					authUser:       options.authUser ?? null,
+					authKey:        options.authKey ?? null,
+					userAgent:      options.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${!options.authUser ? "" : `; "${options.authUser}"`})`,
 					requestTimeout: options.requestTimeout ?? 30
 				},
 				configurable: false,
-				enumerable: false,
-				writable: false
+				enumerable:   false,
+				writable:     false
 			}
 		});
 		this.setInstance({});
@@ -98,10 +100,10 @@ export default class E621 {
 		}
 
 		Object.assign(this.options, {
-			instanceHost: opt.host,
-			instancePort: opt.port,
-			instanceSSL: opt.ssl,
-			reconstructStaticURL: opt.reconstructStaticURL || null,
+			instanceHost:            opt.host,
+			instancePort:            opt.port,
+			instanceSSL:             opt.ssl,
+			reconstructStaticURL:    opt.reconstructStaticURL || null,
 			imageReconstructionType: opt.imageReconstructionType || "hierarchy"
 		});
 	}
@@ -113,7 +115,7 @@ class YiffyAPI extends E621 {
 		this.setInstance({
 			host: "yiff.rest",
 			port: 443,
-			ssl: true
+			ssl:  true
 		});
 	}
 }

@@ -9,6 +9,7 @@
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)
+- [Takedowns](Takedowns.md)
 - [User Feedback](UserFeedback.md)
 - [Users](Users.md)
 - [Wiki Pages](WikiPages.md)
@@ -17,7 +18,6 @@
 
 |                               Feature                               | Planned |
 |:-------------------------------------------------------------------:|:-------:|
-|               [Takedowns](https://e621.net/takedowns)               |    ✔️    |
 |    [Bulk Update Requests](https://e621.net/bulk_update_requests)    |    ✔️    |
 |        [Tag Implications](https://e621.net/tag_implications)        |    ✔️    |
 |             [Tag Aliases](https://e621.net/tag_aliases)             |    ✔️    |

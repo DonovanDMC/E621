@@ -47,7 +47,7 @@ describe("Notes", function() {
 	});
 
 	it("search note history by note id", async function() {
-		const search = await E6Client.notes.searchHistory({ noteId: 308103 });
+		const search = await E6Client.notes.searchHistory({ note_id: 308103 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 

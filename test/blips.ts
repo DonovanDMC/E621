@@ -3,7 +3,6 @@ import { E6Client, E6ClientLocalWithAuth } from "./E6Client";
 import { expect } from "chai";
 import debug from "debug";
 import "mocha";
-import { APIError } from "../build/src";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const skipAuthRequired = true;

@@ -10,20 +10,20 @@
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - [Tags](Tags.md)
-- [Takedowns](Takedowns.md)
-- **User Feedback**
+- **Takedowns**
+- [User Feedback](UserFeedback.md)
 - [Users](Users.md)
 - [Wiki Pages](WikiPages.md)
 
 <hr>
 
-|     Feature    | Implemented |         Method        |
-|:--------------:|:-----------:|:---------------------:|
-|    Get By ID   |      ✔️      |   `userFeedback.get`  |
-|     Search     |      ✔️      | `userFeedback.search` |
-| Create[^1][^4] |      ✔️      | `userFeedback.create` |
-| Modify[^1][^4] |      ✔️      | `userFeedback.modify` |
-| Delete[^1][^4] |      ✔️      | `userFeedback.delete` |
+|     Feature     | Implemented |         Method        |
+|:---------------:|:-----------:|:---------------------:|
+|    Get By ID    |      ✔️      |    `takedowns.get`    |
+|      Search     |      ✔️      |   `takedowns.search`  |
+|    Create[^1]   |      ✔️      |   `takedowns.create`  |
+|  Modify[^1][^5] |      ✔️      |   `takedowns.modify`  |
+|  Delete[^1][^5] |      ✔️      |   `takedowns.delete`  |
 
 [^1]: Requires Authentication
 [^2]: Requires Privileged

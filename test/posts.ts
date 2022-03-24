@@ -53,7 +53,7 @@ describe("Posts", function() {
 
 	it("search post history with user id", async function() {
 		if (skipAuthRequired) this.skip();
-		const search = await E6Client.posts.searchHistory({ userID: 323290 });
+		const search = await E6Client.posts.searchHistory({ user_id: 323290 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
@@ -77,22 +77,22 @@ describe("Posts", function() {
 
 	it("search post history with rating changed to", async function() {
 		if (skipAuthRequired) this.skip();
-		const search1 = await E6Client.posts.searchHistory({ ratingChangedTo: "e" });
-		const search2 = await E6Client.posts.searchHistory({ ratingChangedTo: "q" });
-		const search3 = await E6Client.posts.searchHistory({ ratingChangedTo: "s" });
-		expect(search1.length, "ratingChangedTo=e").to.not.equal(0, "ratingChangedTo=e search returned zero results");
-		expect(search2.length, "ratingChangedTo=q").to.not.equal(0, "ratingChangedTo=q search returned zero results");
-		expect(search3.length, "ratingChangedTo=s").to.not.equal(0, "ratingChangedTo=s search returned zero results");
+		const search1 = await E6Client.posts.searchHistory({ rating_changed_to: "e" });
+		const search2 = await E6Client.posts.searchHistory({ rating_changed_to: "q" });
+		const search3 = await E6Client.posts.searchHistory({ rating_changed_to: "s" });
+		expect(search1.length, "rating_changed_to=e").to.not.equal(0, "rating_changed_to=e search returned zero results");
+		expect(search2.length, "rating_changed_to=q").to.not.equal(0, "rating_changed_to=q search returned zero results");
+		expect(search3.length, "rating_changed_to=s").to.not.equal(0, "rating_changed_to=s search returned zero results");
 	});
 
 	it("search post history with final rating", async function() {
 		if (skipAuthRequired) this.skip();
-		const search1 = await E6Client.posts.searchHistory({ finalRating: "e" });
-		const search2 = await E6Client.posts.searchHistory({ finalRating: "q" });
-		const search3 = await E6Client.posts.searchHistory({ finalRating: "s" });
-		expect(search1.length, "finalRating=e").to.not.equal(0, "finalRating=e search returned zero results");
-		expect(search2.length, "finalRating=q").to.not.equal(0, "finalRating=q search returned zero results");
-		expect(search3.length, "finalRating=s").to.not.equal(0, "finalRating=s search returned zero results");
+		const search1 = await E6Client.posts.searchHistory({ final_rating: "e" });
+		const search2 = await E6Client.posts.searchHistory({ final_rating: "q" });
+		const search3 = await E6Client.posts.searchHistory({ final_rating: "s" });
+		expect(search1.length, "final_rating=e").to.not.equal(0, "final_rating=e search returned zero results");
+		expect(search2.length, "final_rating=q").to.not.equal(0, "final_rating=q search returned zero results");
+		expect(search3.length, "final_rating=s").to.not.equal(0, "final_rating=s search returned zero results");
 	});
 
 	it("search post history with parent", async function() {
@@ -103,7 +103,7 @@ describe("Posts", function() {
 
 	it("search post history with parent changed to", async function() {
 		if (skipAuthRequired) this.skip();
-		const search = await E6Client.posts.searchHistory({ parentChangedTo: 2936946 });
+		const search = await E6Client.posts.searchHistory({ parent_changed_to: 2936946 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 

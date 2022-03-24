@@ -89,25 +89,25 @@ describe("Artists", function() {
 
 	it("search artist history by artist id", async function() {
 		if (skipAuthRequired) this.skip();
-		const search = await E6Client.artists.searchHistory({ artistID: 6698 });
+		const search = await E6Client.artists.searchHistory({ artist_id: 6698 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search artist history by artist name", async function() {
 		if (skipAuthRequired) this.skip();
-		const search = await E6Client.artists.searchHistory({ artistName: "vallhund" });
+		const search = await E6Client.artists.searchHistory({ artist: "vallhund" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search artist history by updater id", async function() {
 		if (skipAuthRequired) this.skip();
-		const search = await E6Client.artists.searchHistory({ updaterID: 1 });
+		const search = await E6Client.artists.searchHistory({ updater_id: 1 });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 
 	it("search artist history by updater name", async function() {
 		if (skipAuthRequired) this.skip();
-		const search = await E6Client.artists.searchHistory({ updaterName: "administrator" });
+		const search = await E6Client.artists.searchHistory({ updater: "administrator" });
 		expect(search.length).to.not.equal(0, "search returned zero results");
 	});
 });

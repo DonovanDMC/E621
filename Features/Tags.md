@@ -10,6 +10,7 @@
 - [Posts](Posts.md)
 - [Post Sets](PostSets.md)
 - **Tags**
+- [Takedowns](Takedowns.md)
 - [User Feedback](UserFeedback.md)
 - [Users](Users.md)
 - [Wiki Pages](WikiPages.md)
