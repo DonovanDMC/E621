@@ -290,7 +290,8 @@ export default class Posts {
 	async vote(id: number, up: boolean) {
 		this.main.request.authCheck.call(this, "Posts#vote");
 		const qs = new FormHelper()
-			.add("score", up ? 1 : -1);
+			.add("score", up ? 1 : -1)
+			.add("no_unvote", false);
 		const res = await this.main.request.post<PostVoteResult>(`/posts/${id}/votes.json`, qs.build());
 		return res!;
 	}

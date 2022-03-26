@@ -218,7 +218,8 @@ export default class Users {
 	 */
 	async addFavorite(id: number) {
 		this.main.request.authCheck.call(this, "Users#addFavorite");
-		const res = await this.main.request.get<{ post: PostProperties; }>(`/favorites.json?post_id=${id}`);
+		const qs = new FormHelper().add("post_id", id);
+		const res = await this.main.request.post<{ post: PostProperties; }>("/favorites.json", qs.build());
 		return new Post(this.main, res!.post);
 	}
 
