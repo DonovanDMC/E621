@@ -9,6 +9,7 @@ import Posts from "./modules/Posts";
 import PostFlags from "./modules/PostFlags";
 import PostSets from "./modules/PostSets";
 import Tags from "./modules/Tags";
+import Takedowns from "./modules/Takedowns";
 import UserFeedback from "./modules/UserFeedback";
 import Users from "./modules/Users";
 import WikiPages from "./modules/WikiPages";
@@ -27,12 +28,12 @@ import PostApproval from "./structures/PostApproval";
 import PostHistory from "./structures/PostHistory";
 import PostSet from "./structures/PostSet";
 import Tag from "./structures/Tag";
+import Takedown from "./structures/Takedown";
 import TagHistory from "./structures/TagHistory";
 import User from "./structures/User";
 import WikiPage from "./structures/WikiPage";
 import WikiPageHistory from "./structures/WikiPageHistory";
 
-import Takedowns from "./modules/Takedowns";
 import pkg from "../package.json";
 
 // note for future reference (browser compatibility?)
@@ -110,7 +111,7 @@ export default class E621 {
 }
 
 class YiffyAPI extends E621 {
-	constructor(options: Options) {
+	constructor(options?: Options) {
 		super(options);
 		this.setInstance({
 			host: "yiff.rest",
@@ -121,7 +122,7 @@ class YiffyAPI extends E621 {
 }
 
 class Dev extends E621 {
-	constructor(options: Options, ssl = false) {
+	constructor(options?: Options, ssl = false) {
 		super(options);
 		this.setInstance({
 			host: "localhost",
@@ -143,6 +144,7 @@ E621.YiffyAPI = YiffyAPI;
 E621.Dev = Dev;
 E621.Custom = Custom;
 
+module.exports = E621;
 export * from "./types";
 export { APIError } from "./util/RequestHandler";
 export {
@@ -161,6 +163,7 @@ export {
 	PostSet,
 	Tag,
 	TagHistory,
+	Takedown,
 	User,
 	WikiPage,
 	WikiPageHistory,

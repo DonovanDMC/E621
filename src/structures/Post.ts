@@ -180,4 +180,28 @@ export default class Post implements PostProperties {
 		this.main.request.authCheck("Post#vote");
 		return this.main.posts.vote.call(this.main.posts, this.id, up);
 	}
+
+	/**
+	 * Favorite this post
+	 *
+	 * * Requires Authentication
+	 *
+	 * @returns {Promise<Post>}
+	 */
+	async favorite() {
+		this.main.request.authCheck("Post#favorite");
+		return this.main.users.addFavorite.call(this.main.users, this.id);
+	}
+
+	/**
+	 * Unfavorite this post
+	 *
+	 * * Requires Authentication
+	 *
+	 * @returns {Promise<Post>}
+	 */
+	async unfavorite() {
+		this.main.request.authCheck("Post#unfavorite");
+		return this.main.users.removeFavorite.call(this.main.users, this.id);
+	}
 }
