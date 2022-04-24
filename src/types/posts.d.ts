@@ -42,9 +42,9 @@ export interface PostProperties {
 	pools: Array<number>;
 	relationships: {
 		parent_id: number | null;
-		has_childeren: boolean;
-		has_active_childeren: boolean;
-		childeren: Array<number>;
+		has_children: boolean;
+		has_active_children: boolean;
+		children: Array<number>;
 	};
 	approver_id: number | null;
 	uploader_id: number;
