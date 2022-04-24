@@ -31,7 +31,7 @@ export default class Pool implements PoolProperties {
 	 *
 	 * @returns {Promise<Array<Post>>}
 	 */
-	async getPosts() { return Promise.all(this.post_ids.map(id => this.main.posts.get(id))) as Promise<Array<Post>>; }
+	async getPosts() { return this.main.posts.search.call(this.main.posts, { tags: `pool:${this.id}` }); }
 
 	/**
 	 * Add a post to this pool
