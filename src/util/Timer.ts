@@ -19,46 +19,48 @@ export default class Timer {
 		}
 	}
 
-	// https://github.com/UwUCode/Utils/blob/3e41d5bab0/src/Functions/Time.ts#L21-L101
-	private static ms(time: number) {
-		if (time < 0) throw new TypeError("Negative time provided.");
-		// @FIXME language :sweats:
-		if (time === 0) return "0 milliseconds";
+	// https://github.com/UwUCode/Utils/blob/10b0159/src/Functions/Time.ts#L11-L86
+	private static ms(time: number | bigint) {
+		if (typeof time !== "bigint") time = BigInt(Math.floor(time));
 		const r = {
-			// Number.EPSILON = https://stackoverflow.com/a/11832950
-			ms: Math.round(((time % 1000) + Number.EPSILON) * 100) / 100,
-			s: 0,
-			m: 0,
-			h: 0,
-			d: 0,
-			mn: 0,
-			y: 0
+			milliseconds: 0n,
+			seconds:      0n,
+			minutes:      0n,
+			hours:        0n,
+			days:         0n,
+			months:       0n,
+			years:        0n
 		};
-		r.y = Math.floor(time / 3.154e+10);
-		time -= r.y * 3.154e+10;
-		r.mn = Math.floor(time / 2.628e+9);
-		time -= r.mn * 2.628e+9;
-		r.d = Math.floor(time / 8.64e+7);
-		time -= r.d * 8.64e+7;
-		r.h = Math.floor(time / 3.6e+6);
-		time -= r.h * 3.6e+6;
-		r.m = Math.floor(time / 6e4);
-		time -= r.m * 6e4;
-		r.s = Math.floor(time / 1e3);
-		time -= r.s * 1e3;
+		if (time < 0n) throw new TypeError("Negative time provided.");
+		if (time === 0n) return "0 seconds";
+		// Number.EPSILON = https://stackoverflow.com/a/11832950
+		r.milliseconds = time % 1000n;
+		r.years = time / 31540000000n;
+		time -= r.years * 31540000000n;
+		r.months = time / 2628000000n;
+		time -= r.months * 2628000000n;
+		r.days = time / 86400000n;
+		time -= r.days * 86400000n;
+		r.hours = time / 3600000n;
+		time -= r.hours * 3600000n;
+		r.minutes = time / 60000n;
+		time -= r.minutes * 60000n;
+		r.seconds = time / 1000n;
+		time -= r.seconds * 1000n;
+
+		const total = (Object.values(r)).reduce((a, b) => a + b, 0n);
+		if (r.milliseconds === total) return `${r.milliseconds}ms`;
 
 		const str: Array<string> = [];
-		if (r.ms > 0) str.push(`${r.ms} ms`);
-		if (r.s > 0) str.push(`${r.s} second${r.s === 1 ? "" : "s"}`);
-		if (r.m > 0) str.push(`${r.m} minute${r.m === 1 ? "" : "s"}`);
-		if (r.h > 0) str.push(`${r.h} hour${r.h === 1 ? "" : "s"}`);
-		if (r.d > 0) str.push(`${r.d} day${r.d === 1 ? "" : "s"}`);
-		if (r.mn > 0) str.push(`${r.mn} month${r.mn === 1 ? "" : "s"}`);
-		if (r.y > 0) str.push(`${r.y} year${r.y === 1 ? "" : "s"}`);
+		if (r.seconds > 0) str.push(`${r.seconds} second${r.seconds === 1n ? "" : "s"}`);
+		if (r.minutes > 0) str.push(`${r.minutes} minute${r.minutes === 1n ? "" : "s"}`);
+		if (r.hours > 0) str.push(`${r.hours} hour${r.hours === 1n ? "" : "s"}`);
+		if (r.days > 0) str.push(`${r.days} day${r.days === 1n ? "" : "s"}`);
+		if (r.months > 0) str.push(`${r.months} month${r.months === 1n ? "" : "s"}`);
+		if (r.years > 0) str.push(`${r.years} year${r.years === 1n ? "" : "s"}`);
 
 		if (str.length > 1) str[0] = `and ${str[0]}`;
 
-
-		return str.reverse().join(" ");
+		return  str.reverse().join(" ");
 	}
 }

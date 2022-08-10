@@ -51,13 +51,13 @@ export default class RequestHandler {
 					return !this.main.options.authUser || !this.main.options.authKey ? null : `Basic ${Buffer.from(`${this.main.options.authUser}:${this.main.options.authKey}`).toString("base64")}`;
 				},
 				configurable: false,
-				enumerable: false
+				enumerable:   false
 			},
 			main: {
-				value: main,
+				value:        main,
 				configurable: false,
-				enumerable: false,
-				writable: false
+				enumerable:   false,
+				writable:     false
 			}
 		});
 	}
@@ -76,14 +76,14 @@ export default class RequestHandler {
 		return new Promise<T | null>((resolve, reject) => {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
-					method: "GET",
-					timeout: this.main.options.requestTimeout * 1000,
+					method:   "GET",
+					timeout:  this.main.options.requestTimeout * 1000,
 					hostname: this.main.options.instanceHost,
-					port: this.main.options.instancePort,
+					port:     this.main.options.instancePort,
 					path,
-					headers: {
+					headers:  {
 						"User-Agent": this.main.options.userAgent,
-						"Host": this.main.options.instanceHost,
+						"Host":       this.main.options.instanceHost,
 						...(this.auth === null ? {} : {
 							Authorization: this.auth
 						})
@@ -137,14 +137,14 @@ export default class RequestHandler {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method,
-					timeout: this.main.options.requestTimeout * 1000,
+					timeout:  this.main.options.requestTimeout * 1000,
 					hostname: this.main.options.instanceHost,
-					port: this.main.options.instancePort,
+					port:     this.main.options.instancePort,
 					path,
-					headers: {
-						"User-Agent": this.main.options.userAgent,
+					headers:  {
+						"User-Agent":   this.main.options.userAgent,
 						"Content-Type": "application/x-www-form-urlencoded",
-						"Host": this.main.options.instanceHost,
+						"Host":         this.main.options.instanceHost,
 						...(this.auth === null ? {} : {
 							Authorization: this.auth
 						})
@@ -215,14 +215,14 @@ export default class RequestHandler {
 			const r = (this.main.options.instanceSSL ? https : http)
 				.request({
 					method,
-					timeout: this.main.options.requestTimeout * 1000,
+					timeout:  this.main.options.requestTimeout * 1000,
 					hostname: this.main.options.instanceHost,
-					port: this.main.options.instancePort,
+					port:     this.main.options.instancePort,
 					path,
-					headers: {
-						"User-Agent": this.main.options.userAgent,
+					headers:  {
+						"User-Agent":   this.main.options.userAgent,
 						"Content-Type": `multipart/form-data; boundary=${multi.boundary}`,
-						"Host": this.main.options.instanceHost,
+						"Host":         this.main.options.instanceHost,
 						...(this.auth === null ? {} : {
 							Authorization: this.auth
 						})
