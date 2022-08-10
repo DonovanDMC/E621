@@ -6,6 +6,8 @@ We support almost anything normal users can do, with plans to bring everything e
 
 See the [Features List](Features/README.md) for all of the things this module supports, and what is planned.
 
+### This module is not officially supported or endorsed by any of the e621 staff. Do not go to them if something does not work.
+
 <hr>
 
 This module is structured with submodules corresponding to separate areas of the site. All of these modules are on the primary class, which can be constructed like so:
