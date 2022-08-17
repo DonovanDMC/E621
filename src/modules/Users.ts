@@ -11,7 +11,8 @@ import type {
 	SearchUsersOrder,
 	Timezones,
 	DefaultImageSize,
-	PostProperties
+	PostProperties,
+	GetFavoritesOptions
 } from "../types";
 import FormHelper from "../util/FormHelper";
 import { APIError } from "../util/RequestHandler";
@@ -197,14 +198,22 @@ export default class Users {
 	/**
 	 * Get the favorites of a user
 	 *
-	 * @param {number} [id] - the id of the user to get favorites for, or none to get the authenticated user, if provided
+	 * @param {object} [options]
+	 * @param {number} [options.id] - the id of the user to get favorites for, or none to get the authenticated user, if provided
+	 * @param {number} [options.page] - page of results to get
+	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 */
-	async getFavorites(id?: number) {
-		if (!id) {
+	async getFavorites(options?: GetFavoritesOptions) {
+		options = options ?? {};
+		if (!options.id) {
 			const auth = this.main.request.authCheck.call(this, "Users#getFavorites", false);
 			if (!auth) throw new Error("calling Users#getFavorites without an id requires authentication");
 		}
-		const res = await this.main.request.get<{ posts: Array<PostProperties>; }>(`/favorites.json${!id ? "" : `?user_id=${id}`}`);
+		const qs = new FormHelper();
+		if (typeof options.id !== "undefined") qs.add("user_id", options.id);
+		if (typeof options.page !== "undefined") qs.add("page", options.page);
+		if (typeof options.limit === "number" || typeof options.limit === "string") qs.add("limit", options.limit);
+		const res = await this.main.request.get<{ posts: Array<PostProperties>; }>(`/favorites.json?${qs.build()}`);
 		return res!.posts.map(info => new Post(this.main, info));
 	}
 

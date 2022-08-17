@@ -275,3 +275,7 @@ export interface EditSelfUserOptions {
 	disable_responsive_mode?: boolean;
 	custom_css_style?: string;
 }
+
+export interface GetFavoritesOptions extends GenericSearchOptions {
+	id?: number;
+}
