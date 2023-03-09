@@ -20,7 +20,7 @@
 |            Feature            | Implemented |            Method           |
 |:-----------------------------:|:-----------:|:---------------------------:|
 |           Get By ID           |      ✔️      |         `posts.get`         |
-|          Get By Name          |      ✔️      |      `posts.getByName`      |
+|          Get By MD5           |      ✔️      |       `posts.getByMD5`      |
 |             Search            |      ✔️      |        `posts.search`       |
 |           Create[^1]          |      ✔️      |        `posts.create`       |
 |           Modify[^1]          |      ✔️      |        `posts.modify`       |
