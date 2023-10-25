@@ -5,7 +5,8 @@ import type {
 	SearchUserFeedbackOptions,
 	CreateUserFeedbackOptions,
 	UserFeedbackProperties,
-	FeedbackCategories
+	FeedbackCategories,
+	GenericSearchOptions
 } from "../types";
 
 export default class User implements UserProperties {
@@ -76,9 +77,12 @@ export default class User implements UserProperties {
 	/**
 	 * Get this users favorites
 	 *
+	 * @param {object} [options]
+	 * @param {number} [options.page] - page of results to get
+	 * @param {number} [options.limit] - limit the maximum amount of results returned
 	 * @returns {Promise<Array<Post>>}
 	 */
-	async getFavorites() { return this.main.users.getFavorites(this.id); }
+	async getFavorites(options?: GenericSearchOptions) { return this.main.users.getFavorites({ id: this.id, ...options }); }
 
 	async asAuthenticatedUser() {
 		this.main.request.authCheck("User#asAuthenticatedUser");

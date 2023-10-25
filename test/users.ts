@@ -88,8 +88,20 @@ describe("Users", function() {
 	// @TODO Get Upload Limit Test
 	it.skip("get upload limit", async function() {});
 
-	// @TODO Get Favorites Test
-	it.skip("get favorites", async function() {});
+	it("get favorites", async function() {
+		const limit = 5;
+		const favorites = await E6Client.users.getFavorites({ id: 323290, limit });
+		expect(favorites.length).to.not.equal(0, "get favorites returned zero results");
+		expect(favorites.length).to.lte(limit, "get favorites not respecting limit");
+	});
+
+	it("get favorites from user object", async function() {
+		const limit = 5;
+		const user = await E6Client.users.get(323290);
+		const favorites = await user?.getFavorites({ limit }) || [];
+		expect(favorites.length).to.not.equal(0, "get favorites from user returned zero results");
+		expect(favorites.length).to.lte(limit, "get favorites not respecting limit");
+	});
 
 	// @TODO Add Favorite Test
 	it.skip("add favorite", async function() {});
