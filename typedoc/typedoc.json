@@ -1,0 +1,27 @@
+{
+  "name": "E621",
+  "entryPoints": ["../lib"],
+  "plugin": [
+    "typedoc-plugin-merge-modules",
+    "typedoc-plugin-mdn-links",
+    "./dark.cjs"
+  ],
+  "tsconfig": "../tsconfig.build.json",
+  "entryPointStrategy": "expand",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "githubPages": false,
+  "hideGenerator": true,
+  "gitRemote": "origin",
+  "readme": "../README.md",
+  "out": "../docs",
+  "json": "../docs/docs.json",
+  "exclude": ["**/generated/**"],
+  "favicon": "./favicon.ico",
+  "titleLink": "https://docs.e621.church",
+  "mergeModulesMergeMode": "project",
+  "kindSortOrder": ["Class", "Namespace"],
+  "navigation": {
+    "includeCategories": true
+  }
+}

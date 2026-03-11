@@ -1,0 +1,42 @@
+name: Publish Release
+permissions:
+    contents: read
+    id-token: write
+on:
+    workflow_dispatch:
+    workflow_call:
+    release:
+        types: [released]
+
+jobs:
+    lint:
+        name: ESLint
+        uses: ./.github/workflows/lint.yml
+    build:
+        name: Build Code
+        uses: ./.github/workflows/build.yml
+    generate:
+        name: Generate Code
+        uses: ./.github/workflows/generate.yml
+    publish:
+        runs-on: ubuntu-latest
+        needs: [lint, build, generate]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v4
+
+            - name: Install Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+                  cache: pnpm
+                  registry-url: https://registry.npmjs.org/
+
+            - name: Update NPM # Needed for OIDC
+              run: npm i -g npm@"^11.5"
+
+            - name: Install Dependencies
+              run: pnpm i --frozen-lockfile --ignore-scripts
+
+            - name: Publish
+              run: pnpm publish --no-git-checks --access public

@@ -1,5 +1,6 @@
-test/
-src/
-.eslintrc.json
-tsconfig.json
-tsc.json
+*
+!/dist/**/*
+!/README.md
+!/LICENSE
+!/package.json
+!/tsconfig.json
