@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/tsdoc/v0/tsdoc.schema.json",
+  "extends": ["typedoc/tsdoc.json"],
+  "noStandardTags": false,
+  "tagDefinitions": [
+    {
+      "tagName": "@operationId",
+      "syntaxKind": "block"
+    },
+    {
+      "tagName": "@schema",
+      "syntaxKind": "block"
+    },
+    {
+      "tagName": "@requiresApiKeyAuth",
+      "syntaxKind": "modifier"
+    },
+    {
+      "tagName": "@requiresCookieAuth",
+      "syntaxKind": "modifier"
+    },
+    {
+      "tagName": "@requiresCsrfToken",
+      "syntaxKind": "modifier"
+    }
+  ]
+}
