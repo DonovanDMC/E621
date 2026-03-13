@@ -60,6 +60,10 @@ import PostSets from "./PostSets.js";
 export type * from "./PostSets.js";
 import PostVersions from "./PostVersions.js";
 export type * from "./PostVersions.js";
+import SearchTrendBlacklists from "./SearchTrendBlacklists.js";
+export type * from "./SearchTrendBlacklists.js";
+import SearchTrends from "./SearchTrends.js";
+export type * from "./SearchTrends.js";
 import StaffNotes from "./StaffNotes.js";
 export type * from "./StaffNotes.js";
 import Tags from "./Tags.js";
@@ -154,6 +158,8 @@ export interface Modules {
     postVersions: PostVersions;
     posts: Posts;
     relatedTags: RelatedTags;
+    searchTrendBlacklists: SearchTrendBlacklists;
+    searchTrends: SearchTrends;
     staffNotes: StaffNotes;
     tagAliases: TagAliases;
     tagCorrections: TagCorrections;
@@ -213,6 +219,8 @@ export function apply(e621: E621, client: Client): void {
         postVersions:           new PostVersions(e621, client),
         posts:                  new Posts(e621, client),
         relatedTags:            new RelatedTags(e621, client),
+        searchTrendBlacklists:  new SearchTrendBlacklists(e621, client),
+        searchTrends:           new SearchTrends(e621, client),
         staffNotes:             new StaffNotes(e621, client),
         tagAliases:             new TagAliases(e621, client),
         tagCorrections:         new TagCorrections(e621, client),

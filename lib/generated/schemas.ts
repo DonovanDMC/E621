@@ -148,6 +148,7 @@ export const ModActionActionsSchema = {
         'staff_note_update',
         'staff_note_delete',
         'staff_note_undelete',
+        'search_trend_blacklist_purge',
         'created_positive_record',
         'created_neutral_record',
         'created_negative_record',
@@ -1612,7 +1613,7 @@ export const IqdbPostSchema = {
             type: 'boolean'
         },
         bit_flags: {
-            type: 'number'
+            type: 'integer'
         },
         tag_count_meta: {
             type: 'integer'
@@ -1907,7 +1908,7 @@ export const NoteSchema = {
             type: 'integer'
         },
         version: {
-            type: 'number'
+            type: 'integer'
         },
         is_active: {
             type: 'boolean'
@@ -1969,7 +1970,7 @@ export const NoteVersionSchema = {
             type: 'string'
         },
         version: {
-            type: 'number'
+            type: 'integer'
         },
         is_active: {
             type: 'boolean'
@@ -2109,7 +2110,7 @@ export const PoolVersionSchema = {
             $ref: '#/components/schemas/PoolCategories'
         },
         version: {
-            type: 'number'
+            type: 'integer'
         },
         added_post_ids: {
             type: 'array',
@@ -2376,7 +2377,7 @@ export const PostSchema = {
             }
         },
         change_seq: {
-            type: 'number'
+            type: 'integer'
         },
         flags: {
             type: 'object',
@@ -2475,6 +2476,7 @@ export const PostSchema = {
         },
         duration: {
             type: 'number',
+            format: 'float',
             nullable: true
         },
         uploader_name: {
@@ -2918,7 +2920,7 @@ export const PostVersionSchema = {
             type: 'boolean'
         },
         version: {
-            type: 'number'
+            type: 'integer'
         },
         obsolete_added_tags: {
             type: 'string'
@@ -3321,7 +3323,7 @@ export const TicketSchema = {
             type: 'string'
         },
         disp_id: {
-            type: 'number'
+            type: 'integer'
         },
         qtype: {
             $ref: '#/components/schemas/TicketTypes'
@@ -3978,6 +3980,112 @@ export const TagCorrectionSchema = {
         },
         tag: {
             $ref: '#/components/schemas/Tag'
+        }
+    }
+} as const;
+
+export const SearchTrendSchema = {
+    type: 'object',
+    required: [
+        'tag',
+        'count',
+        'day'
+    ],
+    properties: {
+        tag: {
+            type: 'string'
+        },
+        count: {
+            type: 'integer'
+        },
+        day: {
+            type: 'string',
+            format: 'date'
+        }
+    }
+} as const;
+
+export const RisingSearchTrendSchema = {
+    type: 'object',
+    required: [
+        'tag'
+    ],
+    properties: {
+        tag: {
+            type: 'string'
+        }
+    }
+} as const;
+
+export const SearchTrendBlacklistSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'tag',
+        'reason',
+        'creator_id',
+        'created_at',
+        'updated_at'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        tag: {
+            type: 'string'
+        },
+        reason: {
+            type: 'string'
+        },
+        creator_id: {
+            type: 'integer'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        }
+    }
+} as const;
+
+export const MessageErrorResponseSchema = {
+    type: 'object',
+    required: [
+        'success',
+        'message'
+    ],
+    properties: {
+        success: {
+            type: 'boolean'
+        },
+        message: {
+            type: 'string'
+        },
+        code: {
+            type: 'string',
+            nullable: true
+        }
+    }
+} as const;
+
+export const MessageSuccessResponseSchema = {
+    type: 'object',
+    required: [
+        'success',
+        'message'
+    ],
+    properties: {
+        success: {
+            type: 'boolean',
+            enum: [
+                true
+            ]
+        },
+        message: {
+            type: 'string'
         }
     }
 } as const;

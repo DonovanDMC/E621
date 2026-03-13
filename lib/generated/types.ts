@@ -18,7 +18,7 @@ export type WarningRecordType = {
     record_type: 'unmark' | 'ban' | 'record' | 'warning';
 };
 
-export type ModActionActions = 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'blip_delete' | 'blip_hide' | 'blip_unhide' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_blacklist_changed' | 'user_text_change' | 'user_upload_limit_change' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'user_flush_favorites' | 'post_version_hide' | 'post_version_unhide' | 'user_uploads_toggle' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
+export type ModActionActions = 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'blip_delete' | 'blip_hide' | 'blip_unhide' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_blacklist_changed' | 'user_text_change' | 'user_upload_limit_change' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'user_flush_favorites' | 'post_version_hide' | 'post_version_unhide' | 'user_uploads_toggle' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'search_trend_blacklist_purge' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
 
 export type PostEventActions = 'deleted' | 'undeleted' | 'approved' | 'unapproved' | 'flag_created' | 'flag_removed' | 'favorites_moved' | 'favorites_received' | 'rating_locked' | 'rating_unlocked' | 'status_locked' | 'status_unlocked' | 'note_locked' | 'note_unlocked' | 'comment_locked' | 'comment_unlocked' | 'replacement_accepted' | 'replacement_rejected' | 'replacement_promoted' | 'replacement_deleted' | 'expunged' | 'changed_bg_color' | 'replacement_penalty_changed';
 
@@ -927,7 +927,7 @@ export type ApiKey = {
     key: string;
     name: string;
     last_used_at: string | null;
-    last_used_ip_address: string | null;
+    last_used_ip_address: string | null | string;
     last_user_agent: string | null;
     expires_at: string | null;
     notified_at: string | null;
@@ -961,30 +961,70 @@ export type TagCorrection = {
     tag: Tag;
 };
 
+export type SearchTrend = {
+    tag: string;
+    count: number;
+    day: string;
+};
+
+export type RisingSearchTrend = {
+    tag: string;
+};
+
+export type SearchTrendBlacklist = {
+    id: number;
+    tag: string;
+    reason: string;
+    creator_id: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type MessageErrorResponse = {
+    success: boolean;
+    message: string;
+    code?: string | null;
+};
+
+export type MessageSuccessResponse = {
+    success: true;
+    message: string;
+};
+
 /**
  * Search for a specific id. Multiple can be separated by commas, up to 100.
  */
-export type Id = number | string;
-
-/**
- * An ID that can be either an integer or a name.
- */
-export type IdOrName = number | string;
+export type IdQuery = number | string;
 
 /**
  * The maximum number of results to return. Between 0 and 320.
  */
-export type Limit = number;
+export type LimitQuery = number;
 
 /**
  * The page number of results to get. Between 1 and 750.
  */
-export type Page = number;
+export type PageQuery = number;
 
 /**
  * Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
  */
-export type IpAddr = string;
+export type IpAddrQuery = string;
+
+/**
+ * The order of the results.
+ */
+export type OrderQuery = 'id_asc' | 'id_desc';
+
+/**
+ * The ID of the item.
+ */
+export type IdPath = number;
+
+/**
+ * An ID that can be either an integer or a name.
+ */
+export type IdOrNamePath = number | string;
 
 export type Warning = WarningRecordType;
 
@@ -1076,7 +1116,7 @@ export type DeleteApiKeyData = {
     body?: never;
     path: {
         /**
-         * The ID of the api key.
+         * The ID of the item.
          */
         id: number;
     };
@@ -1115,7 +1155,7 @@ export type RegenerateApiKeyData = {
     };
     path: {
         /**
-         * The ID of the api key.
+         * The ID of the item.
          */
         id: number;
     };
@@ -1553,6 +1593,9 @@ export type SearchAvoidPostingsData = {
          * Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[ip_addr]'?: string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[creator_name]'?: string;
         'search[creator_id]'?: string;
@@ -1951,7 +1994,7 @@ export type GetBanData = {
     body?: never;
     path: {
         /**
-         * The ID of the ban to get.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2057,7 +2100,7 @@ export type DeleteBlipData = {
     body?: never;
     path: {
         /**
-         * The ID of the blip.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2091,7 +2134,7 @@ export type GetBlipData = {
     body?: never;
     path: {
         /**
-         * The ID of the blip to get.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2127,7 +2170,7 @@ export type EditBlipData = {
     };
     path: {
         /**
-         * The ID of the blip.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2167,7 +2210,7 @@ export type HideBlipData = {
     body?: never;
     path: {
         /**
-         * The ID of the blip.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2201,7 +2244,7 @@ export type UnhideBlipData = {
     body?: never;
     path: {
         /**
-         * The ID of the blip.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2235,7 +2278,7 @@ export type MarkBlipData = {
     body?: Warning;
     path: {
         /**
-         * The ID of the blip.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2351,7 +2394,7 @@ export type RejectBulkUpdateRequestData = {
     body?: never;
     path: {
         /**
-         * The ID of the bulk update request.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2385,7 +2428,7 @@ export type GetBulkUpdateRequestData = {
     body?: never;
     path: {
         /**
-         * The ID of the bulk update request.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2425,7 +2468,7 @@ export type EditBulkUpdateRequestData = {
     };
     path: {
         /**
-         * The ID of the bulk update request.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2465,7 +2508,7 @@ export type ApproveBulkUpdateRequestData = {
     body?: never;
     path: {
         /**
-         * The ID of the bulk update request.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2593,7 +2636,7 @@ export type DeleteCommentData = {
     body?: never;
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2627,7 +2670,7 @@ export type GetCommentData = {
     body?: never;
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2671,7 +2714,7 @@ export type EditCommentData = {
     };
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2711,7 +2754,7 @@ export type HideCommentData = {
     body?: never;
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2745,7 +2788,7 @@ export type UnhideCommentData = {
     body?: never;
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2779,7 +2822,7 @@ export type MarkCommentData = {
     body?: Warning;
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2813,7 +2856,7 @@ export type DeleteCommentVoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -2853,7 +2896,7 @@ export type CreateCommentVoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the comment.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3007,7 +3050,7 @@ export type DeleteDMailData = {
     body?: never;
     path: {
         /**
-         * The ID of the dmail.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3041,7 +3084,7 @@ export type GetDMailData = {
     body?: never;
     path: {
         /**
-         * The ID of the dmail.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3075,7 +3118,7 @@ export type MarkDMailAsReadData = {
     body?: never;
     path: {
         /**
-         * The ID of the dmail.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3109,7 +3152,7 @@ export type MarkDMailAsUnreadData = {
     body?: never;
     path: {
         /**
-         * The ID of the dmail.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3206,6 +3249,9 @@ export type SearchEditHistoriesData = {
          * Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[ip_addr]'?: string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[body_matches]'?: string;
         'search[subject_matches]'?: string;
@@ -3239,7 +3285,7 @@ export type GetEditHistoryData = {
     body?: never;
     path: {
         /**
-         * The versionable id.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3336,7 +3382,7 @@ export type DeleteEmailBlacklistData = {
     body?: never;
     path: {
         /**
-         * The ID of the email blacklist.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3453,6 +3499,9 @@ export type AddFavoriteResponse = AddFavoriteResponses[keyof AddFavoriteResponse
 export type RemoveFavoriteData = {
     body?: never;
     path: {
+        /**
+         * The ID of the item.
+         */
         id: number;
     };
     query?: never;
@@ -3506,6 +3555,9 @@ export type SearchForumPostsData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -3565,7 +3617,7 @@ export type DeleteForumPostData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3599,7 +3651,7 @@ export type GetForumPostData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3635,7 +3687,7 @@ export type EditForumPostData = {
     };
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3675,7 +3727,7 @@ export type HideForumPostData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3709,7 +3761,7 @@ export type UnhideForumPostData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3743,7 +3795,7 @@ export type MarkForumPostData = {
     body?: Warning;
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3777,7 +3829,7 @@ export type DeleteForumPostVoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3819,7 +3871,7 @@ export type CreateForumPostVoteData = {
     };
     path: {
         /**
-         * The ID of the forum post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3945,7 +3997,7 @@ export type DeleteForumTopicData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum topic.
+         * The ID of the item.
          */
         id: number;
     };
@@ -3979,7 +4031,7 @@ export type GetForumTopicData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum topic.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4032,7 +4084,7 @@ export type EditForumTopicData = {
     };
     path: {
         /**
-         * The ID of the forum topic.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4072,7 +4124,7 @@ export type HideForumTopicData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum topic.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4106,7 +4158,7 @@ export type UnhideForumTopicData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum topic.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4140,7 +4192,7 @@ export type SubscribeForumTopicData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum topic.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4174,7 +4226,7 @@ export type UnsubscribeForumTopicData = {
     body?: never;
     path: {
         /**
-         * The ID of the forum topic.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4290,7 +4342,7 @@ export type DeleteHelpPageData = {
     body?: never;
     path: {
         /**
-         * The ID of the help page.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4324,7 +4376,7 @@ export type GetHelpPageData = {
     body?: never;
     path: {
         /**
-         * The ID or name of the help page.
+         * An ID that can be either an integer or a name.
          */
         id: number | string;
     };
@@ -4366,7 +4418,7 @@ export type EditHelpPageData = {
     };
     path: {
         /**
-         * The ID of the help page.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4422,6 +4474,9 @@ export type ListIpBansData = {
          * Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[ip_addr]'?: string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[banner_id]'?: number;
         'search[banner_name]'?: string;
@@ -4477,7 +4532,7 @@ export type DeleteIpBanData = {
     body?: never;
     path: {
         /**
-         * The ID of the ip ban.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4643,7 +4698,7 @@ export type DeleteMascotData = {
     body?: never;
     path: {
         /**
-         * The ID of the mascot.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4689,7 +4744,7 @@ export type EditMascotData = {
     };
     path: {
         /**
-         * The ID of the mascot.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4762,7 +4817,7 @@ export type GetModActionData = {
     body?: never;
     path: {
         /**
-         * The ID of the mod action.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4854,7 +4909,7 @@ export type DeleteNewsUpdateData = {
     body?: never;
     path: {
         /**
-         * The ID of the news update.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4890,7 +4945,7 @@ export type EditNewsUpdateData = {
     };
     path: {
         /**
-         * The ID of the news update.
+         * The ID of the item.
          */
         id: number;
     };
@@ -4942,6 +4997,9 @@ export type SearchNotesData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[body_matches]'?: string;
         'search[is_active]'?: boolean;
@@ -5015,7 +5073,7 @@ export type DeleteNoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the note.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5049,7 +5107,7 @@ export type GetNoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the note.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5085,7 +5143,7 @@ export type EditNoteData = {
     };
     path: {
         /**
-         * The ID of the note.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5125,7 +5183,7 @@ export type RevertNoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the note.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5293,7 +5351,7 @@ export type DeletePoolData = {
     body?: never;
     path: {
         /**
-         * The ID of the pool.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5327,7 +5385,7 @@ export type GetPoolData = {
     body?: never;
     path: {
         /**
-         * The ID of the pool.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5370,7 +5428,7 @@ export type EditPoolData = {
     };
     path: {
         /**
-         * The ID of the pool.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5410,7 +5468,7 @@ export type RevertPoolData = {
     body?: never;
     path: {
         /**
-         * The ID of the pool.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5684,7 +5742,7 @@ export type GetPostData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5784,7 +5842,7 @@ export type EditPostData = {
     };
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5824,7 +5882,7 @@ export type UpdatePostIqdbData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5869,7 +5927,7 @@ export type MarkPostAsTranslatedData = {
     };
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5913,7 +5971,7 @@ export type CopyNotesToPostData = {
     };
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -5925,11 +5983,7 @@ export type CopyNotesToPostErrors = {
     /**
      * Error
      */
-    400: {
-        success: boolean;
-        message: string;
-        code?: string | null;
-    };
+    400: MessageErrorResponse;
     /**
      * Access Denied
      */
@@ -5955,7 +6009,7 @@ export type RevertPostData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6000,7 +6054,7 @@ export type GetPostInSequenceData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6052,7 +6106,7 @@ export type UnflagPostData = {
     };
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6086,7 +6140,7 @@ export type ListPostFavoritesData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6129,7 +6183,7 @@ export type DeletePostVoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6169,7 +6223,7 @@ export type CreatePostVoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6294,7 +6348,7 @@ export type DeletePostSetData = {
     body?: never;
     path: {
         /**
-         * The ID of the post set.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6328,7 +6382,7 @@ export type GetPostSetData = {
     body?: never;
     path: {
         /**
-         * The ID of the post set.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6368,7 +6422,7 @@ export type EditPostSetData = {
     };
     path: {
         /**
-         * The ID of the post sets.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6410,7 +6464,7 @@ export type UpdatePostSetPostsData = {
     };
     path: {
         /**
-         * The ID of the post set.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6455,7 +6509,7 @@ export type AddPostsToPostSetData = {
     };
     path: {
         /**
-         * The ID of the post set.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6500,7 +6554,7 @@ export type RemovePostsFromPostSetData = {
     };
     path: {
         /**
-         * The ID of the post set.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6586,6 +6640,9 @@ export type SearchPostApprovalsData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[post_tags_match]'?: string;
         'search[user_id]'?: number;
@@ -6620,6 +6677,9 @@ export type SearchPostEventsData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[post_id]'?: number;
         'search[creator_id]'?: number;
@@ -6660,6 +6720,9 @@ export type SearchPostFlagsData = {
          * Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[ip_addr]'?: string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[reason_matches]'?: string;
         'search[creator_id]'?: number;
@@ -6721,7 +6784,7 @@ export type GetPostFlagData = {
     body?: never;
     path: {
         /**
-         * The ID of the post flag.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6751,7 +6814,7 @@ export type ClearPostFlagNoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the post flag.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6858,11 +6921,7 @@ export type CreatePostReplacementErrors = {
     /**
      * Error
      */
-    412: {
-        success: boolean;
-        message: string;
-        code?: string | null;
-    };
+    412: MessageErrorResponse;
     /**
      * Invalid Input Data
      */
@@ -6889,7 +6948,7 @@ export type DeletePostReplacementData = {
     body?: never;
     path: {
         /**
-         * The ID of the post replacement.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6923,7 +6982,7 @@ export type ApprovePostReplacementData = {
     body?: never;
     path: {
         /**
-         * The ID of the post replacement.
+         * The ID of the item.
          */
         id: number;
     };
@@ -6963,7 +7022,7 @@ export type RejectPostReplacementData = {
     body?: never;
     path: {
         /**
-         * The ID of the post replacement.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7003,7 +7062,7 @@ export type PromotePostReplacementData = {
     body?: never;
     path: {
         /**
-         * The ID of the post replacement.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7045,7 +7104,7 @@ export type TogglePostReplacementPenaltyData = {
     body?: never;
     path: {
         /**
-         * The ID of the post replacement.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7133,7 +7192,7 @@ export type HidePostVersionData = {
     body?: never;
     path: {
         /**
-         * The ID of the post version.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7158,7 +7217,7 @@ export type UnhidePostVersionData = {
     body?: never;
     path: {
         /**
-         * The ID of the post version.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7183,7 +7242,7 @@ export type UndoPostVersionData = {
     body?: never;
     path: {
         /**
-         * The ID of the post version.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7324,7 +7383,7 @@ export type DeleteTagData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7358,7 +7417,7 @@ export type GetTagData = {
     body?: never;
     path: {
         /**
-         * The ID or name of the tag.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7394,7 +7453,7 @@ export type EditTagData = {
     };
     path: {
         /**
-         * The ID of the tag.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7434,7 +7493,7 @@ export type GetTagCorrectionData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7469,7 +7528,7 @@ export type CorrectTagData = {
     };
     path: {
         /**
-         * The ID of the tag.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7596,7 +7655,7 @@ export type RejectTagAliasData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag alias.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7630,7 +7689,7 @@ export type GetTagAliasData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag alias.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7664,7 +7723,7 @@ export type EditTagAliasData = {
     };
     path: {
         /**
-         * The ID of the tag alias.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7704,7 +7763,7 @@ export type ApproveTagAliasData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag alias.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7812,7 +7871,7 @@ export type RejectTagImplicationData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag implication.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7846,7 +7905,7 @@ export type GetTagImplicationData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag implication.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7880,7 +7939,7 @@ export type EditTagImplicationData = {
     };
     path: {
         /**
-         * The ID of the tag implication.
+         * The ID of the item.
          */
         id: number;
     };
@@ -7920,7 +7979,7 @@ export type ApproveTagImplicationData = {
     body?: never;
     path: {
         /**
-         * The ID of the tag implication.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8012,6 +8071,243 @@ export type ListBulkRelatedTagsResponses = {
 
 export type ListBulkRelatedTagsResponse = ListBulkRelatedTagsResponses[keyof ListBulkRelatedTagsResponses];
 
+export type ListSearchTrendsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        day?: string;
+    };
+    url: '/search_trends.json';
+};
+
+export type ListSearchTrendsResponses = {
+    /**
+     * Success
+     */
+    200: Array<SearchTrend>;
+};
+
+export type ListSearchTrendsResponse = ListSearchTrendsResponses[keyof ListSearchTrendsResponses];
+
+export type ListRisingSearchTrendsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/search_trends/rising.json';
+};
+
+export type ListRisingSearchTrendsResponses = {
+    /**
+     * Success
+     */
+    200: Array<RisingSearchTrend>;
+};
+
+export type ListRisingSearchTrendsResponse = ListRisingSearchTrendsResponses[keyof ListRisingSearchTrendsResponses];
+
+export type ClearSearchTrendsCacheData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/search_trends/clear_cache.json';
+};
+
+export type ClearSearchTrendsCacheErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type ClearSearchTrendsCacheError = ClearSearchTrendsCacheErrors[keyof ClearSearchTrendsCacheErrors];
+
+export type ClearSearchTrendsCacheResponses = {
+    /**
+     * Success
+     */
+    200: MessageSuccessResponse;
+};
+
+export type ClearSearchTrendsCacheResponse = ClearSearchTrendsCacheResponses[keyof ClearSearchTrendsCacheResponses];
+
+export type UpdateSearchTrendsSettingsData = {
+    body?: {
+        trends_enabled?: boolean;
+        trends_min_today?: number;
+        trends_min_dleta?: number;
+        trends_min_ratio?: number;
+        trends_ip_limit?: number;
+        trends_ip_window?: number;
+        trends_tag_limit?: number;
+        trends_tag_window?: number;
+    };
+    path?: never;
+    query?: never;
+    url: '/search_trends/update_settings.json';
+};
+
+export type UpdateSearchTrendsSettingsErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type UpdateSearchTrendsSettingsError = UpdateSearchTrendsSettingsErrors[keyof UpdateSearchTrendsSettingsErrors];
+
+export type UpdateSearchTrendsSettingsResponses = {
+    /**
+     * Success
+     */
+    200: MessageSuccessResponse;
+};
+
+export type UpdateSearchTrendsSettingsResponse = UpdateSearchTrendsSettingsResponses[keyof UpdateSearchTrendsSettingsResponses];
+
+export type SearchSearchTrendBlacklistsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * The order of the results.
+         */
+        'search[order]'?: 'id_asc' | 'id_desc';
+        tag?: string;
+        reason?: string;
+    };
+    url: '/search_trend_blacklists.json';
+};
+
+export type SearchSearchTrendBlacklistsErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type SearchSearchTrendBlacklistsError = SearchSearchTrendBlacklistsErrors[keyof SearchSearchTrendBlacklistsErrors];
+
+export type SearchSearchTrendBlacklistsResponses = {
+    /**
+     * Success
+     */
+    200: Array<SearchTrendBlacklist>;
+};
+
+export type SearchSearchTrendBlacklistsResponse = SearchSearchTrendBlacklistsResponses[keyof SearchSearchTrendBlacklistsResponses];
+
+export type CreateSearchTrendBlacklistData = {
+    body?: {
+        tag: string;
+        reason: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/search_trend_blacklists.json';
+};
+
+export type CreateSearchTrendBlacklistErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type CreateSearchTrendBlacklistError = CreateSearchTrendBlacklistErrors[keyof CreateSearchTrendBlacklistErrors];
+
+export type CreateSearchTrendBlacklistResponses = {
+    /**
+     * Success
+     */
+    201: SearchTrendBlacklist;
+};
+
+export type CreateSearchTrendBlacklistResponse = CreateSearchTrendBlacklistResponses[keyof CreateSearchTrendBlacklistResponses];
+
+export type DeleteSearchTrendBlacklistData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/search_trend_blacklists/{id}.json';
+};
+
+export type DeleteSearchTrendBlacklistErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type DeleteSearchTrendBlacklistError = DeleteSearchTrendBlacklistErrors[keyof DeleteSearchTrendBlacklistErrors];
+
+export type DeleteSearchTrendBlacklistResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type DeleteSearchTrendBlacklistResponse = DeleteSearchTrendBlacklistResponses[keyof DeleteSearchTrendBlacklistResponses];
+
+export type PurgeSearchTrendBlacklistData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/search_trend_blacklists/{id}/purge.json';
+};
+
+export type PurgeSearchTrendBlacklistErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type PurgeSearchTrendBlacklistError = PurgeSearchTrendBlacklistErrors[keyof PurgeSearchTrendBlacklistErrors];
+
+export type PurgeSearchTrendBlacklistResponses = {
+    /**
+     * Success
+     */
+    200: {
+        deleted_count: number;
+    };
+};
+
+export type PurgeSearchTrendBlacklistResponse = PurgeSearchTrendBlacklistResponses[keyof PurgeSearchTrendBlacklistResponses];
+
 export type LoginData = {
     body?: {
         /**
@@ -8059,6 +8355,9 @@ export type SearchStaffNotesData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -8123,7 +8422,7 @@ export type GetStaffNoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the staff note to get.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8159,7 +8458,7 @@ export type EditStaffNoteData = {
     };
     path: {
         /**
-         * The ID of the staff note.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8199,7 +8498,7 @@ export type DeleteStaffNoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the staff note.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8233,7 +8532,7 @@ export type UndeleteStaffNoteData = {
     body?: never;
     path: {
         /**
-         * The ID of the staff note.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8404,7 +8703,7 @@ export type DeleteTakedownData = {
     body?: never;
     path: {
         /**
-         * The ID of the takedown.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8438,7 +8737,7 @@ export type GetTakedownData = {
     body?: never;
     path: {
         /**
-         * The ID of the takedown.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8477,7 +8776,7 @@ export type EditTakedownData = {
     };
     path: {
         /**
-         * The ID of the takedown.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8519,7 +8818,7 @@ export type AddPostsToTakedownByIdsData = {
     };
     path: {
         /**
-         * The ID of the takedown.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8558,7 +8857,7 @@ export type AddPostsToTakedownByTagsData = {
     };
     path: {
         /**
-         * The ID of the takedown.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8597,7 +8896,7 @@ export type CountMatchingPostsData = {
     };
     path: {
         /**
-         * The ID of the takedown.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8635,7 +8934,7 @@ export type RemovePostsFromTakedownByIdsData = {
     };
     path: {
         /**
-         * The ID of the takedown.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8741,7 +9040,7 @@ export type GetTicketData = {
     body?: never;
     path: {
         /**
-         * The ID of the ticket.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8783,7 +9082,7 @@ export type EditTicketData = {
     };
     path: {
         /**
-         * The ID of the ticket.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8817,7 +9116,7 @@ export type ClaimTicketData = {
     body?: never;
     path: {
         /**
-         * The ID of the ticket.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8851,7 +9150,7 @@ export type UnclaimTicketData = {
     body?: never;
     path: {
         /**
-         * The ID of the ticket.
+         * The ID of the item.
          */
         id: number;
     };
@@ -8897,6 +9196,9 @@ export type SearchUploadsData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[uploader_id]'?: number;
         'search[uploader_name]'?: string;
@@ -8968,11 +9270,7 @@ export type UploadPostErrors = {
     /**
      * Error
      */
-    412: {
-        success: boolean;
-        message: string;
-        code?: string | null;
-    };
+    412: MessageErrorResponse;
 };
 
 export type UploadPostError = UploadPostErrors[keyof UploadPostErrors];
@@ -8994,7 +9292,7 @@ export type GetUploadData = {
     body?: never;
     path: {
         /**
-         * The ID of the upload.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9100,7 +9398,7 @@ export type DeleteUploadWhitelistData = {
     body?: never;
     path: {
         /**
-         * The ID of the upload whitelist.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9140,7 +9438,7 @@ export type EditUploadWhitelistData = {
     };
     path: {
         /**
-         * The ID of the upload whitelist entry.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9589,7 +9887,7 @@ export type AuditUserDMailData = {
          */
         user_id: number;
         /**
-         * The ID of the DMail.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9683,6 +9981,9 @@ export type SearchUserFeedbacksData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         /**
          * You must be Janitor+.
@@ -9747,7 +10048,7 @@ export type DestroyUserFeedbackData = {
     body?: never;
     path: {
         /**
-         * The ID of the feedback.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9781,7 +10082,7 @@ export type GetUserFeedbackData = {
     body?: never;
     path: {
         /**
-         * The ID of the feedback.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9818,7 +10119,7 @@ export type EditUserFeedbackData = {
     };
     path: {
         /**
-         * The ID of the feedback.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9858,7 +10159,7 @@ export type DeleteUserFeedbackData = {
     body?: never;
     path: {
         /**
-         * The ID of the feedback.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9892,7 +10193,7 @@ export type UndeleteUserFeedbackData = {
     body?: never;
     path: {
         /**
-         * The ID of the feedback.
+         * The ID of the item.
          */
         id: number;
     };
@@ -9938,6 +10239,9 @@ export type SearchUserNameChangeRequestsData = {
          * Search for a specific id. Multiple can be separated by commas, up to 100.
          */
         'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[current_id]'?: number;
         'search[current_name]'?: string;
@@ -9985,7 +10289,7 @@ export type DeleteUserNameChangeRequestData = {
     body?: never;
     path: {
         /**
-         * The ID of the name change request.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10006,7 +10310,7 @@ export type GetUserNameChangeRequestData = {
     body?: never;
     path: {
         /**
-         * The ID of the name change request.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10131,7 +10435,7 @@ export type DeleteWikiPageData = {
     body?: never;
     path: {
         /**
-         * The ID of the wiki page.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10165,9 +10469,9 @@ export type GetWikiPageData = {
     body?: never;
     path: {
         /**
-         * The ID or name of the wiki page.
+         * An ID that can be either an integer or a name.
          */
-        id: number;
+        id: number | string;
     };
     query?: never;
     url: '/wiki_pages/{id}.json';
@@ -10223,7 +10527,7 @@ export type EditWikiPageData = {
     };
     path: {
         /**
-         * The ID of the wiki page.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10263,7 +10567,7 @@ export type RevertWikiPageData = {
     body?: never;
     path: {
         /**
-         * The ID of the wiki page.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10324,6 +10628,9 @@ export type SearchWikiPageVersionsData = {
          * Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[ip_addr]'?: string;
+        /**
+         * The order of the results.
+         */
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[updater_id]'?: number;
         'search[updater_name]'?: string;
@@ -10349,7 +10656,7 @@ export type GetWikiPageVersionData = {
     body?: never;
     path: {
         /**
-         * The ID of the wiki page version.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10422,7 +10729,7 @@ export type AdminEditUserData = {
     };
     path: {
         /**
-         * The ID of the user.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10434,11 +10741,7 @@ export type AdminEditUserErrors = {
     /**
      * Error
      */
-    400: {
-        success: boolean;
-        message: string;
-        code?: string | null;
-    };
+    400: MessageErrorResponse;
     /**
      * Access Denied
      */
@@ -10470,7 +10773,7 @@ export type AdminAnonymizeUserData = {
     body?: never;
     path: {
         /**
-         * The ID of the user.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10512,7 +10815,7 @@ export type DeletePostData = {
     };
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10543,7 +10846,7 @@ export type UndeletePostData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10585,7 +10888,7 @@ export type RegeneratePostThumbnailsData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10627,7 +10930,7 @@ export type RegeneratePostVideosData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10669,7 +10972,7 @@ export type ExpungePostData = {
     };
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10716,7 +11019,7 @@ export type MovePostFavoritesData = {
     };
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };
@@ -10741,7 +11044,7 @@ export type AiCheckPostData = {
     body?: never;
     path: {
         /**
-         * The ID of the post.
+         * The ID of the item.
          */
         id: number;
     };

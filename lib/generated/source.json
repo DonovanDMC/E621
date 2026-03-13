@@ -12,7 +12,7 @@
       "name": "Donovan_DMC",
       "url": "https://e621.net/forum_topics/46279"
     },
-    "version": "bdaa075"
+    "version": "dfa164b"
   },
   "servers": [
     {
@@ -43,7 +43,7 @@
       }
     },
     "parameters": {
-      "id": {
+      "idQuery": {
         "name": "search[id]",
         "in": "query",
         "description": "Search for a specific id. Multiple can be separated by commas, up to 100.",
@@ -58,7 +58,56 @@
           ]
         }
       },
-      "idOrName": {
+      "limitQuery": {
+        "name": "limit",
+        "in": "query",
+        "description": "The maximum number of results to return. Between 0 and 320.",
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 320
+        }
+      },
+      "pageQuery": {
+        "name": "page",
+        "in": "query",
+        "description": "The page number of results to get. Between 1 and 750.",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 750
+        }
+      },
+      "ipAddrQuery": {
+        "name": "search[ip_addr]",
+        "in": "query",
+        "description": "Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "orderQuery": {
+        "name": "search[order]",
+        "in": "query",
+        "description": "The order of the results.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "id_asc",
+            "id_desc"
+          ]
+        }
+      },
+      "idPath": {
+        "name": "id",
+        "in": "path",
+        "description": "The ID of the item.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "idOrNamePath": {
         "name": "idOrName",
         "in": "path",
         "required": true,
@@ -73,34 +122,6 @@
           ]
         },
         "description": "An ID that can be either an integer or a name."
-      },
-      "limit": {
-        "name": "limit",
-        "in": "query",
-        "description": "The maximum number of results to return. Between 0 and 320.",
-        "schema": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 320
-        }
-      },
-      "page": {
-        "name": "page",
-        "in": "query",
-        "description": "The page number of results to get. Between 1 and 750.",
-        "schema": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 750
-        }
-      },
-      "ip_addr": {
-        "name": "search[ip_addr]",
-        "in": "query",
-        "description": "Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
-        "schema": {
-          "type": "string"
-        }
       }
     },
     "schemas": {
@@ -249,6 +270,7 @@
           "staff_note_update",
           "staff_note_delete",
           "staff_note_undelete",
+          "search_trend_blacklist_purge",
           "created_positive_record",
           "created_neutral_record",
           "created_negative_record",
@@ -1681,7 +1703,7 @@
             "type": "boolean"
           },
           "bit_flags": {
-            "type": "number"
+            "type": "integer"
           },
           "tag_count_meta": {
             "type": "integer"
@@ -1971,7 +1993,7 @@
             "type": "integer"
           },
           "version": {
-            "type": "number"
+            "type": "integer"
           },
           "is_active": {
             "type": "boolean"
@@ -2032,7 +2054,7 @@
             "type": "string"
           },
           "version": {
-            "type": "number"
+            "type": "integer"
           },
           "is_active": {
             "type": "boolean"
@@ -2170,7 +2192,7 @@
             "$ref": "#/components/schemas/PoolCategories"
           },
           "version": {
-            "type": "number"
+            "type": "integer"
           },
           "added_post_ids": {
             "type": "array",
@@ -2436,7 +2458,7 @@
             }
           },
           "change_seq": {
-            "type": "number"
+            "type": "integer"
           },
           "flags": {
             "type": "object",
@@ -2535,6 +2557,7 @@
           },
           "duration": {
             "type": "number",
+            "format": "float",
             "nullable": true
           },
           "uploader_name": {
@@ -2970,7 +2993,7 @@
             "type": "boolean"
           },
           "version": {
-            "type": "number"
+            "type": "integer"
           },
           "obsolete_added_tags": {
             "type": "string"
@@ -3364,7 +3387,7 @@
             "type": "string"
           },
           "disp_id": {
-            "type": "number"
+            "type": "integer"
           },
           "qtype": {
             "$ref": "#/components/schemas/TicketTypes"
@@ -4012,6 +4035,107 @@
             "$ref": "#/components/schemas/Tag"
           }
         }
+      },
+      "SearchTrend": {
+        "type": "object",
+        "required": [
+          "tag",
+          "count",
+          "day"
+        ],
+        "properties": {
+          "tag": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "day": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "RisingSearchTrend": {
+        "type": "object",
+        "required": [
+          "tag"
+        ],
+        "properties": {
+          "tag": {
+            "type": "string"
+          }
+        }
+      },
+      "SearchTrendBlacklist": {
+        "type": "object",
+        "required": [
+          "id",
+          "tag",
+          "reason",
+          "creator_id",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "creator_id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MessageErrorResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "MessageSuccessResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
       }
     },
     "responses": {
@@ -4065,28 +4189,22 @@
           }
         }
       },
+      "MessageSuccess": {
+        "description": "Success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MessageSuccessResponse"
+            }
+          }
+        }
+      },
       "MessageError": {
         "description": "Error",
         "content": {
           "application/json": {
             "schema": {
-              "type": "object",
-              "required": [
-                "success",
-                "message"
-              ],
-              "properties": {
-                "success": {
-                  "type": "boolean"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "code": {
-                  "type": "string",
-                  "nullable": true
-                }
-              }
+              "$ref": "#/components/schemas/MessageErrorResponse"
             }
           }
         }
@@ -4137,13 +4255,13 @@
         "description": "Requires [browser authentication](#operations-Sessions-login) (username & password), as well as hourly password confirmations (reauthentication).",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -4299,13 +4417,7 @@
         "description": "Requires [browser authentication](#operations-Sessions-login) (username & password), as well as hourly password confirmations (reauthentication).",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the api key.",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -4337,13 +4449,7 @@
         "description": "Requires [browser authentication](#operations-Sessions-login) (username & password), as well as hourly password confirmations (reauthentication).",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the api key.",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -4393,13 +4499,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -4619,7 +4725,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -4655,7 +4761,7 @@
                                   "type": "string"
                                 },
                                 {
-                                  "type": "number"
+                                  "type": "integer"
                                 }
                               ]
                             }
@@ -4693,7 +4799,7 @@
         "description": "If an artist is locked, you must be Janitor+ to edit them.\n`other_names` & `urls` are silently truncated to 25 entries.\n`notes` is silently truncated to the wiki page limit (250,000).\nIndividual `other_names` are silently truncated to 100 characters.\nIf an artist is on the avoid posting list, you must have the bd staff user flag to edit name, other_names, or group_name.\n",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "requestBody": {
@@ -4767,7 +4873,7 @@
         "description": "You must be an Admin+ to delete an artist.\n",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -4798,7 +4904,7 @@
         "description": "If an artist is locked, you must be Janitor+ to revert them.\n",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           },
           {
             "name": "version_id",
@@ -4835,16 +4941,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
             "name": "search[order]",
@@ -4918,13 +5024,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -5063,27 +5169,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "name": "search[creator_name]",
@@ -5252,7 +5350,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -5285,7 +5383,7 @@
         "description": "Must have the bd staff user flag.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "requestBody": {
@@ -5355,7 +5453,7 @@
         "description": "Must have the bd staff user flag.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -5386,7 +5484,7 @@
         "description": "Must have the bd staff user flag.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -5417,7 +5515,7 @@
         "description": "Must have the bd staff user flag.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -5442,28 +5540,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "description": "The order of the results.",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "name": "search[updater_name]",
@@ -5556,13 +5645,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -5652,13 +5741,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the ban to get.",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -5687,16 +5770,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
             "name": "search[order]",
@@ -5819,13 +5902,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the blip to get.",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -5861,13 +5938,7 @@
         "description": "Unless Admin+, blips cannot be edited after 5 minutes. Marked blips cannot be edited.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the blip.",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -5913,13 +5984,7 @@
         "description": "You must be Admin+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the blip.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -5950,13 +6015,7 @@
         "description": "You must be the creator or Moderator+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the blip.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -5994,13 +6053,7 @@
         "description": "You must be Moderator+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the blip.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6038,13 +6091,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the blip.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -6079,13 +6126,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -6259,13 +6306,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the bulk update request.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6298,13 +6339,7 @@
         "description": "You must be the creator of the BUR, or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the bulk update request.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -6358,13 +6393,7 @@
         "description": "You must be the creator of the BUR, or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the bulk update request.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6390,13 +6419,7 @@
         "description": "Must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the bulk update request.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6422,16 +6445,16 @@
         "description": "For searching comments, group_by=comment must be set.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
             "name": "search[order]",
@@ -6620,13 +6643,7 @@
         "description": "If the comment is hidden, you must be the creator or Janitor+ to see it.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6662,13 +6679,7 @@
         "description": "You must be the creator of the comment, or Admin+ to edit. Marked comments cannot be edited.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -6722,13 +6733,7 @@
         "description": "You must be Admin+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6759,13 +6764,7 @@
         "description": "You must be the creator or Moderator+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6803,13 +6802,7 @@
         "description": "You must be Moderator+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -6847,13 +6840,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -6893,13 +6880,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "score",
@@ -6968,13 +6949,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the comment.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -7076,13 +7051,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "in": "query",
@@ -7175,13 +7150,7 @@
         "description": "Fetching a dmail will not mark it as read.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the dmail.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -7217,13 +7186,7 @@
         "description": "Deleting simply hides your copy of the dmail.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the dmail.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -7253,13 +7216,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the dmail.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -7289,13 +7246,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the dmail.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -7398,27 +7349,19 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -7503,13 +7446,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The versionable id.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "type",
@@ -7555,13 +7492,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -7672,13 +7609,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the email blacklist.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -7703,10 +7634,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
             "in": "query",
@@ -7788,10 +7719,10 @@
                   ],
                   "properties": {
                     "post_id": {
-                      "type": "number"
+                      "type": "integer"
                     },
                     "favorite_count": {
-                      "type": "number"
+                      "type": "integer"
                     }
                   }
                 }
@@ -7824,12 +7755,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -7845,10 +7771,10 @@
                   ],
                   "properties": {
                     "post_id": {
-                      "type": "number"
+                      "type": "integer"
                     },
                     "favorite_count": {
-                      "type": "number"
+                      "type": "integer"
                     }
                   }
                 }
@@ -7876,24 +7802,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -8023,13 +7941,7 @@
         "description": "If the forum post is hidden, you must be the creator or Moderator+ to see it.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8065,13 +7977,7 @@
         "description": "You must be the creator of the forum post, or Admin+ to edit. Marked forum posts cannot be edited.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -8117,13 +8023,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8154,13 +8054,7 @@
         "description": "You must be the creator or Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8198,13 +8092,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8242,13 +8130,7 @@
         "description": "You must be Moderator+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -8288,13 +8170,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -8354,13 +8230,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8388,13 +8258,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -8545,13 +8415,7 @@
         "description": "If the forum topic is hidden, you must be the creator or Moderator+ to see it.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum topic.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8586,13 +8450,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum topic.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -8657,13 +8515,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum topic.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8694,13 +8546,7 @@
         "description": "You must be the creator or Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum topic.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8738,13 +8584,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum topic.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8781,13 +8621,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum topic.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8824,13 +8658,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the forum topic.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -8988,7 +8816,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "The ID or name of the help page.",
             "schema": {
               "oneOf": [
                 {
@@ -8998,7 +8825,8 @@
                   "type": "string"
                 }
               ]
-            }
+            },
+            "description": "An ID that can be either an integer or a name."
           }
         ],
         "responses": {
@@ -9034,13 +8862,7 @@
         "description": "You must be Admin+",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the help page.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -9096,13 +8918,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the help page.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -9132,27 +8948,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -9260,13 +9068,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the ip ban.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -9294,7 +9096,7 @@
             "name": "search[score_cutoff]",
             "in": "query",
             "schema": {
-              "type": "number"
+              "type": "integer"
             }
           },
           {
@@ -9355,7 +9157,7 @@
                     "format": "binary"
                   },
                   "search[score_cutoff]": {
-                    "type": "number"
+                    "type": "integer"
                   },
                   "search[url]": {
                     "type": "string"
@@ -9419,13 +9221,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           }
         ],
         "responses": {
@@ -9535,13 +9337,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the mascot.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -9610,13 +9406,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the mascot.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -9642,13 +9432,13 @@
         "description": "Note that some mod actions are not in use anymore. Their entries exist for historical purposes only.<br>\nThe current legacy actions are as follows:<br>\n* `created_positive_record`, `created_neutral_record`, `created_negative_record`\n* `created_flag_reason`, `edited_flag_reason`, `deleted_flag_reason`\n* `post_move_favorites`, `post_delete`, `post_undelete`, `post_destroy`, `post_rating_lock`, `post_unapprove`\n* `post_replacement_accept`, `post_replacement_reject`, `post_replacement_delete`\n",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -9709,13 +9499,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the mod action.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -9747,10 +9531,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           }
         ],
         "responses": {
@@ -9833,13 +9617,7 @@
         "description": "You must be Admin+",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the news update.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -9888,13 +9666,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the news update.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -9919,24 +9691,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -10108,13 +9872,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the note.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -10146,13 +9904,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the note.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -10209,13 +9961,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the note.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -10245,13 +9991,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the note.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "version_id",
@@ -10288,28 +10028,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "description": "The order of the results.",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -10380,13 +10111,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -10538,13 +10269,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the pool.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -10576,13 +10301,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the pool.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -10648,13 +10367,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the pool.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -10684,13 +10397,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the pool.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "version_id",
@@ -10892,28 +10599,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "description": "The order of the results.",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -10963,7 +10661,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
             "name": "date",
@@ -11022,10 +10720,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
             "in": "query",
@@ -11124,13 +10822,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -11171,13 +10863,7 @@
         "description": "Most errors are silently swallowed.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -11310,13 +10996,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -11365,13 +11045,7 @@
         "description": "Will error if no body is provided.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -11436,13 +11110,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -11492,13 +11160,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "version_id",
@@ -11535,13 +11197,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "seq",
@@ -11602,13 +11258,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -11648,13 +11298,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "limit",
@@ -11667,7 +11311,7 @@
             }
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           }
         ],
         "description": "You must be the user or Moderator+ to see users that have their favorites hidden.",
@@ -11708,13 +11352,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "score",
@@ -11791,13 +11429,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -11825,13 +11457,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -11989,13 +11621,7 @@
         "description": "You must be Moderator+ if the set is not public.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post set.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -12031,13 +11657,7 @@
         "description": "You must be the owner of the set, or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post sets.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -12095,13 +11715,7 @@
         "description": "You must be the owner of the set, or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post set.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -12132,13 +11746,7 @@
         "description": "You must be the owner of the set, a maintainer (if public), or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post set.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -12196,13 +11804,7 @@
         "description": "You must be the owner of the set, a maintainer (if public), or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post set.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -12264,13 +11866,7 @@
         "description": "You must be the owner of the set, a maintainer (if public), or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post set.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -12346,8 +11942,14 @@
                             "type": "string"
                           },
                           {
-                            "type": "number"
+                            "type": "integer"
                           }
+                        ],
+                        "example": [
+                          [
+                            "my_set",
+                            1
+                          ]
                         ]
                       }
                     },
@@ -12359,8 +11961,14 @@
                             "type": "string"
                           },
                           {
-                            "type": "number"
+                            "type": "integer"
                           }
+                        ],
+                        "example": [
+                          [
+                            "my_set",
+                            1
+                          ]
                         ]
                       }
                     }
@@ -12387,24 +11995,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "name": "search[post_tags_match]",
@@ -12466,24 +12066,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -12548,27 +12140,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -12715,13 +12299,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post flag.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -12756,13 +12334,7 @@
         "description": "You must be Janitor+",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post flag.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -12795,13 +12367,13 @@
         "description": "Rejected replacements can only be seen by staff.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "in": "query",
@@ -13017,13 +12589,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post replacement.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13054,10 +12620,9 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
+            "$ref": "#/components/parameters/idPath",
             "required": true,
-            "description": "The ID of the post replacement.",
+            "description": "The ID of the post flag.",
             "schema": {
               "type": "integer"
             }
@@ -13094,13 +12659,7 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post replacement.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13134,13 +12693,7 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post replacement.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13189,13 +12742,7 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post replacement.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13223,7 +12770,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
             "name": "page",
@@ -13236,7 +12783,7 @@
             }
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "in": "query",
@@ -13415,13 +12962,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post version.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13452,13 +12993,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post version.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13488,13 +13023,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post version.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13593,13 +13122,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -13692,13 +13221,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID or name of the tag.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13731,13 +13254,7 @@
         "description": "Must be Admin+ if the tag is locked or post count is >100.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -13787,13 +13304,7 @@
         "description": "You must have the bd staff user flag.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13821,13 +13332,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -13860,13 +13365,7 @@
         "description": "You must be Janitor+. `commit=Fix` must be set.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -13962,13 +13461,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[tag]",
@@ -14018,13 +13517,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -14138,13 +13637,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag alias.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -14177,13 +13670,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag alias.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -14235,13 +13722,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag alias.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -14272,13 +13753,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag alias.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -14361,13 +13836,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -14481,13 +13956,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag implication.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -14520,13 +13989,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag implication.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -14578,13 +14041,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag implication.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -14615,13 +14072,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the tag implication.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -14752,6 +14203,333 @@
         }
       }
     },
+    "/search_trends.json": {
+      "get": {
+        "summary": "List Search Trends",
+        "operationId": "listSearchTrends",
+        "tags": [
+          "Search Trends"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "day",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchTrend"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search_trends/rising.json": {
+      "get": {
+        "summary": "List Rising Search Trends",
+        "operationId": "listRisingSearchTrends",
+        "tags": [
+          "Search Trends"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RisingSearchTrend"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search_trends/clear_cache.json": {
+      "post": {
+        "summary": "Clear Search Trends Cache",
+        "operationId": "clearSearchTrendsCache",
+        "tags": [
+          "Search Trends"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/MessageSuccess"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      }
+    },
+    "/search_trends/update_settings.json": {
+      "post": {
+        "summary": "Update Search Trends Settings",
+        "operationId": "updateSearchTrendsSettings",
+        "tags": [
+          "Search Trends"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "trends_enabled": {
+                    "type": "boolean"
+                  },
+                  "trends_min_today": {
+                    "type": "integer"
+                  },
+                  "trends_min_dleta": {
+                    "type": "integer"
+                  },
+                  "trends_min_ratio": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "trends_ip_limit": {
+                    "type": "integer"
+                  },
+                  "trends_ip_window": {
+                    "type": "integer"
+                  },
+                  "trends_tag_limit": {
+                    "type": "integer"
+                  },
+                  "trends_tag_window": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/MessageSuccess"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      }
+    },
+    "/search_trend_blacklists.json": {
+      "get": {
+        "summary": "Search Search Trend Blacklists",
+        "operationId": "searchSearchTrendBlacklists",
+        "tags": [
+          "Search Trend Blacklists"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitQuery"
+          },
+          {
+            "$ref": "#/components/parameters/pageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/orderQuery"
+          },
+          {
+            "in": "query",
+            "name": "tag",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reason",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchTrendBlacklist"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Search Trend Blacklist",
+        "operationId": "createSearchTrendBlacklist",
+        "tags": [
+          "Search Trend Blacklists"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "tag",
+                  "reason"
+                ],
+                "properties": {
+                  "tag": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchTrendBlacklist"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "422": {
+            "$ref": "#/components/responses/ExpectedError"
+          }
+        }
+      }
+    },
+    "/search_trend_blacklists/{id}.json": {
+      "delete": {
+        "summary": "Delete Search Trend Blacklist",
+        "operationId": "deleteSearchTrendBlacklist",
+        "tags": [
+          "Search Trend Blacklists"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/search_trend_blacklists/{id}/purge.json": {
+      "delete": {
+        "summary": "Purge Search Trend Blacklist",
+        "operationId": "purgeSearchTrendBlacklist",
+        "tags": [
+          "Search Trend Blacklists"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "deleted_count"
+                  ],
+                  "properties": {
+                    "deleted_count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
     "/session.json": {
       "post": {
         "summary": "Login",
@@ -14825,24 +14603,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "name": "search[creator_id]",
@@ -14984,13 +14754,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the staff note to get.",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -15026,13 +14790,7 @@
         "description": "You must be the creator or Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the staff note.",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -15087,13 +14845,7 @@
         "description": "You must be the creator or Admin+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the staff note.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -15131,13 +14883,7 @@
         "description": "You must be the creator or Admin+.\n",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the staff note.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -15169,16 +14915,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
             "in": "query",
@@ -15398,13 +15144,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the takedown.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -15437,13 +15177,7 @@
         "description": "You must have the bd staff user flag.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the takedown.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -15502,13 +15236,7 @@
         "description": "You must have the bd staff user flag.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the takedown.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -15539,13 +15267,7 @@
         "description": "You must have the bd staff user flag.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the takedown.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -15615,13 +15337,7 @@
         "description": "You must have the bd staff user flag.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the takedown.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -15691,13 +15407,7 @@
         "description": "You must have the bd staff user flag.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the takedown.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -15760,13 +15470,7 @@
         "description": "You must have the bd staff user flag.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the takedown.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -15809,13 +15513,13 @@
         "description": "You must be Janitor+ to see tickets you did not create.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "in": "query",
@@ -15938,13 +15642,7 @@
         "description": "You must be Janitor+ to see tickets you did not create.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the ticket.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -15980,13 +15678,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the ticket.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -16043,13 +15735,7 @@
         "description": "You must be Moderator+. Errors are quietly swallowed and shown as notices in html.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the ticket.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "security": [
@@ -16087,13 +15773,7 @@
         "description": "You must be Moderator+. Errors are quietly swallowed and shown as notices in html.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the ticket.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "security": [
@@ -16130,24 +15810,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -16369,13 +16041,7 @@
         "description": "You must be Janitor+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the upload.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -16407,13 +16073,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -16555,13 +16221,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the upload whitelist entry.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -16619,13 +16279,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the upload whitelist.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -16714,16 +16368,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
             "name": "search[order]",
@@ -16889,7 +16543,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -16909,7 +16563,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "security": [
@@ -16924,7 +16578,7 @@
                 "type": "object",
                 "properties": {
                   "user[comment_threshold]": {
-                    "type": "number"
+                    "type": "integer"
                   },
                   "user[default_image_size]": {
                     "type": "string",
@@ -17047,7 +16701,7 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "responses": {
@@ -17070,7 +16724,7 @@
         "description": "You must be Admin+.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "security": [
@@ -17101,7 +16755,7 @@
         "description": "You must be Janitor+.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "security": [
@@ -17132,7 +16786,7 @@
         "description": "You must be Janitor+.\nThis endpoint will return HTML when disabling uploads (due to a reason being required), this endpoint should only be used for reenabling. Use [Disable User Uploads](#operation-Users-disableUserUploads) to disable uploads.\n",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "security": [
@@ -17163,7 +16817,7 @@
         "description": "You must be Janitor+.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/idOrName"
+            "$ref": "#/components/parameters/idOrNamePath"
           }
         ],
         "security": [
@@ -17216,10 +16870,10 @@
         "description": "Must have the bd auditor user flag.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
             "name": "user_id",
@@ -17278,13 +16932,7 @@
             }
           },
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the DMail.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -17388,24 +17036,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -17548,13 +17188,7 @@
         "description": "You must be Janitor+ if the feedback is deleted.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the feedback.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -17590,13 +17224,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the feedback.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -17645,13 +17273,7 @@
         "description": "You must be Admin+, or the creator and Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the feedback.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -17682,13 +17304,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the feedback.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -17719,13 +17335,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the feedback.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -17756,24 +17366,16 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -17879,13 +17481,7 @@
         "description": "You must be the creator of the request or Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the name change request.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -17921,13 +17517,7 @@
         "description": "You must be Moderator+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the name change request.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -17949,13 +17539,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
@@ -18140,10 +17730,17 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "The ID or name of the wiki page.",
             "schema": {
-              "type": "integer"
-            }
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "An ID that can be either an integer or a name."
           }
         ],
         "responses": {
@@ -18176,8 +17773,7 @@
         "description": "You must be Janitor+ if the wiki page is locked.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
+            "$ref": "#/components/parameters/idPath",
             "required": true,
             "description": "The ID of the wiki page.",
             "schema": {
@@ -18258,13 +17854,7 @@
         "description": "You must be Admin+",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the wiki page.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -18294,13 +17884,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the wiki page.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           },
           {
             "name": "version_id",
@@ -18337,27 +17921,19 @@
         ],
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
-            "$ref": "#/components/parameters/ip_addr"
+            "$ref": "#/components/parameters/ipAddrQuery"
           },
           {
-            "name": "search[order]",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "id_asc",
-                "id_desc"
-              ]
-            }
+            "$ref": "#/components/parameters/orderQuery"
           },
           {
             "in": "query",
@@ -18435,13 +18011,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the wiki page version.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -18530,13 +18100,7 @@
         "description": "You must be Admin+. If editing an Admin+, you must be Owner+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the user.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -18563,7 +18127,7 @@
                     "type": "string"
                   },
                   "user[base_upload_limit]": {
-                    "type": "number"
+                    "type": "integer"
                   },
                   "user[enable_privacy_mode]": {
                     "type": "boolean"
@@ -18623,13 +18187,7 @@
         "description": "You must have the bd staff user flag. Cannot be used on staff.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the user.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -18657,13 +18215,7 @@
         "description": "You must have the \"Approve Posts\" permission. `commit=Delete` must be set.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -18731,13 +18283,7 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -18786,13 +18332,7 @@
         "description": "You must be Janitor+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -18841,13 +18381,7 @@
         "description": "You must be Janitor+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -18881,13 +18415,7 @@
         "description": "You must have the \"Approve Posts\" permission and be Admin+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -18950,13 +18478,7 @@
         "description": "You must have the \"Approve Posts\" permission. `commit=Submit`` must be set.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "requestBody": {
@@ -19008,13 +18530,7 @@
         "description": "You must be Janitor+.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the post.",
-            "schema": {
-              "type": "integer"
-            }
+            "$ref": "#/components/parameters/idPath"
           }
         ],
         "responses": {
@@ -19147,13 +18663,13 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "parameters": [
           {
-            "$ref": "#/components/parameters/limit"
+            "$ref": "#/components/parameters/limitQuery"
           },
           {
-            "$ref": "#/components/parameters/page"
+            "$ref": "#/components/parameters/pageQuery"
           },
           {
-            "$ref": "#/components/parameters/id"
+            "$ref": "#/components/parameters/idQuery"
           },
           {
             "name": "search[order]",
