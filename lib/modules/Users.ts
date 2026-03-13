@@ -14,46 +14,48 @@ import {
     updateUserDmailFilter
 } from "../generated/sdk.js";
 import type { GetAvatarMenuResponses, User as UserData, SearchUsersData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
+import { GetResponse, OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 import User from "../models/User.js";
 import FullCurrentUser from "../models/FullCurrentUser.js";
 import FullUser from "../models/FullUser.js";
 
 /** @category Modules/Types */
 export interface SearchUsersOptions extends TransformDataQueryToOptions<SearchUsersData> {}
+/** @category Modules/Types */
+export interface GetAvatarMenuResponse extends GetResponse<GetAvatarMenuResponses, 200> {}
 
 /** @category Modules */
 export default class Users extends Base {
     dmails = new UsersDMails(this.e621, this.client);
     @OperationID("getAvatarMenu")
-    async avatarMenu(): Promise<GetAvatarMenuResponses[200]> {
+    async avatarMenu(): Promise<GetAvatarMenuResponse> {
         return getAvatarMenu({
             client: this.client
         }).then(res => this._handleResponse(res, 200, true));
     }
 
     @OperationID("clearUserFavorites")
-    async clearFavorites(idOrName: string | number): Promise<unknown> {
+    async clearFavorites(idOrName: string | number): Promise<string> {
         return clearUserFavorites({
             client: this.client,
             path:   { idOrName }
-        }).then(res => this._handleResponse(res, 200, true));
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("disableUserUploads")
-    async disableUploads(idOrName: string | number, body?: string): Promise<unknown> {
+    async disableUploads(idOrName: string | number, body?: string): Promise<string> {
         return disableUserUploads({
             client: this.client,
             path:   { idOrName },
             body:   body === undefined ? undefined : { "staff_note[body]": body }
-        }).then(res => this._handleResponse(res, 200, true));
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("fixUserCounts")
-    async fixCounts(): Promise<unknown> {
+    async fixCounts(): Promise<string> {
         return fixUserCounts({
             client: this.client
-        }).then(res => this._handleResponse(res, 200, true));
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("getUser")
@@ -87,11 +89,11 @@ export default class Users extends Base {
     }
 
     @OperationID("staffFixUserCounts")
-    async staffFixCounts(idOrName: string | number): Promise<unknown> {
+    async staffFixCounts(idOrName: string | number): Promise<string> {
         return staffFixUserCounts({
             client: this.client,
             path:   { idOrName }
-        }).then(res => this._handleResponse(res, 200, true));
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("toggleUserUploads")

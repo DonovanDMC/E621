@@ -1,24 +1,24 @@
 import Base from "./Base.js";
-import type { AddPostsToTakedownByIdsResponses, AddPostsToTakedownByTagsResponses, CountMatchingPostsResponses, Takedown as TakedownData } from "../generated/types.js";
+import type { Takedown as TakedownData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
-import type { EditTakedownOptions } from "../modules/Takedowns.js";
+import type { AddPostsToTakedownByIdsResponse, AddPostsToTakedownByTagsResponse, CountMatchingPostsResponse, EditTakedownOptions } from "../modules/Takedowns.js";
 
 interface Takedown extends TakedownData {}
 /** @category Models */
 @Schema("Takedown")
 class Takedown extends Base<TakedownData> {
     @OperationID("addPostsToTakedownByIds")
-    async addByIds(post_ids: Array<number>): Promise<AddPostsToTakedownByIdsResponses[200]> {
+    async addByIds(post_ids: Array<number>): Promise<AddPostsToTakedownByIdsResponse> {
         return this.e621.takedowns.addByIds(this.id, post_ids);
     }
 
     @OperationID("addPostsToTakedownByTags")
-    async addByTags(tags: Array<string>): Promise<AddPostsToTakedownByTagsResponses[200]> {
+    async addByTags(tags: Array<string>): Promise<AddPostsToTakedownByTagsResponse> {
         return this.e621.takedowns.addByTags(this.id, tags);
     }
 
     @OperationID("countMatchingPosts")
-    async countMatchingPosts(tags: string): Promise<CountMatchingPostsResponses[200]> {
+    async countMatchingPosts(tags: string): Promise<CountMatchingPostsResponse> {
         return this.e621.takedowns.countMatchingPosts(this.id, tags);
     }
 

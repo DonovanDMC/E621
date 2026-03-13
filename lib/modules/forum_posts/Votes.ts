@@ -1,12 +1,15 @@
 import Base from "../Base.js";
 import { createForumPostVote, deleteForumPostVote } from "../../generated/sdk.js";
 import type { CreateForumPostVoteData, CreateForumPostVoteResponses } from "../../generated/types.js";
-import { OperationID, type ExtractValue } from "../../util.js";
+import { GetResponse, OperationID, type ExtractValue } from "../../util.js";
+
+export type ForumPostVoteScore = ExtractValue<"forum_post_vote[score]", CreateForumPostVoteData>;
+export interface CreateForumPostVoteResponse extends GetResponse<CreateForumPostVoteResponses, 200> {}
 
 /** @category Modules */
 export default class ForumPostVotes extends Base {
     @OperationID("createForumPostVote")
-    async create(id: number, score: ExtractValue<"forum_post_vote[score]", CreateForumPostVoteData>): Promise<CreateForumPostVoteResponses[200]> {
+    async create(id: number, score: ForumPostVoteScore): Promise<CreateForumPostVoteResponse> {
         return createForumPostVote({
             client: this.client,
             path:   { id },

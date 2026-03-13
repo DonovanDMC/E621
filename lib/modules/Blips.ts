@@ -16,7 +16,13 @@ import type {
     SearchBlipsData,
     WarningRecordType
 } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import {
+    GetResponse,
+    OperationID,
+    prefixKeys,
+    type TransformDataBodyToOptions,
+    type TransformDataQueryToOptions
+} from "../util.js";
 import Blip from "../models/Blip.js";
 
 /** @category Modules/Types */
@@ -25,6 +31,8 @@ export interface SearchBlipsOptions extends TransformDataQueryToOptions<SearchBl
 export interface CreateBlipOptions extends TransformDataBodyToOptions<CreateBlipData> {}
 /** @category Modules/Types */
 export interface EditBlipOptions extends TransformDataBodyToOptions<EditBlipData> {}
+/** @category Modules/Types */
+export interface MarkBlipResponse extends GetResponse<MarkBlipResponses, 200> {}
 
 /** @category Modules */
 export default class Blips extends Base {
@@ -70,7 +78,7 @@ export default class Blips extends Base {
     }
 
     @OperationID("markBlip")
-    async mark(id: number, type: WarningRecordType["record_type"]): Promise<MarkBlipResponses[200]> {
+    async mark(id: number, type: WarningRecordType["record_type"]): Promise<MarkBlipResponse> {
         return markBlip({
             client: this.client,
             path:   { id },

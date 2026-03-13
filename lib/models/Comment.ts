@@ -1,13 +1,8 @@
 import Base from "./Base.js";
-import type {
-    Comment as CommentData,
-    CreateCommentVoteData,
-    CreateCommentVoteResponses,
-    MarkCommentData,
-    MarkCommentResponses
-} from "../generated/types.js";
+import type { Comment as CommentData, CreateCommentVoteData, MarkCommentData } from "../generated/types.js";
 import { type ExtractValue, OperationID, Schema } from "../util.js";
-import type { EditCommentOptions } from "../modules/Comments.js";
+import type { EditCommentOptions, MarkCommentResponse } from "../modules/Comments.js";
+import { CreateCommentVoteResponse } from "../modules/comments/Votes.js";
 
 interface Comment extends CommentData {}
 /** @category Models */
@@ -29,7 +24,7 @@ class Comment extends Base<CommentData> {
     }
 
     @OperationID("markComment")
-    async mark(type: ExtractValue<"record_type", MarkCommentData>): Promise<MarkCommentResponses[200]> {
+    async mark(type: ExtractValue<"record_type", MarkCommentData>): Promise<MarkCommentResponse> {
         return this.e621.comments.mark(this.id, type);
     }
 
@@ -44,7 +39,7 @@ class Comment extends Base<CommentData> {
     }
 
     @OperationID("createCommentVote")
-    async vote(score: ExtractValue<"score", CreateCommentVoteData>, no_unvote?: boolean): Promise<CreateCommentVoteResponses[200]> {
+    async vote(score: ExtractValue<"score", CreateCommentVoteData>, no_unvote?: boolean): Promise<CreateCommentVoteResponse> {
         return this.e621.comments.votes.create(this.id, score, no_unvote);
     }
 }

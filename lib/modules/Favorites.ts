@@ -1,16 +1,20 @@
 import Base from "./Base.js";
 import { addFavorite, listFavorites, removeFavorite } from "../generated/sdk.js";
 import type { AddFavoriteResponses, ListFavoritesData, RemoveFavoriteResponses } from "../generated/types.js";
-import { OperationID, type TransformDataQueryToOptions } from "../util.js";
+import { GetResponse, OperationID, type TransformDataQueryToOptions } from "../util.js";
 import Post from "../models/Post.js";
 
 /** @category Modules/Types */
 export interface SearchFavoritesOptions extends TransformDataQueryToOptions<ListFavoritesData> {}
+/** @category Modules/Types */
+export interface AddFavoriteResponse extends GetResponse<AddFavoriteResponses, 201> {}
+/** @category Modules/Types */
+export interface RemoveFavoriteResponse extends GetResponse<RemoveFavoriteResponses, 200> {}
 
 /** @category Modules */
 export default class Favorites extends Base {
     @OperationID("addFavorite")
-    async create(post_id: number): Promise<AddFavoriteResponses[201]> {
+    async create(post_id: number): Promise<AddFavoriteResponse> {
         return addFavorite({
             client: this.client,
             body:   { post_id }
@@ -18,7 +22,7 @@ export default class Favorites extends Base {
     }
 
     @OperationID("removeFavorite")
-    async delete(id: number): Promise<RemoveFavoriteResponses[200]> {
+    async delete(id: number): Promise<RemoveFavoriteResponse> {
         return removeFavorite({
             client: this.client,
             path:   { id }

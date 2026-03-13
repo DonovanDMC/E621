@@ -1,15 +1,17 @@
 import Base from "./Base.js";
 import { type ListBulkRelatedTagsResponses, type ListBulkRelatedTagsData } from "../generated/types.js";
-import { OperationID, type TransformDataBodyToOptions } from "../util.js";
+import { GetResponse, OperationID, type TransformDataBodyToOptions } from "../util.js";
 import { listBulkRelatedTags } from "../generated/sdk.js";
 
 /** @category Modules/Types */
 export interface BulkRelatedTagsOptions extends TransformDataBodyToOptions<ListBulkRelatedTagsData> {}
+/** @category Modules/Types */
+export interface ListBulkRelatedTagsResponse extends GetResponse<ListBulkRelatedTagsResponses, 200> {}
 
 /** @category Modules */
 export default class RelatedTags extends Base {
     @OperationID("listBulkRelatedTags")
-    async bulk(options?: BulkRelatedTagsOptions): Promise<ListBulkRelatedTagsResponses[200]> {
+    async bulk(options?: BulkRelatedTagsOptions): Promise<ListBulkRelatedTagsResponse> {
         return listBulkRelatedTags({
             client: this.client,
             body:   options

@@ -1,13 +1,8 @@
 import Base from "./Base.js";
-import type {
-    CreateForumPostVoteData,
-    CreateForumPostVoteResponses,
-    ForumPost as ForumPostData,
-    MarkForumPostData,
-    MarkForumPostResponses
-} from "../generated/types.js";
+import type { CreateForumPostVoteData, ForumPost as ForumPostData, MarkForumPostData } from "../generated/types.js";
 import { type ExtractValue, OperationID, Schema } from "../util.js";
-import type { EditForumPostOptions } from "../modules/ForumPosts.js";
+import type { EditForumPostOptions, MarkForumPostResponse } from "../modules/ForumPosts.js";
+import { CreateForumPostVoteResponse } from "../modules/forum_posts/Votes.js";
 
 interface ForumPost extends ForumPostData {}
 /** @category Models */
@@ -29,7 +24,7 @@ class ForumPost extends Base<ForumPostData> {
     }
 
     @OperationID("markForumPost")
-    async mark(type: ExtractValue<"record_type", MarkForumPostData>): Promise<MarkForumPostResponses[200]> {
+    async mark(type: ExtractValue<"record_type", MarkForumPostData>): Promise<MarkForumPostResponse> {
         return this.e621.forumPosts.mark(this.id, type);
     }
 
@@ -44,7 +39,7 @@ class ForumPost extends Base<ForumPostData> {
     }
 
     @OperationID("createForumPostVote")
-    async vote(score: ExtractValue<"forum_post_vote[score]", CreateForumPostVoteData>): Promise<CreateForumPostVoteResponses[200]> {
+    async vote(score: ExtractValue<"forum_post_vote[score]", CreateForumPostVoteData>): Promise<CreateForumPostVoteResponse> {
         return this.e621.forumPosts.votes.create(this.id, score);
     }
 

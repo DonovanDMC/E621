@@ -1,7 +1,8 @@
 import Base from "./Base.js";
-import type { Blip as BlipData, MarkBlipData, MarkBlipResponses } from "../generated/types.js";
+import type { Blip as BlipData, MarkBlipData } from "../generated/types.js";
 import { type ExtractValue, OperationID, Schema } from "../util.js";
-import type { EditBlipOptions } from "../modules/Blips.js";
+import type { EditBlipOptions, MarkBlipResponse } from "../modules/Blips.js";
+
 
 interface Blip extends BlipData {}
 /** @category Models */
@@ -23,7 +24,7 @@ class Blip extends Base<BlipData> {
     }
 
     @OperationID("markBlip")
-    async mark(type: ExtractValue<"record_type", MarkBlipData>): Promise<MarkBlipResponses[200]> {
+    async mark(type: ExtractValue<"record_type", MarkBlipData>): Promise<MarkBlipResponse> {
         return this.e621.blips.mark(this.id, type);
     }
 

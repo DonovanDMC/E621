@@ -11,7 +11,13 @@ import {
     updatePostSetPosts
 } from "../generated/sdk.js";
 import type { CreatePostSetData, EditPostSetData, ListPostSetsForSelectResponses, SearchPostSetsData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import {
+    GetResponse,
+    OperationID,
+    prefixKeys,
+    type TransformDataBodyToOptions,
+    type TransformDataQueryToOptions
+} from "../util.js";
 import PostSet from "../models/PostSet.js";
 
 /** @category Modules/Types */
@@ -20,6 +26,8 @@ export interface CreatePostSetOptions extends TransformDataBodyToOptions<CreateP
 export interface EditPostSetOptions extends TransformDataBodyToOptions<EditPostSetData> {}
 /** @category Modules/Types */
 export interface SearchPostSetsOptions extends TransformDataQueryToOptions<SearchPostSetsData> {}
+/** @category Modules/Types */
+export interface ListPostSetsForSelectResponse extends GetResponse<ListPostSetsForSelectResponses, 200> {}
 
 /** @category Modules */
 export default class PostSets extends Base {
@@ -58,7 +66,7 @@ export default class PostSets extends Base {
     }
 
     @OperationID("listPostSetsForSelect")
-    async forSelect(): Promise<ListPostSetsForSelectResponses[200]> {
+    async forSelect(): Promise<ListPostSetsForSelectResponse> {
         return listPostSetsForSelect({
             client: this.client
         }).then(res => this._handleResponse(res, 200, true));

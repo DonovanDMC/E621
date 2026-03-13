@@ -22,7 +22,8 @@ import {
     type ExtractValue,
     prefixKeys,
     type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
+    type TransformDataQueryToOptions,
+    GetResponse
 } from "../util.js";
 import ForumPost from "../models/ForumPost.js";
 
@@ -32,6 +33,8 @@ export interface CreateForumPostOptions extends TransformDataBodyToOptions<Creat
 export interface EditForumPostOptions extends TransformDataBodyToOptions<EditForumPostData> {}
 /** @category Modules/Types */
 export interface SearchForumPostsOptions extends TransformDataQueryToOptions<SearchForumPostsData> {}
+/** @category Modules/Types */
+export interface MarkForumPostResponse extends GetResponse<MarkForumPostResponses, 200> {}
 
 /** @category Modules */
 export default class ForumPosts extends Base {
@@ -78,7 +81,7 @@ export default class ForumPosts extends Base {
     }
 
     @OperationID("markForumPost")
-    async mark(id: number, type: ExtractValue<"record_type", MarkForumPostData>): Promise<MarkForumPostResponses[200]> {
+    async mark(id: number, type: ExtractValue<"record_type", MarkForumPostData>): Promise<MarkForumPostResponse> {
         return markForumPost({
             client: this.client,
             path:   { id },

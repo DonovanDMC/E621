@@ -11,7 +11,13 @@ import {
     searchPools
 } from "../generated/sdk.js";
 import type { CreatePoolData, EditPoolData, GetRecentPoolsResponses, SearchPoolsData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import {
+    GetResponse,
+    OperationID,
+    prefixKeys,
+    type TransformDataBodyToOptions,
+    type TransformDataQueryToOptions
+} from "../util.js";
 import Pool from "../models/Pool.js";
 
 /** @category Modules/Types */
@@ -20,6 +26,8 @@ export interface CreatePoolOptions extends TransformDataBodyToOptions<CreatePool
 export interface EditPoolOptions extends TransformDataBodyToOptions<EditPoolData> {}
 /** @category Modules/Types */
 export interface SearchPoolsOptions extends TransformDataQueryToOptions<SearchPoolsData> {}
+/** @category Modules/Types */
+export interface GetRecentPoolsResponse extends GetResponse<GetRecentPoolsResponses, 200> {}
 
 /** @category Modules */
 export default class Pools extends Base {
@@ -65,7 +73,7 @@ export default class Pools extends Base {
     }
 
     @OperationID("getRecentPools")
-    async getRecent(): Promise<GetRecentPoolsResponses[200]> {
+    async getRecent(): Promise<GetRecentPoolsResponse> {
         return getRecentPools({
             client: this.client
         }).then(res => this._handleResponse(res, 200, true));

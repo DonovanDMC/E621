@@ -18,7 +18,13 @@ import type {
     EditTakedownData,
     SearchTakedownsData
 } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import {
+    GetResponse,
+    OperationID,
+    prefixKeys,
+    type TransformDataBodyToOptions,
+    type TransformDataQueryToOptions
+} from "../util.js";
 import Takedown from "../models/Takedown.js";
 
 /** @category Modules/Types */
@@ -27,11 +33,17 @@ export interface CreateTakedownOptions extends TransformDataBodyToOptions<Create
 export interface EditTakedownOptions extends TransformDataBodyToOptions<EditTakedownData> {}
 /** @category Modules/Types */
 export interface SearchTakedownsOptions extends TransformDataQueryToOptions<SearchTakedownsData> {}
+/** @category Modules/Types */
+export interface AddPostsToTakedownByIdsResponse extends GetResponse<AddPostsToTakedownByIdsResponses, 200> {}
+/** @category Modules/Types */
+export interface AddPostsToTakedownByTagsResponse extends GetResponse<AddPostsToTakedownByTagsResponses, 200> {}
+/** @category Modules/Types */
+export interface CountMatchingPostsResponse extends GetResponse<CountMatchingPostsResponses, 200> {}
 
 /** @category Modules */
 export default class Takedowns extends Base {
     @OperationID("addPostsToTakedownByIds")
-    async addByIds(id: number, post_ids: Array<number>): Promise<AddPostsToTakedownByIdsResponses[200]> {
+    async addByIds(id: number, post_ids: Array<number>): Promise<AddPostsToTakedownByIdsResponse> {
         return addPostsToTakedownByIds({
             client: this.client,
             path:   { id },
@@ -40,7 +52,7 @@ export default class Takedowns extends Base {
     }
 
     @OperationID("addPostsToTakedownByTags")
-    async addByTags(id: number, tags: Array<string>): Promise<AddPostsToTakedownByTagsResponses[200]> {
+    async addByTags(id: number, tags: Array<string>): Promise<AddPostsToTakedownByTagsResponse> {
         return addPostsToTakedownByTags({
             client: this.client,
             path:   { id },
@@ -49,7 +61,7 @@ export default class Takedowns extends Base {
     }
 
     @OperationID("countMatchingPosts")
-    async countMatchingPosts(id: number, tags: string): Promise<CountMatchingPostsResponses[200]> {
+    async countMatchingPosts(id: number, tags: string): Promise<CountMatchingPostsResponse> {
         return countMatchingPosts({
             client: this.client,
             path:   { id },

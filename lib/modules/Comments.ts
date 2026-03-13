@@ -22,7 +22,8 @@ import {
     type ExtractValue,
     prefixKeys,
     type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
+    type TransformDataQueryToOptions,
+    GetResponse
 } from "../util.js";
 import Comment from "../models/Comment.js";
 
@@ -32,6 +33,8 @@ export interface SearchCommentsOptions extends TransformDataQueryToOptions<Searc
 export interface CreateCommentOptions extends TransformDataBodyToOptions<CreateCommentData> {}
 /** @category Modules/Types */
 export interface EditCommentOptions extends TransformDataBodyToOptions<EditCommentData> {}
+/** @category Modules/Types */
+export interface MarkCommentResponse extends GetResponse<MarkCommentResponses, 200> {}
 
 /** @category Modules */
 export default class Comments extends Base {
@@ -78,7 +81,7 @@ export default class Comments extends Base {
     }
 
     @OperationID("markComment")
-    async mark(id: number, type: ExtractValue<"record_type", MarkCommentData>): Promise<MarkCommentResponses[200]> {
+    async mark(id: number, type: ExtractValue<"record_type", MarkCommentData>): Promise<MarkCommentResponse> {
         return markComment({
             client: this.client,
             path:   { id },

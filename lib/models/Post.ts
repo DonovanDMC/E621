@@ -1,7 +1,8 @@
 import Base from "./Base.js";
-import type { CreatePostVoteData, CreatePostVoteResponses, Post as PostData } from "../generated/types.js";
+import type { CreatePostVoteData, Post as PostData } from "../generated/types.js";
 import { type ExtractValue, OperationID, Schema } from "../util.js";
 import type { DeletePostOptions, ListPostFavoritesOptions, MovePostFavoritesOptions } from "../modules/Posts.js";
+import { CreatePostVoteResponse } from "../modules/posts/Votes.js";
 
 interface Post extends PostData {}
 /** @category Models */
@@ -73,7 +74,7 @@ class Post extends Base<PostData> {
     }
 
     @OperationID("createPostVote")
-    async vote(score: ExtractValue<"score", CreatePostVoteData>, no_unvote?: boolean): Promise<CreatePostVoteResponses[200]> {
+    async vote(score: ExtractValue<"score", CreatePostVoteData>, no_unvote?: boolean): Promise<CreatePostVoteResponse> {
         return this.e621.posts.votes.create(this.id, score, no_unvote);
     }
 

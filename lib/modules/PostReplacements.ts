@@ -8,7 +8,13 @@ import {
     searchPostReplacements,
     togglePostReplacementPenalty
 } from "../generated/sdk.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import {
+    GetResponse,
+    OperationID,
+    prefixKeys,
+    type TransformDataBodyToOptions,
+    type TransformDataQueryToOptions
+} from "../util.js";
 import { type CreatePostReplacementResponses, type SearchPostReplacementsData, type CreatePostReplacementData } from "../generated/types.js";
 import PostReplacement from "../models/PostReplacement.js";
 import Post from "../models/Post.js";
@@ -17,6 +23,8 @@ import Post from "../models/Post.js";
 export interface CreatePostReplacementOptions extends TransformDataBodyToOptions<CreatePostReplacementData> {}
 /** @category Modules/Types */
 export interface SearchPostReplacementsOptions extends TransformDataQueryToOptions<SearchPostReplacementsData> {}
+/** @category Modules/Types */
+export interface CreatePostReplacementResponse extends GetResponse<CreatePostReplacementResponses, 200> {}
 
 /** @category Modules */
 export default class PostReplacements extends Base {
@@ -29,7 +37,7 @@ export default class PostReplacements extends Base {
     }
 
     @OperationID("createPostReplacement")
-    async create(options: CreatePostReplacementOptions): Promise<CreatePostReplacementResponses[200]> {
+    async create(options: CreatePostReplacementOptions): Promise<CreatePostReplacementResponse> {
         return createPostReplacement({
             client: this.client,
             body:   prefixKeys(options, "post_replacement")

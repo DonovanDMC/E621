@@ -1,5 +1,5 @@
 import { adminAnonymizeUser, adminEditUser, getAltList } from "../../generated/sdk.js";
-import { type AdminEditUserData, type GetAltListResponses } from "../../generated/types.js";
+import { type AdminEditUserData } from "../../generated/types.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../../util.js";
 import Base from "../Base.js";
 
@@ -9,18 +9,18 @@ export interface AdminEditUserOptions extends TransformDataBodyToOptions<AdminEd
 /** @category Modules */
 export default class AdminUsers extends Base {
     @OperationID("getAltList")
-    async altList(): Promise<GetAltListResponses[200]> {
+    async altList(): Promise<Array<[number, Array<number>]>> {
         return getAltList({
             client: this.client
-        }).then(res => this._handleResponse(res, 200, true));
+        }).then(res => this._handleResponse(res, 200, true)) as never;
     }
 
     @OperationID("adminAnonymizeUser")
-    async anonymize(id: number): Promise<unknown> {
+    async anonymize(id: number): Promise<string> {
         return adminAnonymizeUser({
             client: this.client,
             path:   { id }
-        }).then(res => this._handleResponse(res, 200, true));
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("adminEditUser")

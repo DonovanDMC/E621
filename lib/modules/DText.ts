@@ -1,12 +1,15 @@
 import Base from "./Base.js";
 import { previewDText } from "../generated/sdk.js";
 import { type PreviewDTextResponses } from "../generated/types.js";
-import { OperationID } from "../util.js";
+import { GetResponse, OperationID } from "../util.js";
+
+/** @category Modules/Types */
+export interface PreviewDTextResponse extends GetResponse<PreviewDTextResponses, 200> {}
 
 /** @category Modules */
 export default class DText extends Base {
     @OperationID("previewDText")
-    async preview(body: string): Promise<PreviewDTextResponses[200]> {
+    async preview(body: string): Promise<PreviewDTextResponse> {
         return previewDText({
             client: this.client,
             body:   { body }

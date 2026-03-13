@@ -20,6 +20,9 @@ type OptionalKeys<T extends object> = {
 type RequiredKeys<T extends object> = Exclude<keyof T, OptionalKeys<T>>;
 
 /** @category Types */
+export type GetResponse<T extends Record<number, unknown>, S extends keyof T> = T[S] extends undefined ? never : T[S];
+
+/** @category Types */
 export type TransformDataQueryToOptions<T extends Record<string, unknown>> =
   T extends { query?: infer Query; }
       ? Query extends Record<string, unknown>
