@@ -1,8 +1,8 @@
 import { defineConfig } from "@hey-api/openapi-ts";
 
+const commit = "83cb9a03ccbf2348bb5d1392d7133ebbb573f0e6";
 export default defineConfig({
-    // input:  "https://raw.githubusercontent.com/DonovanDMC/E621OpenAPI/60347cfbfa465bbbce2e348b3132b5cbb0b0df20/openapi.yaml",
-    input:  "https://e621.wiki/openapi.yaml",
+    input:  `https://raw.githubusercontent.com/DonovanDMC/E621OpenAPI/${commit}/openapi.yaml`,
     output: {
         path:                "lib/generated",
         entryFile:           false,
