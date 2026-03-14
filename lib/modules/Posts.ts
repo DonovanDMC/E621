@@ -26,13 +26,7 @@ import type {
     MovePostFavoritesData,
     SearchPostsData
 } from "../generated/types.js";
-import {
-    OperationID,
-    type ExtractValue,
-    prefixKeys,
-    type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
-} from "../util.js";
+import { OperationID, type ExtractValue, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import Post from "../models/Post.js";
 
 /** @category Modules/Types */
@@ -172,7 +166,7 @@ export default class Posts extends Base {
     async search(options?: SearchPostsOptions): Promise<Array<Post>> {
         return searchPosts({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query:  options
         }).then(res => {
             const data = this._handleResponse(res, 200, true);
             return data.posts.map(post => new Post(this.e621, post));
