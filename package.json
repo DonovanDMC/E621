@@ -1,6 +1,6 @@
 {
   "name": "e621",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A module for interfacing with e621.",
   "packageManager": "pnpm@10.23.0",
   "types": "./dist/lib/index.d.ts",

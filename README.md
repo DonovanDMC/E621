@@ -24,7 +24,7 @@ This module is structured with submodules corresponding to separate areas of the
 ```typescript
 import E621 from "e621"; // or const E621 = require("e621");
 
-// no options are required, see below for the options
+// no options are required, see https://js.e621.wiki/latest/interfaces/Options.html for the options
 const e621 = new E621();
 
 // the options are all an object in the first parameter, e.g.
