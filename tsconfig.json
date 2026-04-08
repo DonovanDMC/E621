@@ -49,6 +49,6 @@
     "noErrorTruncation": true,
     "skipLibCheck": true
   },
-  "include": ["lib/**/*", "test/**/*", "scripts/**/*", "openapi-ts.config.ts"],
+  "include": ["lib/**/*", "scripts/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -114,6 +114,8 @@ import TagImplications from "./TagImplications.js";
 export type * from "./TagImplications.js";
 import TagTypeVersions from "./TagTypeVersions.js";
 export type * from "./TagTypeVersions.js";
+import PostVotes from "./PostVotes.js";
+export type * from "./PostVotes.js";
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
 
@@ -158,6 +160,7 @@ export interface Modules {
     posts: Posts;
     postSets: PostSets;
     postVersions: PostVersions;
+    postVotes: PostVotes;
     relatedTags: RelatedTags;
     searchTrendBlacklists: SearchTrendBlacklists;
     searchTrends: SearchTrends;
@@ -218,6 +221,7 @@ export function apply(e621: E621, client: Client): void {
         poolVersions: new PoolVersions(e621, client),
         postSets: new PostSets(e621, client),
         postVersions: new PostVersions(e621, client),
+        postVotes: new PostVotes(e621, client),
         posts: new Posts(e621, client),
         relatedTags: new RelatedTags(e621, client),
         searchTrendBlacklists: new SearchTrendBlacklists(e621, client),

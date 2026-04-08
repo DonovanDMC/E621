@@ -12,12 +12,19 @@
       "name": "Donovan_DMC",
       "url": "https://e621.net/forum_topics/46279"
     },
-    "version": "b613648"
+    "version": "4b7c2cd",
+    "x-e621ng-commit": "76a023eecea450486d1f1143c4ed9cb257a2be06",
+    "x-e621ng-master-behind-by": 0,
+    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/76a023eecea450486d1f1143c4ed9cb257a2be06...master"
   },
   "servers": [
     {
       "url": "https://e621.net",
-      "description": "E621 (production)"
+      "description": "E621 (Production)"
+    },
+    {
+      "url": "https://e926.net",
+      "description": "E621 (Safe)"
     },
     {
       "url": "http://localhost:3000",
@@ -81,7 +88,7 @@
       "ipAddrQuery": {
         "name": "search[ip_addr]",
         "in": "query",
-        "description": "Must be Admin+ to use. See [postgres' documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
+        "description": "Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
         "schema": {
           "type": "string"
         }
@@ -4160,18 +4167,13 @@
             "type": "integer"
           },
           "score": {
-            "description": "Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177\nThe feature seems incomplete, and this will likely change in the future.\n",
-            "type": "integer",
-            "enum": [
-              1
-            ]
+            "description": "Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177\n",
+            "type": "number",
+            "format": "float"
           },
           "explanation": {
-            "description": "Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178\nThe feature seems incomplete, and this will likely change in the future.\n",
+            "description": "Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178\n",
             "type": "string",
-            "enum": [
-              null
-            ],
             "nullable": true
           }
         }
@@ -4200,6 +4202,54 @@
             }
           }
         }
+      },
+      "PostVote": {
+        "type": "object",
+        "required": [
+          "id",
+          "post_id",
+          "user_id",
+          "score",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "post_id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "score": {
+            "$ref": "#/components/schemas/UpDownVote"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpDownVote": {
+        "type": "integer",
+        "enum": [
+          1,
+          -1
+        ]
+      },
+      "UpDownMehVote": {
+        "type": "integer",
+        "enum": [
+          1,
+          0,
+          -1
+        ]
       }
     },
     "responses": {
@@ -6951,11 +7001,7 @@
             "in": "query",
             "required": true,
             "schema": {
-              "type": "integer",
-              "enum": [
-                -1,
-                1
-              ]
+              "$ref": "#/components/schemas/UpDownVote"
             }
           },
           {
@@ -8247,12 +8293,7 @@
                 ],
                 "properties": {
                   "forum_post_vote[score]": {
-                    "type": "integer",
-                    "enum": [
-                      -1,
-                      0,
-                      1
-                    ]
+                    "$ref": "#/components/schemas/UpDownMehVote"
                   }
                 }
               }
@@ -11423,11 +11464,7 @@
             "in": "query",
             "required": true,
             "schema": {
-              "type": "integer",
-              "enum": [
-                -1,
-                1
-              ]
+              "$ref": "#/components/schemas/UpDownVote"
             }
           },
           {
@@ -13134,6 +13171,121 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/post_votes.json": {
+      "get": {
+        "summary": "Search Post Votes",
+        "operationId": "searchPostVotes",
+        "tags": [
+          "Post Votes"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Moderator+.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitQuery"
+          },
+          {
+            "$ref": "#/components/parameters/pageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/idQuery"
+          },
+          {
+            "name": "search[order]",
+            "in": "query",
+            "description": "The order of the results. You must be Admin+.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "id_asc",
+                "id_desc",
+                "ip_addr"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[post_id]",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[user_name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[user_id]",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[post_creator_name]",
+            "description": "Only usable if one of `post_id`, `user_name`, or `user_id` is also provided.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[post_creator_id]",
+            "description": "Only usable if one of `post_id`, `user_name`, or `user_id` is also provided.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[user_ip_addr]",
+            "description": "You must be Admin+. Only usable if one of `post_id`, `user_name`, or `user_id` is also provided. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[score]",
+            "description": "Only usable if one of `post_id`, `user_name`, or `user_id` is also provided.",
+            "schema": {
+              "$ref": "#/components/schemas/UpDownVote"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[duplicates_only]",
+            "description": "You must be Admin+. Only usable if one of `post_id`, `user_name`, or `user_id` is also provided.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostVote"
+                  }
+                }
+              }
+            }
           }
         }
       }

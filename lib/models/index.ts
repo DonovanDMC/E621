@@ -35,6 +35,7 @@ export { default as PostFlag } from "./PostFlag.js";
 export { default as PostReplacement } from "./PostReplacement.js";
 export { default as PostSet } from "./PostSet.js";
 export { default as PostVersion } from "./PostVersion.js";
+export { default as PostVote } from "./PostVote.js";
 export { default as RisingSearchTrend } from "./RisingSearchTrend.js";
 export { default as SearchTrend } from "./SearchTrend.js";
 export { default as SearchTrendBlacklist } from "./SearchTrendBlacklist.js";

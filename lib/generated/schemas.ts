@@ -4113,18 +4113,13 @@ export const PostRecommendationSchema = {
             type: 'integer'
         },
         score: {
-            description: 'Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177\nThe feature seems incomplete, and this will likely change in the future.\n',
-            type: 'integer',
-            enum: [
-                1
-            ]
+            description: 'Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177\n',
+            type: 'number',
+            format: 'float'
         },
         explanation: {
-            description: 'Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178\nThe feature seems incomplete, and this will likely change in the future.\n',
+            description: 'Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178\n',
             type: 'string',
-            enum: [
-                null
-            ],
             nullable: true
         }
     }
@@ -4154,4 +4149,55 @@ export const RecommendedPostsSchema = {
             }
         }
     }
+} as const;
+
+export const PostVoteSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'post_id',
+        'user_id',
+        'score',
+        'created_at',
+        'updated_at'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        post_id: {
+            type: 'integer'
+        },
+        user_id: {
+            type: 'integer'
+        },
+        score: {
+            $ref: '#/components/schemas/UpDownVote'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        }
+    }
+} as const;
+
+export const UpDownVoteSchema = {
+    type: 'integer',
+    enum: [
+        1,
+        -1
+    ]
+} as const;
+
+export const UpDownMehVoteSchema = {
+    type: 'integer',
+    enum: [
+        1,
+        0,
+        -1
+    ]
 } as const;
