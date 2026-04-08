@@ -9,6 +9,7 @@ import {
     getPost,
     getPostInSequence,
     getRandomPost,
+    getRecommendedPosts,
     listPostFavorites,
     markPostAsTranslated,
     movePostFavorites,
@@ -22,8 +23,10 @@ import {
 import type {
     DeletePostData,
     GetPostInSequenceData,
+    GetRecommendedPostsData,
     ListPostFavoritesData,
     MovePostFavoritesData,
+    RecommendedPosts,
     SearchPostsData
 } from "../generated/types.js";
 import { OperationID, type ExtractValue, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
@@ -37,6 +40,8 @@ export interface MovePostFavoritesOptions extends TransformDataBodyToOptions<Mov
 export interface SearchPostsOptions extends TransformDataQueryToOptions<SearchPostsData> {}
 /** @category Modules/Types */
 export interface ListPostFavoritesOptions extends TransformDataQueryToOptions<ListPostFavoritesData> {}
+/** @category Modules/Types */
+export interface GetRecommendedPostsOptions extends TransformDataQueryToOptions<GetRecommendedPostsData> {}
 
 /** @category Modules */
 export default class Posts extends Base {
@@ -132,6 +137,15 @@ export default class Posts extends Base {
             const data = this._handleResponse(res, 200, true);
             return new Post(this.e621, data.post);
         });
+    }
+
+    @OperationID("getRecommendedPosts")
+    async recommended(id: number, options: GetRecommendedPostsOptions): Promise<RecommendedPosts> {
+        return getRecommendedPosts({
+            client: this.client,
+            path: { id },
+            query: options
+        }).then(res => this._handleResponse(res, 200, true));
     }
 
     @OperationID("regeneratePostThumbnails")

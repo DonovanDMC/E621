@@ -1,13 +1,13 @@
 import Base from "./Base.js";
 import {
     createBlip,
-    deleteBlip,
+    destroyBlip,
     editBlip,
     getBlip,
-    hideBlip,
+    deleteBlip,
     markBlip,
     searchBlips,
-    unhideBlip
+    undeleteBlip
 } from "../generated/sdk.js";
 import type {
     CreateBlipData,
@@ -44,9 +44,9 @@ export default class Blips extends Base {
         }).then(res => this._handleResponse(res, 201, true, Blip));
     }
 
-    @OperationID("deleteBlip")
-    async delete(id: number): Promise<null> {
-        return deleteBlip({
+    @OperationID("destroyBlip")
+    async destroy(id: number): Promise<null> {
+        return destroyBlip({
             client: this.client,
             path:   { id }
         }).then(res => this._handleResponse(res, 204, true));
@@ -69,9 +69,9 @@ export default class Blips extends Base {
         }).then(res => this._handleResponse(res, 200, false, Blip));
     }
 
-    @OperationID("hideBlip")
-    async hide(id: number): Promise<Blip> {
-        return hideBlip({
+    @OperationID("deleteBlip")
+    async delete(id: number): Promise<Blip> {
+        return deleteBlip({
             client: this.client,
             path:   { id }
         }).then(res => this._handleResponse(res, 201, true, Blip));
@@ -94,9 +94,9 @@ export default class Blips extends Base {
         }).then(res => this._handleResponse(res, 200, true, Blip));
     }
 
-    @OperationID("unhideBlip")
-    async unhide(id: number): Promise<Blip> {
-        return unhideBlip({
+    @OperationID("undeleteBlip")
+    async undelete(id: number): Promise<Blip> {
+        return undeleteBlip({
             client: this.client,
             path:   { id }
         }).then(res => this._handleResponse(res, 201, true, Blip));

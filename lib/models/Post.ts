@@ -1,7 +1,7 @@
 import Base from "./Base.js";
-import type { CreatePostVoteData, Post as PostData } from "../generated/types.js";
+import type { CreatePostVoteData, Post as PostData, RecommendedPosts } from "../generated/types.js";
 import { type ExtractValue, OperationID, Schema } from "../util.js";
-import type { DeletePostOptions, ListPostFavoritesOptions, MovePostFavoritesOptions } from "../modules/Posts.js";
+import type { DeletePostOptions, GetRecommendedPostsOptions, ListPostFavoritesOptions, MovePostFavoritesOptions } from "../modules/Posts.js";
 import { CreatePostVoteResponse } from "../modules/posts/Votes.js";
 
 interface Post extends PostData {}
@@ -41,6 +41,11 @@ class Post extends Base<PostData> {
     @OperationID("movePostFavorites")
     async moveFavorites(options: MovePostFavoritesOptions): Promise<unknown> {
         return this.e621.posts.moveFavorites(this.id, options);
+    }
+
+    @OperationID("getRecommendedPosts")
+    async recommended(options: GetRecommendedPostsOptions): Promise<RecommendedPosts> {
+        return this.e621.posts.recommended(this.id, options);
     }
 
     @OperationID("regeneratePostThumbnails")

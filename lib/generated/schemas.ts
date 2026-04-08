@@ -69,9 +69,9 @@ export const ModActionActionsSchema = {
         'avoid_posting_delete',
         'avoid_posting_undelete',
         'avoid_posting_destroy',
+        'blip_destroy',
         'blip_delete',
-        'blip_hide',
-        'blip_unhide',
+        'blip_undelete',
         'blip_update',
         'comment_delete',
         'comment_hide',
@@ -572,7 +572,7 @@ export const BlipSchema = {
         'response_to',
         'created_at',
         'updated_at',
-        'is_hidden',
+        'is_deleted',
         'warning_type',
         'warning_user_id',
         'updater_id',
@@ -596,10 +596,9 @@ export const BlipSchema = {
             format: 'date-time'
         },
         updated_at: {
-            type: 'string',
-            format: 'date-time'
+            type: 'string'
         },
-        is_hidden: {
+        is_deleted: {
             type: 'boolean'
         },
         warning_type: {
@@ -4008,11 +4007,23 @@ export const SearchTrendSchema = {
 export const RisingSearchTrendSchema = {
     type: 'object',
     required: [
-        'tag'
+        'name',
+        'pretty_name',
+        'post_count',
+        'category'
     ],
     properties: {
-        tag: {
+        name: {
             type: 'string'
+        },
+        pretty_name: {
+            type: 'string'
+        },
+        post_count: {
+            type: 'integer'
+        },
+        category: {
+            $ref: '#/components/schemas/TagCategories'
         }
     }
 } as const;
@@ -4086,6 +4097,61 @@ export const MessageSuccessResponseSchema = {
         },
         message: {
             type: 'string'
+        }
+    }
+} as const;
+
+export const PostRecommendationSchema = {
+    type: 'object',
+    required: [
+        'post_id',
+        'score',
+        'explanation'
+    ],
+    properties: {
+        post_id: {
+            type: 'integer'
+        },
+        score: {
+            description: 'Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177\nThe feature seems incomplete, and this will likely change in the future.\n',
+            type: 'integer',
+            enum: [
+                1
+            ]
+        },
+        explanation: {
+            description: 'Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178\nThe feature seems incomplete, and this will likely change in the future.\n',
+            type: 'string',
+            enum: [
+                null
+            ],
+            nullable: true
+        }
+    }
+} as const;
+
+export const RecommendedPostsSchema = {
+    type: 'object',
+    required: [
+        'post_id',
+        'model_version',
+        'results'
+    ],
+    properties: {
+        post_id: {
+            type: 'integer'
+        },
+        model_version: {
+            type: 'string',
+            enum: [
+                'opensearch'
+            ]
+        },
+        results: {
+            type: 'array',
+            items: {
+                $ref: '#/components/schemas/PostRecommendation'
+            }
         }
     }
 } as const;

@@ -18,7 +18,7 @@ export type WarningRecordType = {
     record_type: 'unmark' | 'ban' | 'record' | 'warning';
 };
 
-export type ModActionActions = 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'blip_delete' | 'blip_hide' | 'blip_unhide' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_blacklist_changed' | 'user_text_change' | 'user_upload_limit_change' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'user_flush_favorites' | 'post_version_hide' | 'post_version_unhide' | 'user_uploads_toggle' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'search_trend_blacklist_purge' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
+export type ModActionActions = 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'blip_destroy' | 'blip_delete' | 'blip_undelete' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_blacklist_changed' | 'user_text_change' | 'user_upload_limit_change' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'user_flush_favorites' | 'post_version_hide' | 'post_version_unhide' | 'user_uploads_toggle' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'search_trend_blacklist_purge' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
 
 export type PostEventActions = 'deleted' | 'undeleted' | 'approved' | 'unapproved' | 'flag_created' | 'flag_removed' | 'favorites_moved' | 'favorites_received' | 'rating_locked' | 'rating_unlocked' | 'status_locked' | 'status_unlocked' | 'note_locked' | 'note_unlocked' | 'comment_locked' | 'comment_unlocked' | 'replacement_accepted' | 'replacement_rejected' | 'replacement_promoted' | 'replacement_deleted' | 'expunged' | 'changed_bg_color' | 'replacement_penalty_changed';
 
@@ -120,7 +120,7 @@ export type Blip = {
     response_to: number;
     created_at: string;
     updated_at: string;
-    is_hidden: boolean;
+    is_deleted: boolean;
     warning_type: WarningTypes;
     warning_user_id: number;
     updater_id: number;
@@ -968,7 +968,10 @@ export type SearchTrend = {
 };
 
 export type RisingSearchTrend = {
-    tag: string;
+    name: string;
+    pretty_name: string;
+    post_count: number;
+    category: TagCategories;
 };
 
 export type SearchTrendBlacklist = {
@@ -989,6 +992,28 @@ export type MessageErrorResponse = {
 export type MessageSuccessResponse = {
     success: true;
     message: string;
+};
+
+export type PostRecommendation = {
+    post_id: number;
+    /**
+     * Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177
+     * The feature seems incomplete, and this will likely change in the future.
+     *
+     */
+    score: 1;
+    /**
+     * Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178
+     * The feature seems incomplete, and this will likely change in the future.
+     *
+     */
+    explanation: null;
+};
+
+export type RecommendedPosts = {
+    post_id: number;
+    model_version: 'opensearch';
+    results: Array<PostRecommendation>;
 };
 
 /**
@@ -2096,7 +2121,7 @@ export type CreateBlipResponses = {
 
 export type CreateBlipResponse = CreateBlipResponses[keyof CreateBlipResponses];
 
-export type DeleteBlipData = {
+export type DestroyBlipData = {
     body?: never;
     path: {
         /**
@@ -2108,7 +2133,7 @@ export type DeleteBlipData = {
     url: '/blips/{id}.json';
 };
 
-export type DeleteBlipErrors = {
+export type DestroyBlipErrors = {
     /**
      * Access Denied
      */
@@ -2119,16 +2144,16 @@ export type DeleteBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteBlipError = DeleteBlipErrors[keyof DeleteBlipErrors];
+export type DestroyBlipError = DestroyBlipErrors[keyof DestroyBlipErrors];
 
-export type DeleteBlipResponses = {
+export type DestroyBlipResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteBlipResponse = DeleteBlipResponses[keyof DeleteBlipResponses];
+export type DestroyBlipResponse = DestroyBlipResponses[keyof DestroyBlipResponses];
 
 export type GetBlipData = {
     body?: never;
@@ -2206,7 +2231,7 @@ export type EditBlipResponses = {
 
 export type EditBlipResponse = EditBlipResponses[keyof EditBlipResponses];
 
-export type HideBlipData = {
+export type DeleteBlipData = {
     body?: never;
     path: {
         /**
@@ -2215,10 +2240,10 @@ export type HideBlipData = {
         id: number;
     };
     query?: never;
-    url: '/blips/{id}/hide.json';
+    url: '/blips/{id}/delete.json';
 };
 
-export type HideBlipErrors = {
+export type DeleteBlipErrors = {
     /**
      * Access Denied
      */
@@ -2229,18 +2254,18 @@ export type HideBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type HideBlipError = HideBlipErrors[keyof HideBlipErrors];
+export type DeleteBlipError = DeleteBlipErrors[keyof DeleteBlipErrors];
 
-export type HideBlipResponses = {
+export type DeleteBlipResponses = {
     /**
      * Success
      */
     201: Blip;
 };
 
-export type HideBlipResponse = HideBlipResponses[keyof HideBlipResponses];
+export type DeleteBlipResponse = DeleteBlipResponses[keyof DeleteBlipResponses];
 
-export type UnhideBlipData = {
+export type UndeleteBlipData = {
     body?: never;
     path: {
         /**
@@ -2249,10 +2274,10 @@ export type UnhideBlipData = {
         id: number;
     };
     query?: never;
-    url: '/blips/{id}/unhide.json';
+    url: '/blips/{id}/undelete.json';
 };
 
-export type UnhideBlipErrors = {
+export type UndeleteBlipErrors = {
     /**
      * Access Denied
      */
@@ -2263,16 +2288,16 @@ export type UnhideBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type UnhideBlipError = UnhideBlipErrors[keyof UnhideBlipErrors];
+export type UndeleteBlipError = UndeleteBlipErrors[keyof UndeleteBlipErrors];
 
-export type UnhideBlipResponses = {
+export type UndeleteBlipResponses = {
     /**
      * Success
      */
     201: Blip;
 };
 
-export type UnhideBlipResponse = UnhideBlipResponses[keyof UnhideBlipResponses];
+export type UndeleteBlipResponse = UndeleteBlipResponses[keyof UndeleteBlipResponses];
 
 export type MarkBlipData = {
     body?: Warning;
@@ -2399,7 +2424,7 @@ export type RejectBulkUpdateRequestData = {
         id: number;
     };
     query?: never;
-    url: '/bulk_update_request/{id}.json';
+    url: '/bulk_update_requests/{id}.json';
 };
 
 export type RejectBulkUpdateRequestErrors = {
@@ -2433,7 +2458,7 @@ export type GetBulkUpdateRequestData = {
         id: number;
     };
     query?: never;
-    url: '/bulk_update_request/{id}.json';
+    url: '/bulk_update_requests/{id}.json';
 };
 
 export type GetBulkUpdateRequestErrors = {
@@ -2473,7 +2498,7 @@ export type EditBulkUpdateRequestData = {
         id: number;
     };
     query?: never;
-    url: '/bulk_update_request/{id}.json';
+    url: '/bulk_update_requests/{id}.json';
 };
 
 export type EditBulkUpdateRequestErrors = {
@@ -2513,7 +2538,7 @@ export type ApproveBulkUpdateRequestData = {
         id: number;
     };
     query?: never;
-    url: '/bulk_update_request/{id}/approve.json';
+    url: '/bulk_update_requests/{id}/approve.json';
 };
 
 export type ApproveBulkUpdateRequestErrors = {
@@ -6267,6 +6292,45 @@ export type CreatePostVoteResponses = {
 
 export type CreatePostVoteResponse = CreatePostVoteResponses[keyof CreatePostVoteResponses];
 
+export type GetRecommendedPostsData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+    };
+    url: '/posts/{id}/recommended.json';
+};
+
+export type GetRecommendedPostsErrors = {
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type GetRecommendedPostsError = GetRecommendedPostsErrors[keyof GetRecommendedPostsErrors];
+
+export type GetRecommendedPostsResponses = {
+    /**
+     * Success
+     */
+    200: RecommendedPosts;
+};
+
+export type GetRecommendedPostsResponse = GetRecommendedPostsResponses[keyof GetRecommendedPostsResponses];
+
 export type SearchPostSetsData = {
     body?: never;
     path?: never;
@@ -8076,6 +8140,14 @@ export type ListSearchTrendsData = {
     path?: never;
     query?: {
         day?: string;
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
     };
     url: '/search_trends.json';
 };
@@ -8133,6 +8205,7 @@ export type ClearSearchTrendsCacheResponse = ClearSearchTrendsCacheResponses[key
 export type UpdateSearchTrendsSettingsData = {
     body?: {
         trends_enabled?: boolean;
+        trends_displayed?: boolean;
         trends_min_today?: number;
         trends_min_dleta?: number;
         trends_min_ratio?: number;
@@ -10577,7 +10650,7 @@ export type RevertWikiPageData = {
          */
         version_id: number;
     };
-    url: '/wiki_page/{id}/revert.json';
+    url: '/wiki_pages/{id}/revert.json';
 };
 
 export type RevertWikiPageErrors = {
@@ -10734,7 +10807,7 @@ export type AdminEditUserData = {
         id: number;
     };
     query?: never;
-    url: '/admins/users/{id}.json';
+    url: '/admin/users/{id}.json';
 };
 
 export type AdminEditUserErrors = {
@@ -10778,7 +10851,7 @@ export type AdminAnonymizeUserData = {
         id: number;
     };
     query?: never;
-    url: '/admins/users/{id}/anonymize.json';
+    url: '/admin/users/{id}/anonymize.json';
 };
 
 export type AdminAnonymizeUserErrors = {

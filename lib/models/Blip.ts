@@ -8,9 +8,9 @@ interface Blip extends BlipData {}
 /** @category Models */
 @Schema("Blip")
 class Blip extends Base<BlipData> {
-    @OperationID("deleteBlip")
-    async delete(): Promise<null> {
-        return this.e621.blips.delete(this.id);
+    @OperationID("destroyBlip")
+    async destroy(): Promise<null> {
+        return this.e621.blips.destroy(this.id);
     }
 
     @OperationID("editBlip")
@@ -18,9 +18,9 @@ class Blip extends Base<BlipData> {
         return this.e621.blips.edit(this.id, options);
     }
 
-    @OperationID("hideBlip")
-    async hide(): Promise<Blip> {
-        return this.e621.blips.hide(this.id);
+    @OperationID("deleteBlip")
+    async delete(): Promise<Blip> {
+        return this.e621.blips.delete(this.id);
     }
 
     @OperationID("markBlip")
@@ -28,9 +28,9 @@ class Blip extends Base<BlipData> {
         return this.e621.blips.mark(this.id, type);
     }
 
-    @OperationID("unhideBlip")
-    async unhide(): Promise<Blip> {
-        return this.e621.blips.unhide(this.id);
+    @OperationID("undeleteBlip")
+    async undelete(): Promise<Blip> {
+        return this.e621.blips.undelete(this.id);
     }
 
 }

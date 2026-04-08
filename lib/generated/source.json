@@ -12,7 +12,7 @@
       "name": "Donovan_DMC",
       "url": "https://e621.net/forum_topics/46279"
     },
-    "version": "dfa164b"
+    "version": "b613648"
   },
   "servers": [
     {
@@ -191,9 +191,9 @@
           "avoid_posting_delete",
           "avoid_posting_undelete",
           "avoid_posting_destroy",
+          "blip_destroy",
           "blip_delete",
-          "blip_hide",
-          "blip_unhide",
+          "blip_undelete",
           "blip_update",
           "comment_delete",
           "comment_hide",
@@ -678,7 +678,7 @@
           "response_to",
           "created_at",
           "updated_at",
-          "is_hidden",
+          "is_deleted",
           "warning_type",
           "warning_user_id",
           "updater_id",
@@ -702,10 +702,9 @@
             "format": "date-time"
           },
           "updated_at": {
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
-          "is_hidden": {
+          "is_deleted": {
             "type": "boolean"
           },
           "warning_type": {
@@ -4059,11 +4058,23 @@
       "RisingSearchTrend": {
         "type": "object",
         "required": [
-          "tag"
+          "name",
+          "pretty_name",
+          "post_count",
+          "category"
         ],
         "properties": {
-          "tag": {
+          "name": {
             "type": "string"
+          },
+          "pretty_name": {
+            "type": "string"
+          },
+          "post_count": {
+            "type": "integer"
+          },
+          "category": {
+            "$ref": "#/components/schemas/TagCategories"
           }
         }
       },
@@ -4134,6 +4145,59 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "PostRecommendation": {
+        "type": "object",
+        "required": [
+          "post_id",
+          "score",
+          "explanation"
+        ],
+        "properties": {
+          "post_id": {
+            "type": "integer"
+          },
+          "score": {
+            "description": "Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177\nThe feature seems incomplete, and this will likely change in the future.\n",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          "explanation": {
+            "description": "Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178\nThe feature seems incomplete, and this will likely change in the future.\n",
+            "type": "string",
+            "enum": [
+              null
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "RecommendedPosts": {
+        "type": "object",
+        "required": [
+          "post_id",
+          "model_version",
+          "results"
+        ],
+        "properties": {
+          "post_id": {
+            "type": "integer"
+          },
+          "model_version": {
+            "type": "string",
+            "enum": [
+              "opensearch"
+            ]
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostRecommendation"
+            }
           }
         }
       }
@@ -5481,7 +5545,7 @@
             "basicAuth": []
           }
         ],
-        "description": "Must have the bd staff user flag.",
+        "description": "Soft deletion. Must have the bd staff user flag.",
         "parameters": [
           {
             "$ref": "#/components/parameters/idOrNamePath"
@@ -5971,8 +6035,8 @@
         }
       },
       "delete": {
-        "summary": "Delete Blip",
-        "operationId": "deleteBlip",
+        "summary": "Destroy Blip",
+        "operationId": "destroyBlip",
         "tags": [
           "Blips"
         ],
@@ -6000,10 +6064,10 @@
         }
       }
     },
-    "/blips/{id}/hide.json": {
+    "/blips/{id}/delete.json": {
       "post": {
-        "summary": "Hide Blip",
-        "operationId": "hideBlip",
+        "summary": "Delete Blip",
+        "operationId": "deleteBlip",
         "tags": [
           "Blips"
         ],
@@ -6012,7 +6076,7 @@
             "basicAuth": []
           }
         ],
-        "description": "You must be the creator or Moderator+.\n",
+        "description": "Soft deletion. You must be the creator or Moderator+.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/idPath"
@@ -6038,10 +6102,10 @@
         }
       }
     },
-    "/blips/{id}/unhide.json": {
+    "/blips/{id}/undelete.json": {
       "post": {
-        "summary": "Unhide Blip",
-        "operationId": "unhideBlip",
+        "summary": "Undelete Blip",
+        "operationId": "undeleteBlip",
         "tags": [
           "Blips"
         ],
@@ -6297,7 +6361,7 @@
         }
       }
     },
-    "/bulk_update_request/{id}.json": {
+    "/bulk_update_requests/{id}.json": {
       "get": {
         "summary": "Get Bulk Update Request",
         "operationId": "getBulkUpdateRequest",
@@ -6409,7 +6473,7 @@
         }
       }
     },
-    "/bulk_update_request/{id}/approve.json": {
+    "/bulk_update_requests/{id}/approve.json": {
       "post": {
         "summary": "Approve Bulk Update Request",
         "operationId": "approveBulkUpdateRequest",
@@ -9978,7 +10042,7 @@
       }
     },
     "/notes/{id}/revert.json": {
-      "post": {
+      "put": {
         "summary": "Revert Note",
         "operationId": "revertNote",
         "tags": [
@@ -11031,7 +11095,7 @@
       }
     },
     "/posts/{id}/mark_as_translated.json": {
-      "post": {
+      "put": {
         "summary": "Mark Post As Translated",
         "operationId": "markPostAsTranslated",
         "tags": [
@@ -11147,7 +11211,7 @@
       }
     },
     "/posts/{id}/revert.json": {
-      "post": {
+      "put": {
         "summary": "Revert Post",
         "operationId": "revertPost",
         "tags": [
@@ -11444,6 +11508,41 @@
           },
           "422": {
             "$ref": "#/components/responses/ExpectedError"
+          }
+        }
+      }
+    },
+    "/posts/{id}/recommended.json": {
+      "get": {
+        "summary": "Get Recommended Posts",
+        "operationId": "getRecommendedPosts",
+        "tags": [
+          "Posts"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          },
+          {
+            "$ref": "#/components/parameters/limitQuery"
+          },
+          {
+            "$ref": "#/components/parameters/pageQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendedPosts"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
           }
         }
       }
@@ -14218,6 +14317,12 @@
               "type": "string",
               "format": "date"
             }
+          },
+          {
+            "$ref": "#/components/parameters/limitQuery"
+          },
+          {
+            "$ref": "#/components/parameters/pageQuery"
           }
         ],
         "responses": {
@@ -14304,6 +14409,9 @@
                 "type": "object",
                 "properties": {
                   "trends_enabled": {
+                    "type": "boolean"
+                  },
+                  "trends_displayed": {
                     "type": "boolean"
                   },
                   "trends_min_today": {
@@ -17870,7 +17978,7 @@
         }
       }
     },
-    "/wiki_page/{id}/revert.json": {
+    "/wiki_pages/{id}/revert.json": {
       "put": {
         "summary": "Revert Wiki Page",
         "operationId": "revertWikiPage",
@@ -18085,7 +18193,7 @@
         }
       }
     },
-    "/admins/users/{id}.json": {
+    "/admin/users/{id}.json": {
       "patch": {
         "summary": "Admin Edit User",
         "operationId": "adminEditUser",
@@ -18172,7 +18280,7 @@
         }
       }
     },
-    "/admins/users/{id}/anonymize.json": {
+    "/admin/users/{id}/anonymize.json": {
       "post": {
         "summary": "Admin Anonymize User",
         "operationId": "adminAnonymizeUser",
