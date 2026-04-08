@@ -120,10 +120,13 @@ export default class Users extends Base {
     }
 
     @OperationID("getUserUploadLimit")
-    async uploadLimit(idOrName: string | number): Promise<User | null> {
+    async uploadLimit(idOrName: string | number): Promise<FullCurrentUser | FullUser | null> {
         return getUserUploadLimit({
             client: this.client,
             path: { idOrName },
-        }).then(res => this._handleResponse(res, 200, false, User));
+        }).then((res) => {
+            const data = this._handleResponse(res, 200, false);
+            return data === null ? null : "blacklisted_tags" in data ? new FullCurrentUser(this.e621, data) : new FullUser(this.e621, data);
+        });
     }
 }

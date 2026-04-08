@@ -99,7 +99,7 @@ export function OperationID(value: string): (target: any, propertyKey: string) =
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function (target: any, propertyKey: string): void {
-        Object.defineProperty((target as object)[propertyKey as never], "operationID", {
+        Object.defineProperty((target as object)[propertyKey as never], "OperationID", {
             value,
             writable: false,
             enumerable: false,
@@ -115,7 +115,7 @@ export function Schema(value: string): (target: any) => void {
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function (target: any): void {
-        Object.defineProperty(target, "schema", {
+        Object.defineProperty(target, "Schema", {
             value,
             writable: false,
             enumerable: false,
