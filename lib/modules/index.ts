@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import AdminUsers from "./admin/Users.js";
 export type * from "./admin/Users.js";
 import Artists from "./Artists.js";
@@ -121,16 +122,16 @@ export interface Modules {
     admin: {
         users: AdminUsers;
     };
+    artists: Artists;
     artistUrls: ArtistUrls;
     artistVersions: ArtistVersions;
-    artists: Artists;
-    avoidPostingVersions: AvoidPostingVersions;
     avoidPostings: AvoidPostings;
+    avoidPostingVersions: AvoidPostingVersions;
     bans: Bans;
     blips: Blips;
     bulkUpdateRequests: BulkUpdateRequests;
-    commentVotes: CommentVotes;
     comments: Comments;
+    commentVotes: CommentVotes;
     dmails: DMails;
     dtext: DText;
     editHistories: EditHistories;
@@ -144,19 +145,19 @@ export interface Modules {
     mascots: Mascots;
     modActions: ModActions;
     newsUpdates: NewsUpdates;
-    noteVersions: NoteVersions;
     notes: Notes;
-    poolVersions: PoolVersions;
+    noteVersions: NoteVersions;
     pools: Pools;
+    poolVersions: PoolVersions;
     popular: Popular;
     postApprovals: PostApprovals;
     postDisapprovals: PostDisapprovals;
     postEvents: PostEvents;
     postFlags: PostFlags;
     postReplacements: PostReplacements;
+    posts: Posts;
     postSets: PostSets;
     postVersions: PostVersions;
-    posts: Posts;
     relatedTags: RelatedTags;
     searchTrendBlacklists: SearchTrendBlacklists;
     searchTrends: SearchTrends;
@@ -164,78 +165,78 @@ export interface Modules {
     tagAliases: TagAliases;
     tagCorrections: TagCorrections;
     tagImplications: TagImplications;
-    tagTypeVersions: TagTypeVersions;
     tags: Tags;
+    tagTypeVersions: TagTypeVersions;
     takedowns: Takedowns;
     tickets: Tickets;
-    uploadWhitelists: UploadWhitelists;
     uploads: Uploads;
+    uploadWhitelists: UploadWhitelists;
     userFeedbacks: UserFeedbacks;
     userNameChangeRequests: UserNameChangeRequests;
     users: Users;
-    wikiPageVersions: WikiPageVersions;
     wikiPages: WikiPages;
+    wikiPageVersions: WikiPageVersions;
 }
 
 export function apply(e621: E621, client: Client): void {
     const modules: Modules = {
         admin: {
-            users: new AdminUsers(e621, client)
+            users: new AdminUsers(e621, client),
         },
-        artistUrls:             new ArtistUrls(e621, client),
-        artistVersions:         new ArtistVersions(e621, client),
-        artists:                new Artists(e621, client),
-        avoidPostingVersions:   new AvoidPostingVersions(e621, client),
-        avoidPostings:          new AvoidPostings(e621, client),
-        bans:                   new Bans(e621, client),
-        blips:                  new Blips(e621, client),
-        bulkUpdateRequests:     new BulkUpdateRequests(e621, client),
-        commentVotes:           new CommentVotes(e621, client),
-        comments:               new Comments(e621, client),
-        dmails:                 new DMails(e621, client),
-        dtext:                  new DText(e621, client),
-        editHistories:          new EditHistories(e621, client),
-        emailBlacklists:        new EmailBlacklists(e621, client),
-        favorites:              new Favorites(e621, client),
-        forumPosts:             new ForumPosts(e621, client),
-        forumTopics:            new ForumTopics(e621, client),
-        helpPages:              new HelpPages(e621, client),
-        ipBans:                 new IpBans(e621, client),
-        iqdb:                   new IqdbQueries(e621, client),
-        mascots:                new Mascots(e621, client),
-        modActions:             new ModActions(e621, client),
-        newsUpdates:            new NewsUpdates(e621, client),
-        notes:                  new Notes(e621, client),
-        noteVersions:           new NoteVersions(e621, client),
-        pools:                  new Pools(e621, client),
-        popular:                new Popular(e621, client),
-        postApprovals:          new PostApprovals(e621, client),
-        postDisapprovals:       new PostDisapprovals(e621, client),
-        postEvents:             new PostEvents(e621, client),
-        postFlags:              new PostFlags(e621, client),
-        postReplacements:       new PostReplacements(e621, client),
-        poolVersions:           new PoolVersions(e621, client),
-        postSets:               new PostSets(e621, client),
-        postVersions:           new PostVersions(e621, client),
-        posts:                  new Posts(e621, client),
-        relatedTags:            new RelatedTags(e621, client),
-        searchTrendBlacklists:  new SearchTrendBlacklists(e621, client),
-        searchTrends:           new SearchTrends(e621, client),
-        staffNotes:             new StaffNotes(e621, client),
-        tagAliases:             new TagAliases(e621, client),
-        tagCorrections:         new TagCorrections(e621, client),
-        tagImplications:        new TagImplications(e621, client),
-        tagTypeVersions:        new TagTypeVersions(e621, client),
-        tags:                   new Tags(e621, client),
-        takedowns:              new Takedowns(e621, client),
-        tickets:                new Tickets(e621, client),
-        uploads:                new Uploads(e621, client),
-        uploadWhitelists:       new UploadWhitelists(e621, client),
-        users:                  new Users(e621, client),
-        userFeedbacks:          new UserFeedbacks(e621, client),
+        artistUrls: new ArtistUrls(e621, client),
+        artistVersions: new ArtistVersions(e621, client),
+        artists: new Artists(e621, client),
+        avoidPostingVersions: new AvoidPostingVersions(e621, client),
+        avoidPostings: new AvoidPostings(e621, client),
+        bans: new Bans(e621, client),
+        blips: new Blips(e621, client),
+        bulkUpdateRequests: new BulkUpdateRequests(e621, client),
+        commentVotes: new CommentVotes(e621, client),
+        comments: new Comments(e621, client),
+        dmails: new DMails(e621, client),
+        dtext: new DText(e621, client),
+        editHistories: new EditHistories(e621, client),
+        emailBlacklists: new EmailBlacklists(e621, client),
+        favorites: new Favorites(e621, client),
+        forumPosts: new ForumPosts(e621, client),
+        forumTopics: new ForumTopics(e621, client),
+        helpPages: new HelpPages(e621, client),
+        ipBans: new IpBans(e621, client),
+        iqdb: new IqdbQueries(e621, client),
+        mascots: new Mascots(e621, client),
+        modActions: new ModActions(e621, client),
+        newsUpdates: new NewsUpdates(e621, client),
+        notes: new Notes(e621, client),
+        noteVersions: new NoteVersions(e621, client),
+        pools: new Pools(e621, client),
+        popular: new Popular(e621, client),
+        postApprovals: new PostApprovals(e621, client),
+        postDisapprovals: new PostDisapprovals(e621, client),
+        postEvents: new PostEvents(e621, client),
+        postFlags: new PostFlags(e621, client),
+        postReplacements: new PostReplacements(e621, client),
+        poolVersions: new PoolVersions(e621, client),
+        postSets: new PostSets(e621, client),
+        postVersions: new PostVersions(e621, client),
+        posts: new Posts(e621, client),
+        relatedTags: new RelatedTags(e621, client),
+        searchTrendBlacklists: new SearchTrendBlacklists(e621, client),
+        searchTrends: new SearchTrends(e621, client),
+        staffNotes: new StaffNotes(e621, client),
+        tagAliases: new TagAliases(e621, client),
+        tagCorrections: new TagCorrections(e621, client),
+        tagImplications: new TagImplications(e621, client),
+        tagTypeVersions: new TagTypeVersions(e621, client),
+        tags: new Tags(e621, client),
+        takedowns: new Takedowns(e621, client),
+        tickets: new Tickets(e621, client),
+        uploads: new Uploads(e621, client),
+        uploadWhitelists: new UploadWhitelists(e621, client),
+        users: new Users(e621, client),
+        userFeedbacks: new UserFeedbacks(e621, client),
         userNameChangeRequests: new UserNameChangeRequests(e621, client),
-        wikiPages:              new WikiPages(e621, client),
-        wikiPageVersions:       new WikiPageVersions(e621, client)
+        wikiPages: new WikiPages(e621, client),
+        wikiPageVersions: new WikiPageVersions(e621, client),
     };
 
     Object.assign(e621, modules);

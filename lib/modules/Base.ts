@@ -1,4 +1,5 @@
 import { UnexpectedResponseError } from "../errors.js";
+
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
 
@@ -19,7 +20,7 @@ export default abstract class Base {
     constructor(e621: E621, client: Client) {
         Object.defineProperties(this, {
             client: { value: client, enumerable: false },
-            e621:   { value: e621, enumerable: false }
+            e621: { value: e621, enumerable: false },
         });
     }
 
@@ -29,7 +30,7 @@ export default abstract class Base {
         S extends number = number,
         T extends boolean = boolean,
         C extends AnyDataClass<UnwrapData<R>> | undefined = undefined,
-        CR = C extends AnyDataClass<UnwrapData<R>, infer I> ? I : undefined
+        CR = C extends AnyDataClass<UnwrapData<R>, infer I> ? I : undefined,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     >(res: R, successStatus: S = 200 as S, throwOnNotFound: T = true as T, klass: C = undefined as C): T extends true ? (S extends 204 ? null : S extends 302 ? string : C extends undefined ? DataType<R> : (DataType<R> extends Array<any> ? Array<CR> : CR)) : (S extends 204 ? null : S extends 302 ? string : (C extends undefined ? DataType<R> : (DataType<R> extends Array<any> ? Array<CR> : CR)) | null) {
         if (res.response.status === successStatus) {
@@ -43,7 +44,7 @@ export default abstract class Base {
                     else return new klass(this.e621, res.data as UnwrapData<R>) as never;
                 } else return res.data as never;
             }
-        } else if (res.response.status === 404 && throwOnNotFound === false) return null as never;
+        } else if (res.response.status === 404 && !throwOnNotFound) return null as never;
         else throw new UnexpectedResponseError(res.request, res.response, res.error);
     }
 }

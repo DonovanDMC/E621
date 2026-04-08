@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { ForumTopic as ForumTopicData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { ForumTopic as ForumTopicData } from "../generated/types.js";
 import type { ForumTopicOptions } from "../modules/ForumTopics.js";
 
 interface ForumTopic extends ForumTopicData {}
@@ -36,7 +38,6 @@ class ForumTopic extends Base<ForumTopicData> {
     async unsubscribe(): Promise<ForumTopic> {
         return this.e621.forumTopics.unsubscribe(this.id);
     }
-
 }
 
 export default ForumTopic;

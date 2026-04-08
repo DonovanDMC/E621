@@ -1,4 +1,3 @@
-import Base from "./Base.js";
 import {
     approvePostReplacement,
     createPostReplacement,
@@ -6,18 +5,20 @@ import {
     promotePostReplacement,
     rejectPostReplacement,
     searchPostReplacements,
-    togglePostReplacementPenalty
+    togglePostReplacementPenalty,
 } from "../generated/sdk.js";
+import { type CreatePostReplacementResponses, type SearchPostReplacementsData, type CreatePostReplacementData } from "../generated/types.js";
+import Post from "../models/Post.js";
+import PostReplacement from "../models/PostReplacement.js";
 import {
     GetResponse,
     OperationID,
     prefixKeys,
     type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
+    type TransformDataQueryToOptions,
 } from "../util.js";
-import { type CreatePostReplacementResponses, type SearchPostReplacementsData, type CreatePostReplacementData } from "../generated/types.js";
-import PostReplacement from "../models/PostReplacement.js";
-import Post from "../models/Post.js";
+
+import Base from "./Base.js";
 
 /** @category Modules/Types */
 export interface CreatePostReplacementOptions extends TransformDataBodyToOptions<CreatePostReplacementData> {}
@@ -32,7 +33,7 @@ export default class PostReplacements extends Base {
     async approve(id: number): Promise<null> {
         return approvePostReplacement({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -40,7 +41,7 @@ export default class PostReplacements extends Base {
     async create(options: CreatePostReplacementOptions): Promise<CreatePostReplacementResponse> {
         return createPostReplacement({
             client: this.client,
-            body:   prefixKeys(options, "post_replacement")
+            body: prefixKeys(options, "post_replacement"),
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -48,7 +49,7 @@ export default class PostReplacements extends Base {
     async delete(id: number): Promise<null> {
         return deletePostReplacement({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -56,7 +57,7 @@ export default class PostReplacements extends Base {
     async promote(id: number): Promise<Post> {
         return promotePostReplacement({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => new Post(this.e621, this._handleResponse(res, 201, true).post));
     }
 
@@ -64,7 +65,7 @@ export default class PostReplacements extends Base {
     async reject(id: number): Promise<null> {
         return rejectPostReplacement({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -72,7 +73,7 @@ export default class PostReplacements extends Base {
     async search(options?: SearchPostReplacementsOptions): Promise<Array<PostReplacement>> {
         return searchPostReplacements({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, PostReplacement));
     }
 
@@ -80,7 +81,7 @@ export default class PostReplacements extends Base {
     async togglePenalize(id: number): Promise<null> {
         return togglePostReplacementPenalty({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

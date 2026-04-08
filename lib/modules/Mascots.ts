@@ -1,8 +1,10 @@
-import Base from "./Base.js";
 import { createMascot, deleteMascot, editMascot, searchMascots } from "../generated/sdk.js";
-import type { CreateMascotData, EditMascotData, SearchMascotsData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import Mascot from "../models/Mascot.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateMascotData, EditMascotData, SearchMascotsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateMascotOptions extends TransformDataBodyToOptions<CreateMascotData> {}
@@ -17,7 +19,7 @@ export default class Mascots extends Base {
     async create(options: CreateMascotOptions): Promise<Mascot> {
         return createMascot({
             client: this.client,
-            body:   prefixKeys(options, "mascot")
+            body: prefixKeys(options, "mascot"),
         }).then(res => this._handleResponse(res, 201, true, Mascot));
     }
 
@@ -25,7 +27,7 @@ export default class Mascots extends Base {
     async delete(id: number): Promise<null> {
         return deleteMascot({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -33,8 +35,8 @@ export default class Mascots extends Base {
     async edit(id: number, options: EditMascotOptions): Promise<null> {
         return editMascot({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "mascot")
+            path: { id },
+            body: prefixKeys(options, "mascot"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -42,7 +44,7 @@ export default class Mascots extends Base {
     async search(options?: SearchMascotsOptions): Promise<Array<Mascot>> {
         return searchMascots({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Mascot));
     }
 }

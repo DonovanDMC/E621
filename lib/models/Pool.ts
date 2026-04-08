@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { Pool as PoolData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { Pool as PoolData } from "../generated/types.js";
 import type { EditPoolOptions } from "../modules/Pools.js";
 
 interface Pool extends PoolData {}

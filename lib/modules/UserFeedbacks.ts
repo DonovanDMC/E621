@@ -1,4 +1,3 @@
-import Base from "./Base.js";
 import {
     createUserFeedback,
     deleteUserFeedback,
@@ -6,11 +5,14 @@ import {
     editUserFeedback,
     getUserFeedback,
     searchUserFeedbacks,
-    undeleteUserFeedback
+    undeleteUserFeedback,
 } from "../generated/sdk.js";
-import type { CreateUserFeedbackData, EditUserFeedbackData, SearchUserFeedbacksData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import UserFeedback from "../models/UserFeedback.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateUserFeedbackData, EditUserFeedbackData, SearchUserFeedbacksData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateUserFeedbackOptions extends TransformDataBodyToOptions<CreateUserFeedbackData> {}
@@ -25,7 +27,7 @@ export default class UserFeedbacks extends Base {
     async create(options: CreateUserFeedbackOptions): Promise<UserFeedback> {
         return createUserFeedback({
             client: this.client,
-            body:   prefixKeys(options, "user_feedback")
+            body: prefixKeys(options, "user_feedback"),
         }).then(res => this._handleResponse(res, 201, true, UserFeedback));
     }
 
@@ -33,7 +35,7 @@ export default class UserFeedbacks extends Base {
     async delete(id: number): Promise<null> {
         return deleteUserFeedback({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -41,7 +43,7 @@ export default class UserFeedbacks extends Base {
     async destroy(id: number): Promise<null> {
         return destroyUserFeedback({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -49,8 +51,8 @@ export default class UserFeedbacks extends Base {
     async edit(id: number, options: EditUserFeedbackOptions): Promise<null> {
         return editUserFeedback({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "user_feedback")
+            path: { id },
+            body: prefixKeys(options, "user_feedback"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -58,7 +60,7 @@ export default class UserFeedbacks extends Base {
     async get(id: number): Promise<UserFeedback | null> {
         return getUserFeedback({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, UserFeedback));
     }
 
@@ -66,7 +68,7 @@ export default class UserFeedbacks extends Base {
     async search(options?: SearchUserFeedbacksOptions): Promise<Array<UserFeedback>> {
         return searchUserFeedbacks({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, UserFeedback));
     }
 
@@ -74,7 +76,7 @@ export default class UserFeedbacks extends Base {
     async undelete(id: number): Promise<null> {
         return undeleteUserFeedback({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

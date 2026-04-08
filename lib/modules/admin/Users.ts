@@ -11,7 +11,7 @@ export default class AdminUsers extends Base {
     @OperationID("getAltList")
     async altList(): Promise<Array<[number, Array<number>]>> {
         return getAltList({
-            client: this.client
+            client: this.client,
         }).then(res => this._handleResponse(res, 200, true)) as never;
     }
 
@@ -19,7 +19,7 @@ export default class AdminUsers extends Base {
     async anonymize(id: number): Promise<string> {
         return adminAnonymizeUser({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 302, true));
     }
 
@@ -27,8 +27,8 @@ export default class AdminUsers extends Base {
     async edit(id: number, options: AdminEditUserOptions): Promise<null> {
         return adminEditUser({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "user")
+            path: { id },
+            body: prefixKeys(options, "user"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

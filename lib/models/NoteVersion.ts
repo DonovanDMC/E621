@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { NoteVersion as NoteVersionData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { NoteVersion as NoteVersionData } from "../generated/types.js";
 
 interface NoteVersion extends NoteVersionData {}
 /** @category Models */

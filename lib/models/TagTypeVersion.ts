@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { TagTypeVersion as TagTypeVersionData } from "../generated/types.js";
 import { Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { TagTypeVersion as TagTypeVersionData } from "../generated/types.js";
 
 interface TagTypeVersion extends TagTypeVersionData {}
 /** @category Models */

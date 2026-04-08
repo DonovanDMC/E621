@@ -1,4 +1,3 @@
-import Base from "./Base.js";
 import {
     createBlip,
     destroyBlip,
@@ -7,23 +6,26 @@ import {
     deleteBlip,
     markBlip,
     searchBlips,
-    undeleteBlip
+    undeleteBlip,
 } from "../generated/sdk.js";
-import type {
-    CreateBlipData,
-    EditBlipData,
-    MarkBlipResponses,
-    SearchBlipsData,
-    WarningRecordType
-} from "../generated/types.js";
+import Blip from "../models/Blip.js";
 import {
     GetResponse,
     OperationID,
     prefixKeys,
     type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
+    type TransformDataQueryToOptions,
 } from "../util.js";
-import Blip from "../models/Blip.js";
+
+import Base from "./Base.js";
+
+import type {
+    CreateBlipData,
+    EditBlipData,
+    MarkBlipResponses,
+    SearchBlipsData,
+    WarningRecordType,
+} from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchBlipsOptions extends TransformDataQueryToOptions<SearchBlipsData> {}
@@ -40,7 +42,15 @@ export default class Blips extends Base {
     async create(options: CreateBlipOptions): Promise<Blip> {
         return createBlip({
             client: this.client,
-            body:   prefixKeys(options, "blip")
+            body: prefixKeys(options, "blip"),
+        }).then(res => this._handleResponse(res, 201, true, Blip));
+    }
+
+    @OperationID("deleteBlip")
+    async delete(id: number): Promise<Blip> {
+        return deleteBlip({
+            client: this.client,
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, Blip));
     }
 
@@ -48,7 +58,7 @@ export default class Blips extends Base {
     async destroy(id: number): Promise<null> {
         return destroyBlip({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -56,8 +66,8 @@ export default class Blips extends Base {
     async edit(id: number, options: EditBlipOptions): Promise<null> {
         return editBlip({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "blip")
+            path: { id },
+            body: prefixKeys(options, "blip"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -65,24 +75,16 @@ export default class Blips extends Base {
     async get(id: number): Promise<Blip | null> {
         return getBlip({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Blip));
-    }
-
-    @OperationID("deleteBlip")
-    async delete(id: number): Promise<Blip> {
-        return deleteBlip({
-            client: this.client,
-            path:   { id }
-        }).then(res => this._handleResponse(res, 201, true, Blip));
     }
 
     @OperationID("markBlip")
     async mark(id: number, type: WarningRecordType["record_type"]): Promise<MarkBlipResponse> {
         return markBlip({
             client: this.client,
-            path:   { id },
-            body:   { record_type: type }
+            path: { id },
+            body: { record_type: type },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -90,7 +92,7 @@ export default class Blips extends Base {
     async search(options?: SearchBlipsOptions): Promise<Array<Blip>> {
         return searchBlips({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Blip));
     }
 
@@ -98,7 +100,7 @@ export default class Blips extends Base {
     async undelete(id: number): Promise<Blip> {
         return undeleteBlip({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, Blip));
     }
 }

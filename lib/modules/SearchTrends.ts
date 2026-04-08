@@ -1,9 +1,11 @@
-import Base from "./Base.js";
 import { clearSearchTrendsCache, listRisingSearchTrends, listSearchTrends, updateSearchTrendsSettings } from "../generated/sdk.js";
-import type { ClearSearchTrendsCacheResponses, ListSearchTrendsData, UpdateSearchTrendsSettingsData, UpdateSearchTrendsSettingsResponses } from "../generated/types.js";
-import { GetResponse, OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
-import SearchTrend from "../models/SearchTrend.js";
 import RisingSearchTrend from "../models/RisingSearchTrend.js";
+import SearchTrend from "../models/SearchTrend.js";
+import { GetResponse, OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { ClearSearchTrendsCacheResponses, ListSearchTrendsData, UpdateSearchTrendsSettingsData, UpdateSearchTrendsSettingsResponses } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface ListSearchTrendsOptions extends TransformDataQueryToOptions<ListSearchTrendsData> {}
@@ -19,7 +21,7 @@ export default class SearchTrends extends Base {
     @OperationID("clearSearchTrendsCache")
     async clearCache(): Promise<ClearSearchTrendsCacheResponse> {
         return clearSearchTrendsCache({
-            client: this.client
+            client: this.client,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -27,14 +29,14 @@ export default class SearchTrends extends Base {
     async list(options?: ListSearchTrendsOptions): Promise<Array<SearchTrend>> {
         return listSearchTrends({
             client: this.client,
-            query:  options
+            query: options,
         }).then(res => this._handleResponse(res, 200, true, SearchTrend));
     }
 
     @OperationID("listRisingSearchTrends")
     async listRising(): Promise<Array<RisingSearchTrend>> {
         return listRisingSearchTrends({
-            client: this.client
+            client: this.client,
         }).then(res => this._handleResponse(res, 200, true, RisingSearchTrend));
     }
 
@@ -42,7 +44,7 @@ export default class SearchTrends extends Base {
     async updateSettings(options: UpdateSearchTrendsSettingsOptions): Promise<UpdateSearchTrendsSettingsResponse> {
         return updateSearchTrendsSettings({
             client: this.client,
-            body:   options
+            body: options,
         }).then(res => this._handleResponse(res, 200, true));
     }
 }

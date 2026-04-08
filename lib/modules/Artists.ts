@@ -1,15 +1,17 @@
-import Base from "./Base.js";
 import {
     createArtist,
     deleteArtist,
     editArtist,
     getArtist,
     revertArtist,
-    searchArtists
+    searchArtists,
 } from "../generated/sdk.js";
-import type { CreateArtistData, EditArtistData, SearchArtistsData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import Artist from "../models/Artist.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateArtistData, EditArtistData, SearchArtistsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateArtistOptions extends TransformDataBodyToOptions<CreateArtistData> {}
@@ -24,7 +26,7 @@ export default class Artists extends Base {
     async create(options: CreateArtistOptions): Promise<Artist> {
         return createArtist({
             client: this.client,
-            body:   prefixKeys(options, "artist")
+            body: prefixKeys(options, "artist"),
         }).then(res => this._handleResponse(res, 201, true, Artist));
     }
 
@@ -32,7 +34,7 @@ export default class Artists extends Base {
     async delete(idOrName: string | number): Promise<null> {
         return deleteArtist({
             client: this.client,
-            path:   { idOrName }
+            path: { idOrName },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -40,17 +42,16 @@ export default class Artists extends Base {
     async edit(idOrName: string | number, options: EditArtistOptions): Promise<null> {
         return editArtist({
             client: this.client,
-            path:   { idOrName },
-            body:   prefixKeys(options, "artist")
+            path: { idOrName },
+            body: prefixKeys(options, "artist"),
         }).then(res => this._handleResponse(res, 204, true));
     }
-
 
     @OperationID("getArtist")
     async get(idOrName: number | string): Promise<Artist | null> {
         return getArtist({
             client: this.client,
-            path:   { idOrName }
+            path: { idOrName },
         }).then(res => this._handleResponse(res, 200, false, Artist));
     }
 
@@ -58,8 +59,8 @@ export default class Artists extends Base {
     async revert(idOrName: number | string, version_id: number): Promise<null> {
         return revertArtist({
             client: this.client,
-            path:   { idOrName },
-            query:  { version_id }
+            path: { idOrName },
+            query: { version_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -67,7 +68,7 @@ export default class Artists extends Base {
     async search(options?: SearchArtistsOptions): Promise<Array<Artist>> {
         return searchArtists({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Artist));
     }
 }

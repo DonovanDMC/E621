@@ -1,8 +1,10 @@
-import Base from "./Base.js";
 import { createNewsUpdate, deleteNewsUpdate, editNewsUpdate, listNewsUpdates } from "../generated/sdk.js";
-import type { CreateNewsUpdateData, EditNewsUpdateData, ListNewsUpdatesData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataQueryToOptions, type TransformDataBodyToOptions } from "../util.js";
 import NewsUpdate from "../models/NewsUpdate.js";
+import { OperationID, prefixKeys, type TransformDataQueryToOptions, type TransformDataBodyToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateNewsUpdateData, EditNewsUpdateData, ListNewsUpdatesData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateNewsUpdateOptions extends TransformDataBodyToOptions<CreateNewsUpdateData> {}
@@ -17,7 +19,7 @@ export default class NewsUpdates extends Base {
     async create(options: CreateNewsUpdateOptions): Promise<NewsUpdate> {
         return createNewsUpdate({
             client: this.client,
-            body:   prefixKeys(options, "news_update")
+            body: prefixKeys(options, "news_update"),
         }).then(res => this._handleResponse(res, 201, true, NewsUpdate));
     }
 
@@ -25,7 +27,7 @@ export default class NewsUpdates extends Base {
     async delete(id: number): Promise<null> {
         return deleteNewsUpdate({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -33,8 +35,8 @@ export default class NewsUpdates extends Base {
     async edit(id: number, options: EditNewsUpdateOptions): Promise<null> {
         return editNewsUpdate({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "news_update")
+            path: { id },
+            body: prefixKeys(options, "news_update"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -42,7 +44,7 @@ export default class NewsUpdates extends Base {
     async search(options?: SearchNewsUpdatesOptions): Promise<Array<NewsUpdate>> {
         return listNewsUpdates({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, NewsUpdate));
     }
 }

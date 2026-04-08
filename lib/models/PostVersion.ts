@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { PostVersion as PostVersionData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { PostVersion as PostVersionData } from "../generated/types.js";
 
 interface PostVersion extends PostVersionData {}
 /** @category Models */

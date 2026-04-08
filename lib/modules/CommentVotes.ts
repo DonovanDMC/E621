@@ -1,6 +1,7 @@
-import Base from "./Base.js";
 import { deleteCommentVotes, lockCommentVotes } from "../generated/sdk.js";
 import { OperationID } from "../util.js";
+
+import Base from "./Base.js";
 
 /** @category Modules */
 export default class CommentVotes extends Base {
@@ -8,7 +9,7 @@ export default class CommentVotes extends Base {
     async delete(ids: Array<number>): Promise<null> {
         return deleteCommentVotes({
             client: this.client,
-            query:  { ids: ids.join(",") }
+            query: { ids: ids.join(",") },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -16,7 +17,7 @@ export default class CommentVotes extends Base {
     async lock(ids: Array<number>): Promise<null> {
         return lockCommentVotes({
             client: this.client,
-            query:  { ids: ids.join(",") }
+            query: { ids: ids.join(",") },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

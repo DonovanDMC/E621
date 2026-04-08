@@ -1,8 +1,10 @@
-import Base from "./Base.js";
 import { getUpload, searchUploads, uploadPost } from "../generated/sdk.js";
-import type { SearchUploadsData, UploadPostData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import Upload from "../models/Upload.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { SearchUploadsData, UploadPostData } from "../generated/types.js";
 import type Post from "../models/Post.js";
 
 /** @category Modules/Types */
@@ -16,11 +18,11 @@ export default class Uploads extends Base {
     async create(options: UploadPostOptions): Promise<Post> {
         return uploadPost({
             client: this.client,
-            body:   prefixKeys(options, "upload")
-        }).then(res => {
+            body: prefixKeys(options, "upload"),
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return this.e621.posts.get(data.post_id)
-                .then(post => {
+                .then((post) => {
                     if (post === null) throw new Error(`Post not found after upload: ${data.post_id}`);
                     return post;
                 });
@@ -31,7 +33,7 @@ export default class Uploads extends Base {
     async get(id: number): Promise<Upload | null> {
         return getUpload({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Upload));
     }
 
@@ -39,7 +41,7 @@ export default class Uploads extends Base {
     async search(options?: SearchUploadsOptions): Promise<Array<Upload>> {
         return searchUploads({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Upload));
     }
 }

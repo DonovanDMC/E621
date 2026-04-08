@@ -1,8 +1,10 @@
-import Base from "./Base.js";
 import { createUserNameChangeRequest, deleteUserNameChangeRequest, getUserNameChangeRequest, searchUserNameChangeRequests } from "../generated/sdk.js";
-import type { CreateUserNameChangeRequestData, SearchUserNameChangeRequestsData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import UserNameChangeRequest from "../models/UserNameChangeRequest.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateUserNameChangeRequestData, SearchUserNameChangeRequestsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateUserNameChangeRequestOptions extends TransformDataBodyToOptions<CreateUserNameChangeRequestData> {}
@@ -15,7 +17,7 @@ export default class UserNameChangeRequests extends Base {
     async create(options: CreateUserNameChangeRequestOptions): Promise<unknown> {
         return createUserNameChangeRequest({
             client: this.client,
-            body:   prefixKeys(options, "user_name_change_request")
+            body: prefixKeys(options, "user_name_change_request"),
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -23,7 +25,7 @@ export default class UserNameChangeRequests extends Base {
     async delete(id: number): Promise<unknown> {
         return deleteUserNameChangeRequest({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -31,7 +33,7 @@ export default class UserNameChangeRequests extends Base {
     async get(id: number): Promise<UserNameChangeRequest | null> {
         return getUserNameChangeRequest({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, UserNameChangeRequest));
     }
 
@@ -39,7 +41,7 @@ export default class UserNameChangeRequests extends Base {
     async search(options?: SearchUserNameChangeRequestsOptions): Promise<Array<UserNameChangeRequest>> {
         return searchUserNameChangeRequests({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, UserNameChangeRequest));
     }
 }

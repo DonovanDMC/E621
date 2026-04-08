@@ -1,8 +1,10 @@
-import Base from "./Base.js";
-import type { CreatePostVoteData, Post as PostData, RecommendedPosts } from "../generated/types.js";
-import { type ExtractValue, OperationID, Schema } from "../util.js";
-import type { DeletePostOptions, GetRecommendedPostsOptions, ListPostFavoritesOptions, MovePostFavoritesOptions } from "../modules/Posts.js";
 import { CreatePostVoteResponse } from "../modules/posts/Votes.js";
+import { type ExtractValue, OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreatePostVoteData, Post as PostData, RecommendedPosts } from "../generated/types.js";
+import type { DeletePostOptions, GetRecommendedPostsOptions, ListPostFavoritesOptions, MovePostFavoritesOptions } from "../modules/Posts.js";
 
 interface Post extends PostData {}
 /** @category Models */
@@ -82,7 +84,6 @@ class Post extends Base<PostData> {
     async vote(score: ExtractValue<"score", CreatePostVoteData>, no_unvote?: boolean): Promise<CreatePostVoteResponse> {
         return this.e621.posts.votes.create(this.id, score, no_unvote);
     }
-
 }
 
 export default Post;

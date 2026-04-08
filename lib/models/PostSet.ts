@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { PostSet as PostSetData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { PostSet as PostSetData } from "../generated/types.js";
 import type { EditPostSetOptions } from "../modules/PostSets.js";
 
 interface PostSet extends PostSetData {}
@@ -31,7 +33,6 @@ class PostSet extends Base<PostSetData> {
     async updatePosts(post_ids: Array<number>): Promise<PostSet> {
         return this.e621.postSets.updatePosts(this.id, post_ids);
     }
-
 }
 
 export default PostSet;

@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { AvoidPosting as AvoidPostingData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { AvoidPosting as AvoidPostingData } from "../generated/types.js";
 import type { EditAvoidPostingOptions } from "../modules/AvoidPostings.js";
 
 interface AvoidPosting extends AvoidPostingData {}
@@ -26,7 +28,6 @@ class AvoidPosting extends Base<AvoidPostingData> {
     async undelete(): Promise<null> {
         return this.e621.avoidPostings.undelete(this.id);
     }
-
 }
 
 export default AvoidPosting;

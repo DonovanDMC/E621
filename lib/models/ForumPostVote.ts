@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { ForumPostVote as ForumPostVoteData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { ForumPostVote as ForumPostVoteData } from "../generated/types.js";
 
 interface ForumPostVote extends ForumPostVoteData {}
 /** @category Models */

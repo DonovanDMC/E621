@@ -8,7 +8,7 @@ export default class PostFlag extends Base {
     async delete(id: number): Promise<null> {
         return unflagPost({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

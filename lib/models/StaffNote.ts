@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { StaffNote as StaffNoteData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { StaffNote as StaffNoteData } from "../generated/types.js";
 import type { EditStaffNoteOptions } from "../modules/StaffNotes.js";
 
 interface StaffNote extends StaffNoteData {}
@@ -21,7 +23,6 @@ class StaffNote extends Base<StaffNoteData> {
     async undelete(): Promise<StaffNote> {
         return this.e621.staffNotes.undelete(this.id);
     }
-
 }
 
 export default StaffNote;

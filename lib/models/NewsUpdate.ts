@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { NewsUpdate as NewsUpdateData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { NewsUpdate as NewsUpdateData } from "../generated/types.js";
 import type { EditNewsUpdateOptions } from "../modules/NewsUpdates.js";
 
 interface NewsUpdate extends NewsUpdateData {}
@@ -16,7 +18,6 @@ class NewsUpdate extends Base<NewsUpdateData> {
     async edit(options: EditNewsUpdateOptions): Promise<null> {
         return this.e621.newsUpdates.edit(this.id, options);
     }
-
 }
 
 export default NewsUpdate;

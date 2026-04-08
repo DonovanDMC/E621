@@ -1,6 +1,8 @@
-import User from "./User.js";
-import type { CurrentUser as CurrentUserData } from "../generated/types.js";
 import { Schema } from "../util.js";
+
+import User from "./User.js";
+
+import type { CurrentUser as CurrentUserData } from "../generated/types.js";
 
 interface CurrentUser extends CurrentUserData {}
 /** @category Models */

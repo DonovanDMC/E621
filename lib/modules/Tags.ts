@@ -1,15 +1,17 @@
-import Base from "./Base.js";
 import {
     deleteTag,
     editTag,
     getTag,
     previewTags,
-    searchTags
+    searchTags,
 } from "../generated/sdk.js";
-import type { SearchTagsData, EditTagData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import Tag from "../models/Tag.js";
 import TagPreview from "../models/TagPreview.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { SearchTagsData, EditTagData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface EditTagOptions extends TransformDataBodyToOptions<EditTagData> {}
@@ -22,7 +24,7 @@ export default class Tags extends Base {
     async delete(id: number): Promise<null> {
         return deleteTag({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -30,8 +32,8 @@ export default class Tags extends Base {
     async edit(id: number, options: EditTagOptions): Promise<null> {
         return editTag({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "tag")
+            path: { id },
+            body: prefixKeys(options, "tag"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -39,7 +41,7 @@ export default class Tags extends Base {
     async get(id: number): Promise<Tag | null> {
         return getTag({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Tag));
     }
 
@@ -47,7 +49,7 @@ export default class Tags extends Base {
     async preview(tags: string): Promise<Array<TagPreview>> {
         return previewTags({
             client: this.client,
-            body:   { tags }
+            body: { tags },
         }).then(res => this._handleResponse(res, 200, true, TagPreview));
     }
 
@@ -55,7 +57,7 @@ export default class Tags extends Base {
     async search(options?: SearchTagsOptions): Promise<Array<Tag>> {
         return searchTags({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Tag));
     }
 }

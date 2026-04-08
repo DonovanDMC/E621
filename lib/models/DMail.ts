@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { DMail as DMailData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { DMail as DMailData } from "../generated/types.js";
 
 interface DMail extends DMailData {}
 /** @category Models */
@@ -20,7 +22,6 @@ class DMail extends Base<DMailData> {
     async markUnread(): Promise<null> {
         return this.e621.dmails.markUnread(this.id);
     }
-
 }
 
 export default DMail;

@@ -1,7 +1,8 @@
-import Base from "../Base.js";
 import { createForumPostVote, deleteForumPostVote } from "../../generated/sdk.js";
-import type { CreateForumPostVoteData, CreateForumPostVoteResponses } from "../../generated/types.js";
 import { GetResponse, OperationID, type ExtractValue } from "../../util.js";
+import Base from "../Base.js";
+
+import type { CreateForumPostVoteData, CreateForumPostVoteResponses } from "../../generated/types.js";
 
 export type ForumPostVoteScore = ExtractValue<"forum_post_vote[score]", CreateForumPostVoteData>;
 export interface CreateForumPostVoteResponse extends GetResponse<CreateForumPostVoteResponses, 200> {}
@@ -12,8 +13,8 @@ export default class ForumPostVotes extends Base {
     async create(id: number, score: ForumPostVoteScore): Promise<CreateForumPostVoteResponse> {
         return createForumPostVote({
             client: this.client,
-            path:   { id },
-            body:   { "forum_post_vote[score]": score }
+            path: { id },
+            body: { "forum_post_vote[score]": score },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -21,7 +22,7 @@ export default class ForumPostVotes extends Base {
     async delete(id: number): Promise<null> {
         return deleteForumPostVote({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

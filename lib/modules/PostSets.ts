@@ -1,4 +1,3 @@
-import Base from "./Base.js";
 import {
     addPostsToPostSet,
     createPostSet,
@@ -8,17 +7,20 @@ import {
     listPostSetsForSelect,
     removePostsFromPostSet,
     searchPostSets,
-    updatePostSetPosts
+    updatePostSetPosts,
 } from "../generated/sdk.js";
-import type { CreatePostSetData, EditPostSetData, ListPostSetsForSelectResponses, SearchPostSetsData } from "../generated/types.js";
+import PostSet from "../models/PostSet.js";
 import {
     GetResponse,
     OperationID,
     prefixKeys,
     type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
+    type TransformDataQueryToOptions,
 } from "../util.js";
-import PostSet from "../models/PostSet.js";
+
+import Base from "./Base.js";
+
+import type { CreatePostSetData, EditPostSetData, ListPostSetsForSelectResponses, SearchPostSetsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreatePostSetOptions extends TransformDataBodyToOptions<CreatePostSetData> {}
@@ -35,8 +37,8 @@ export default class PostSets extends Base {
     async addPosts(id: number, post_ids: Array<number>): Promise<PostSet> {
         return addPostsToPostSet({
             client: this.client,
-            path:   { id },
-            body:   { post_ids }
+            path: { id },
+            body: { post_ids },
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
@@ -44,7 +46,7 @@ export default class PostSets extends Base {
     async create(options: CreatePostSetOptions): Promise<PostSet> {
         return createPostSet({
             client: this.client,
-            body:   prefixKeys(options, "post_set")
+            body: prefixKeys(options, "post_set"),
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
@@ -52,7 +54,7 @@ export default class PostSets extends Base {
     async delete(id: number): Promise<null> {
         return deletePostSet({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -60,15 +62,15 @@ export default class PostSets extends Base {
     async edit(id: number, options: EditPostSetOptions): Promise<null> {
         return editPostSet({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "post_set")
+            path: { id },
+            body: prefixKeys(options, "post_set"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
     @OperationID("listPostSetsForSelect")
     async forSelect(): Promise<ListPostSetsForSelectResponse> {
         return listPostSetsForSelect({
-            client: this.client
+            client: this.client,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -76,7 +78,7 @@ export default class PostSets extends Base {
     async get(id: number): Promise<PostSet | null> {
         return getPostSet({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, PostSet));
     }
 
@@ -84,8 +86,8 @@ export default class PostSets extends Base {
     async removePosts(id: number, post_ids: Array<number>): Promise<PostSet> {
         return removePostsFromPostSet({
             client: this.client,
-            path:   { id },
-            body:   { post_ids }
+            path: { id },
+            body: { post_ids },
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
@@ -93,7 +95,7 @@ export default class PostSets extends Base {
     async search(options?: SearchPostSetsOptions): Promise<Array<PostSet>> {
         return searchPostSets({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, PostSet));
     }
 
@@ -101,8 +103,8 @@ export default class PostSets extends Base {
     async updatePosts(id: number, post_ids: Array<number>): Promise<PostSet> {
         return updatePostSetPosts({
             client: this.client,
-            path:   { id },
-            body:   { "post_set[post_ids_string]": post_ids.join(" ") }
+            path: { id },
+            body: { "post_set[post_ids_string]": post_ids.join(" ") },
         }).then(res => this._handleResponse(res, 200, true, PostSet));
     }
 }

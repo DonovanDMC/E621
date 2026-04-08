@@ -1,8 +1,10 @@
+import { OperationID, Schema } from "../util.js";
+
 import Base from "./Base.js";
+
 import type TagCorrection from "./TagCorrection.js";
 import type TagPreview from "./TagPreview.js";
 import type { Tag as TagData } from "../generated/types.js";
-import { OperationID, Schema } from "../util.js";
 import type { EditTagOptions } from "../modules/Tags.js";
 
 interface Tag extends TagData {}
@@ -28,7 +30,6 @@ class Tag extends Base<TagData> {
     async preview(): Promise<Array<TagPreview>> {
         return this.e621.tags.preview(this.name);
     }
-
 }
 
 export default Tag;

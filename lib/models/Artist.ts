@@ -1,7 +1,9 @@
+import { OperationID, Schema } from "../util.js";
+
 import Base from "./Base.js";
+
 import type ArtistUrl from "./ArtistUrl.js";
 import type { Artist as ArtistData } from "../generated/types.js";
-import { OperationID, Schema } from "../util.js";
 import type { EditArtistOptions } from "../modules/Artists.js";
 
 interface Artist extends ArtistData {}

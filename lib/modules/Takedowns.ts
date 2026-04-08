@@ -1,4 +1,3 @@
-import Base from "./Base.js";
 import {
     addPostsToTakedownByIds,
     addPostsToTakedownByTags,
@@ -8,24 +7,27 @@ import {
     editTakedown,
     getTakedown,
     removePostsFromTakedownByIds,
-    searchTakedowns
+    searchTakedowns,
 } from "../generated/sdk.js";
+import Takedown from "../models/Takedown.js";
+import {
+    GetResponse,
+    OperationID,
+    prefixKeys,
+    type TransformDataBodyToOptions,
+    type TransformDataQueryToOptions,
+} from "../util.js";
+
+import Base from "./Base.js";
+
 import type {
     AddPostsToTakedownByIdsResponses,
     AddPostsToTakedownByTagsResponses,
     CountMatchingPostsResponses,
     CreateTakedownData,
     EditTakedownData,
-    SearchTakedownsData
+    SearchTakedownsData,
 } from "../generated/types.js";
-import {
-    GetResponse,
-    OperationID,
-    prefixKeys,
-    type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
-} from "../util.js";
-import Takedown from "../models/Takedown.js";
 
 /** @category Modules/Types */
 export interface CreateTakedownOptions extends TransformDataBodyToOptions<CreateTakedownData> {}
@@ -46,8 +48,8 @@ export default class Takedowns extends Base {
     async addByIds(id: number, post_ids: Array<number>): Promise<AddPostsToTakedownByIdsResponse> {
         return addPostsToTakedownByIds({
             client: this.client,
-            path:   { id },
-            body:   { post_ids: post_ids.join(" ") }
+            path: { id },
+            body: { post_ids: post_ids.join(" ") },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -55,8 +57,8 @@ export default class Takedowns extends Base {
     async addByTags(id: number, tags: Array<string>): Promise<AddPostsToTakedownByTagsResponse> {
         return addPostsToTakedownByTags({
             client: this.client,
-            path:   { id },
-            body:   { post_tags: tags.join(" ") }
+            path: { id },
+            body: { post_tags: tags.join(" ") },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -64,8 +66,8 @@ export default class Takedowns extends Base {
     async countMatchingPosts(id: number, tags: string): Promise<CountMatchingPostsResponse> {
         return countMatchingPosts({
             client: this.client,
-            path:   { id },
-            body:   { post_tags: tags }
+            path: { id },
+            body: { post_tags: tags },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -73,7 +75,7 @@ export default class Takedowns extends Base {
     async create(options: CreateTakedownOptions): Promise<Takedown> {
         return createTakedown({
             client: this.client,
-            body:   prefixKeys(options, "takedown")
+            body: prefixKeys(options, "takedown"),
         }).then(res => this._handleResponse(res, 201, true, Takedown));
     }
 
@@ -81,7 +83,7 @@ export default class Takedowns extends Base {
     async delete(id: number): Promise<null> {
         return deleteTakedown({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -89,8 +91,8 @@ export default class Takedowns extends Base {
     async edit(id: number, options: EditTakedownOptions): Promise<null> {
         return editTakedown({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "takedown")
+            path: { id },
+            body: prefixKeys(options, "takedown"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -98,7 +100,7 @@ export default class Takedowns extends Base {
     async get(id: number): Promise<Takedown | null> {
         return getTakedown({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Takedown));
     }
 
@@ -106,8 +108,8 @@ export default class Takedowns extends Base {
     async removeByIds(id: number, post_ids: Array<number>): Promise<null> {
         return removePostsFromTakedownByIds({
             client: this.client,
-            path:   { id },
-            body:   { post_ids: post_ids.join(" ") }
+            path: { id },
+            body: { post_ids: post_ids.join(" ") },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -115,7 +117,7 @@ export default class Takedowns extends Base {
     async search(options?: SearchTakedownsOptions): Promise<Array<Takedown>> {
         return searchTakedowns({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Takedown));
     }
 }

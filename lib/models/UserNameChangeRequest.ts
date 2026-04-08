@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { UserNameChangeRequest as UserNameChangeRequestData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { UserNameChangeRequest as UserNameChangeRequestData } from "../generated/types.js";
 
 interface UserNameChangeRequest extends UserNameChangeRequestData {}
 /** @category Models */
@@ -10,7 +12,6 @@ class UserNameChangeRequest extends Base<UserNameChangeRequestData> {
     async delete(): Promise<unknown> {
         return this.e621.userNameChangeRequests.delete(this.id);
     }
-
 }
 
 export default UserNameChangeRequest;

@@ -1,7 +1,9 @@
-import Base from "./Base.js";
 import { hidePostVersion, searchPostVersions, undoPostVersion, unhidePostVersion } from "../generated/sdk.js";
-import type { SearchPostVersionsData } from "../generated/types.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { SearchPostVersionsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchPostVersionsOptions extends TransformDataQueryToOptions<SearchPostVersionsData> {}
@@ -12,7 +14,7 @@ export default class PostVersions extends Base {
     async hide(id: number): Promise<string> {
         return hidePostVersion({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 302, true));
     }
 
@@ -20,7 +22,7 @@ export default class PostVersions extends Base {
     async search(options?: SearchPostVersionsOptions): Promise<null> {
         return searchPostVersions({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -28,7 +30,7 @@ export default class PostVersions extends Base {
     async undo(id: number): Promise<null> {
         return undoPostVersion({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -36,7 +38,7 @@ export default class PostVersions extends Base {
     async unhide(id: number): Promise<string> {
         return unhidePostVersion({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 302, true));
     }
 }

@@ -1,5 +1,3 @@
-import Base from "./Base.js";
-import ForumPostVotes from "./forum_posts/Votes.js";
 import {
     createForumPost,
     deleteForumPost,
@@ -8,24 +6,28 @@ import {
     hideForumPost,
     markForumPost,
     searchForumPosts,
-    unhideForumPost
+    unhideForumPost,
 } from "../generated/sdk.js";
-import type {
-    CreateForumPostData,
-    EditForumPostData,
-    MarkForumPostData,
-    MarkForumPostResponses,
-    SearchForumPostsData
-} from "../generated/types.js";
+import ForumPost from "../models/ForumPost.js";
 import {
     OperationID,
     type ExtractValue,
     prefixKeys,
     type TransformDataBodyToOptions,
     type TransformDataQueryToOptions,
-    GetResponse
+    GetResponse,
 } from "../util.js";
-import ForumPost from "../models/ForumPost.js";
+
+import Base from "./Base.js";
+import ForumPostVotes from "./forum_posts/Votes.js";
+
+import type {
+    CreateForumPostData,
+    EditForumPostData,
+    MarkForumPostData,
+    MarkForumPostResponses,
+    SearchForumPostsData,
+} from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateForumPostOptions extends TransformDataBodyToOptions<CreateForumPostData> {}
@@ -43,7 +45,7 @@ export default class ForumPosts extends Base {
     async create(options: CreateForumPostOptions): Promise<ForumPost> {
         return createForumPost({
             client: this.client,
-            body:   prefixKeys(options, "forum_post")
+            body: prefixKeys(options, "forum_post"),
         }).then(res => this._handleResponse(res, 201, true, ForumPost));
     }
 
@@ -51,7 +53,7 @@ export default class ForumPosts extends Base {
     async delete(id: number): Promise<null> {
         return deleteForumPost({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -59,8 +61,8 @@ export default class ForumPosts extends Base {
     async edit(id: number, options: EditForumPostOptions): Promise<null> {
         return editForumPost({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "forum_post")
+            path: { id },
+            body: prefixKeys(options, "forum_post"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -68,7 +70,7 @@ export default class ForumPosts extends Base {
     async get(id: number): Promise<ForumPost | null> {
         return getForumPost({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, ForumPost));
     }
 
@@ -76,7 +78,7 @@ export default class ForumPosts extends Base {
     async hide(id: number): Promise<ForumPost> {
         return hideForumPost({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, ForumPost));
     }
 
@@ -84,8 +86,8 @@ export default class ForumPosts extends Base {
     async mark(id: number, type: ExtractValue<"record_type", MarkForumPostData>): Promise<MarkForumPostResponse> {
         return markForumPost({
             client: this.client,
-            path:   { id },
-            body:   { record_type: type }
+            path: { id },
+            body: { record_type: type },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -93,7 +95,7 @@ export default class ForumPosts extends Base {
     async search(options?: SearchForumPostsOptions): Promise<Array<ForumPost>> {
         return searchForumPosts({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, ForumPost));
     }
 
@@ -101,7 +103,7 @@ export default class ForumPosts extends Base {
     async unhide(id: number): Promise<ForumPost> {
         return unhideForumPost({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, ForumPost));
     }
 }

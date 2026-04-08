@@ -1,6 +1,3 @@
-import Base from "./Base.js";
-import PostVotes from "./posts/Votes.js";
-import PostFlag from "./posts/Flag.js";
 import {
     aiCheckPost,
     copyNotesToPost,
@@ -18,8 +15,15 @@ import {
     revertPost,
     searchPosts,
     undeletePost,
-    updatePostIqdb
+    updatePostIqdb,
 } from "../generated/sdk.js";
+import Post from "../models/Post.js";
+import { OperationID, type ExtractValue, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+import PostFlag from "./posts/Flag.js";
+import PostVotes from "./posts/Votes.js";
+
 import type {
     DeletePostData,
     GetPostInSequenceData,
@@ -27,10 +31,8 @@ import type {
     ListPostFavoritesData,
     MovePostFavoritesData,
     RecommendedPosts,
-    SearchPostsData
+    SearchPostsData,
 } from "../generated/types.js";
-import { OperationID, type ExtractValue, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
-import Post from "../models/Post.js";
 
 /** @category Modules/Types */
 export interface DeletePostOptions extends TransformDataBodyToOptions<DeletePostData> {}
@@ -51,19 +53,19 @@ export default class Posts extends Base {
     @OperationID("aiCheckPost")
     async aiCheck(id: number): Promise<string> {
         const res = await aiCheckPost({
-            client:   this.client,
-            path:     { id },
-            redirect: "manual"
+            client: this.client,
+            path: { id },
+            redirect: "manual",
         });
-        return this._handleResponse(res, 302, true) as string;
+        return this._handleResponse(res, 302, true);
     }
 
     @OperationID("copyNotesToPost")
     async copyNotes(id: number, other_post_id: number): Promise<null> {
         return copyNotesToPost({
             client: this.client,
-            path:   { id },
-            body:   { other_post_id }
+            path: { id },
+            body: { other_post_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -71,8 +73,8 @@ export default class Posts extends Base {
     async delete(id: number, options: DeletePostOptions): Promise<unknown> {
         return deletePost({
             client: this.client,
-            path:   { id },
-            body:   options
+            path: { id },
+            body: options,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -80,9 +82,9 @@ export default class Posts extends Base {
     async expunge(id: number, reason: string): Promise<Post> {
         return expungePost({
             client: this.client,
-            path:   { id },
-            body:   { reason }
-        }).then(res => {
+            path: { id },
+            body: { reason },
+        }).then((res) => {
             const data = this._handleResponse(res, 201, true);
             return new Post(this.e621, data.post);
         });
@@ -92,8 +94,8 @@ export default class Posts extends Base {
     async favorites(id: number, options: ListPostFavoritesOptions): Promise<Array<Post>> {
         return listPostFavorites({
             client: this.client,
-            path:   { id },
-            query:  options
+            path: { id },
+            query: options,
         }).then(res => this._handleResponse(res, 200, true, Post));
     }
 
@@ -101,8 +103,8 @@ export default class Posts extends Base {
     async get(id: number): Promise<Post | null> {
         return getPost({
             client: this.client,
-            path:   { id }
-        }).then(res => {
+            path: { id },
+        }).then((res) => {
             const data = this._handleResponse(res, 200, false);
             return data === null ? null : new Post(this.e621, data.post);
         });
@@ -112,8 +114,8 @@ export default class Posts extends Base {
     async markTranslated(id: number): Promise<Post> {
         return markPostAsTranslated({
             client: this.client,
-            path:   { id }
-        }).then(res => {
+            path: { id },
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return new Post(this.e621, data.post);
         });
@@ -123,8 +125,8 @@ export default class Posts extends Base {
     async moveFavorites(id: number, options: MovePostFavoritesOptions): Promise<unknown> {
         return movePostFavorites({
             client: this.client,
-            path:   { id },
-            body:   options
+            path: { id },
+            body: options,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -132,8 +134,8 @@ export default class Posts extends Base {
     async random(tags?: string): Promise<Post> {
         return getRandomPost({
             client: this.client,
-            query:  { tags }
-        }).then(res => {
+            query: { tags },
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return new Post(this.e621, data.post);
         });
@@ -144,7 +146,7 @@ export default class Posts extends Base {
         return getRecommendedPosts({
             client: this.client,
             path: { id },
-            query: options
+            query: options,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -152,8 +154,8 @@ export default class Posts extends Base {
     async regenerateThumbnails(id: number): Promise<Post> {
         return regeneratePostThumbnails({
             client: this.client,
-            path:   { id }
-        }).then(res => {
+            path: { id },
+        }).then((res) => {
             const data = this._handleResponse(res, 201, true);
             return new Post(this.e621, data.post);
         });
@@ -163,7 +165,7 @@ export default class Posts extends Base {
     async regenerateVideos(id: number): Promise<null> {
         return regeneratePostVideos({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -171,8 +173,8 @@ export default class Posts extends Base {
     async revert(id: number, version_id: number): Promise<null> {
         return revertPost({
             client: this.client,
-            path:   { id },
-            query:  { version_id }
+            path: { id },
+            query: { version_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -180,8 +182,8 @@ export default class Posts extends Base {
     async search(options?: SearchPostsOptions): Promise<Array<Post>> {
         return searchPosts({
             client: this.client,
-            query:  options
-        }).then(res => {
+            query: options,
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return data.posts.map(post => new Post(this.e621, post));
         });
@@ -191,9 +193,9 @@ export default class Posts extends Base {
     async sequence(id: number, seq?: ExtractValue<"seq", GetPostInSequenceData>): Promise<Post> {
         return getPostInSequence({
             client: this.client,
-            path:   { id },
-            query:  { seq }
-        }).then(res => {
+            path: { id },
+            query: { seq },
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return new Post(this.e621, data.post);
         });
@@ -203,8 +205,8 @@ export default class Posts extends Base {
     async undelete(id: number): Promise<Post> {
         return undeletePost({
             client: this.client,
-            path:   { id }
-        }).then(res => {
+            path: { id },
+        }).then((res) => {
             const data = this._handleResponse(res, 201, true);
             return new Post(this.e621, data.post);
         });
@@ -214,8 +216,8 @@ export default class Posts extends Base {
     async updateIqdb(id: number): Promise<Post> {
         return updatePostIqdb({
             client: this.client,
-            path:   { id }
-        }).then(res => {
+            path: { id },
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return new Post(this.e621, data.post);
         });

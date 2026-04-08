@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { TagImplication as TagImplicationData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { TagImplication as TagImplicationData } from "../generated/types.js";
 import type { EditTagImplicationOptions } from "../modules/TagImplications.js";
 
 interface TagImplication extends TagImplicationData {}
@@ -21,7 +23,6 @@ class TagImplication extends Base<TagImplicationData> {
     async reject(): Promise<null> {
         return this.e621.tagImplications.reject(this.id);
     }
-
 }
 
 export default TagImplication;

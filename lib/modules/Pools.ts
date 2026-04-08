@@ -1,4 +1,3 @@
-import Base from "./Base.js";
 import {
     addPostToPool,
     createPool,
@@ -8,17 +7,20 @@ import {
     getRecentPools,
     removePostFromPool,
     revertPool,
-    searchPools
+    searchPools,
 } from "../generated/sdk.js";
-import type { CreatePoolData, EditPoolData, GetRecentPoolsResponses, SearchPoolsData } from "../generated/types.js";
+import Pool from "../models/Pool.js";
 import {
     GetResponse,
     OperationID,
     prefixKeys,
     type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
+    type TransformDataQueryToOptions,
 } from "../util.js";
-import Pool from "../models/Pool.js";
+
+import Base from "./Base.js";
+
+import type { CreatePoolData, EditPoolData, GetRecentPoolsResponses, SearchPoolsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreatePoolOptions extends TransformDataBodyToOptions<CreatePoolData> {}
@@ -35,7 +37,7 @@ export default class Pools extends Base {
     async addPost(pool_id: number, post_id: number): Promise<Pool> {
         return addPostToPool({
             client: this.client,
-            body:   { pool_id, post_id }
+            body: { pool_id, post_id },
         }).then(res => this._handleResponse(res, 201, true, Pool));
     }
 
@@ -43,7 +45,7 @@ export default class Pools extends Base {
     async create(options: CreatePoolOptions): Promise<Pool> {
         return createPool({
             client: this.client,
-            body:   prefixKeys(options, "pool")
+            body: prefixKeys(options, "pool"),
         }).then(res => this._handleResponse(res, 201, true, Pool));
     }
 
@@ -51,7 +53,7 @@ export default class Pools extends Base {
     async delete(id: number): Promise<null> {
         return deletePool({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -59,8 +61,8 @@ export default class Pools extends Base {
     async edit(id: number, options: EditPoolOptions): Promise<null> {
         return editPool({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "pool")
+            path: { id },
+            body: prefixKeys(options, "pool"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -68,14 +70,14 @@ export default class Pools extends Base {
     async get(id: number): Promise<Pool | null> {
         return getPool({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Pool));
     }
 
     @OperationID("getRecentPools")
     async getRecent(): Promise<GetRecentPoolsResponse> {
         return getRecentPools({
-            client: this.client
+            client: this.client,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -83,7 +85,7 @@ export default class Pools extends Base {
     async removePost(pool_id: number, post_id: number): Promise<null> {
         return removePostFromPool({
             client: this.client,
-            body:   { pool_id, post_id }
+            body: { pool_id, post_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -91,8 +93,8 @@ export default class Pools extends Base {
     async revert(id: number, version_id: number): Promise<null> {
         return revertPool({
             client: this.client,
-            path:   { id },
-            query:  { version_id }
+            path: { id },
+            query: { version_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -100,7 +102,7 @@ export default class Pools extends Base {
     async search(options?: SearchPoolsOptions): Promise<Array<Pool>> {
         return searchPools({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Pool));
     }
 }

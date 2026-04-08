@@ -9,6 +9,7 @@ export class UnexpectedResponseError extends Error {
         if (error) {
             if (typeof error === "string") message += `\n${error}`;
             else if (error instanceof Error) message += `\n${error.message}`;
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             else if (typeof error === "object" && error !== null) {
                 if ("message" in error && typeof error.message === "string") message += `\n${error.message}`;
                 else if ("error" in error && typeof error.error === "string") message += `\n${error.error}`;
@@ -22,9 +23,9 @@ export class UnexpectedResponseError extends Error {
         }
         super(message);
         Object.defineProperties(this, {
-            request:  { value: request,    enumerable: false },
-            response: { value: response,   enumerable: false },
-            error:    { value: error,      enumerable: false }
+            request: { value: request, enumerable: false },
+            response: { value: response, enumerable: false },
+            error: { value: error, enumerable: false },
         });
     }
 }

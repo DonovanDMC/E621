@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { Ticket as TicketData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { Ticket as TicketData } from "../generated/types.js";
 import type { EditTicketOptions } from "../modules/Tickets.js";
 
 interface Ticket extends TicketData {}
@@ -21,7 +23,6 @@ class Ticket extends Base<TicketData> {
     async unclaim(): Promise<Ticket> {
         return this.e621.tickets.unclaim(this.id);
     }
-
 }
 
 export default Ticket;

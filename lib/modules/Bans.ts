@@ -1,8 +1,10 @@
-import Base from "./Base.js";
 import { getBan, searchBans } from "../generated/sdk.js";
-import type { SearchBansData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 import Ban from "../models/Ban.js";
+import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { SearchBansData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchBansOptions extends TransformDataQueryToOptions<SearchBansData> {}
@@ -13,7 +15,7 @@ export default class Bans extends Base {
     async get(id: number): Promise<Ban | null> {
         return getBan({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Ban));
     }
 
@@ -21,7 +23,7 @@ export default class Bans extends Base {
     async search(options?: SearchBansOptions): Promise<Array<Ban>> {
         return searchBans({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Ban));
     }
 }

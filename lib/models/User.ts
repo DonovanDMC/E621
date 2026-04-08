@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { User as UserData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { User as UserData } from "../generated/types.js";
 import type { AdminEditUserOptions } from "../modules/admin/Users.js";
 
 interface User extends UserData {}
@@ -40,12 +42,11 @@ class User<D extends UserData = UserData> extends Base<D> {
     @OperationID("getUserUploadLimit")
     async uploadLimit(): Promise<User> {
         return this.e621.users.uploadLimit(this.id)
-            .then(res => {
+            .then((res) => {
                 if (res === null) throw new Error(`Got null getUploadLimit for user ${this.id}`);
                 return res;
             });
     }
-
 }
 
 export default User;

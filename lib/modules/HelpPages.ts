@@ -1,14 +1,16 @@
-import Base from "./Base.js";
 import {
     createHelpPage,
     deleteHelpPage,
     editHelpPage,
     getHelpPage,
-    listHelpPages
+    listHelpPages,
 } from "../generated/sdk.js";
-import type { CreateHelpPageData, EditHelpPageData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 import Help from "../models/Help.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateHelpPageData, EditHelpPageData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateHelpPageOptions extends TransformDataBodyToOptions<CreateHelpPageData> {}
@@ -21,7 +23,7 @@ export default class HelpPages extends Base {
     async create(options: CreateHelpPageOptions): Promise<Help> {
         return createHelpPage({
             client: this.client,
-            body:   prefixKeys(options, "help_page")
+            body: prefixKeys(options, "help_page"),
         }).then(res => this._handleResponse(res, 201, true, Help));
     }
 
@@ -29,7 +31,7 @@ export default class HelpPages extends Base {
     async delete(id: number): Promise<null> {
         return deleteHelpPage({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -37,8 +39,8 @@ export default class HelpPages extends Base {
     async edit(id: number, options: EditHelpPageOptions): Promise<null> {
         return editHelpPage({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "help_page")
+            path: { id },
+            body: prefixKeys(options, "help_page"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -46,14 +48,14 @@ export default class HelpPages extends Base {
     async get(id: number | string): Promise<Help | null> {
         return getHelpPage({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Help));
     }
 
     @OperationID("listHelpPages")
     async list(): Promise<Array<Help>> {
         return listHelpPages({
-            client: this.client
+            client: this.client,
         }).then(res => this._handleResponse(res, 200, true, Help));
     }
 }

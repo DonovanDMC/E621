@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { Note as NoteData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { Note as NoteData } from "../generated/types.js";
 import type { EditNoteOptions } from "../modules/Notes.js";
 
 interface Note extends NoteData {}
@@ -21,7 +23,6 @@ class Note extends Base<NoteData> {
     async revert(version_id: number): Promise<null> {
         return this.e621.notes.revert(this.id, version_id);
     }
-
 }
 
 export default Note;

@@ -9,7 +9,7 @@ export default class UsersDMails extends Base {
     async get(user_id: number, id: number): Promise<DMail | null> {
         return auditUserDMail({
             client: this.client,
-            path:   { id, user_id }
+            path: { id, user_id },
         }).then(res => this._handleResponse(res, 200, false, DMail));
     }
 
@@ -17,7 +17,7 @@ export default class UsersDMails extends Base {
     async search(user_id: number): Promise<Array<DMail>> {
         return auditUserDMails({
             client: this.client,
-            path:   { user_id }
+            path: { user_id },
         }).then(res => this._handleResponse(res, 200, true, DMail));
     }
 }

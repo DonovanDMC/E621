@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { TagAlias as TagAliasData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { TagAlias as TagAliasData } from "../generated/types.js";
 import type { EditTagAliasOptions } from "../modules/TagAliases.js";
 
 interface TagAlias extends TagAliasData {}

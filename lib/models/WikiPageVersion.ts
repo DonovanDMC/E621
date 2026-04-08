@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { WikiPageVersion as WikiPageVersionData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { WikiPageVersion as WikiPageVersionData } from "../generated/types.js";
 
 interface WikiPageVersion extends WikiPageVersionData {}
 /** @category Models */

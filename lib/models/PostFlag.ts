@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { PostFlag as PostFlagData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { PostFlag as PostFlagData } from "../generated/types.js";
 
 interface PostFlag extends PostFlagData {}
 /** @category Models */

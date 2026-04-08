@@ -1,8 +1,10 @@
-import Base from "./Base.js";
-import type { CreateForumPostVoteData, ForumPost as ForumPostData, MarkForumPostData } from "../generated/types.js";
-import { type ExtractValue, OperationID, Schema } from "../util.js";
-import type { EditForumPostOptions, MarkForumPostResponse } from "../modules/ForumPosts.js";
 import { CreateForumPostVoteResponse } from "../modules/forum_posts/Votes.js";
+import { type ExtractValue, OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateForumPostVoteData, ForumPost as ForumPostData, MarkForumPostData } from "../generated/types.js";
+import type { EditForumPostOptions, MarkForumPostResponse } from "../modules/ForumPosts.js";
 
 interface ForumPost extends ForumPostData {}
 /** @category Models */
@@ -42,7 +44,6 @@ class ForumPost extends Base<ForumPostData> {
     async vote(score: ExtractValue<"forum_post_vote[score]", CreateForumPostVoteData>): Promise<CreateForumPostVoteResponse> {
         return this.e621.forumPosts.votes.create(this.id, score);
     }
-
 }
 
 export default ForumPost;

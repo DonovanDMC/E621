@@ -1,20 +1,22 @@
-import Base from "./Base.js";
 import {
     checkIfUrlIsAllowed,
     createUploadWhitelist,
     deleteUploadWhitelist,
     editUploadWhitelist,
-    searchUploadWhitelists
+    searchUploadWhitelists,
 } from "../generated/sdk.js";
-import type { CheckIfUrlIsAllowedResponses, CreateUploadWhitelistData, EditUploadWhitelistData, SearchUploadWhitelistsData } from "../generated/types.js";
+import UploadWhitelist from "../models/UploadWhitelist.js";
 import {
     GetResponse,
     OperationID,
     prefixKeys,
     type TransformDataBodyToOptions,
-    type TransformDataQueryToOptions
+    type TransformDataQueryToOptions,
 } from "../util.js";
-import UploadWhitelist from "../models/UploadWhitelist.js";
+
+import Base from "./Base.js";
+
+import type { CheckIfUrlIsAllowedResponses, CreateUploadWhitelistData, EditUploadWhitelistData, SearchUploadWhitelistsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateUploadWhitelistOptions extends TransformDataBodyToOptions<CreateUploadWhitelistData> {}
@@ -31,7 +33,7 @@ export default class UploadWhitelists extends Base {
     async check(url: string): Promise<CheckIfUrlIsAllowedResponse> {
         return checkIfUrlIsAllowed({
             client: this.client,
-            query:  { url }
+            query: { url },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -39,7 +41,7 @@ export default class UploadWhitelists extends Base {
     async create(options: CreateUploadWhitelistOptions): Promise<UploadWhitelist> {
         return createUploadWhitelist({
             client: this.client,
-            body:   prefixKeys(options, "upload_whitelist")
+            body: prefixKeys(options, "upload_whitelist"),
         }).then(res => this._handleResponse(res, 201, true, UploadWhitelist));
     }
 
@@ -47,7 +49,7 @@ export default class UploadWhitelists extends Base {
     async delete(id: number): Promise<null> {
         return deleteUploadWhitelist({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -55,8 +57,8 @@ export default class UploadWhitelists extends Base {
     async edit(id: number, options: EditUploadWhitelistOptions): Promise<null> {
         return editUploadWhitelist({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "upload_whitelist")
+            path: { id },
+            body: prefixKeys(options, "upload_whitelist"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -64,7 +66,7 @@ export default class UploadWhitelists extends Base {
     async search(options?: SearchUploadWhitelistsOptions): Promise<Array<UploadWhitelist>> {
         return searchUploadWhitelists({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, UploadWhitelist));
     }
 }

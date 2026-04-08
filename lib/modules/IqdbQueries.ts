@@ -1,8 +1,10 @@
-import Base from "./Base.js";
 import { queryIqdbPost, queryIqdbGet } from "../generated/sdk.js";
-import type { QueryIqdbPostData, QueryIqdbGetData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import IqdbPost from "../models/IqdbPost.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { QueryIqdbPostData, QueryIqdbGetData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface QueryIqdbGetOptions extends TransformDataQueryToOptions<QueryIqdbGetData> {}
@@ -22,14 +24,14 @@ export default class IqdbQueries extends Base {
     async get(options: QueryIqdbGetOptions): Promise<Array<IqdbResult>> {
         return queryIqdbGet({
             client: this.client,
-            query:  prefixKeys(options, "search")
-        }).then(res => {
+            query: prefixKeys(options, "search"),
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return data.map(d => ({
-                hash:    d.hash,
-                post:    new IqdbPost(this.e621, d.post.posts),
+                hash: d.hash,
+                post: new IqdbPost(this.e621, d.post.posts),
                 post_id: d.post_id,
-                score:   d.score
+                score: d.score,
             }));
         });
     }
@@ -38,14 +40,14 @@ export default class IqdbQueries extends Base {
     async post(options: QueryIqdbPostOptions): Promise<Array<IqdbResult>> {
         return queryIqdbPost({
             client: this.client,
-            body:   options
-        }).then(res => {
+            body: options,
+        }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return data.map(d => ({
-                hash:    d.hash,
-                post:    new IqdbPost(this.e621, d.post.posts),
+                hash: d.hash,
+                post: new IqdbPost(this.e621, d.post.posts),
                 post_id: d.post_id,
-                score:   d.score
+                score: d.score,
             }));
         });
     }

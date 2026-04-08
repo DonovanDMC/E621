@@ -1,14 +1,16 @@
-import Base from "./Base.js";
 import {
     claimTicket,
     editTicket,
     getTicket,
     searchTickets,
-    unclaimTicket
+    unclaimTicket,
 } from "../generated/sdk.js";
-import type { EditTicketData, SearchTicketsData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import Ticket from "../models/Ticket.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { EditTicketData, SearchTicketsData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface EditTicketOptions extends TransformDataBodyToOptions<EditTicketData> {}
@@ -21,7 +23,7 @@ export default class Tickets extends Base {
     async claim(id: number): Promise<Ticket> {
         return claimTicket({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, Ticket));
     }
 
@@ -29,8 +31,8 @@ export default class Tickets extends Base {
     async edit(id: number, options: EditTicketOptions): Promise<null> {
         return editTicket({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "ticket")
+            path: { id },
+            body: prefixKeys(options, "ticket"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -38,7 +40,7 @@ export default class Tickets extends Base {
     async get(id: number): Promise<Ticket | null> {
         return getTicket({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Ticket));
     }
 
@@ -46,7 +48,7 @@ export default class Tickets extends Base {
     async search(options?: SearchTicketsOptions): Promise<Array<Ticket>> {
         return searchTickets({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Ticket));
     }
 
@@ -54,7 +56,7 @@ export default class Tickets extends Base {
     async unclaim(id: number): Promise<Ticket> {
         return unclaimTicket({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, Ticket));
     }
 }

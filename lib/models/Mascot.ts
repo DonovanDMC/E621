@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { Mascot as MascotData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { Mascot as MascotData } from "../generated/types.js";
 import type { EditMascotOptions } from "../modules/Mascots.js";
 
 interface Mascot extends MascotData {}
@@ -16,7 +18,6 @@ class Mascot extends Base<MascotData> {
     async edit(options: EditMascotOptions): Promise<null> {
         return this.e621.mascots.edit(this.id, options);
     }
-
 }
 
 export default Mascot;

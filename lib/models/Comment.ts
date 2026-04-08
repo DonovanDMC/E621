@@ -1,8 +1,10 @@
-import Base from "./Base.js";
-import type { Comment as CommentData, CreateCommentVoteData, MarkCommentData } from "../generated/types.js";
-import { type ExtractValue, OperationID, Schema } from "../util.js";
-import type { EditCommentOptions, MarkCommentResponse } from "../modules/Comments.js";
 import { CreateCommentVoteResponse } from "../modules/comments/Votes.js";
+import { type ExtractValue, OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { Comment as CommentData, CreateCommentVoteData, MarkCommentData } from "../generated/types.js";
+import type { EditCommentOptions, MarkCommentResponse } from "../modules/Comments.js";
 
 interface Comment extends CommentData {}
 /** @category Models */

@@ -1,5 +1,3 @@
-import Base from "./Base.js";
-import CommentVotes from "./comments/Votes.js";
 import {
     createComment,
     deleteComment,
@@ -8,24 +6,28 @@ import {
     hideComment,
     markComment,
     searchComments,
-    unhideComment
+    unhideComment,
 } from "../generated/sdk.js";
-import type {
-    CreateCommentData,
-    EditCommentData,
-    MarkCommentData,
-    MarkCommentResponses,
-    SearchCommentsData
-} from "../generated/types.js";
+import Comment from "../models/Comment.js";
 import {
     OperationID,
     type ExtractValue,
     prefixKeys,
     type TransformDataBodyToOptions,
     type TransformDataQueryToOptions,
-    GetResponse
+    GetResponse,
 } from "../util.js";
-import Comment from "../models/Comment.js";
+
+import Base from "./Base.js";
+import CommentVotes from "./comments/Votes.js";
+
+import type {
+    CreateCommentData,
+    EditCommentData,
+    MarkCommentData,
+    MarkCommentResponses,
+    SearchCommentsData,
+} from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchCommentsOptions extends TransformDataQueryToOptions<SearchCommentsData> {}
@@ -43,7 +45,7 @@ export default class Comments extends Base {
     async create(options: CreateCommentOptions): Promise<Comment> {
         return createComment({
             client: this.client,
-            body:   prefixKeys(options, "comment")
+            body: prefixKeys(options, "comment"),
         }).then(res => this._handleResponse(res, 201, true, Comment));
     }
 
@@ -51,7 +53,7 @@ export default class Comments extends Base {
     async delete(id: number): Promise<null> {
         return deleteComment({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -59,8 +61,8 @@ export default class Comments extends Base {
     async edit(id: number, options: EditCommentOptions): Promise<null> {
         return editComment({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "comment")
+            path: { id },
+            body: prefixKeys(options, "comment"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -68,7 +70,7 @@ export default class Comments extends Base {
     async get(id: number): Promise<Comment | null> {
         return getComment({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, Comment));
     }
 
@@ -76,7 +78,7 @@ export default class Comments extends Base {
     async hide(id: number): Promise<Comment> {
         return hideComment({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, Comment));
     }
 
@@ -84,8 +86,8 @@ export default class Comments extends Base {
     async mark(id: number, type: ExtractValue<"record_type", MarkCommentData>): Promise<MarkCommentResponse> {
         return markComment({
             client: this.client,
-            path:   { id },
-            body:   { record_type: type }
+            path: { id },
+            body: { record_type: type },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -93,7 +95,7 @@ export default class Comments extends Base {
     async search(options?: SearchCommentsOptions): Promise<Array<Comment>> {
         return searchComments({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Comment));
     }
 
@@ -101,7 +103,7 @@ export default class Comments extends Base {
     async unhide(id: number): Promise<Comment> {
         return unhideComment({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, Comment));
     }
 }

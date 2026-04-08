@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { UserFeedback as UserFeedbackData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { UserFeedback as UserFeedbackData } from "../generated/types.js";
 import type { EditUserFeedbackOptions } from "../modules/UserFeedbacks.js";
 
 interface UserFeedback extends UserFeedbackData {}
@@ -26,7 +28,6 @@ class UserFeedback extends Base<UserFeedbackData> {
     async undelete(): Promise<null> {
         return this.e621.userFeedbacks.undelete(this.id);
     }
-
 }
 
 export default UserFeedback;

@@ -1,5 +1,6 @@
-import type E621 from "../index.js";
 import { inspect, type InspectOptions } from "node:util";
+
+import type E621 from "../index.js";
 
 /** @category Models */
 export default abstract class Base<D = unknown> {
@@ -9,7 +10,7 @@ export default abstract class Base<D = unknown> {
     constructor(e621: E621, data: D) {
         Object.defineProperties(this, {
             e621: { value: e621, enumerable: false },
-            data: { value: data, enumerable: false }
+            data: { value: data, enumerable: false },
         });
         Object.assign(this, data);
     }
@@ -20,15 +21,15 @@ export default abstract class Base<D = unknown> {
                 constructor(data: D) {
                     Object.assign(this, data);
                 }
-            }
+            },
         };
         const data = structuredClone(this.data);
         if (this.includeInInspect.length !== 0) {
             for (const key of this.includeInInspect) {
                 if (key in this) {
                     Object.defineProperty(data, key, {
-                        value:      (this as Record<string, unknown>)[key],
-                        enumerable: true
+                        value: (this as Record<string, unknown>)[key],
+                        enumerable: true,
                     });
                 }
             }
@@ -39,5 +40,4 @@ export default abstract class Base<D = unknown> {
     toJSON(): D {
         return this.data;
     }
-
 }

@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { Takedown as TakedownData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { Takedown as TakedownData } from "../generated/types.js";
 import type { AddPostsToTakedownByIdsResponse, AddPostsToTakedownByTagsResponse, CountMatchingPostsResponse, EditTakedownOptions } from "../modules/Takedowns.js";
 
 interface Takedown extends TakedownData {}

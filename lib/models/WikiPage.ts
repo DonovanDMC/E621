@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { WikiPage as WikiPageData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { WikiPage as WikiPageData } from "../generated/types.js";
 import type { EditWikiPageOptions } from "../modules/WikiPages.js";
 
 interface WikiPage extends WikiPageData {}
@@ -21,7 +23,6 @@ class WikiPage extends Base<WikiPageData> {
     async revert(version_id: number): Promise<null> {
         return this.e621.wikiPages.revert(this.id, version_id);
     }
-
 }
 
 export default WikiPage;

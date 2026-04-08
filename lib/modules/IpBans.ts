@@ -1,8 +1,10 @@
-import Base from "./Base.js";
 import { createIpBan, deleteIpBan, listIpBans } from "../generated/sdk.js";
-import type { CreateIpBanData, ListIpBansData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataQueryToOptions, type TransformDataBodyToOptions } from "../util.js";
 import IpBan from "../models/IpBan.js";
+import { OperationID, prefixKeys, type TransformDataQueryToOptions, type TransformDataBodyToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateIpBanData, ListIpBansData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateIpBanOptions extends TransformDataBodyToOptions<CreateIpBanData> {}
@@ -15,7 +17,7 @@ export default class IpBans extends Base {
     async create(options: CreateIpBanOptions): Promise<IpBan> {
         return createIpBan({
             client: this.client,
-            body:   prefixKeys(options, "ip_ban")
+            body: prefixKeys(options, "ip_ban"),
         }).then(res => this._handleResponse(res, 201, true, IpBan));
     }
 
@@ -23,7 +25,7 @@ export default class IpBans extends Base {
     async delete(id: number): Promise<null> {
         return deleteIpBan({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -31,7 +33,7 @@ export default class IpBans extends Base {
     async search(options?: SearchIpBansOptions): Promise<Array<IpBan>> {
         return listIpBans({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, IpBan));
     }
 }

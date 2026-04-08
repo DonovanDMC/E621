@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { TagCorrection as TagCorrectionData } from "../generated/types.js";
 import { Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { TagCorrection as TagCorrectionData } from "../generated/types.js";
 
 interface TagCorrection extends TagCorrectionData {}
 /** @category Models */

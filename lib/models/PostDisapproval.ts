@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { PostDisapproval as PostDisapprovalData } from "../generated/types.js";
 import { Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { PostDisapproval as PostDisapprovalData } from "../generated/types.js";
 
 interface PostDisapproval extends PostDisapprovalData {}
 /** @category Models */

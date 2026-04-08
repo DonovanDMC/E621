@@ -1,9 +1,11 @@
+import pkg from "../package.json" with { type: "json" };
+
+import Debug from "./Debug.js";
 import { createClient } from "./generated/client/client.js";
-import type { Client, Config } from "./generated/client/types.js";
 import { createConfig } from "./generated/client/utils.js";
 import { apply, type Modules } from "./modules/index.js";
-import Debug from "./Debug.js";
-import pkg from "../package.json" with { type: "json" };
+
+import type { Client, Config } from "./generated/client/types.js";
 
 export type * from "./modules/index.js";
 export * from "./models/index.js";
@@ -45,7 +47,6 @@ export interface Options {
     userAgent?: string;
 }
 
-
 /** @category Main */
 interface InstanceOptions {
     authKey: string | null;
@@ -63,20 +64,20 @@ class E621 {
     options: InstanceOptions;
     constructor(options?: Options) {
         this.options = {
-            authKey:        options?.authKey ?? null,
-            authUser:       options?.authUser ?? null,
-            baseURL:        options?.baseURL ?? "https://e621.net",
+            authKey: options?.authKey ?? null,
+            authUser: options?.authUser ?? null,
+            baseURL: options?.baseURL ?? "https://e621.net",
             requestTimeout: options?.requestTimeout ?? 30,
             statusCheckURL: options?.statusCheckURL ?? "https://status.e621.church/json",
-            userAgent:      options?.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${options?.authUser ? `; "${options.authUser}"` : ""})`
+            userAgent: options?.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${options?.authUser ? `; "${options.authUser}"` : ""})`,
         };
         let config: Config;
         const commonConfig: Partial<Parameters<typeof createConfig>[0]> = {
             baseUrl: this.options.baseURL,
             headers: {
-                "User-Agent": this.options.userAgent
+                "User-Agent": this.options.userAgent,
             },
-            fetch: async(input, init): Promise<Response> => {
+            fetch: async (input, init): Promise<Response> => {
                 let url = "unknown", method = "unknown";
                 // for some reason it doesn't seem to be inserting the Authorization header
                 if (input instanceof Request) {
@@ -100,18 +101,18 @@ class E621 {
                 const res = await fetch(input, init);
                 Debug(`response:${method}`, `<- ${url} ${res.status} ${res.statusText}`);
                 return res;
-            }
+            },
         };
-        if (options?.authKey && options?.authUser) {
+        if (options?.authKey && options.authUser) {
             config = createConfig({
                 ...commonConfig,
-                auth: auth => {
+                auth: (auth) => {
                     if (auth.scheme === "basic") {
                         return `${this.options.authUser}:${this.options.authKey}`;
                     }
 
                     return;
-                }
+                },
             });
         } else {
             config = createConfig(commonConfig);

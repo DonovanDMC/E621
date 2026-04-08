@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { IpBan as IpBanData } from "../generated/types.js";
 import { OperationID, Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { IpBan as IpBanData } from "../generated/types.js";
 
 interface IpBan extends IpBanData {}
 /** @category Models */

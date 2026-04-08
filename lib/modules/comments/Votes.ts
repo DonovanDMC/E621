@@ -14,8 +14,8 @@ export default class CommentVotes extends Base {
     async create(id: number, score: CommentVoteScore, no_unvote?: boolean): Promise<CreateCommentVoteResponse> {
         return createCommentVote({
             client: this.client,
-            path:   { id },
-            query:  { no_unvote, score }
+            path: { id },
+            query: { no_unvote, score },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -23,7 +23,7 @@ export default class CommentVotes extends Base {
     async delete(id: number): Promise<null> {
         return deleteCommentVote({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

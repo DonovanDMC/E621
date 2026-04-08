@@ -1,15 +1,17 @@
-import Base from "./Base.js";
 import {
     createStaffNote,
     deleteStaffNote,
     editStaffNote,
     getStaffNote,
     searchStaffNotes,
-    undeleteStaffNote
+    undeleteStaffNote,
 } from "../generated/sdk.js";
-import type { CreateStaffNoteData, EditStaffNoteData, SearchStaffNotesData } from "../generated/types.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 import StaffNote from "../models/StaffNote.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { CreateStaffNoteData, EditStaffNoteData, SearchStaffNotesData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateStaffNoteOptions extends TransformDataBodyToOptions<CreateStaffNoteData> {}
@@ -24,7 +26,7 @@ export default class StaffNotes extends Base {
     async create(options: CreateStaffNoteOptions): Promise<StaffNote> {
         return createStaffNote({
             client: this.client,
-            body:   prefixKeys(options, "staff_note")
+            body: prefixKeys(options, "staff_note"),
         }).then(res => this._handleResponse(res, 201, true, StaffNote));
     }
 
@@ -32,7 +34,7 @@ export default class StaffNotes extends Base {
     async delete(id: number): Promise<StaffNote> {
         return deleteStaffNote({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, StaffNote));
     }
 
@@ -40,8 +42,8 @@ export default class StaffNotes extends Base {
     async edit(id: number, options: EditStaffNoteOptions): Promise<StaffNote> {
         return editStaffNote({
             client: this.client,
-            path:   { id },
-            body:   prefixKeys(options, "staff_note")
+            path: { id },
+            body: prefixKeys(options, "staff_note"),
         }).then(res => this._handleResponse(res, 200, true, StaffNote));
     }
 
@@ -49,7 +51,7 @@ export default class StaffNotes extends Base {
     async get(id: number): Promise<StaffNote | null> {
         return getStaffNote({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 200, false, StaffNote));
     }
 
@@ -57,7 +59,7 @@ export default class StaffNotes extends Base {
     async search(options?: SearchStaffNotesOptions): Promise<Array<StaffNote>> {
         return searchStaffNotes({
             client: this.client,
-            query:  prefixKeys(options, "search", ["limit", "page"])
+            query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, StaffNote));
     }
 
@@ -65,7 +67,7 @@ export default class StaffNotes extends Base {
     async undelete(id: number): Promise<StaffNote> {
         return undeleteStaffNote({
             client: this.client,
-            path:   { id }
+            path: { id },
         }).then(res => this._handleResponse(res, 201, true, StaffNote));
     }
 }

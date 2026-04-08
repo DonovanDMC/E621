@@ -1,6 +1,8 @@
-import Base from "./Base.js";
-import type { EditHistory as EditHistoryData } from "../generated/types.js";
 import { Schema } from "../util.js";
+
+import Base from "./Base.js";
+
+import type { EditHistory as EditHistoryData } from "../generated/types.js";
 
 interface EditHistory extends EditHistoryData {}
 /** @category Models */
