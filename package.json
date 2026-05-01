@@ -40,7 +40,7 @@
   },
   "homepage": "https://github.com/DonovanDMC/E621#readme",
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.95.0",
+    "@hey-api/openapi-ts": "^0.97.0",
     "@types/debug": "^4.1.13",
     "@types/node": "^25.5.2",
     "@eslint/js": "^9.39.4",
