@@ -81,6 +81,7 @@ npm test
 - `test/treeshaking.test.ts` - bundles a standalone client with esbuild and asserts unrelated modules are excluded and the result is meaningfully smaller than `new E621()`.
 - `test/standalone.test.ts` / `test/client.test.ts` - verify `createE621Client`/`createStandalone` wiring and the full `E621` client's module surface (no network calls).
 - `test/browser.test.ts` - loads the browser bundle in a real headless Chromium (via [Playwright](https://playwright.dev)) and checks it works with no Node built-ins.
+- `test/operationIds.test.ts` - scans `lib/` for every `@OperationID(...)`/`@Schema(...)` and asserts the value actually exists in the OpenAPI spec (these aren't validated at runtime anymore - see the note in `lib/util.ts` - so this plus the build-time check in `scripts/replace-openapi.ts` are what catch a typo'd one).
 
 CI (`.github/workflows/test.yml`) runs the same on every push/PR, and gates releases (`publish.yml`) on it passing.
 

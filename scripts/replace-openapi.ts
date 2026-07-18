@@ -27,6 +27,11 @@ async function* walk(dir: string): AsyncGenerator<string> {
 const operationMap = new Map<string, OpenAPIV3.OperationObject>(Object.values(source.paths).flatMap(path => (Object.values(path) as Array<OpenAPIV3.OperationObject>).map(operation => [operation.operationId!, operation])));
 const schemas = new Map<string, OpenAPIV3.SchemaObject>(Object.entries(source.components.schemas as Record<string, OpenAPIV3.SchemaObject>));
 
+// This is the only place @OperationID/@Schema arguments are checked against the spec - lib/util.ts's
+// decorators don't validate at runtime anymore (that required bundling the entire spec into every
+// consumer's build just to check a handful of strings once). A mismatch here must fail the build.
+const invalid: Array<string> = [];
+
 const libDir = new URL("../lib", import.meta.url);
 const buildDir = new URL("../build", import.meta.url);
 await rm(buildDir, { recursive: true, force: true });
@@ -56,7 +61,7 @@ for await (const file of walk(buildDir.pathname)) {
 
         const operation = operationMap.get(operationId as string);
         if (!operation) {
-            console.warn(`Operation ID ${operationId} not found in OpenAPI spec.`);
+            invalid.push(`${file}: OperationID "${operationId as string}" not found in OpenAPI spec.`);
             return match;
         }
         const authTags: Array<string> = [];
@@ -101,7 +106,7 @@ for await (const file of walk(buildDir.pathname)) {
 
         const schema = schemas.get(schemaId as string);
         if (!schema) {
-            console.warn(`Schema ID ${schemaId} not found in OpenAPI spec.`);
+            invalid.push(`${file}: Schema "${schemaId as string}" not found in OpenAPI spec.`);
             return match;
         }
 
@@ -127,4 +132,8 @@ for await (const file of walk(buildDir.pathname)) {
     if (newContent !== content) {
         await writeFile(file, newContent, "utf8");
     }
+}
+
+if (invalid.length > 0) {
+    throw new Error(`Found ${invalid.length} @OperationID/@Schema value(s) that don't exist in the OpenAPI spec:\n${invalid.map(line => `  - ${line}`).join("\n")}`);
 }

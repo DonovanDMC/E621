@@ -1,5 +1,3 @@
-import source from "./generated/source.json" with { type: "json" };
-
 /** @category Types */
 export type ExtractOrder<T extends { query?: { "search[order]"?: string } }> = ExtractValue<"search[order]", T>;
 /** @category Types */
@@ -89,14 +87,12 @@ export function prefixKeys<
     return result as PrefixKeys<T, Root, Excluded[number]>;
 }
 
-const operations = new Set(Object.values(source.paths).flatMap(path => (Object.values(path) as Array<{ operationId: string }>).map(operation => operation.operationId)));
-const schemas = new Set(Object.keys(source.components.schemas));
+// Validated against the OpenAPI spec at build time instead of at runtime (see scripts/replace-openapi.ts) -
+// doing it here would require bundling the entire spec (500+KB) into every consumer's build just to check
+// a handful of strings once, at class-definition time.
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function OperationID(value: string): (target: any, propertyKey: string) => void {
-    if (!operations.has(value)) {
-        throw new Error(`OperationID "${value}" does not exist in the OpenAPI specification.`);
-    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function (target: any, propertyKey: string): void {
         Object.defineProperty((target as object)[propertyKey as never], "OperationID", {
@@ -110,9 +106,6 @@ export function OperationID(value: string): (target: any, propertyKey: string) =
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Schema(value: string): (target: any) => void {
-    if (!schemas.has(value)) {
-        throw new Error(`Schema "${value}" does not exist in the OpenAPI specification.`);
-    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function (target: any): void {
         Object.defineProperty(target, "Schema", {
