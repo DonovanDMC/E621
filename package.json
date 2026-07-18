@@ -30,13 +30,13 @@
     "./dist/lib/models/Base.js": "./dist/lib/models/Base.browser.js"
   },
   "scripts": {
-    "build": "scripts/build.sh",
+    "build": "tsx scripts/build.ts",
     "prepublishOnly": "npm run build",
     "lint": "eslint lib --ext .ts",
     "lint:fix": "eslint lib --ext .ts --fix",
     "test": "npm run build && npm run test:run",
     "test:run": "node --import tsx --test --test-reporter=spec test/*.test.ts",
-    "docs": "scripts/docs.sh",
+    "docs": "tsx scripts/docs.ts",
     "generate": "openapi-ts && tsx scripts/replace-bodyinit.ts"
   },
   "repository": {
