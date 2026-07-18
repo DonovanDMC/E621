@@ -72,7 +72,7 @@ for await (const file of walk(buildDir.pathname)) {
             if (types.has("csrfToken")) authTags.push("@requiresCsrfToken");
         }
 
-        const url = `https://e621.wiki/#operations-${operation.tags?.length ? `${operation.tags[0].replaceAll(" ", "_")}-` : ""}${operation.operationId}`;
+        const url = `https://e621.wiki/#operations-${operation.tags?.length ? `${operation.tags[0].replaceAll(" ", "_")}-` : ""}${operation.operationId?.replaceAll("#", "\\#")}`;
         return [
             "/**",
             " *",
