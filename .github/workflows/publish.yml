@@ -18,9 +18,12 @@ jobs:
     generate:
         name: Generate Code
         uses: ./.github/workflows/generate.yml
+    test:
+        name: Test
+        uses: ./.github/workflows/test.yml
     publish:
         runs-on: ubuntu-latest
-        needs: [lint, build, generate]
+        needs: [lint, build, generate, test]
         steps:
             - uses: actions/checkout@v4
             - uses: pnpm/action-setup@v4

@@ -15,6 +15,7 @@ export interface SearchMascotsOptions extends TransformDataQueryToOptions<Mascot
 
 /** @category Modules */
 export default class Mascots extends Base {
+    static readonly moduleKey = "mascots" as const;
     @OperationID("mascots#create")
     async create(options: CreateMascotOptions): Promise<Mascot> {
         return mascots_create({

@@ -14,6 +14,7 @@ export interface UploadPostOptions extends TransformDataBodyToOptions<UploadsCre
 
 /** @category Modules */
 export default class Uploads extends Base {
+    static readonly moduleKey = "uploads" as const;
     @OperationID("uploads#create")
     async create(options: UploadPostOptions): Promise<Post> {
         return uploads_create({

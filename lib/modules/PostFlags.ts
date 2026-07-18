@@ -14,6 +14,7 @@ export interface SearchPostFlagsOptions extends TransformDataQueryToOptions<Post
 
 /** @category Modules */
 export default class PostFlags extends Base {
+    static readonly moduleKey = "postFlags" as const;
     @OperationID("post_flags#clear_note")
     async clearNote(id: number): Promise<PostFlag> {
         return postFlags_clearNote({

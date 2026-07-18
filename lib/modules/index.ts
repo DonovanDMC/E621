@@ -117,24 +117,24 @@ import PostVotes from "./PostVotes.js";
 export type * from "./PostVotes.js";
 import ForumPostVotes from "./ForumPostVotes.js";
 export type * from "./ForumPostVotes.js";
-import StaffAutomodDMails from "./staff/AutomodDMails.js";
-export type * from "./staff/AutomodDMails.js";
-import StaffDMails from "./staff/DMails.js";
-export type * from "./staff/DMails.js";
-import StaffExceptionLogs from "./staff/ExceptionLogs.js";
-export type * from "./staff/ExceptionLogs.js";
-import StaffFiles from "./staff/Files.js";
-export type * from "./staff/Files.js";
-import StaffUserCleanups from "./staff/UserCleanups.js";
-export type * from "./staff/UserCleanups.js";
-import StaffUsers from "./staff/Users.js";
-export type * from "./staff/Users.js";
-import StaffVoteTrends from "./staff/VoteTrends.js";
-export type * from "./staff/VoteTrends.js";
-import StaffWikis from "./staff/Wikis.js";
-export type * from "./staff/Wikis.js";
-import StaffWikiVersions from "./staff/WikiVersions.js";
-export type * from "./staff/WikiVersions.js";
+import StaffAutomodDMails from "./StaffAutomodDMails.js";
+export type * from "./StaffAutomodDMails.js";
+import StaffDMails from "./StaffDMails.js";
+export type * from "./StaffDMails.js";
+import StaffExceptionLogs from "./StaffExceptionLogs.js";
+export type * from "./StaffExceptionLogs.js";
+import StaffFiles from "./StaffFiles.js";
+export type * from "./StaffFiles.js";
+import StaffUserCleanups from "./StaffUserCleanups.js";
+export type * from "./StaffUserCleanups.js";
+import StaffUsers from "./StaffUsers.js";
+export type * from "./StaffUsers.js";
+import StaffVoteTrends from "./StaffVoteTrends.js";
+export type * from "./StaffVoteTrends.js";
+import StaffWikis from "./StaffWikis.js";
+export type * from "./StaffWikis.js";
+import StaffWikiVersions from "./StaffWikiVersions.js";
+export type * from "./StaffWikiVersions.js";
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
 
@@ -184,18 +184,16 @@ export interface Modules {
     relatedTags: RelatedTags;
     searchTrendBlacklists: SearchTrendBlacklists;
     searchTrends: SearchTrends;
-    staff: {
-        automodDMails: StaffAutomodDMails;
-        dmails: StaffDMails;
-        exceptionLogs: StaffExceptionLogs;
-        files: StaffFiles;
-        userCleanups: StaffUserCleanups;
-        users: StaffUsers;
-        voteTrends: StaffVoteTrends;
-        wikis: StaffWikis;
-        wikiVersions: StaffWikiVersions;
-    };
+    staffAutomodDMails: StaffAutomodDMails;
+    staffDmails: StaffDMails;
+    staffExceptionLogs: StaffExceptionLogs;
+    staffFiles: StaffFiles;
     staffNotes: StaffNotes;
+    staffUserCleanups: StaffUserCleanups;
+    staffUsers: StaffUsers;
+    staffVoteTrends: StaffVoteTrends;
+    staffWikis: StaffWikis;
+    staffWikiVersions: StaffWikiVersions;
     tagAliases: TagAliases;
     tagCorrections: TagCorrections;
     tagImplications: TagImplications;
@@ -258,18 +256,16 @@ export function apply(e621: E621, client: Client): void {
         relatedTags: new RelatedTags(e621, client),
         searchTrendBlacklists: new SearchTrendBlacklists(e621, client),
         searchTrends: new SearchTrends(e621, client),
-        staff: {
-            automodDMails: new StaffAutomodDMails(e621, client),
-            dmails: new StaffDMails(e621, client),
-            exceptionLogs: new StaffExceptionLogs(e621, client),
-            files: new StaffFiles(e621, client),
-            userCleanups: new StaffUserCleanups(e621, client),
-            users: new StaffUsers(e621, client),
-            voteTrends: new StaffVoteTrends(e621, client),
-            wikis: new StaffWikis(e621, client),
-            wikiVersions: new StaffWikiVersions(e621, client),
-        },
+        staffAutomodDMails: new StaffAutomodDMails(e621, client),
+        staffDmails: new StaffDMails(e621, client),
+        staffExceptionLogs: new StaffExceptionLogs(e621, client),
+        staffFiles: new StaffFiles(e621, client),
         staffNotes: new StaffNotes(e621, client),
+        staffUserCleanups: new StaffUserCleanups(e621, client),
+        staffUsers: new StaffUsers(e621, client),
+        staffVoteTrends: new StaffVoteTrends(e621, client),
+        staffWikis: new StaffWikis(e621, client),
+        staffWikiVersions: new StaffWikiVersions(e621, client),
         tagAliases: new TagAliases(e621, client),
         tagCorrections: new TagCorrections(e621, client),
         tagImplications: new TagImplications(e621, client),

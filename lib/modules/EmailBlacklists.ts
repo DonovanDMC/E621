@@ -13,6 +13,7 @@ export interface SearchEmailBlacklistsOptions extends TransformDataQueryToOption
 
 /** @category Modules */
 export default class EmailBlacklists extends Base {
+    static readonly moduleKey = "emailBlacklists" as const;
     @OperationID("email_blacklists#create")
     async create(options: CreateEmailBlacklistOptions): Promise<EmailBlacklist> {
         return emailBlacklists_create({

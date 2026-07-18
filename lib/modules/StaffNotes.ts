@@ -22,6 +22,7 @@ export interface SearchStaffNotesOptions extends TransformDataQueryToOptions<Sta
 
 /** @category Modules */
 export default class StaffNotes extends Base {
+    static readonly moduleKey = "staffNotes" as const;
     @OperationID("staff_notes#create")
     async create(options: CreateStaffNoteOptions): Promise<StaffNote> {
         return staffNotes_create({

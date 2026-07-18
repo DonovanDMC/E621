@@ -22,6 +22,7 @@ export interface SearchWikiPagesOptions extends TransformDataQueryToOptions<Wiki
 
 /** @category Modules */
 export default class WikiPages extends Base {
+    static readonly moduleKey = "wikiPages" as const;
     @OperationID("wiki_pages#create")
     async create(options: CreateWikiPageOptions): Promise<WikiPage> {
         return wikiPages_create({

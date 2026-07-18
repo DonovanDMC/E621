@@ -11,6 +11,7 @@ export interface SearchPoolVersionsOptions extends TransformDataQueryToOptions<P
 
 /** @category Modules */
 export default class PoolVersions extends Base {
+    static readonly moduleKey = "poolVersions" as const;
     @OperationID("pool_versions#index")
     async search(options?: SearchPoolVersionsOptions): Promise<Array<PoolVersion>> {
         return poolVersions_index({

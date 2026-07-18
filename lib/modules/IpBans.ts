@@ -13,6 +13,7 @@ export interface SearchIpBansOptions extends TransformDataQueryToOptions<IpBansI
 
 /** @category Modules */
 export default class IpBans extends Base {
+    static readonly moduleKey = "ipBans" as const;
     @OperationID("ip_bans#create")
     async create(options: CreateIpBanOptions): Promise<IpBan> {
         return ipBans_create({

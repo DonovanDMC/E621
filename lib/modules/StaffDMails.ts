@@ -1,10 +1,12 @@
-import { staffDmails_show, staffDmails_index } from "../../generated/sdk.js";
-import DMail from "../../models/DMail.js";
-import { OperationID } from "../../util.js";
-import Base from "../Base.js";
+import { staffDmails_show, staffDmails_index } from "../generated/sdk.js";
+import DMail from "../models/DMail.js";
+import { OperationID } from "../util.js";
+
+import Base from "./Base.js";
 
 /** @category Modules */
 export default class StaffDMails extends Base {
+    static readonly moduleKey = "staffDmails" as const;
     @OperationID("staff/dmails#show")
     async get(user_id: number, id: number): Promise<DMail | null> {
         return staffDmails_show({

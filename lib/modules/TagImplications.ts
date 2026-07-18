@@ -21,6 +21,7 @@ export interface SearchTagImplicationsOptions extends TransformDataQueryToOption
 
 /** @category Modules */
 export default class TagImplications extends Base {
+    static readonly moduleKey = "tagImplications" as const;
     @OperationID("tag_implications#approve")
     async approve(id: number): Promise<null> {
         return tagImplications_approve({

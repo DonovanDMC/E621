@@ -11,6 +11,7 @@ export interface SearchTagTypeVersionsOptions extends TransformDataQueryToOption
 
 /** @category Modules */
 export default class TagTypeVersions extends Base {
+    static readonly moduleKey = "tagTypeVersions" as const;
     @OperationID("tag_type_versions#index")
     async search(options?: SearchTagTypeVersionsOptions): Promise<Array<TagTypeVersion>> {
         return tagTypeVersions_index({

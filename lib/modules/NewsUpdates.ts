@@ -15,6 +15,7 @@ export interface SearchNewsUpdatesOptions extends TransformDataQueryToOptions<Ne
 
 /** @category Modules */
 export default class NewsUpdates extends Base {
+    static readonly moduleKey = "newsUpdates" as const;
     @OperationID("news_updates#create")
     async create(options: CreateNewsUpdateOptions): Promise<NewsUpdate> {
         return newsUpdates_create({

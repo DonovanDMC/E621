@@ -22,6 +22,7 @@ export interface SearchNotesOptions extends TransformDataQueryToOptions<NotesInd
 
 /** @category Modules */
 export default class Notes extends Base {
+    static readonly moduleKey = "notes" as const;
     @OperationID("notes#create")
     async create(options: CreateNoteOptions): Promise<Note> {
         return notes_create({

@@ -90,6 +90,7 @@ export type PostSearchResult<O extends SearchPostsOptions>
 
 /** @category Modules */
 export default class Posts extends Base {
+    static readonly moduleKey = "posts" as const;
     @OperationID("staff/post/posts#ai_check")
     async aiCheck(id: number): Promise<string> {
         const res = await staffPostPosts_aiCheck({

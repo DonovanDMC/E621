@@ -3,7 +3,7 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 
 import type { User as UserData } from "../generated/types.js";
-import type { UpdateStaffUserOptions } from "../modules/staff/Users.js";
+import type { UpdateStaffUserOptions } from "../modules/StaffUsers.js";
 
 interface User extends UserData {}
 /** @category Models */
@@ -11,12 +11,12 @@ interface User extends UserData {}
 class User<D extends UserData = UserData> extends Base<D> {
     @OperationID("staff/users#update")
     async adminEdit(options: UpdateStaffUserOptions): Promise<null> {
-        return this.e621.staff.users.update(this.id, options);
+        return this.e621.staffUsers.update(this.id, options);
     }
 
     @OperationID("staff/users#anonymize_confirm")
     async anonymize(): Promise<unknown> {
-        return this.e621.staff.users.anonymize(this.id);
+        return this.e621.staffUsers.anonymize(this.id);
     }
 
     @OperationID("users#flush_favorites")

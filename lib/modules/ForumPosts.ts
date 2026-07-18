@@ -39,6 +39,7 @@ export interface ForumPostsWarningResponse extends GetResponse<ForumPostsWarning
 
 /** @category Modules */
 export default class ForumPosts extends Base {
+    static readonly moduleKey = "forumPosts" as const;
     @OperationID("forum_posts#create")
     async create(options: CreateForumPostOptions): Promise<ForumPost> {
         return forumPosts_create({

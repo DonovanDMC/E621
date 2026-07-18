@@ -29,6 +29,7 @@ export interface UploadWhitelistsIsAllowedResponse extends GetResponse<UploadWhi
 
 /** @category Modules */
 export default class UploadWhitelists extends Base {
+    static readonly moduleKey = "uploadWhitelists" as const;
     @OperationID("upload_whitelists#is_allowed")
     async check(url: string): Promise<UploadWhitelistsIsAllowedResponse> {
         return uploadWhitelists_isAllowed({

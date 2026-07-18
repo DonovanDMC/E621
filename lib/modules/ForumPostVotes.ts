@@ -13,6 +13,7 @@ export interface ForumPostVotesCreateResponse extends GetResponse<ForumPostVotes
 
 /** @category Modules */
 export default class ForumPostVotes extends Base {
+    static readonly moduleKey = "forumPostVotes" as const;
     @OperationID("forum_post_votes#create")
     async create(id: number, score: ForumPostVoteScore): Promise<ForumPostVotesCreateResponse> {
         return forumPostVotes_create({

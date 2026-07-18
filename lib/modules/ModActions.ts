@@ -11,6 +11,7 @@ export interface SearchModActionsOptions extends TransformDataQueryToOptions<Mod
 
 /** @category Modules */
 export default class ModActions extends Base {
+    static readonly moduleKey = "modActions" as const;
     @OperationID("mod_actions#show")
     async get(id: number): Promise<ModAction | null> {
         return modActions_show({

@@ -15,6 +15,7 @@ export interface FavoritesDestroyResponse extends GetResponse<FavoritesDestroyRe
 
 /** @category Modules */
 export default class Favorites extends Base {
+    static readonly moduleKey = "favorites" as const;
     @OperationID("favorites#create")
     async create(post_id: number): Promise<FavoritesCreateResponse> {
         return favorites_create({

@@ -49,6 +49,6 @@
     "noErrorTruncation": true,
     "skipLibCheck": true
   },
-  "include": ["lib/**/*", "scripts/**/*"],
+  "include": ["lib/**/*", "scripts/**/*", "test/**/*"],
   "exclude": ["node_modules", "dist"]
 }

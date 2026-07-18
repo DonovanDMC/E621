@@ -11,6 +11,7 @@ export interface SearchBansOptions extends TransformDataQueryToOptions<BansIndex
 
 /** @category Modules */
 export default class Bans extends Base {
+    static readonly moduleKey = "bans" as const;
     @OperationID("bans#show")
     async get(id: number): Promise<Ban | null> {
         return bans_show({

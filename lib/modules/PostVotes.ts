@@ -15,6 +15,7 @@ export interface SearchPostVotesOptions extends TransformDataQueryToOptions<Post
 
 /** @category Modules */
 export default class PostVotes extends Base {
+    static readonly moduleKey = "postVotes" as const;
     @OperationID("post_votes#create")
     async create(id: number, score: PostVoteScore, no_unvote?: boolean): Promise<PostVotesCreateResponse> {
         return postVotes_create({

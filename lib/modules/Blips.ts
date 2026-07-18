@@ -38,6 +38,7 @@ export interface BlipsWarningResponse extends GetResponse<BlipsWarningResponses,
 
 /** @category Modules */
 export default class Blips extends Base {
+    static readonly moduleKey = "blips" as const;
     @OperationID("blips#create")
     async create(options: CreateBlipOptions): Promise<Blip> {
         return blips_create({

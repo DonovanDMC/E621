@@ -9,6 +9,7 @@ export interface DtextPreviewsCreateResponse extends GetResponse<DtextPreviewsCr
 
 /** @category Modules */
 export default class DText extends Base {
+    static readonly moduleKey = "dtext" as const;
     @OperationID("dtext_previews#create")
     async preview(body: string): Promise<DtextPreviewsCreateResponse> {
         return dtextPreviews_create({

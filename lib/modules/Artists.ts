@@ -22,6 +22,7 @@ export interface SearchArtistsOptions extends TransformDataQueryToOptions<Artist
 
 /** @category Modules */
 export default class Artists extends Base {
+    static readonly moduleKey = "artists" as const;
     @OperationID("artists#create")
     async create(options: CreateArtistOptions): Promise<Artist> {
         return artists_create({

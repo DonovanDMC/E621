@@ -34,6 +34,7 @@ export interface PostReplacementsCreateResponse extends GetResponse<PostReplacem
 
 /** @category Modules */
 export default class PostReplacements extends Base {
+    static readonly moduleKey = "postReplacements" as const;
     @OperationID("post_replacements#approve")
     async approve(id: number): Promise<null> {
         return postReplacements_approve({

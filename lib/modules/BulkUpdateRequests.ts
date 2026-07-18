@@ -22,6 +22,7 @@ export interface UpdateBulkUpdateRequestOptions extends TransformDataBodyToOptio
 
 /** @category Modules */
 export default class BulkUpdateRequests extends Base {
+    static readonly moduleKey = "bulkUpdateRequests" as const;
     @OperationID("bulk_update_requests#approve")
     async approve(id: number): Promise<null> {
         return bulkUpdateRequests_approve({

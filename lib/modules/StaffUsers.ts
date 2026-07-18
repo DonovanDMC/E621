@@ -1,13 +1,15 @@
-import { staffUsers_anonymizeConfirm, staffUsers_update, staffUsers_altList } from "../../generated/sdk.js";
-import { type StaffUsersUpdateData } from "../../generated/types.js";
-import { OperationID, type TransformDataBodyToOptions } from "../../util.js";
-import Base from "../Base.js";
+import { staffUsers_anonymizeConfirm, staffUsers_update, staffUsers_altList } from "../generated/sdk.js";
+import { type StaffUsersUpdateData } from "../generated/types.js";
+import { OperationID, type TransformDataBodyToOptions } from "../util.js";
+
+import Base from "./Base.js";
 
 /** @category Modules/Types */
 export interface UpdateStaffUserOptions extends TransformDataBodyToOptions<StaffUsersUpdateData> {}
 
 /** @category Modules */
 export default class StaffUsers extends Base {
+    static readonly moduleKey = "staffUsers" as const;
     @OperationID("staff/users#alt_list")
     async altList(): Promise<Array<[number, Array<number>]>> {
         return staffUsers_altList({

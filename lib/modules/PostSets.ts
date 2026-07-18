@@ -33,6 +33,7 @@ export interface PostSetsForSelectResponse extends GetResponse<PostSetsForSelect
 
 /** @category Modules */
 export default class PostSets extends Base {
+    static readonly moduleKey = "postSets" as const;
     @OperationID("post_sets#add_posts")
     async addPosts(id: number, post_ids: Array<number>): Promise<PostSet> {
         return postSets_addPosts({

@@ -39,6 +39,7 @@ export interface CommentsWarningResponse extends GetResponse<CommentsWarningResp
 
 /** @category Modules */
 export default class Comments extends Base {
+    static readonly moduleKey = "comments" as const;
     @OperationID("comments#create")
     async create(options: CreateCommentOptions): Promise<Comment> {
         return comments_create({

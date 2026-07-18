@@ -26,6 +26,7 @@ export interface SearchForumTopicsOptions extends TransformDataQueryToOptions<Fo
 
 /** @category Modules */
 export default class ForumTopics extends Base {
+    static readonly moduleKey = "forumTopics" as const;
     @OperationID("forum_topics#create")
     async create(options: CreateForumTopicOptions): Promise<ForumTopic> {
         return forumTopics_create({

@@ -1,9 +1,10 @@
-import { staffWikis_claim, staffWikis_create, staffWikis_destroy, staffWikis_update, staffWikis_show, staffWikis_index, staffWikis_unclaim } from "../../generated/sdk.js";
-import StaffWiki from "../../models/StaffWiki.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../../util.js";
-import Base from "../Base.js";
+import { staffWikis_claim, staffWikis_create, staffWikis_destroy, staffWikis_update, staffWikis_show, staffWikis_index, staffWikis_unclaim } from "../generated/sdk.js";
+import StaffWiki from "../models/StaffWiki.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
-import type { StaffWikisCreateData, StaffWikisUpdateData, StaffWikisIndexData } from "../../generated/types.js";
+import Base from "./Base.js";
+
+import type { StaffWikisCreateData, StaffWikisUpdateData, StaffWikisIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchStaffWikisOptions extends TransformDataQueryToOptions<StaffWikisIndexData> {}
@@ -14,6 +15,7 @@ export interface UpdateStaffWikiOptions extends TransformDataBodyToOptions<Staff
 
 /** @category Modules */
 export default class StaffWikis extends Base {
+    static readonly moduleKey = "staffWikis" as const;
     @OperationID("staff/wikis#claim")
     async claim(id: number): Promise<StaffWiki> {
         return staffWikis_claim({

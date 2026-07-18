@@ -19,6 +19,7 @@ export interface SearchTicketsOptions extends TransformDataQueryToOptions<Ticket
 
 /** @category Modules */
 export default class Tickets extends Base {
+    static readonly moduleKey = "tickets" as const;
     @OperationID("tickets#claim")
     async claim(id: number): Promise<Ticket> {
         return tickets_claim({

@@ -1,15 +1,17 @@
-import { staffAutomodDmails_show, staffAutomodDmails_index, staffAutomodDmails_markAsRead, staffAutomodDmails_markAsUnread } from "../../generated/sdk.js";
-import DMail from "../../models/DMail.js";
-import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../../util.js";
-import Base from "../Base.js";
+import { staffAutomodDmails_show, staffAutomodDmails_index, staffAutomodDmails_markAsRead, staffAutomodDmails_markAsUnread } from "../generated/sdk.js";
+import DMail from "../models/DMail.js";
+import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
-import type { StaffAutomodDmailsIndexData } from "../../generated/types.js";
+import Base from "./Base.js";
+
+import type { StaffAutomodDmailsIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface SearchAutomodDMailsOptions extends TransformDataQueryToOptions<StaffAutomodDmailsIndexData> {}
+export interface SearchStaffAutomodDMailsOptions extends TransformDataQueryToOptions<StaffAutomodDmailsIndexData> {}
 
 /** @category Modules */
 export default class StaffAutomodDMails extends Base {
+    static readonly moduleKey = "staffAutomodDMails" as const;
     @OperationID("staff/automod_dmails#show")
     async get(id: number): Promise<DMail | null> {
         return staffAutomodDmails_show({
@@ -35,7 +37,7 @@ export default class StaffAutomodDMails extends Base {
     }
 
     @OperationID("staff/automod_dmails#index")
-    async search(options?: SearchAutomodDMailsOptions): Promise<Array<DMail>> {
+    async search(options?: SearchStaffAutomodDMailsOptions): Promise<Array<DMail>> {
         return staffAutomodDmails_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),

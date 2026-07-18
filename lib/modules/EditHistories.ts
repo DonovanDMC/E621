@@ -11,6 +11,7 @@ export interface SearchEditHistoriesOptions extends TransformDataQueryToOptions<
 
 /** @category Modules */
 export default class EditHistories extends Base {
+    static readonly moduleKey = "editHistories" as const;
     @OperationID("edit_histories#show")
     async get(id: number, type: ExtractValue<"type", EditHistoriesShowData>): Promise<Array<EditHistory> | null> {
         return editHistories_show({

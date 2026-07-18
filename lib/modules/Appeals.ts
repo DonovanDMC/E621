@@ -13,6 +13,7 @@ export interface UpdateAppealOptions extends TransformDataBodyToOptions<AppealsU
 
 /** @category Modules */
 export default class Appeals extends Base {
+    static readonly moduleKey = "appeals" as const;
     @OperationID("appeals#claim")
     async claim(id: number): Promise<Appeal> {
         return appeals_claim({

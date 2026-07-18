@@ -11,6 +11,7 @@ export interface RelatedTagsBulkResponse extends GetResponse<RelatedTagsBulkResp
 
 /** @category Modules */
 export default class RelatedTags extends Base {
+    static readonly moduleKey = "relatedTags" as const;
     @OperationID("related_tags#bulk")
     async bulk(options?: BulkRelatedTagsOptions): Promise<RelatedTagsBulkResponse> {
         return relatedTags_bulk({

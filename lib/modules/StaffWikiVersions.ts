@@ -1,15 +1,17 @@
-import { staffWikiVersions_show, staffWikiVersions_index } from "../../generated/sdk.js";
-import StaffWikiVersion from "../../models/StaffWikiVersion.js";
-import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../../util.js";
-import Base from "../Base.js";
+import { staffWikiVersions_show, staffWikiVersions_index } from "../generated/sdk.js";
+import StaffWikiVersion from "../models/StaffWikiVersion.js";
+import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
-import type { StaffWikiVersionsIndexData } from "../../generated/types.js";
+import Base from "./Base.js";
+
+import type { StaffWikiVersionsIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchStaffWikiVersionsOptions extends TransformDataQueryToOptions<StaffWikiVersionsIndexData> {}
 
 /** @category Modules */
 export default class StaffWikiVersions extends Base {
+    static readonly moduleKey = "staffWikiVersions" as const;
     @OperationID("staff/wiki_versions#show")
     async get(id: number): Promise<StaffWikiVersion> {
         return staffWikiVersions_show({

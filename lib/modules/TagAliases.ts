@@ -21,6 +21,7 @@ export interface SearchTagAliasesOptions extends TransformDataQueryToOptions<Tag
 
 /** @category Modules */
 export default class TagAliases extends Base {
+    static readonly moduleKey = "tagAliases" as const;
     @OperationID("tag_aliases#approve")
     async approve(id: number): Promise<null> {
         return tagAliases_approve({

@@ -10,6 +10,7 @@ export interface SearchPostApprovalsOptions extends TransformDataQueryToOptions<
 
 /** @category Modules */
 export default class PostApprovals extends Base {
+    static readonly moduleKey = "postApprovals" as const;
     @OperationID("staff/post/approvals#create")
     async create(post_id: number): Promise<null> {
         return staffPostApprovals_create({

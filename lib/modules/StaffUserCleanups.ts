@@ -1,9 +1,11 @@
-import { staffUserCleanups_clearAvatar, staffUserCleanups_clearProfile, staffUserCleanups_hideBlips, staffUserCleanups_hideComments, staffUserCleanups_hideForumPosts } from "../../generated/sdk.js";
-import { OperationID } from "../../util.js";
-import Base from "../Base.js";
+import { staffUserCleanups_clearAvatar, staffUserCleanups_clearProfile, staffUserCleanups_hideBlips, staffUserCleanups_hideComments, staffUserCleanups_hideForumPosts } from "../generated/sdk.js";
+import { OperationID } from "../util.js";
+
+import Base from "./Base.js";
 
 /** @category Modules */
 export default class StaffUserCleanups extends Base {
+    static readonly moduleKey = "staffUserCleanups" as const;
     @OperationID("staff/user_cleanups#clear_avatar")
     async clearAvatar(id: number): Promise<string> {
         return staffUserCleanups_clearAvatar({

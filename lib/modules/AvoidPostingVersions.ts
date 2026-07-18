@@ -11,6 +11,7 @@ export interface SearchAvoidPostingVersionsOptions extends TransformDataQueryToO
 
 /** @category Modules */
 export default class AvoidPostingVersions extends Base {
+    static readonly moduleKey = "avoidPostingVersions" as const;
     @OperationID("avoid_posting_versions#index")
     async search(options?: SearchAvoidPostingVersionsOptions): Promise<Array<AvoidPostingVersion>> {
         return avoidPostingVersions_index({

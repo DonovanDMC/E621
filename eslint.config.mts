@@ -10,4 +10,11 @@ export default defineConfig([config, {
     rules: {
         "unicorn/filename-case": "off"
     }
+}, {
+    files: ["test/**/*"],
+    rules: {
+        // node:test's describe/it/before/after return values aren't meant to be awaited by the caller -
+        // the test runner itself drives them.
+        "@typescript-eslint/no-floating-promises": "off"
+    }
 }]);

@@ -10,8 +10,21 @@
       "types": "./dist/lib/index.d.ts",
       "import": "./dist/lib/index.js"
     },
-    "./browser": "./dist/browser/e621.js"
+    "./browser": "./dist/browser/e621.js",
+    "./generated": {
+      "types": "./dist/lib/generated.d.ts",
+      "import": "./dist/lib/generated.js"
+    },
+    "./standalone": {
+      "types": "./dist/lib/standalone.d.ts",
+      "import": "./dist/lib/standalone.js"
+    },
+    "./modules/*": {
+      "types": "./dist/lib/modules/*.d.ts",
+      "import": "./dist/lib/modules/*.js"
+    }
   },
+  "sideEffects": false,
   "browser": {
     "./dist/lib/Debug.js": "./dist/lib/Debug.browser.js",
     "./dist/lib/models/Base.js": "./dist/lib/models/Base.browser.js"
@@ -21,7 +34,8 @@
     "prepublishOnly": "npm run build",
     "lint": "eslint lib --ext .ts",
     "lint:fix": "eslint lib --ext .ts --fix",
-    "test:build": "npm run prepublishOnly",
+    "test": "npm run build && npm run test:run",
+    "test:run": "node --import tsx --test --test-reporter=spec test/*.test.ts",
     "docs": "scripts/docs.sh",
     "generate": "openapi-ts && tsx scripts/replace-bodyinit.ts"
   },
@@ -62,6 +76,7 @@
     "typescript-eslint": "^8.59.1",
     "openapi-types": "^12.1.3",
     "persistent-debug": "^1.0.1",
+    "playwright": "^1.48.0",
     "tsx": "^4.21.0",
     "typedoc": "^0.28.19",
     "typedoc-plugin-mdn-links": "^5.1.1",

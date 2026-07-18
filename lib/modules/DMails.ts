@@ -18,6 +18,7 @@ export interface SearchDMailsOptions extends TransformDataQueryToOptions<DmailsI
 
 /** @category Modules */
 export default class DMails extends Base {
+    static readonly moduleKey = "dmails" as const;
     @OperationID("dmails#destroy")
     async delete(id: number): Promise<null> {
         return dmails_destroy({

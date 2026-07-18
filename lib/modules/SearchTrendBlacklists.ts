@@ -13,6 +13,7 @@ export interface SearchSearchTrendBlacklistsOptions extends TransformDataQueryTo
 
 /** @category Modules */
 export default class SearchTrendBlacklists extends Base {
+    static readonly moduleKey = "searchTrendBlacklists" as const;
     @OperationID("search_trend_blacklists#create")
     async create(options: CreateSearchTrendBlacklistsOptions): Promise<SearchTrendBlacklist> {
         return searchTrendBlacklists_create({

@@ -26,6 +26,7 @@ export interface SearchTrendsPurgeResponse extends GetResponse<SearchTrendsPurge
 
 /** @category Modules */
 export default class SearchTrends extends Base {
+    static readonly moduleKey = "searchTrends" as const;
     @OperationID("search_trends#clear_cache")
     async clearCache(): Promise<SearchTrendsClearCacheResponse> {
         return searchTrends_clearCache({

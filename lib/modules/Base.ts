@@ -13,11 +13,22 @@ type AnyDataClass<D = unknown, T = unknown> = new (e621: E621, data: D) => T;
 type DataType<R extends AnyResponse> = R extends AnyResponse<infer U> ? Exclude<U, undefined> : never;
 type UnwrapData<R extends AnyResponse> = DataType<R> extends Array<infer U> ? U : DataType<R>;
 
-/** @category Modules */
+/**
+ * @category Modules
+ *
+ * Every concrete subclass must also declare `static readonly moduleKey`, the property name it's attached
+ * under on {@link E621} (e.g. `"posts"`) - used by `createStandalone`. TypeScript can't enforce abstract
+ * static members, so this is a convention rather than a compiler-checked contract.
+ */
 export default abstract class Base {
     protected client!: Client;
     protected e621!: E621;
-    constructor(e621: E621, client: Client) {
+    /**
+     * `e621` may be omitted (pass `undefined`) when constructing a module standalone, without the main
+     * {@link E621} client, to keep bundles tree-shakable. Convenience methods on models returned by this
+     * module that call back into other modules via `this.e621` will throw in that case.
+     */
+    constructor(e621: E621 | undefined, client: Client) {
         Object.defineProperties(this, {
             client: { value: client, enumerable: false },
             e621: { value: e621, enumerable: false },

@@ -11,6 +11,7 @@ export interface SearchPostEventsOptions extends TransformDataQueryToOptions<Pos
 
 /** @category Modules */
 export default class PostEvents extends Base {
+    static readonly moduleKey = "postEvents" as const;
     @OperationID("post_events#index")
     async search(options?: SearchPostEventsOptions): Promise<Array<PostEvent>> {
         return postEvents_index({

@@ -13,6 +13,7 @@ export interface SearchUserNameChangeRequestsOptions extends TransformDataQueryT
 
 /** @category Modules */
 export default class UserNameChangeRequests extends Base {
+    static readonly moduleKey = "userNameChangeRequests" as const;
     @OperationID("user_name_change_requests#create")
     async create(options: CreateUserNameChangeRequestOptions): Promise<unknown> {
         return userNameChangeRequests_create({

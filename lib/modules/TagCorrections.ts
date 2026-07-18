@@ -6,6 +6,7 @@ import Base from "./Base.js";
 
 /** @category Modules */
 export default class TagCorrections extends Base {
+    static readonly moduleKey = "tagCorrections" as const;
     @OperationID("tag_corrections#create")
     async correct(id: number): Promise<string> {
         return tagCorrections_create({

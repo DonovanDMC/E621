@@ -6,6 +6,7 @@ import {
     writeFile,
 } from "node:fs/promises";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { type OpenAPIV3 } from "openapi-types";
 
@@ -31,7 +32,7 @@ const buildDir = new URL("../build", import.meta.url);
 await rm(buildDir, { recursive: true, force: true });
 await cp(libDir, buildDir, { recursive: true });
 
-await writeFile(new URL("version.ts", `${buildDir}/`), `/** @category Constants */\nexport const VERSION = "${pkg.version}";\n`, "utf8");
+await writeFile(join(fileURLToPath(buildDir), "version.ts"), `/** @category Constants */\nexport const VERSION = "${pkg.version}";\n`, "utf8");
 
 for await (const file of walk(buildDir.pathname)) {
     const content = await readFile(file, "utf8");

@@ -20,6 +20,7 @@ export interface SearchTagsOptions extends TransformDataQueryToOptions<TagsIndex
 
 /** @category Modules */
 export default class Tags extends Base {
+    static readonly moduleKey = "tags" as const;
     @OperationID("tags#destroy")
     async delete(id: number): Promise<null> {
         return tags_destroy({

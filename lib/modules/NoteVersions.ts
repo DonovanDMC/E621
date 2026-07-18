@@ -11,6 +11,7 @@ export interface SearchNoteVersionsOptions extends TransformDataQueryToOptions<N
 
 /** @category Modules */
 export default class NoteVersions extends Base {
+    static readonly moduleKey = "noteVersions" as const;
     @OperationID("note_versions#index")
     async search(options?: SearchNoteVersionsOptions): Promise<Array<NoteVersion>> {
         return noteVersions_index({

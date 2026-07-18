@@ -14,6 +14,7 @@ export interface SearchPostDisapprovalsOptions extends TransformDataQueryToOptio
 
 /** @category Modules */
 export default class PostDisapprovals extends Base {
+    static readonly moduleKey = "postDisapprovals" as const;
     @OperationID("staff/post/disapprovals#create")
     async create(options: CreatePostDisapprovalOptions): Promise<PostDisapproval> {
         return staffPostDisapprovals_create({

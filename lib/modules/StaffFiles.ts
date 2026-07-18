@@ -1,9 +1,10 @@
-import { staffFiles_create, staffFiles_destroy, staffFiles_update, staffFiles_show, staffFiles_index } from "../../generated/sdk.js";
-import StaffFile from "../../models/StaffFile.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../../util.js";
-import Base from "../Base.js";
+import { staffFiles_create, staffFiles_destroy, staffFiles_update, staffFiles_show, staffFiles_index } from "../generated/sdk.js";
+import StaffFile from "../models/StaffFile.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
-import type { StaffFilesCreateData, StaffFilesUpdateData, StaffFilesIndexData } from "../../generated/types.js";
+import Base from "./Base.js";
+
+import type { StaffFilesCreateData, StaffFilesUpdateData, StaffFilesIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchStaffFilesOptions extends TransformDataQueryToOptions<StaffFilesIndexData> {}
@@ -14,6 +15,7 @@ export interface UpdateStaffFileOptions extends TransformDataBodyToOptions<Staff
 
 /** @category Modules */
 export default class StaffFiles extends Base {
+    static readonly moduleKey = "staffFiles" as const;
     @OperationID("staff/files#create")
     async create(options: CreateStaffFileOptions): Promise<StaffFile> {
         return staffFiles_create({

@@ -23,6 +23,7 @@ export interface SearchUserFeedbacksOptions extends TransformDataQueryToOptions<
 
 /** @category Modules */
 export default class UserFeedbacks extends Base {
+    static readonly moduleKey = "userFeedbacks" as const;
     @OperationID("user_feedbacks#create")
     async create(options: CreateUserFeedbackOptions): Promise<UserFeedback> {
         return userFeedbacks_create({

@@ -23,6 +23,7 @@ export interface SearchAvoidPostingsOptions extends TransformDataQueryToOptions<
 
 /** @category Modules */
 export default class AvoidPostings extends Base {
+    static readonly moduleKey = "avoidPostings" as const;
     @OperationID("avoid_postings#create")
     async create(options: CreateAvoidPostingOptions): Promise<AvoidPosting> {
         return avoidPostings_create({

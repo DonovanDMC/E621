@@ -15,6 +15,7 @@ export interface SearchCommentVotesOptions extends TransformDataQueryToOptions<C
 
 /** @category Modules */
 export default class CommentVotes extends Base {
+    static readonly moduleKey = "commentVotes" as const;
     @OperationID("comment_votes#create")
     async create(id: number, score: CommentVoteScore, no_unvote?: boolean): Promise<CommentVotesCreateResponse> {
         return commentVotes_create({

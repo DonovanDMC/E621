@@ -24,6 +24,7 @@ export interface IqdbResult<V2 extends boolean | undefined = undefined> {
 
 /** @category Modules */
 export default class IqdbQueries extends Base {
+    static readonly moduleKey = "iqdb" as const;
     @OperationID("iqdb_queries#show")
     async get<const O extends QueryIqdbGetOptions = NoV2Options>(options: O): Promise<Array<IqdbResult<O["v2"]>>> {
         return iqdbQueries_show({

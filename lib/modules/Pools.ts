@@ -33,6 +33,7 @@ export interface PoolElementsRecentResponse extends GetResponse<PoolElementsRece
 
 /** @category Modules */
 export default class Pools extends Base {
+    static readonly moduleKey = "pools" as const;
     @OperationID("pool_elements#create")
     async addPost(pool_id: number, post_id: number): Promise<Pool> {
         return poolElements_create({

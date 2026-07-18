@@ -11,6 +11,7 @@ export interface GetPopularPostsOptions extends TransformDataQueryToOptions<Popu
 
 /** @category Modules */
 export default class Popular extends Base {
+    static readonly moduleKey = "popular" as const;
     @OperationID("popular#index")
     async get<const O extends GetPopularPostsOptions = NoV2Options>(options?: O): Promise<Array<PostFormat<O["v2"], O["mode"]>>> {
         return popular_index({

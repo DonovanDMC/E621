@@ -37,6 +37,7 @@ export interface UpdateCurrentUserOptions extends Omit<TransformDataBodyToOption
 
 /** @category Modules */
 export default class Users extends Base {
+    static readonly moduleKey = "users" as const;
     @OperationID("users#avatar_menu")
     async avatarMenu(): Promise<UsersAvatarMenuResponse> {
         return users_avatarMenu({

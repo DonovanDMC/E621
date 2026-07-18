@@ -44,6 +44,7 @@ export interface TakedownsCountMatchingPostsResponse extends GetResponse<Takedow
 
 /** @category Modules */
 export default class Takedowns extends Base {
+    static readonly moduleKey = "takedowns" as const;
     @OperationID("takedowns#add_by_ids")
     async addByIds(id: number, post_ids: Array<number>): Promise<TakedownsAddByIdsResponse> {
         return takedowns_addByIds({

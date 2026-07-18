@@ -10,6 +10,7 @@ export interface SearchPostVersionsOptions extends TransformDataQueryToOptions<P
 
 /** @category Modules */
 export default class PostVersions extends Base {
+    static readonly moduleKey = "postVersions" as const;
     @OperationID("post_versions#hide")
     async hide(id: number): Promise<string> {
         return postVersions_hide({

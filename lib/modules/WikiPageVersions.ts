@@ -11,6 +11,7 @@ export interface SearchWikiPageVersionsOptions extends TransformDataQueryToOptio
 
 /** @category Modules */
 export default class WikiPageVersions extends Base {
+    static readonly moduleKey = "wikiPageVersions" as const;
     @OperationID("wiki_page_versions#show")
     async get(id: number): Promise<WikiPageVersion | null> {
         return wikiPageVersions_show({

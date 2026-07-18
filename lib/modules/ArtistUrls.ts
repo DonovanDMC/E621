@@ -11,6 +11,7 @@ export interface SearchArtistUrlsOptions extends TransformDataQueryToOptions<Art
 
 /** @category Modules */
 export default class ArtistUrls extends Base {
+    static readonly moduleKey = "artistUrls" as const;
     @OperationID("artist_urls#index")
     async search(options?: SearchArtistUrlsOptions): Promise<Array<ArtistUrl>> {
         return artistUrls_index({

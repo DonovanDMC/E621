@@ -20,6 +20,7 @@ export interface UpdateHelpPageOptions extends TransformDataBodyToOptions<HelpUp
 
 /** @category Modules */
 export default class HelpPages extends Base {
+    static readonly moduleKey = "helpPages" as const;
     @OperationID("help#create")
     async create(options: CreateHelpPageOptions): Promise<HelpPage> {
         return help_create({

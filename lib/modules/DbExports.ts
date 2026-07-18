@@ -6,6 +6,7 @@ import Base from "./Base.js";
 
 /** @category Modules */
 export default class DBExports extends Base {
+    static readonly moduleKey = "dbExports" as const;
     @OperationID("db_exports#index")
     async get(): Promise<Array<DBExport>> {
         return dbExports_index({

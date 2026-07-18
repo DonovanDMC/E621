@@ -5,6 +5,7 @@ import Base from "./Base.js";
 
 /** @category Modules */
 export default class Health extends Base {
+    static readonly moduleKey = "health" as const;
     @OperationID("health#index")
     async get(): Promise<string> {
         return health_index({
