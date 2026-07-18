@@ -9,7 +9,12 @@
     ".": {
       "types": "./dist/lib/index.d.ts",
       "import": "./dist/lib/index.js"
-    }
+    },
+    "./browser": "./dist/browser/e621.js"
+  },
+  "browser": {
+    "./dist/lib/Debug.js": "./dist/lib/Debug.browser.js",
+    "./dist/lib/models/Base.js": "./dist/lib/models/Base.browser.js"
   },
   "scripts": {
     "build": "scripts/build.sh",
@@ -47,6 +52,7 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@uwu-codes/eslint-config": "^2.0.9",
     "debug": "^4.4.3",
+    "esbuild": "^0.27.7",
     "eslint": "^9.39.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-unicorn": "^59.0.1",

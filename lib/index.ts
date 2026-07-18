@@ -1,9 +1,8 @@
-import pkg from "../package.json" with { type: "json" };
-
 import Debug from "./Debug.js";
 import { createClient } from "./generated/client/client.js";
 import { createConfig } from "./generated/client/utils.js";
 import { apply, type Modules } from "./modules/index.js";
+import { VERSION } from "./version.js";
 
 import type { Client, Config } from "./generated/client/types.js";
 
@@ -69,7 +68,7 @@ class E621 {
             baseURL: options?.baseURL ?? "https://e621.net",
             requestTimeout: options?.requestTimeout ?? 30,
             statusCheckURL: options?.statusCheckURL ?? "https://status.e621.church/json",
-            userAgent: options?.userAgent ?? `E621/${pkg.version} (https://github.com/DonovanDMC/E621${options?.authUser ? `; "${options.authUser}"` : ""})`,
+            userAgent: options?.userAgent ?? `E621/${VERSION} (https://github.com/DonovanDMC/E621${options?.authUser ? `; "${options.authUser}"` : ""})`,
         };
         let config: Config;
         const commonConfig: Partial<Parameters<typeof createConfig>[0]> = {

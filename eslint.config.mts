@@ -5,4 +5,9 @@ export default defineConfig([config, {
     ignores: [
         "lib/generated/**/*",
     ],
+}, {
+    files: ["scripts/**/*"],
+    rules: {
+        "unicorn/filename-case": "off"
+    }
 }]);

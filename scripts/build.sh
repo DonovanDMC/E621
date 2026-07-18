@@ -20,6 +20,7 @@ cleanup() {
 trap cleanup EXIT
 
 tsc -p tsconfig.build.json
+tsx scripts/bundle-browser.ts
 mv lib build
 mv lib-bck lib
 rm -rf build

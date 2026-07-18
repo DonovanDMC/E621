@@ -1,13 +1,16 @@
-import source from "../lib/generated/source.json" with { type: "json" };
-import { type OpenAPIV3 } from "openapi-types";
 import {
     cp,
     opendir,
     readFile,
     rm,
-    writeFile
+    writeFile,
 } from "node:fs/promises";
 import { join } from "node:path";
+
+import { type OpenAPIV3 } from "openapi-types";
+
+import source from "../lib/generated/source.json" with { type: "json" };
+import pkg from "../package.json" with { type: "json" };
 
 async function* walk(dir: string): AsyncGenerator<string> {
     for await (const d of await opendir(dir)) {
@@ -20,13 +23,15 @@ async function* walk(dir: string): AsyncGenerator<string> {
     }
 }
 
-const operationMap = new Map<string, OpenAPIV3.OperationObject>(Object.values(source.paths).flatMap(path => (Object.values(path) as Array<OpenAPIV3.OperationObject>).map((operation => [operation.operationId!, operation]))));
+const operationMap = new Map<string, OpenAPIV3.OperationObject>(Object.values(source.paths).flatMap(path => (Object.values(path) as Array<OpenAPIV3.OperationObject>).map(operation => [operation.operationId!, operation])));
 const schemas = new Map<string, OpenAPIV3.SchemaObject>(Object.entries(source.components.schemas as Record<string, OpenAPIV3.SchemaObject>));
 
 const libDir = new URL("../lib", import.meta.url);
 const buildDir = new URL("../build", import.meta.url);
 await rm(buildDir, { recursive: true, force: true });
 await cp(libDir, buildDir, { recursive: true });
+
+await writeFile(new URL("version.ts", `${buildDir}/`), `/** @category Constants */\nexport const VERSION = "${pkg.version}";\n`, "utf8");
 
 for await (const file of walk(buildDir.pathname)) {
     const content = await readFile(file, "utf8");
@@ -64,7 +69,6 @@ for await (const file of walk(buildDir.pathname)) {
         const url = `https://e621.wiki/#operations-${operation.tags?.length ? `${operation.tags[0].replaceAll(" ", "_")}-` : ""}${operation.operationId}`;
         return [
             "/**",
-            ` * ${operation.summary || "No summary provided."}`,
             " *",
             ...(operation.description ? [` * ${operation.description}`,
                 " *"] : []),
@@ -75,7 +79,7 @@ for await (const file of walk(buildDir.pathname)) {
             " *",
             ` * @see {@link ${url} Documentation} for more details.`,
             " */",
-            `@OperationID("${operation.operationId}")`
+            `@OperationID("${operation.operationId}")`,
         ].map((v, i) => i === 0 ? v : `\t${v}`).join("\n");
     });
     newContent = newContent.replaceAll(/@Schema\("([^"]+)"\)/g, (match, schemaId) => {
@@ -111,7 +115,7 @@ for await (const file of walk(buildDir.pathname)) {
             " *",
             ` * @see {@link ${url} Documentation} for more details.`,
             " */",
-            `@Schema("${schemaId}")`
+            `@Schema("${schemaId}")`,
         ].join("\n");
     });
     const newLines = newContent.split("\n");

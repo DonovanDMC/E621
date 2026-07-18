@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>e621 browser bundle test</title>
+    <style>
+        :root { color-scheme: dark; }
+        body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; background: #0d1117; color: #e6edf3; }
+        h1 { font-size: 1.25rem; }
+        code { background: #161b22; padding: 0.1rem 0.3rem; border-radius: 4px; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 0.5rem 0; border-bottom: 1px solid #30363d; }
+        .pass { color: #3fb950; }
+        .fail { color: #f85149; }
+        .pending { color: #8b949e; }
+        pre { background: #161b22; color: #e6edf3; padding: 0.75rem; overflow-x: auto; white-space: pre-wrap; border-radius: 6px; }
+        p.note { color: #8b949e; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <h1>e621 browser bundle test</h1>
+    <p class="note">
+        Verifies that <code>dist/browser/e621.js</code> (built by <code>scripts/bundle-browser.ts</code>) loads and
+        runs in a real browser with no Node built-ins. Must be served over http(s) — <code>file://</code> blocks
+        module scripts in most browsers. E.g. run <code>python -m http.server 8080</code> from the repo root and open
+        <code>http://localhost:8080/scripts/browser-test.html</code>.
+    </p>
+    <ul id="results">
+        <li id="step-import" class="pending">1. Import bundle — pending</li>
+        <li id="step-construct" class="pending">2. Construct <code>new E621()</code> — pending</li>
+        <li id="step-surface" class="pending">3. Module surface (posts, users, ...) — pending</li>
+        <li id="step-network" class="pending">4. Live call: <code>posts.random()</code> — pending</li>
+    </ul>
+    <pre id="output"></pre>
+
+    <script type="module">
+        const output = document.getElementById("output");
+        const log = (message) => {
+            output.textContent += `${message}\n`;
+        };
+        const setStep = (id, ok, message) => {
+            const el = document.getElementById(id);
+            el.className = ok ? "pass" : "fail";
+            el.textContent = `${el.textContent.replace(/ — .+$/, "")} — ${ok ? "OK" : "FAILED"}${message ? `: ${message}` : ""}`;
+        };
+
+        try {
+            const mod = await import("/dist/browser/e621.js");
+            window.E621 = mod.default;
+            setStep("step-import", true);
+            log("Bundle imported successfully.");
+        } catch (err) {
+            setStep("step-import", false, err.message);
+            log(`Import failed: ${err.stack ?? err}`);
+            throw err;
+        }
+
+        try {
+            window.e621 = new E621();
+            setStep("step-construct", true);
+            log("E621 client constructed.");
+        } catch (err) {
+            setStep("step-construct", false, err.message);
+            log(`Construction failed: ${err.stack ?? err}`);
+            throw err;
+        }
+
+        try {
+            const expected = ["posts", "users", "comments", "wikiPages"];
+            const missing = expected.filter(key => typeof e621[key] !== "object" || e621[key] === null);
+            if (missing.length > 0) {
+                throw new Error(`missing modules: ${missing.join(", ")}`);
+            }
+            setStep("step-surface", true);
+            log(`Module surface OK (checked: ${expected.join(", ")}).`);
+        } catch (err) {
+            setStep("step-surface", false, err.message);
+            log(`Surface check failed: ${err.stack ?? err}`);
+        }
+
+        try {
+            const post = await e621.posts.random();
+            setStep("step-network", true);
+            log(`posts.random() succeeded, got post #${post.id}.`);
+        } catch (err) {
+            setStep("step-network", false, err.message);
+            log(`Live network call failed (this can be a CORS restriction from e621.net rather than a bundle bug): ${err.stack ?? err}`);
+        }
+    </script>
+</body>
+</html>

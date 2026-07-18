@@ -33,6 +33,9 @@ importers:
       debug:
         specifier: ^4.4.3
         version: 4.4.3
+      esbuild:
+        specifier: ^0.27.7
+        version: 0.27.7
       eslint:
         specifier: ^9.39.4
         version: 9.39.4(jiti@2.6.1)
