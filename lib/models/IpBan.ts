@@ -8,7 +8,7 @@ interface IpBan extends IpBanData {}
 /** @category Models */
 @Schema("IpBan")
 class IpBan extends Base<IpBanData> {
-    @OperationID("deleteIpBan")
+    @OperationID("ip_bans#destroy")
     async delete(): Promise<null> {
         return this.e621.ipBans.delete(this.id);
     }

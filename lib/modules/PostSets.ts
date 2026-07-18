@@ -1,13 +1,13 @@
 import {
-    addPostsToPostSet,
-    createPostSet,
-    deletePostSet,
-    editPostSet,
-    getPostSet,
-    listPostSetsForSelect,
-    removePostsFromPostSet,
-    searchPostSets,
-    updatePostSetPosts,
+    postSets_addPosts,
+    postSets_create,
+    postSets_destroy,
+    postSets_update,
+    postSets_show,
+    postSets_forSelect,
+    postSets_removePosts,
+    postSets_index,
+    postSets_updatePosts,
 } from "../generated/sdk.js";
 import PostSet from "../models/PostSet.js";
 import {
@@ -20,91 +20,91 @@ import {
 
 import Base from "./Base.js";
 
-import type { CreatePostSetData, EditPostSetData, ListPostSetsForSelectResponses, SearchPostSetsData } from "../generated/types.js";
+import type { PostSetsCreateData, PostSetsUpdateData, PostSetsForSelectResponses, PostSetsIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreatePostSetOptions extends TransformDataBodyToOptions<CreatePostSetData> {}
+export interface CreatePostSetOptions extends TransformDataBodyToOptions<PostSetsCreateData> {}
 /** @category Modules/Types */
-export interface EditPostSetOptions extends TransformDataBodyToOptions<EditPostSetData> {}
+export interface UpdatePostSetOptions extends TransformDataBodyToOptions<PostSetsUpdateData> {}
 /** @category Modules/Types */
-export interface SearchPostSetsOptions extends TransformDataQueryToOptions<SearchPostSetsData> {}
+export interface SearchPostSetsOptions extends TransformDataQueryToOptions<PostSetsIndexData> {}
 /** @category Modules/Types */
-export interface ListPostSetsForSelectResponse extends GetResponse<ListPostSetsForSelectResponses, 200> {}
+export interface PostSetsForSelectResponse extends GetResponse<PostSetsForSelectResponses, 200> {}
 
 /** @category Modules */
 export default class PostSets extends Base {
-    @OperationID("addPostsToPostSet")
+    @OperationID("post_sets#add_posts")
     async addPosts(id: number, post_ids: Array<number>): Promise<PostSet> {
-        return addPostsToPostSet({
+        return postSets_addPosts({
             client: this.client,
             path: { id },
             body: { post_ids },
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
-    @OperationID("createPostSet")
+    @OperationID("post_sets#create")
     async create(options: CreatePostSetOptions): Promise<PostSet> {
-        return createPostSet({
+        return postSets_create({
             client: this.client,
-            body: prefixKeys(options, "post_set"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
-    @OperationID("deletePostSet")
+    @OperationID("post_sets#destroy")
     async delete(id: number): Promise<null> {
-        return deletePostSet({
+        return postSets_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editPostSet")
-    async edit(id: number, options: EditPostSetOptions): Promise<null> {
-        return editPostSet({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "post_set"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("listPostSetsForSelect")
-    async forSelect(): Promise<ListPostSetsForSelectResponse> {
-        return listPostSetsForSelect({
+    @OperationID("post_sets#for_select")
+    async forSelect(): Promise<PostSetsForSelectResponse> {
+        return postSets_forSelect({
             client: this.client,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("getPostSet")
+    @OperationID("post_sets#show")
     async get(id: number): Promise<PostSet | null> {
-        return getPostSet({
+        return postSets_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, PostSet));
     }
 
-    @OperationID("removePostsFromPostSet")
+    @OperationID("post_sets#remove_posts")
     async removePosts(id: number, post_ids: Array<number>): Promise<PostSet> {
-        return removePostsFromPostSet({
+        return postSets_removePosts({
             client: this.client,
             path: { id },
             body: { post_ids },
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
-    @OperationID("searchPostSets")
+    @OperationID("post_sets#index")
     async search(options?: SearchPostSetsOptions): Promise<Array<PostSet>> {
-        return searchPostSets({
+        return postSets_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, PostSet));
     }
 
-    @OperationID("updatePostSetPosts")
-    async updatePosts(id: number, post_ids: Array<number>): Promise<PostSet> {
-        return updatePostSetPosts({
+    @OperationID("post_sets#update")
+    async update(id: number, options: UpdatePostSetOptions): Promise<null> {
+        return postSets_update({
             client: this.client,
             path: { id },
-            body: { "post_set[post_ids_string]": post_ids.join(" ") },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
+    }
+
+    @OperationID("post_sets#update_posts")
+    async updatePosts(id: number, post_ids: Array<number>): Promise<PostSet> {
+        return postSets_updatePosts({
+            client: this.client,
+            path: { id },
+            body: { post_ids_string: post_ids.join(" ") },
         }).then(res => this._handleResponse(res, 200, true, PostSet));
     }
 }

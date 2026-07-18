@@ -8,19 +8,24 @@ interface DMail extends DMailData {}
 /** @category Models */
 @Schema("DMail")
 class DMail extends Base<DMailData> {
-    @OperationID("deleteDMail")
+    @OperationID("dmails#destroy")
     async delete(): Promise<null> {
         return this.e621.dmails.delete(this.id);
     }
 
-    @OperationID("markDMailAsRead")
+    @OperationID("dmails#mark_as_read")
     async markRead(): Promise<null> {
         return this.e621.dmails.markRead(this.id);
     }
 
-    @OperationID("markDMailAsUnread")
+    @OperationID("dmails#mark_as_unread")
     async markUnread(): Promise<null> {
         return this.e621.dmails.markUnread(this.id);
+    }
+
+    @OperationID("maintenance/user/dmail_filters#update")
+    async updateFilter(words: string): Promise<null> {
+        return this.e621.users.updateDmailFilter(this.id, words);
     }
 }
 

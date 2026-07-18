@@ -8,7 +8,7 @@ interface PoolVersion extends PoolVersionData {}
 /** @category Models */
 @Schema("PoolVersion")
 class PoolVersion extends Base<PoolVersionData> {
-    @OperationID("revertPool")
+    @OperationID("pools#revert")
     async revertTo(): Promise<null> {
         return this.e621.pools.revert(this.pool_id, this.id);
     }

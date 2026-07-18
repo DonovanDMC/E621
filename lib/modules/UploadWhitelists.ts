@@ -1,9 +1,9 @@
 import {
-    checkIfUrlIsAllowed,
-    createUploadWhitelist,
-    deleteUploadWhitelist,
-    editUploadWhitelist,
-    searchUploadWhitelists,
+    uploadWhitelists_isAllowed,
+    uploadWhitelists_create,
+    uploadWhitelists_destroy,
+    uploadWhitelists_update,
+    uploadWhitelists_index,
 } from "../generated/sdk.js";
 import UploadWhitelist from "../models/UploadWhitelist.js";
 import {
@@ -16,57 +16,57 @@ import {
 
 import Base from "./Base.js";
 
-import type { CheckIfUrlIsAllowedResponses, CreateUploadWhitelistData, EditUploadWhitelistData, SearchUploadWhitelistsData } from "../generated/types.js";
+import type { UploadWhitelistsIsAllowedResponses, UploadWhitelistsCreateData, UploadWhitelistsUpdateData, UploadWhitelistsIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreateUploadWhitelistOptions extends TransformDataBodyToOptions<CreateUploadWhitelistData> {}
+export interface CreateUploadWhitelistOptions extends TransformDataBodyToOptions<UploadWhitelistsCreateData> {}
 /** @category Modules/Types */
-export interface EditUploadWhitelistOptions extends TransformDataBodyToOptions<EditUploadWhitelistData> {}
+export interface UpdateUploadWhitelistOptions extends TransformDataBodyToOptions<UploadWhitelistsUpdateData> {}
 /** @category Modules/Types */
-export interface SearchUploadWhitelistsOptions extends TransformDataQueryToOptions<SearchUploadWhitelistsData> {}
+export interface SearchUploadWhitelistsOptions extends TransformDataQueryToOptions<UploadWhitelistsIndexData> {}
 /** @category Modules/Types */
-export interface CheckIfUrlIsAllowedResponse extends GetResponse<CheckIfUrlIsAllowedResponses, 200> {}
+export interface UploadWhitelistsIsAllowedResponse extends GetResponse<UploadWhitelistsIsAllowedResponses, 200> {}
 
 /** @category Modules */
 export default class UploadWhitelists extends Base {
-    @OperationID("checkIfUrlIsAllowed")
-    async check(url: string): Promise<CheckIfUrlIsAllowedResponse> {
-        return checkIfUrlIsAllowed({
+    @OperationID("upload_whitelists#is_allowed")
+    async check(url: string): Promise<UploadWhitelistsIsAllowedResponse> {
+        return uploadWhitelists_isAllowed({
             client: this.client,
             query: { url },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("createUploadWhitelist")
+    @OperationID("upload_whitelists#create")
     async create(options: CreateUploadWhitelistOptions): Promise<UploadWhitelist> {
-        return createUploadWhitelist({
+        return uploadWhitelists_create({
             client: this.client,
-            body: prefixKeys(options, "upload_whitelist"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, UploadWhitelist));
     }
 
-    @OperationID("deleteUploadWhitelist")
+    @OperationID("upload_whitelists#destroy")
     async delete(id: number): Promise<null> {
-        return deleteUploadWhitelist({
+        return uploadWhitelists_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editUploadWhitelist")
-    async edit(id: number, options: EditUploadWhitelistOptions): Promise<null> {
-        return editUploadWhitelist({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "upload_whitelist"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("searchUploadWhitelists")
+    @OperationID("upload_whitelists#index")
     async search(options?: SearchUploadWhitelistsOptions): Promise<Array<UploadWhitelist>> {
-        return searchUploadWhitelists({
+        return uploadWhitelists_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, UploadWhitelist));
+    }
+
+    @OperationID("upload_whitelists#update")
+    async update(id: number, options: UpdateUploadWhitelistOptions): Promise<null> {
+        return uploadWhitelists_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
     }
 }

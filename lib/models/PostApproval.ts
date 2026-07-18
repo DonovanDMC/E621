@@ -8,7 +8,7 @@ interface PostApproval extends PostApprovalData {}
 /** @category Models */
 @Schema("PostApproval")
 class PostApproval extends Base<PostApprovalData> {
-    @OperationID("unapprovePost")
+    @OperationID("staff/post/approvals#destroy")
     async delete(): Promise<null> {
         return this.e621.postApprovals.delete(this.id);
     }

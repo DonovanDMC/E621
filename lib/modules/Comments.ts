@@ -1,12 +1,12 @@
 import {
-    createComment,
-    deleteComment,
-    editComment,
-    getComment,
-    hideComment,
-    markComment,
-    searchComments,
-    unhideComment,
+    comments_create,
+    comments_destroy,
+    comments_update,
+    comments_show,
+    comments_hide,
+    comments_warning,
+    comments_index,
+    comments_unhide,
 } from "../generated/sdk.js";
 import Comment from "../models/Comment.js";
 import {
@@ -19,91 +19,89 @@ import {
 } from "../util.js";
 
 import Base from "./Base.js";
-import CommentVotes from "./comments/Votes.js";
 
 import type {
-    CreateCommentData,
-    EditCommentData,
-    MarkCommentData,
-    MarkCommentResponses,
-    SearchCommentsData,
+    CommentsCreateData,
+    CommentsUpdateData,
+    CommentsWarningData,
+    CommentsWarningResponses,
+    CommentsIndexData,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface SearchCommentsOptions extends TransformDataQueryToOptions<SearchCommentsData> {}
+export interface SearchCommentsOptions extends TransformDataQueryToOptions<CommentsIndexData> {}
 /** @category Modules/Types */
-export interface CreateCommentOptions extends TransformDataBodyToOptions<CreateCommentData> {}
+export interface CreateCommentOptions extends TransformDataBodyToOptions<CommentsCreateData> {}
 /** @category Modules/Types */
-export interface EditCommentOptions extends TransformDataBodyToOptions<EditCommentData> {}
+export interface UpdateCommentOptions extends TransformDataBodyToOptions<CommentsUpdateData> {}
 /** @category Modules/Types */
-export interface MarkCommentResponse extends GetResponse<MarkCommentResponses, 200> {}
+export interface CommentsWarningResponse extends GetResponse<CommentsWarningResponses, 200> {}
 
 /** @category Modules */
 export default class Comments extends Base {
-    votes = new CommentVotes(this.e621, this.client);
-    @OperationID("createComment")
+    @OperationID("comments#create")
     async create(options: CreateCommentOptions): Promise<Comment> {
-        return createComment({
+        return comments_create({
             client: this.client,
-            body: prefixKeys(options, "comment"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, Comment));
     }
 
-    @OperationID("deleteComment")
+    @OperationID("comments#destroy")
     async delete(id: number): Promise<null> {
-        return deleteComment({
+        return comments_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editComment")
-    async edit(id: number, options: EditCommentOptions): Promise<null> {
-        return editComment({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "comment"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("getComment")
+    @OperationID("comments#show")
     async get(id: number): Promise<Comment | null> {
-        return getComment({
+        return comments_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, Comment));
     }
 
-    @OperationID("hideComment")
+    @OperationID("comments#hide")
     async hide(id: number): Promise<Comment> {
-        return hideComment({
+        return comments_hide({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 201, true, Comment));
     }
 
-    @OperationID("markComment")
-    async mark(id: number, type: ExtractValue<"record_type", MarkCommentData>): Promise<MarkCommentResponse> {
-        return markComment({
+    @OperationID("comments#warning")
+    async mark(id: number, type: ExtractValue<"record_type", CommentsWarningData>): Promise<CommentsWarningResponse> {
+        return comments_warning({
             client: this.client,
             path: { id },
             body: { record_type: type },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("searchComments")
+    @OperationID("comments#index")
     async search(options?: SearchCommentsOptions): Promise<Array<Comment>> {
-        return searchComments({
+        return comments_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Comment));
     }
 
-    @OperationID("unhideComment")
+    @OperationID("comments#unhide")
     async unhide(id: number): Promise<Comment> {
-        return unhideComment({
+        return comments_unhide({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 201, true, Comment));
+    }
+
+    @OperationID("comments#update")
+    async update(id: number, options: UpdateCommentOptions): Promise<null> {
+        return comments_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
     }
 }

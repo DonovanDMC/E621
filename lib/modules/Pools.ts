@@ -1,13 +1,13 @@
 import {
-    addPostToPool,
-    createPool,
-    deletePool,
-    editPool,
-    getPool,
-    getRecentPools,
-    removePostFromPool,
-    revertPool,
-    searchPools,
+    poolElements_create,
+    pools_create,
+    pools_destroy,
+    pools_update,
+    pools_show,
+    poolElements_recent,
+    poolElements_destroy,
+    pools_revert,
+    pools_index,
 } from "../generated/sdk.js";
 import Pool from "../models/Pool.js";
 import {
@@ -20,89 +20,89 @@ import {
 
 import Base from "./Base.js";
 
-import type { CreatePoolData, EditPoolData, GetRecentPoolsResponses, SearchPoolsData } from "../generated/types.js";
+import type { PoolsCreateData, PoolsUpdateData, PoolElementsRecentResponses, PoolsIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreatePoolOptions extends TransformDataBodyToOptions<CreatePoolData> {}
+export interface CreatePoolOptions extends TransformDataBodyToOptions<PoolsCreateData> {}
 /** @category Modules/Types */
-export interface EditPoolOptions extends TransformDataBodyToOptions<EditPoolData> {}
+export interface UpdatePoolOptions extends TransformDataBodyToOptions<PoolsUpdateData> {}
 /** @category Modules/Types */
-export interface SearchPoolsOptions extends TransformDataQueryToOptions<SearchPoolsData> {}
+export interface SearchPoolsOptions extends TransformDataQueryToOptions<PoolsIndexData> {}
 /** @category Modules/Types */
-export interface GetRecentPoolsResponse extends GetResponse<GetRecentPoolsResponses, 200> {}
+export interface PoolElementsRecentResponse extends GetResponse<PoolElementsRecentResponses, 200> {}
 
 /** @category Modules */
 export default class Pools extends Base {
-    @OperationID("addPostToPool")
+    @OperationID("pool_elements#create")
     async addPost(pool_id: number, post_id: number): Promise<Pool> {
-        return addPostToPool({
+        return poolElements_create({
             client: this.client,
             body: { pool_id, post_id },
         }).then(res => this._handleResponse(res, 201, true, Pool));
     }
 
-    @OperationID("createPool")
+    @OperationID("pools#create")
     async create(options: CreatePoolOptions): Promise<Pool> {
-        return createPool({
+        return pools_create({
             client: this.client,
-            body: prefixKeys(options, "pool"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, Pool));
     }
 
-    @OperationID("deletePool")
+    @OperationID("pools#destroy")
     async delete(id: number): Promise<null> {
-        return deletePool({
+        return pools_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editPool")
-    async edit(id: number, options: EditPoolOptions): Promise<null> {
-        return editPool({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "pool"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("getPool")
+    @OperationID("pools#show")
     async get(id: number): Promise<Pool | null> {
-        return getPool({
+        return pools_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, Pool));
     }
 
-    @OperationID("getRecentPools")
-    async getRecent(): Promise<GetRecentPoolsResponse> {
-        return getRecentPools({
+    @OperationID("pool_elements#recent")
+    async getRecent(): Promise<PoolElementsRecentResponse> {
+        return poolElements_recent({
             client: this.client,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("removePostFromPool")
+    @OperationID("pool_elements#destroy")
     async removePost(pool_id: number, post_id: number): Promise<null> {
-        return removePostFromPool({
+        return poolElements_destroy({
             client: this.client,
             body: { pool_id, post_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("revertPool")
+    @OperationID("pools#revert")
     async revert(id: number, version_id: number): Promise<null> {
-        return revertPool({
+        return pools_revert({
             client: this.client,
             path: { id },
             query: { version_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("searchPools")
+    @OperationID("pools#index")
     async search(options?: SearchPoolsOptions): Promise<Array<Pool>> {
-        return searchPools({
+        return pools_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Pool));
+    }
+
+    @OperationID("pools#update")
+    async update(id: number, options: UpdatePoolOptions): Promise<null> {
+        return pools_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
     }
 }

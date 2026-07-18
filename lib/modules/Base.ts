@@ -6,8 +6,8 @@ import type E621 from "../index.js";
 interface AnyResponse<D = unknown> {
     data?: D;
     error: unknown;
-    request: Request;
-    response: Response;
+    request?: Request;
+    response?: Response;
 }
 type AnyDataClass<D = unknown, T = unknown> = new (e621: E621, data: D) => T;
 type DataType<R extends AnyResponse> = R extends AnyResponse<infer U> ? Exclude<U, undefined> : never;
@@ -33,7 +33,7 @@ export default abstract class Base {
         CR = C extends AnyDataClass<UnwrapData<R>, infer I> ? I : undefined,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     >(res: R, successStatus: S = 200 as S, throwOnNotFound: T = true as T, klass: C = undefined as C): T extends true ? (S extends 204 ? null : S extends 302 ? string : C extends undefined ? DataType<R> : (DataType<R> extends Array<any> ? Array<CR> : CR)) : (S extends 204 ? null : S extends 302 ? string : (C extends undefined ? DataType<R> : (DataType<R> extends Array<any> ? Array<CR> : CR)) | null) {
-        if (res.response.status === successStatus) {
+        if (res.response?.status === successStatus) {
             if (successStatus === 204) return null as never;
             if (successStatus === 302) return res.response.headers.get("Location") as never;
             else if (res.data === undefined) {
@@ -44,7 +44,7 @@ export default abstract class Base {
                     else return new klass(this.e621, res.data as UnwrapData<R>) as never;
                 } else return res.data as never;
             }
-        } else if (res.response.status === 404 && !throwOnNotFound) return null as never;
+        } else if (res.response?.status === 404 && !throwOnNotFound) return null as never;
         else throw new UnexpectedResponseError(res.request, res.response, res.error);
     }
 }

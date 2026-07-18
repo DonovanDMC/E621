@@ -8,14 +8,14 @@ interface PostFlag extends PostFlagData {}
 /** @category Models */
 @Schema("PostFlag")
 class PostFlag extends Base<PostFlagData> {
-    @OperationID("clearPostFlagNote")
+    @OperationID("post_flags#clear_note")
     async clearNote(): Promise<PostFlag> {
         return this.e621.postFlags.clearNote(this.id);
     }
 
-    @OperationID("unflagPost")
+    @OperationID("post_flags#destroy")
     async resolve(): Promise<null> {
-        return this.e621.posts.flag.delete(this.post_id);
+        return this.e621.postFlags.resolve(this.post_id);
     }
 }
 

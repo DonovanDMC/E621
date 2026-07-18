@@ -1,22 +1,22 @@
-import { getUpload, searchUploads, uploadPost } from "../generated/sdk.js";
+import { uploads_show, uploads_index, uploads_create } from "../generated/sdk.js";
 import Upload from "../models/Upload.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { SearchUploadsData, UploadPostData } from "../generated/types.js";
+import type { UploadsIndexData, UploadsCreateData } from "../generated/types.js";
 import type Post from "../models/Post.js";
 
 /** @category Modules/Types */
-export interface SearchUploadsOptions extends TransformDataQueryToOptions<SearchUploadsData> {}
+export interface SearchUploadsOptions extends TransformDataQueryToOptions<UploadsIndexData> {}
 /** @category Modules/Types */
-export interface UploadPostOptions extends TransformDataBodyToOptions<UploadPostData> {}
+export interface UploadPostOptions extends TransformDataBodyToOptions<UploadsCreateData> {}
 
 /** @category Modules */
 export default class Uploads extends Base {
-    @OperationID("uploadPost")
+    @OperationID("uploads#create")
     async create(options: UploadPostOptions): Promise<Post> {
-        return uploadPost({
+        return uploads_create({
             client: this.client,
             body: prefixKeys(options, "upload"),
         }).then((res) => {
@@ -29,17 +29,17 @@ export default class Uploads extends Base {
         });
     }
 
-    @OperationID("getUpload")
+    @OperationID("uploads#show")
     async get(id: number): Promise<Upload | null> {
-        return getUpload({
+        return uploads_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, Upload));
     }
 
-    @OperationID("searchUploads")
+    @OperationID("uploads#index")
     async search(options?: SearchUploadsOptions): Promise<Array<Upload>> {
-        return searchUploads({
+        return uploads_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Upload));

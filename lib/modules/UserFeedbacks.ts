@@ -1,82 +1,82 @@
 import {
-    createUserFeedback,
-    deleteUserFeedback,
-    destroyUserFeedback,
-    editUserFeedback,
-    getUserFeedback,
-    searchUserFeedbacks,
-    undeleteUserFeedback,
+    userFeedbacks_create,
+    userFeedbacks_delete,
+    userFeedbacks_destroy,
+    userFeedbacks_update,
+    userFeedbacks_show,
+    userFeedbacks_index,
+    userFeedbacks_undelete,
 } from "../generated/sdk.js";
 import UserFeedback from "../models/UserFeedback.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { CreateUserFeedbackData, EditUserFeedbackData, SearchUserFeedbacksData } from "../generated/types.js";
+import type { UserFeedbacksCreateData, UserFeedbacksUpdateData, UserFeedbacksIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreateUserFeedbackOptions extends TransformDataBodyToOptions<CreateUserFeedbackData> {}
+export interface CreateUserFeedbackOptions extends TransformDataBodyToOptions<UserFeedbacksCreateData> {}
 /** @category Modules/Types */
-export interface EditUserFeedbackOptions extends TransformDataBodyToOptions<EditUserFeedbackData> {}
+export interface UpdateUserFeedbackOptions extends TransformDataBodyToOptions<UserFeedbacksUpdateData> {}
 /** @category Modules/Types */
-export interface SearchUserFeedbacksOptions extends TransformDataQueryToOptions<SearchUserFeedbacksData> {}
+export interface SearchUserFeedbacksOptions extends TransformDataQueryToOptions<UserFeedbacksIndexData> {}
 
 /** @category Modules */
 export default class UserFeedbacks extends Base {
-    @OperationID("createUserFeedback")
+    @OperationID("user_feedbacks#create")
     async create(options: CreateUserFeedbackOptions): Promise<UserFeedback> {
-        return createUserFeedback({
+        return userFeedbacks_create({
             client: this.client,
-            body: prefixKeys(options, "user_feedback"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, UserFeedback));
     }
 
-    @OperationID("deleteUserFeedback")
+    @OperationID("user_feedbacks#delete")
     async delete(id: number): Promise<null> {
-        return deleteUserFeedback({
+        return userFeedbacks_delete({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("destroyUserFeedback")
+    @OperationID("user_feedbacks#destroy")
     async destroy(id: number): Promise<null> {
-        return destroyUserFeedback({
+        return userFeedbacks_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editUserFeedback")
-    async edit(id: number, options: EditUserFeedbackOptions): Promise<null> {
-        return editUserFeedback({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "user_feedback"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("getUserFeedback")
+    @OperationID("user_feedbacks#show")
     async get(id: number): Promise<UserFeedback | null> {
-        return getUserFeedback({
+        return userFeedbacks_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, UserFeedback));
     }
 
-    @OperationID("searchUserFeedbacks")
+    @OperationID("user_feedbacks#index")
     async search(options?: SearchUserFeedbacksOptions): Promise<Array<UserFeedback>> {
-        return searchUserFeedbacks({
+        return userFeedbacks_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, UserFeedback));
     }
 
-    @OperationID("undeleteUserFeedback")
+    @OperationID("user_feedbacks#undelete")
     async undelete(id: number): Promise<null> {
-        return undeleteUserFeedback({
+        return userFeedbacks_undelete({
             client: this.client,
             path: { id },
+        }).then(res => this._handleResponse(res, 204, true));
+    }
+
+    @OperationID("user_feedbacks#update")
+    async update(id: number, options: UpdateUserFeedbackOptions): Promise<null> {
+        return userFeedbacks_update({
+            client: this.client,
+            path: { id },
+            body: options,
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

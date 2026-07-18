@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/filename-case */
 import { defineConfig } from "@hey-api/openapi-ts";
 
-const commit = "eb9ee1498a967465afe0b0bfdd84aa98051d320c";
+const commit = "4a8898876f652a0d921e55a7a4b8a2cf9e43311b";
 export default defineConfig({
     input: `https://raw.githubusercontent.com/DonovanDMC/E621OpenAPI/${commit}/openapi.yaml`,
     output: {

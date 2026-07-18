@@ -1,13 +1,13 @@
 import {
-    addPostsToTakedownByIds,
-    addPostsToTakedownByTags,
-    countMatchingPosts,
-    createTakedown,
-    deleteTakedown,
-    editTakedown,
-    getTakedown,
-    removePostsFromTakedownByIds,
-    searchTakedowns,
+    takedowns_addByIds,
+    takedowns_addByTags,
+    takedowns_countMatchingPosts,
+    takedowns_create,
+    takedowns_destroy,
+    takedowns_update,
+    takedowns_show,
+    takedowns_removeByIds,
+    takedowns_index,
 } from "../generated/sdk.js";
 import Takedown from "../models/Takedown.js";
 import {
@@ -21,103 +21,103 @@ import {
 import Base from "./Base.js";
 
 import type {
-    AddPostsToTakedownByIdsResponses,
-    AddPostsToTakedownByTagsResponses,
-    CountMatchingPostsResponses,
-    CreateTakedownData,
-    EditTakedownData,
-    SearchTakedownsData,
+    TakedownsAddByIdsResponses,
+    TakedownsAddByTagsResponses,
+    TakedownsCountMatchingPostsResponses,
+    TakedownsCreateData,
+    TakedownsUpdateData,
+    TakedownsIndexData,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreateTakedownOptions extends TransformDataBodyToOptions<CreateTakedownData> {}
+export interface CreateTakedownOptions extends TransformDataBodyToOptions<TakedownsCreateData> {}
 /** @category Modules/Types */
-export interface EditTakedownOptions extends TransformDataBodyToOptions<EditTakedownData> {}
+export interface UpdateTakedownOptions extends TransformDataBodyToOptions<TakedownsUpdateData> {}
 /** @category Modules/Types */
-export interface SearchTakedownsOptions extends TransformDataQueryToOptions<SearchTakedownsData> {}
+export interface SearchTakedownsOptions extends TransformDataQueryToOptions<TakedownsIndexData> {}
 /** @category Modules/Types */
-export interface AddPostsToTakedownByIdsResponse extends GetResponse<AddPostsToTakedownByIdsResponses, 200> {}
+export interface TakedownsAddByIdsResponse extends GetResponse<TakedownsAddByIdsResponses, 200> {}
 /** @category Modules/Types */
-export interface AddPostsToTakedownByTagsResponse extends GetResponse<AddPostsToTakedownByTagsResponses, 200> {}
+export interface TakedownsAddByTagsResponse extends GetResponse<TakedownsAddByTagsResponses, 200> {}
 /** @category Modules/Types */
-export interface CountMatchingPostsResponse extends GetResponse<CountMatchingPostsResponses, 200> {}
+export interface TakedownsCountMatchingPostsResponse extends GetResponse<TakedownsCountMatchingPostsResponses, 200> {}
 
 /** @category Modules */
 export default class Takedowns extends Base {
-    @OperationID("addPostsToTakedownByIds")
-    async addByIds(id: number, post_ids: Array<number>): Promise<AddPostsToTakedownByIdsResponse> {
-        return addPostsToTakedownByIds({
+    @OperationID("takedowns#add_by_ids")
+    async addByIds(id: number, post_ids: Array<number>): Promise<TakedownsAddByIdsResponse> {
+        return takedowns_addByIds({
             client: this.client,
             path: { id },
             body: { post_ids: post_ids.join(" ") },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("addPostsToTakedownByTags")
-    async addByTags(id: number, tags: Array<string>): Promise<AddPostsToTakedownByTagsResponse> {
-        return addPostsToTakedownByTags({
+    @OperationID("takedowns#add_by_tags")
+    async addByTags(id: number, tags: Array<string>): Promise<TakedownsAddByTagsResponse> {
+        return takedowns_addByTags({
             client: this.client,
             path: { id },
             body: { post_tags: tags.join(" ") },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("countMatchingPosts")
-    async countMatchingPosts(id: number, tags: string): Promise<CountMatchingPostsResponse> {
-        return countMatchingPosts({
+    @OperationID("takedowns#count_matching_posts")
+    async countMatchingPosts(id: number, tags: string): Promise<TakedownsCountMatchingPostsResponse> {
+        return takedowns_countMatchingPosts({
             client: this.client,
             path: { id },
             body: { post_tags: tags },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("createTakedown")
+    @OperationID("takedowns#create")
     async create(options: CreateTakedownOptions): Promise<Takedown> {
-        return createTakedown({
+        return takedowns_create({
             client: this.client,
-            body: prefixKeys(options, "takedown"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, Takedown));
     }
 
-    @OperationID("deleteTakedown")
+    @OperationID("takedowns#destroy")
     async delete(id: number): Promise<null> {
-        return deleteTakedown({
+        return takedowns_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editTakedown")
-    async edit(id: number, options: EditTakedownOptions): Promise<null> {
-        return editTakedown({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "takedown"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("getTakedown")
+    @OperationID("takedowns#show")
     async get(id: number): Promise<Takedown | null> {
-        return getTakedown({
+        return takedowns_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, Takedown));
     }
 
-    @OperationID("removePostsFromTakedownByIds")
+    @OperationID("takedowns#remove_by_ids")
     async removeByIds(id: number, post_ids: Array<number>): Promise<null> {
-        return removePostsFromTakedownByIds({
+        return takedowns_removeByIds({
             client: this.client,
             path: { id },
             body: { post_ids: post_ids.join(" ") },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("searchTakedowns")
+    @OperationID("takedowns#index")
     async search(options?: SearchTakedownsOptions): Promise<Array<Takedown>> {
-        return searchTakedowns({
+        return takedowns_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Takedown));
+    }
+
+    @OperationID("takedowns#update")
+    async update(id: number, options: UpdateTakedownOptions): Promise<null> {
+        return takedowns_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
     }
 }

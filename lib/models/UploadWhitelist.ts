@@ -3,20 +3,20 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 
 import type { UploadWhitelist as UploadWhitelistData } from "../generated/types.js";
-import type { EditUploadWhitelistOptions } from "../modules/UploadWhitelists.js";
+import type { UpdateUploadWhitelistOptions } from "../modules/UploadWhitelists.js";
 
 interface UploadWhitelist extends UploadWhitelistData {}
 /** @category Models */
 @Schema("UploadWhitelist")
 class UploadWhitelist extends Base<UploadWhitelistData> {
-    @OperationID("deleteUploadWhitelist")
+    @OperationID("upload_whitelists#destroy")
     async delete(): Promise<null> {
         return this.e621.uploadWhitelists.delete(this.id);
     }
 
-    @OperationID("editUploadWhitelist")
-    async edit(options: EditUploadWhitelistOptions): Promise<null> {
-        return this.e621.uploadWhitelists.edit(this.id, options);
+    @OperationID("upload_whitelists#update")
+    async update(options: UpdateUploadWhitelistOptions): Promise<null> {
+        return this.e621.uploadWhitelists.update(this.id, options);
     }
 }
 

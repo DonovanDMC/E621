@@ -1,21 +1,21 @@
-import { auditUserDMail, auditUserDMails } from "../../generated/sdk.js";
+import { staffDmails_show, staffDmails_index } from "../../generated/sdk.js";
 import DMail from "../../models/DMail.js";
 import { OperationID } from "../../util.js";
 import Base from "../Base.js";
 
 /** @category Modules */
-export default class UsersDMails extends Base {
-    @OperationID("auditUserDMail")
+export default class StaffDMails extends Base {
+    @OperationID("staff/dmails#show")
     async get(user_id: number, id: number): Promise<DMail | null> {
-        return auditUserDMail({
+        return staffDmails_show({
             client: this.client,
             path: { id, user_id },
         }).then(res => this._handleResponse(res, 200, false, DMail));
     }
 
-    @OperationID("auditUserDMails")
+    @OperationID("staff/dmails#index")
     async search(user_id: number): Promise<Array<DMail>> {
-        return auditUserDMails({
+        return staffDmails_index({
             client: this.client,
             path: { user_id },
         }).then(res => this._handleResponse(res, 200, true, DMail));

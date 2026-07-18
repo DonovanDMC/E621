@@ -1,58 +1,98 @@
 import {
-    aiCheckPost,
-    copyNotesToPost,
-    deletePost,
-    expungePost,
-    getPost,
-    getPostInSequence,
-    getRandomPost,
-    getRecommendedPosts,
-    listPostFavorites,
-    markPostAsTranslated,
-    movePostFavorites,
-    regeneratePostThumbnails,
-    regeneratePostVideos,
-    revertPost,
-    searchPosts,
-    undeletePost,
-    updatePostIqdb,
+    staffPostPosts_aiCheck,
+    posts_copyNotes,
+    staffPostPosts_delete,
+    staffPostPosts_expunge,
+    posts_show,
+    posts_showSeq,
+    staffPostPosts_previousOwners,
+    posts_random,
+    postRecommendations_artist,
+    postRecommendations_tags,
+    postFavorites_index,
+    posts_markAsTranslated,
+    staffPostPosts_moveFavorites,
+    staffPostPosts_regenerateThumbnails,
+    staffPostPosts_regenerateVideos,
+    staffPostPosts_reowner,
+    posts_revert,
+    posts_index,
+    staffPostPosts_undelete,
+    posts_update,
+    posts_updateIqdb,
 } from "../generated/sdk.js";
+import MinimalUser from "../models/MinimalUser.js";
 import Post from "../models/Post.js";
-import { OperationID, type ExtractValue, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import ThumbnailPost from "../models/ThumbnailPost.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
-import PostFlag from "./posts/Flag.js";
-import PostVotes from "./posts/Votes.js";
+import { type AnyPostData, type NoV2Options, type PostFormat, wrapPost, wrapPosts } from "./posts/Format.js";
 
 import type {
-    DeletePostData,
-    GetPostInSequenceData,
-    GetRecommendedPostsData,
-    ListPostFavoritesData,
-    MovePostFavoritesData,
-    RecommendedPosts,
-    SearchPostsData,
+    StaffPostPostsDeleteData,
+    PostsShowData,
+    PostsShowSeqData,
+    PostsRandomData,
+    PostRecommendationsArtistData,
+    LegacyPost as LegacyPostData,
+    PostFavoritesIndexData,
+    PostsMarkAsTranslatedData,
+    StaffPostPostsMoveFavoritesData,
+    PostRecommendation,
+    StaffPostPostsReownerData,
+    PostsIndexData,
+    PostsUpdateData,
+    PostsUpdateIqdbData,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface DeletePostOptions extends TransformDataBodyToOptions<DeletePostData> {}
+export interface DeletePostOptions extends TransformDataBodyToOptions<StaffPostPostsDeleteData> {}
 /** @category Modules/Types */
-export interface MovePostFavoritesOptions extends TransformDataBodyToOptions<MovePostFavoritesData> {}
+export interface MovePostFavoritesOptions extends TransformDataBodyToOptions<StaffPostPostsMoveFavoritesData> {}
 /** @category Modules/Types */
-export interface SearchPostsOptions extends TransformDataQueryToOptions<SearchPostsData> {}
+export interface SearchPostsOptions extends TransformDataQueryToOptions<PostsIndexData> {}
 /** @category Modules/Types */
-export interface ListPostFavoritesOptions extends TransformDataQueryToOptions<ListPostFavoritesData> {}
+export interface ListPostFavoritesOptions extends TransformDataQueryToOptions<PostFavoritesIndexData> {}
 /** @category Modules/Types */
-export interface GetRecommendedPostsOptions extends TransformDataQueryToOptions<GetRecommendedPostsData> {}
+export interface GetRandomPostOptions extends TransformDataQueryToOptions<PostsRandomData> {}
+/** @category Modules/Types */
+export interface GetPostOptions extends TransformDataQueryToOptions<PostsShowData> {}
+/** @category Modules/Types */
+export interface GetPostInSequenceOptions extends TransformDataQueryToOptions<PostsShowSeqData> {}
+/** @category Modules/Types */
+export interface MarkPostAsTranslatedOptions extends TransformDataQueryToOptions<PostsMarkAsTranslatedData> {}
+/** @category Modules/Types */
+export interface UpdatePostOptions extends TransformDataBodyToOptions<PostsUpdateData>, TransformDataQueryToOptions<PostsUpdateData> {}
+/** @category Modules/Types */
+export interface UpdatePostIqdbOptions extends TransformDataQueryToOptions<PostsUpdateIqdbData> {}
+/** @category Modules/Types */
+export interface RecommendedPostsOptions extends TransformDataQueryToOptions<PostRecommendationsArtistData> {}
+/** @category Modules/Types */
+export interface ReownPostOptions extends TransformDataBodyToOptions<StaffPostPostsReownerData> {}
+/** @category Modules/Types */
+export interface PostPreviousOwner {
+    id: number;
+    name: string;
+}
+/** @category Modules/Types */
+export interface RecommendedPostsResult {
+    model_version: string;
+    post_data: Array<ThumbnailPost>;
+    post_id: number;
+    results: Array<PostRecommendation>;
+}
+/** @category Modules/Types */
+export type PostSearchResult<O extends SearchPostsOptions>
+    = O extends { md5: string }
+        ? PostFormat<O["v2"], O["mode"]>
+        : Array<PostFormat<O["v2"], O["mode"]>>;
 
 /** @category Modules */
 export default class Posts extends Base {
-    flag = new PostFlag(this.e621, this.client);
-    votes = new PostVotes(this.e621, this.client);
-
-    @OperationID("aiCheckPost")
+    @OperationID("staff/post/posts#ai_check")
     async aiCheck(id: number): Promise<string> {
-        const res = await aiCheckPost({
+        const res = await staffPostPosts_aiCheck({
             client: this.client,
             path: { id },
             redirect: "manual",
@@ -60,166 +100,229 @@ export default class Posts extends Base {
         return this._handleResponse(res, 302, true);
     }
 
-    @OperationID("copyNotesToPost")
+    @OperationID("posts#copy_notes")
     async copyNotes(id: number, other_post_id: number): Promise<null> {
-        return copyNotesToPost({
+        return posts_copyNotes({
             client: this.client,
             path: { id },
             body: { other_post_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("deletePost")
+    @OperationID("staff/post/posts#delete")
     async delete(id: number, options: DeletePostOptions): Promise<unknown> {
-        return deletePost({
+        return staffPostPosts_delete({
             client: this.client,
             path: { id },
             body: options,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("expungePost")
+    @OperationID("staff/post/posts#expunge")
     async expunge(id: number, reason: string): Promise<Post> {
-        return expungePost({
+        return staffPostPosts_expunge({
             client: this.client,
             path: { id },
             body: { reason },
         }).then((res) => {
             const data = this._handleResponse(res, 201, true);
-            return new Post(this.e621, data.post);
+            // NOTE: the spec still references the "Post" (v2 base) schema here, but this endpoint has no v2 param - the response is actually legacy-shaped.
+            return new Post(this.e621, data.post as unknown as LegacyPostData);
         });
     }
 
-    @OperationID("listPostFavorites")
-    async favorites(id: number, options: ListPostFavoritesOptions): Promise<Array<Post>> {
-        return listPostFavorites({
+    @OperationID("post_favorites#index")
+    async favorites(id: number, options: ListPostFavoritesOptions): Promise<Array<MinimalUser>> {
+        return postFavorites_index({
             client: this.client,
             path: { id },
             query: options,
-        }).then(res => this._handleResponse(res, 200, true, Post));
+        }).then(res => this._handleResponse(res, 200, true, MinimalUser));
     }
 
-    @OperationID("getPost")
-    async get(id: number): Promise<Post | null> {
-        return getPost({
+    @OperationID("posts#show")
+    async get<const O extends GetPostOptions = NoV2Options>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"]> | null> {
+        return posts_show({
             client: this.client,
             path: { id },
+            query: options,
         }).then((res) => {
             const data = this._handleResponse(res, 200, false);
-            return data === null ? null : new Post(this.e621, data.post);
+            if (data === null) return null;
+            const raw = (options?.v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
+            return wrapPost(this.e621, raw, options?.v2, options?.mode) as PostFormat<O["v2"], O["mode"]>;
         });
     }
 
-    @OperationID("markPostAsTranslated")
-    async markTranslated(id: number): Promise<Post> {
-        return markPostAsTranslated({
+    @OperationID("posts#mark_as_translated")
+    async markTranslated<const O extends MarkPostAsTranslatedOptions = NoV2Options>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+        return posts_markAsTranslated({
             client: this.client,
             path: { id },
+            query: options,
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            return new Post(this.e621, data.post);
+            const raw = (options?.v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
+            return wrapPost(this.e621, raw, options?.v2, options?.mode) as PostFormat<O["v2"], O["mode"]>;
         });
     }
 
-    @OperationID("movePostFavorites")
+    @OperationID("staff/post/posts#move_favorites")
     async moveFavorites(id: number, options: MovePostFavoritesOptions): Promise<unknown> {
-        return movePostFavorites({
+        return staffPostPosts_moveFavorites({
             client: this.client,
             path: { id },
             body: options,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("getRandomPost")
-    async random(tags?: string): Promise<Post> {
-        return getRandomPost({
-            client: this.client,
-            query: { tags },
-        }).then((res) => {
-            const data = this._handleResponse(res, 200, true);
-            return new Post(this.e621, data.post);
-        });
-    }
-
-    @OperationID("getRecommendedPosts")
-    async recommended(id: number, options: GetRecommendedPostsOptions): Promise<RecommendedPosts> {
-        return getRecommendedPosts({
+    @OperationID("staff/post/posts#previous_owners")
+    async previousOwners(id: number): Promise<Array<PostPreviousOwner>> {
+        return staffPostPosts_previousOwners({
             client: this.client,
             path: { id },
-            query: options,
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("regeneratePostThumbnails")
+    @OperationID("posts#random")
+    async random<const O extends GetRandomPostOptions = NoV2Options>(options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+        return posts_random({
+            client: this.client,
+            query: options,
+        }).then((res) => {
+            const data = this._handleResponse(res, 200, true);
+            const raw = (options?.v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
+            return wrapPost(this.e621, raw, options?.v2, options?.mode) as PostFormat<O["v2"], O["mode"]>;
+        });
+    }
+
+    @OperationID("post_recommendations#artist")
+    async recommendedByArtist(id: number, options?: RecommendedPostsOptions): Promise<RecommendedPostsResult> {
+        return postRecommendations_artist({
+            client: this.client,
+            path: { id },
+            query: options,
+        }).then((res) => {
+            const data = this._handleResponse(res, 200, true);
+            return { ...data, post_data: data.post_data.map(post => new ThumbnailPost(this.e621, post)) };
+        });
+    }
+
+    @OperationID("post_recommendations#tags")
+    async recommendedByTags(id: number, options?: RecommendedPostsOptions): Promise<RecommendedPostsResult> {
+        return postRecommendations_tags({
+            client: this.client,
+            path: { id },
+            query: options,
+        }).then((res) => {
+            const data = this._handleResponse(res, 200, true);
+            return { ...data, post_data: data.post_data.map(post => new ThumbnailPost(this.e621, post)) };
+        });
+    }
+
+    @OperationID("staff/post/posts#regenerate_thumbnails")
     async regenerateThumbnails(id: number): Promise<Post> {
-        return regeneratePostThumbnails({
+        return staffPostPosts_regenerateThumbnails({
             client: this.client,
             path: { id },
         }).then((res) => {
             const data = this._handleResponse(res, 201, true);
-            return new Post(this.e621, data.post);
+            return new Post(this.e621, data.post as unknown as LegacyPostData);
         });
     }
 
-    @OperationID("regeneratePostVideos")
+    @OperationID("staff/post/posts#regenerate_videos")
     async regenerateVideos(id: number): Promise<null> {
-        return regeneratePostVideos({
+        return staffPostPosts_regenerateVideos({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("revertPost")
+    @OperationID("staff/post/posts#reowner")
+    async reown(id: number, options: ReownPostOptions): Promise<string> {
+        return staffPostPosts_reowner({
+            client: this.client,
+            path: { id },
+            body: prefixKeys(options, "reowner"),
+            redirect: "manual",
+        }).then(res => this._handleResponse(res, 302, true));
+    }
+
+    @OperationID("posts#revert")
     async revert(id: number, version_id: number): Promise<null> {
-        return revertPost({
+        return posts_revert({
             client: this.client,
             path: { id },
             query: { version_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("searchPosts")
-    async search(options?: SearchPostsOptions): Promise<Array<Post>> {
-        return searchPosts({
+    @OperationID("posts#index")
+    async search<const O extends SearchPostsOptions = NoV2Options>(options?: O): Promise<PostSearchResult<O>> {
+        return posts_index({
             client: this.client,
             query: options,
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            return data.posts.map(post => new Post(this.e621, post));
+            if (options?.md5) {
+                const raw = (options.v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
+                return wrapPost(this.e621, raw, options.v2, options.mode) as PostSearchResult<O>;
+            }
+            const raw = (options?.v2 ? data : (data as { posts: Array<LegacyPostData> }).posts) as Array<AnyPostData>;
+            return wrapPosts(this.e621, raw, options?.v2, options?.mode) as PostSearchResult<O>;
         });
     }
 
-    @OperationID("getPostInSequence")
-    async sequence(id: number, seq?: ExtractValue<"seq", GetPostInSequenceData>): Promise<Post> {
-        return getPostInSequence({
+    @OperationID("posts#show_seq")
+    async sequence<const O extends GetPostInSequenceOptions = NoV2Options>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+        return posts_showSeq({
             client: this.client,
             path: { id },
-            query: { seq },
+            query: options,
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            return new Post(this.e621, data.post);
+            const raw = (options?.v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
+            return wrapPost(this.e621, raw, options?.v2, options?.mode) as PostFormat<O["v2"], O["mode"]>;
         });
     }
 
-    @OperationID("undeletePost")
+    @OperationID("staff/post/posts#undelete")
     async undelete(id: number): Promise<Post> {
-        return undeletePost({
+        return staffPostPosts_undelete({
             client: this.client,
             path: { id },
         }).then((res) => {
             const data = this._handleResponse(res, 201, true);
-            return new Post(this.e621, data.post);
+            return new Post(this.e621, data.post as unknown as LegacyPostData);
         });
     }
 
-    @OperationID("updatePostIqdb")
-    async updateIqdb(id: number): Promise<Post> {
-        return updatePostIqdb({
+    @OperationID("posts#update")
+    async update<const O extends UpdatePostOptions = NoV2Options>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+        const { v2, mode, ...body } = (options ?? {}) as UpdatePostOptions;
+        return posts_update({
             client: this.client,
             path: { id },
+            query: { v2, mode },
+            body,
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            return new Post(this.e621, data.post);
+            const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
+            return wrapPost(this.e621, raw, v2, mode) as PostFormat<O["v2"], O["mode"]>;
+        });
+    }
+
+    @OperationID("posts#update_iqdb")
+    async updateIqdb<const O extends UpdatePostIqdbOptions = NoV2Options>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+        return posts_updateIqdb({
+            client: this.client,
+            path: { id },
+            query: options,
+        }).then((res) => {
+            const data = this._handleResponse(res, 200, true);
+            const raw = (options?.v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
+            return wrapPost(this.e621, raw, options?.v2, options?.mode) as PostFormat<O["v2"], O["mode"]>;
         });
     }
 }

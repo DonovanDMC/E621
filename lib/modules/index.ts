@@ -1,6 +1,6 @@
 /* eslint-disable import/order */
-import AdminUsers from "./admin/Users.js";
-export type * from "./admin/Users.js";
+import Appeals from "./Appeals.js";
+export type * from "./Appeals.js";
 import Artists from "./Artists.js";
 export type * from "./Artists.js";
 import ArtistUrls from "./ArtistUrls.js";
@@ -19,7 +19,8 @@ import BulkUpdateRequests from "./BulkUpdateRequests.js";
 export type * from "./BulkUpdateRequests.js";
 import Comments from "./Comments.js";
 export type * from "./Comments.js";
-export type * from "./comments/Votes.js";
+import DBExports from "./DbExports.js";
+export type * from "./DbExports.js";
 import DMails from "./DMails.js";
 export type * from "./DMails.js";
 import EditHistories from "./EditHistories.js";
@@ -30,9 +31,10 @@ import Favorites from "./Favorites.js";
 export type * from "./Favorites.js";
 import ForumPosts from "./ForumPosts.js";
 export type * from "./ForumPosts.js";
-export type * from "./forum_posts/Votes.js";
 import ForumTopics from "./ForumTopics.js";
 export type * from "./ForumTopics.js";
+import Health from "./Health.js";
+export type * from "./Health.js";
 import HelpPages from "./HelpPages.js";
 export type * from "./HelpPages.js";
 import IpBans from "./IpBans.js";
@@ -55,8 +57,6 @@ import PoolVersions from "./PoolVersions.js";
 export type * from "./PoolVersions.js";
 import Posts from "./Posts.js";
 export type * from "./Posts.js";
-export type * from "./posts/Flag.js";
-export type * from "./posts/Votes.js";
 import PostSets from "./PostSets.js";
 export type * from "./PostSets.js";
 import PostVersions from "./PostVersions.js";
@@ -79,7 +79,6 @@ import UploadWhitelists from "./UploadWhitelists.js";
 export type * from "./UploadWhitelists.js";
 import Users from "./Users.js";
 export type * from "./Users.js";
-export type * from "./users/DMails.js";
 import UserFeedbacks from "./UserFeedbacks.js";
 export type * from "./UserFeedbacks.js";
 import UserNameChangeRequests from "./UserNameChangeRequests.js";
@@ -116,14 +115,32 @@ import TagTypeVersions from "./TagTypeVersions.js";
 export type * from "./TagTypeVersions.js";
 import PostVotes from "./PostVotes.js";
 export type * from "./PostVotes.js";
+import ForumPostVotes from "./ForumPostVotes.js";
+export type * from "./ForumPostVotes.js";
+import StaffAutomodDMails from "./staff/AutomodDMails.js";
+export type * from "./staff/AutomodDMails.js";
+import StaffDMails from "./staff/DMails.js";
+export type * from "./staff/DMails.js";
+import StaffExceptionLogs from "./staff/ExceptionLogs.js";
+export type * from "./staff/ExceptionLogs.js";
+import StaffFiles from "./staff/Files.js";
+export type * from "./staff/Files.js";
+import StaffUserCleanups from "./staff/UserCleanups.js";
+export type * from "./staff/UserCleanups.js";
+import StaffUsers from "./staff/Users.js";
+export type * from "./staff/Users.js";
+import StaffVoteTrends from "./staff/VoteTrends.js";
+export type * from "./staff/VoteTrends.js";
+import StaffWikis from "./staff/Wikis.js";
+export type * from "./staff/Wikis.js";
+import StaffWikiVersions from "./staff/WikiVersions.js";
+export type * from "./staff/WikiVersions.js";
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
 
 /** @category Main */
 export interface Modules {
-    admin: {
-        users: AdminUsers;
-    };
+    appeals: Appeals;
     artists: Artists;
     artistUrls: ArtistUrls;
     artistVersions: ArtistVersions;
@@ -134,13 +151,16 @@ export interface Modules {
     bulkUpdateRequests: BulkUpdateRequests;
     comments: Comments;
     commentVotes: CommentVotes;
+    dbExports: DBExports;
     dmails: DMails;
     dtext: DText;
     editHistories: EditHistories;
     emailBlacklists: EmailBlacklists;
     favorites: Favorites;
     forumPosts: ForumPosts;
+    forumPostVotes: ForumPostVotes;
     forumTopics: ForumTopics;
+    health: Health;
     helpPages: HelpPages;
     ipBans: IpBans;
     iqdb: IqdbQueries;
@@ -164,6 +184,17 @@ export interface Modules {
     relatedTags: RelatedTags;
     searchTrendBlacklists: SearchTrendBlacklists;
     searchTrends: SearchTrends;
+    staff: {
+        automodDMails: StaffAutomodDMails;
+        dmails: StaffDMails;
+        exceptionLogs: StaffExceptionLogs;
+        files: StaffFiles;
+        userCleanups: StaffUserCleanups;
+        users: StaffUsers;
+        voteTrends: StaffVoteTrends;
+        wikis: StaffWikis;
+        wikiVersions: StaffWikiVersions;
+    };
     staffNotes: StaffNotes;
     tagAliases: TagAliases;
     tagCorrections: TagCorrections;
@@ -183,9 +214,7 @@ export interface Modules {
 
 export function apply(e621: E621, client: Client): void {
     const modules: Modules = {
-        admin: {
-            users: new AdminUsers(e621, client),
-        },
+        appeals: new Appeals(e621, client),
         artistUrls: new ArtistUrls(e621, client),
         artistVersions: new ArtistVersions(e621, client),
         artists: new Artists(e621, client),
@@ -196,13 +225,16 @@ export function apply(e621: E621, client: Client): void {
         bulkUpdateRequests: new BulkUpdateRequests(e621, client),
         commentVotes: new CommentVotes(e621, client),
         comments: new Comments(e621, client),
+        dbExports: new DBExports(e621, client),
         dmails: new DMails(e621, client),
         dtext: new DText(e621, client),
         editHistories: new EditHistories(e621, client),
         emailBlacklists: new EmailBlacklists(e621, client),
         favorites: new Favorites(e621, client),
         forumPosts: new ForumPosts(e621, client),
+        forumPostVotes: new ForumPostVotes(e621, client),
         forumTopics: new ForumTopics(e621, client),
+        health: new Health(e621, client),
         helpPages: new HelpPages(e621, client),
         ipBans: new IpBans(e621, client),
         iqdb: new IqdbQueries(e621, client),
@@ -226,6 +258,17 @@ export function apply(e621: E621, client: Client): void {
         relatedTags: new RelatedTags(e621, client),
         searchTrendBlacklists: new SearchTrendBlacklists(e621, client),
         searchTrends: new SearchTrends(e621, client),
+        staff: {
+            automodDMails: new StaffAutomodDMails(e621, client),
+            dmails: new StaffDMails(e621, client),
+            exceptionLogs: new StaffExceptionLogs(e621, client),
+            files: new StaffFiles(e621, client),
+            userCleanups: new StaffUserCleanups(e621, client),
+            users: new StaffUsers(e621, client),
+            voteTrends: new StaffVoteTrends(e621, client),
+            wikis: new StaffWikis(e621, client),
+            wikiVersions: new StaffWikiVersions(e621, client),
+        },
         staffNotes: new StaffNotes(e621, client),
         tagAliases: new TagAliases(e621, client),
         tagCorrections: new TagCorrections(e621, client),

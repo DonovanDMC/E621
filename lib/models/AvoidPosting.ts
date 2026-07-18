@@ -3,30 +3,30 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 
 import type { AvoidPosting as AvoidPostingData } from "../generated/types.js";
-import type { EditAvoidPostingOptions } from "../modules/AvoidPostings.js";
+import type { UpdateAvoidPostingOptions } from "../modules/AvoidPostings.js";
 
 interface AvoidPosting extends AvoidPostingData {}
 /** @category Models */
 @Schema("AvoidPosting")
 class AvoidPosting extends Base<AvoidPostingData> {
-    @OperationID("deleteAvoidPosting")
+    @OperationID("avoid_postings#delete")
     async delete(): Promise<null> {
         return this.e621.avoidPostings.delete(this.id);
     }
 
-    @OperationID("destroyAvoidPosting")
+    @OperationID("avoid_postings#destroy")
     async destroy(): Promise<null> {
         return this.e621.avoidPostings.destroy(this.id);
     }
 
-    @OperationID("editAvoidPosting")
-    async edit(options: EditAvoidPostingOptions): Promise<null> {
-        return this.e621.avoidPostings.edit(this.id, options);
-    }
-
-    @OperationID("undeleteAvoidPosting")
+    @OperationID("avoid_postings#undelete")
     async undelete(): Promise<null> {
         return this.e621.avoidPostings.undelete(this.id);
+    }
+
+    @OperationID("avoid_postings#update")
+    async update(options: UpdateAvoidPostingOptions): Promise<null> {
+        return this.e621.avoidPostings.update(this.id, options);
     }
 }
 

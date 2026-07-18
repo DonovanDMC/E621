@@ -1,73 +1,73 @@
 import {
-    createStaffNote,
-    deleteStaffNote,
-    editStaffNote,
-    getStaffNote,
-    searchStaffNotes,
-    undeleteStaffNote,
+    staffNotes_create,
+    staffNotes_delete,
+    staffNotes_update,
+    staffNotes_show,
+    staffNotes_index,
+    staffNotes_undelete,
 } from "../generated/sdk.js";
 import StaffNote from "../models/StaffNote.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { CreateStaffNoteData, EditStaffNoteData, SearchStaffNotesData } from "../generated/types.js";
+import type { StaffNotesCreateData, StaffNotesUpdateData, StaffNotesIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreateStaffNoteOptions extends TransformDataBodyToOptions<CreateStaffNoteData> {}
+export interface CreateStaffNoteOptions extends TransformDataBodyToOptions<StaffNotesCreateData> {}
 /** @category Modules/Types */
-export interface EditStaffNoteOptions extends TransformDataBodyToOptions<EditStaffNoteData> {}
+export interface UpdateStaffNoteOptions extends TransformDataBodyToOptions<StaffNotesUpdateData> {}
 /** @category Modules/Types */
-export interface SearchStaffNotesOptions extends TransformDataQueryToOptions<SearchStaffNotesData> {}
+export interface SearchStaffNotesOptions extends TransformDataQueryToOptions<StaffNotesIndexData> {}
 
 /** @category Modules */
 export default class StaffNotes extends Base {
-    @OperationID("createStaffNote")
+    @OperationID("staff_notes#create")
     async create(options: CreateStaffNoteOptions): Promise<StaffNote> {
-        return createStaffNote({
+        return staffNotes_create({
             client: this.client,
-            body: prefixKeys(options, "staff_note"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, StaffNote));
     }
 
-    @OperationID("deleteStaffNote")
+    @OperationID("staff_notes#delete")
     async delete(id: number): Promise<StaffNote> {
-        return deleteStaffNote({
+        return staffNotes_delete({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 201, true, StaffNote));
     }
 
-    @OperationID("editStaffNote")
-    async edit(id: number, options: EditStaffNoteOptions): Promise<StaffNote> {
-        return editStaffNote({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "staff_note"),
-        }).then(res => this._handleResponse(res, 200, true, StaffNote));
-    }
-
-    @OperationID("getStaffNote")
+    @OperationID("staff_notes#show")
     async get(id: number): Promise<StaffNote | null> {
-        return getStaffNote({
+        return staffNotes_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, StaffNote));
     }
 
-    @OperationID("searchStaffNotes")
+    @OperationID("staff_notes#index")
     async search(options?: SearchStaffNotesOptions): Promise<Array<StaffNote>> {
-        return searchStaffNotes({
+        return staffNotes_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, StaffNote));
     }
 
-    @OperationID("undeleteStaffNote")
+    @OperationID("staff_notes#undelete")
     async undelete(id: number): Promise<StaffNote> {
-        return undeleteStaffNote({
+        return staffNotes_undelete({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 201, true, StaffNote));
+    }
+
+    @OperationID("staff_notes#update")
+    async update(id: number, options: UpdateStaffNoteOptions): Promise<StaffNote> {
+        return staffNotes_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 200, true, StaffNote));
     }
 }

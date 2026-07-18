@@ -8,9 +8,9 @@ interface ForumPostVote extends ForumPostVoteData {}
 /** @category Models */
 @Schema("ForumPostVote")
 class ForumPostVote extends Base<ForumPostVoteData> {
-    @OperationID("deleteForumPostVote")
+    @OperationID("forum_post_votes#destroy")
     async delete(): Promise<null> {
-        return this.e621.forumPosts.votes.delete(this.id);
+        return this.e621.forumPostVotes.delete(this.id);
     }
 }
 

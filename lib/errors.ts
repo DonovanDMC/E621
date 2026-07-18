@@ -2,10 +2,14 @@
 export class UnexpectedResponseError extends Error {
     error!: unknown;
     override name = "UnexpectedResponseError";
-    request!: Request;
-    response!: Response;
-    constructor(request: Request, response: Response, error: unknown) {
-        let message = `Unexpected ${response.status} ${response.statusText} on ${request.method} ${request.url}`;
+    request?: Request;
+    response?: Response;
+    constructor(request: Request | undefined, response: Response | undefined, error: unknown) {
+        let message = response
+            ? `Unexpected ${response.status} ${response.statusText} on ${request?.method ?? "?"} ${request?.url ?? response.url}`
+            : request
+                ? `Network error on ${request.method} ${request.url}`
+                : "Network error while building the request";
         if (error) {
             if (typeof error === "string") message += `\n${error}`;
             else if (error instanceof Error) message += `\n${error.message}`;

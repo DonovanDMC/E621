@@ -1,12 +1,12 @@
 import {
-    createForumPost,
-    deleteForumPost,
-    editForumPost,
-    getForumPost,
-    hideForumPost,
-    markForumPost,
-    searchForumPosts,
-    unhideForumPost,
+    forumPosts_create,
+    forumPosts_destroy,
+    forumPosts_update,
+    forumPosts_show,
+    forumPosts_hide,
+    forumPosts_warning,
+    forumPosts_index,
+    forumPosts_unhide,
 } from "../generated/sdk.js";
 import ForumPost from "../models/ForumPost.js";
 import {
@@ -19,91 +19,89 @@ import {
 } from "../util.js";
 
 import Base from "./Base.js";
-import ForumPostVotes from "./forum_posts/Votes.js";
 
 import type {
-    CreateForumPostData,
-    EditForumPostData,
-    MarkForumPostData,
-    MarkForumPostResponses,
-    SearchForumPostsData,
+    ForumPostsCreateData,
+    ForumPostsUpdateData,
+    ForumPostsWarningData,
+    ForumPostsWarningResponses,
+    ForumPostsIndexData,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreateForumPostOptions extends TransformDataBodyToOptions<CreateForumPostData> {}
+export interface CreateForumPostOptions extends TransformDataBodyToOptions<ForumPostsCreateData> {}
 /** @category Modules/Types */
-export interface EditForumPostOptions extends TransformDataBodyToOptions<EditForumPostData> {}
+export interface UpdateForumPostOptions extends TransformDataBodyToOptions<ForumPostsUpdateData> {}
 /** @category Modules/Types */
-export interface SearchForumPostsOptions extends TransformDataQueryToOptions<SearchForumPostsData> {}
+export interface SearchForumPostsOptions extends TransformDataQueryToOptions<ForumPostsIndexData> {}
 /** @category Modules/Types */
-export interface MarkForumPostResponse extends GetResponse<MarkForumPostResponses, 200> {}
+export interface ForumPostsWarningResponse extends GetResponse<ForumPostsWarningResponses, 200> {}
 
 /** @category Modules */
 export default class ForumPosts extends Base {
-    votes = new ForumPostVotes(this.e621, this.client);
-    @OperationID("createForumPost")
+    @OperationID("forum_posts#create")
     async create(options: CreateForumPostOptions): Promise<ForumPost> {
-        return createForumPost({
+        return forumPosts_create({
             client: this.client,
-            body: prefixKeys(options, "forum_post"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, ForumPost));
     }
 
-    @OperationID("deleteForumPost")
+    @OperationID("forum_posts#destroy")
     async delete(id: number): Promise<null> {
-        return deleteForumPost({
+        return forumPosts_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editForumPost")
-    async edit(id: number, options: EditForumPostOptions): Promise<null> {
-        return editForumPost({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "forum_post"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("getForumPost")
+    @OperationID("forum_posts#show")
     async get(id: number): Promise<ForumPost | null> {
-        return getForumPost({
+        return forumPosts_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, ForumPost));
     }
 
-    @OperationID("hideForumPost")
+    @OperationID("forum_posts#hide")
     async hide(id: number): Promise<ForumPost> {
-        return hideForumPost({
+        return forumPosts_hide({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 201, true, ForumPost));
     }
 
-    @OperationID("markForumPost")
-    async mark(id: number, type: ExtractValue<"record_type", MarkForumPostData>): Promise<MarkForumPostResponse> {
-        return markForumPost({
+    @OperationID("forum_posts#warning")
+    async mark(id: number, type: ExtractValue<"record_type", ForumPostsWarningData>): Promise<ForumPostsWarningResponse> {
+        return forumPosts_warning({
             client: this.client,
             path: { id },
             body: { record_type: type },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("searchForumPosts")
+    @OperationID("forum_posts#index")
     async search(options?: SearchForumPostsOptions): Promise<Array<ForumPost>> {
-        return searchForumPosts({
+        return forumPosts_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, ForumPost));
     }
 
-    @OperationID("unhideForumPost")
+    @OperationID("forum_posts#unhide")
     async unhide(id: number): Promise<ForumPost> {
-        return unhideForumPost({
+        return forumPosts_unhide({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 201, true, ForumPost));
+    }
+
+    @OperationID("forum_posts#update")
+    async update(id: number, options: UpdateForumPostOptions): Promise<null> {
+        return forumPosts_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
     }
 }

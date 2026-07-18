@@ -8,17 +8,17 @@ interface PostVote extends PostVoteData {}
 /** @category Models */
 @Schema("PostVote")
 class PostVote extends Base<PostVoteData> {
-    @OperationID("deletePostVote")
+    @OperationID("post_votes#destroy")
     async delete(): Promise<null> {
-        return this.e621.posts.votes.delete(this.post_id);
+        return this.e621.postVotes.unvote(this.post_id);
     }
 
-    @OperationID("lockPostVotes")
+    @OperationID("post_votes#lock")
     async lock(): Promise<null> {
         return this.e621.postVotes.lock([this.id]);
     }
 
-    @OperationID("deletePostVotes")
+    @OperationID("post_votes#delete")
     async staffDelete(): Promise<null> {
         return this.e621.postVotes.delete([this.id]);
     }

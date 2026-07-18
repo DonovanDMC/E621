@@ -1,18 +1,18 @@
-import { approvePost, searchPostApprovals, unapprovePost } from "../generated/sdk.js";
-import { type SearchPostApprovalsData } from "../generated/types.js";
+import { staffPostApprovals_create, postApprovals_index, staffPostApprovals_destroy } from "../generated/sdk.js";
+import { type PostApprovalsIndexData } from "../generated/types.js";
 import PostApproval from "../models/PostApproval.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
 /** @category Modules/Types */
-export interface SearchPostApprovalsOptions extends TransformDataQueryToOptions<SearchPostApprovalsData> {}
+export interface SearchPostApprovalsOptions extends TransformDataQueryToOptions<PostApprovalsIndexData> {}
 
 /** @category Modules */
 export default class PostApprovals extends Base {
-    @OperationID("approvePost")
+    @OperationID("staff/post/approvals#create")
     async create(post_id: number): Promise<null> {
-        return approvePost({
+        return staffPostApprovals_create({
             client: this.client,
             body: { post_id },
         }).then((res) => {
@@ -21,17 +21,17 @@ export default class PostApprovals extends Base {
         });
     }
 
-    @OperationID("unapprovePost")
+    @OperationID("staff/post/approvals#destroy")
     async delete(post_id: number): Promise<null> {
-        return unapprovePost({
+        return staffPostApprovals_destroy({
             client: this.client,
             body: { post_id },
         }).then(res => this._handleResponse(res, 204, true)); // 204 may be success or failure
     }
 
-    @OperationID("searchPostApprovals")
+    @OperationID("post_approvals#index")
     async search(options?: SearchPostApprovalsOptions): Promise<Array<PostApproval>> {
-        return searchPostApprovals({
+        return postApprovals_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, PostApproval));

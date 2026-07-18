@@ -1,48 +1,54 @@
-import { CreateForumPostVoteResponse } from "../modules/forum_posts/Votes.js";
+import { ForumPostVotesCreateResponse } from "../modules/ForumPostVotes.js";
 import { type ExtractValue, OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
+import ForumPostVote from "./ForumPostVote.js";
 
-import type { CreateForumPostVoteData, ForumPost as ForumPostData, MarkForumPostData } from "../generated/types.js";
-import type { EditForumPostOptions, MarkForumPostResponse } from "../modules/ForumPosts.js";
+import type { ForumPostVotesCreateData, ForumPost as ForumPostData, ForumPostsWarningData } from "../generated/types.js";
+import type { UpdateForumPostOptions, ForumPostsWarningResponse } from "../modules/ForumPosts.js";
 
 interface ForumPost extends ForumPostData {}
 /** @category Models */
 @Schema("ForumPost")
 class ForumPost extends Base<ForumPostData> {
-    @OperationID("deleteForumPost")
+    @OperationID("forum_posts#destroy")
     async delete(): Promise<null> {
         return this.e621.forumPosts.delete(this.id);
     }
 
-    @OperationID("editForumPost")
-    async edit(options: EditForumPostOptions): Promise<null> {
-        return this.e621.forumPosts.edit(this.id, options);
-    }
-
-    @OperationID("hideForumPost")
+    @OperationID("forum_posts#hide")
     async hide(): Promise<ForumPost> {
         return this.e621.forumPosts.hide(this.id);
     }
 
-    @OperationID("markForumPost")
-    async mark(type: ExtractValue<"record_type", MarkForumPostData>): Promise<MarkForumPostResponse> {
+    @OperationID("forum_posts#warning")
+    async mark(type: ExtractValue<"record_type", ForumPostsWarningData>): Promise<ForumPostsWarningResponse> {
         return this.e621.forumPosts.mark(this.id, type);
     }
 
-    @OperationID("unhideForumPost")
+    @OperationID("forum_posts#unhide")
     async unhide(): Promise<ForumPost> {
         return this.e621.forumPosts.unhide(this.id);
     }
 
-    @OperationID("deleteForumPostVote")
+    @OperationID("forum_post_votes#destroy")
     async unvote(): Promise<null> {
-        return this.e621.forumPosts.votes.delete(this.id);
+        return this.e621.forumPostVotes.delete(this.id);
     }
 
-    @OperationID("createForumPostVote")
-    async vote(score: ExtractValue<"forum_post_vote[score]", CreateForumPostVoteData>): Promise<CreateForumPostVoteResponse> {
-        return this.e621.forumPosts.votes.create(this.id, score);
+    @OperationID("forum_posts#update")
+    async update(options: UpdateForumPostOptions): Promise<null> {
+        return this.e621.forumPosts.update(this.id, options);
+    }
+
+    @OperationID("forum_post_votes#create")
+    async vote(score: ExtractValue<"score", ForumPostVotesCreateData>): Promise<ForumPostVotesCreateResponse> {
+        return this.e621.forumPostVotes.create(this.id, score);
+    }
+
+    @OperationID("forum_post_votes#show")
+    async votes(): Promise<Array<ForumPostVote>> {
+        return this.e621.forumPostVotes.list(this.id);
     }
 }
 

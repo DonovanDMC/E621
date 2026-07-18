@@ -18,13 +18,13 @@ export type WarningRecordType = {
     record_type: 'unmark' | 'ban' | 'record' | 'warning';
 };
 
-export type ModActionActions = 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'blip_destroy' | 'blip_delete' | 'blip_undelete' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_blacklist_changed' | 'user_text_change' | 'user_upload_limit_change' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'user_flush_favorites' | 'post_version_hide' | 'post_version_unhide' | 'user_uploads_toggle' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'search_trend_blacklist_purge' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
+export type ModActionActions = 'admin_user_delete' | 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'blip_destroy' | 'blip_delete' | 'blip_undelete' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'search_trend_blacklist_create' | 'search_trend_blacklist_update' | 'search_trend_blacklist_delete' | 'search_trend_blacklist_purge' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'staff_file_create' | 'staff_file_update' | 'staff_file_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_destroy' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'appeal_claim' | 'appeal_unclaim' | 'appeal_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_avatar_clear' | 'user_profile_clear' | 'user_comments_hide' | 'user_forum_posts_hide' | 'user_blips_delete' | 'user_blacklist_changed' | 'user_text_change' | 'user_custom_title_change' | 'user_upload_limit_change' | 'user_uploads_toggle' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'user_flush_favorites' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'post_version_hide' | 'post_version_unhide' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
 
-export type PostEventActions = 'deleted' | 'undeleted' | 'approved' | 'unapproved' | 'flag_created' | 'flag_removed' | 'favorites_moved' | 'favorites_received' | 'rating_locked' | 'rating_unlocked' | 'status_locked' | 'status_unlocked' | 'note_locked' | 'note_unlocked' | 'comment_locked' | 'comment_unlocked' | 'replacement_accepted' | 'replacement_rejected' | 'replacement_promoted' | 'replacement_deleted' | 'expunged' | 'changed_bg_color' | 'replacement_penalty_changed';
+export type PostEventActions = 'deleted' | 'undeleted' | 'approved' | 'unapproved' | 'flag_created' | 'flag_removed' | 'favorites_moved' | 'favorites_received' | 'rating_locked' | 'rating_unlocked' | 'status_locked' | 'status_unlocked' | 'note_locked' | 'note_unlocked' | 'comment_locked' | 'comment_unlocked' | 'replacement_accepted' | 'replacement_rejected' | 'replacement_promoted' | 'replacement_deleted' | 'expunged' | 'changed_bg_color' | 'replacement_penalty_changed' | 'owner_changed';
 
 export type Ratings = 's' | 'q' | 'e';
 
-export type TagCategories = 0 | 1 | 3 | 4 | 5 | 6 | 7 | 8;
+export type TagCategories = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type FeedbackCategories = 'negative' | 'neutral' | 'positive';
 
@@ -81,7 +81,7 @@ export type AvoidPosting = {
     updater_id: number;
     artist_id: number;
     /**
-     * Only visible to Janitor+
+     * Only visible to Staff+
      */
     staff_notes?: string;
     details: string;
@@ -96,7 +96,7 @@ export type AvoidPostingVersion = {
     avoid_posting_id: number;
     details: string;
     /**
-     * Only visible to Janitor+
+     * Only visible to Staff+
      */
     staff_notes?: string;
     is_active: boolean;
@@ -163,6 +163,7 @@ export type Comment = {
     warning_user_id: number | null;
     creator_name: string;
     updater_name: string;
+    vote: -1 | 0 | 1;
 };
 
 export type CurrentUser = User & {
@@ -315,7 +316,7 @@ export type FullUser = User & {
     profile_artinfo: string;
 };
 
-export type Help = {
+export type HelpPage = {
     id: number;
     name: string;
     title: string;
@@ -337,6 +338,65 @@ export type IpBan = {
 };
 
 export type IqdbPost = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    up_score: number;
+    down_score: number;
+    score: number;
+    source: string;
+    md5: string;
+    rating: Ratings;
+    is_note_locked: boolean;
+    is_rating_locked: boolean;
+    is_status_locked: boolean;
+    is_pending: boolean;
+    is_flagged: boolean;
+    is_deleted: boolean;
+    uploader_id: number;
+    approver_id: number;
+    last_noted_at: string | null;
+    last_comment_bumped_at: string | null;
+    fav_count: number;
+    tag_string: string;
+    tag_count: number;
+    tag_count_general: number;
+    tag_count_artist: number;
+    tag_count_character: number;
+    tag_count_copyright: number;
+    file_ext: string;
+    file_size: number;
+    image_width: number;
+    image_height: number;
+    parent_id: number | null;
+    has_children: boolean;
+    last_commented_at: string | null;
+    has_active_children: boolean;
+    bit_flags: number;
+    tag_count_meta: number;
+    locked_tags: string | null;
+    tag_count_species: number;
+    tag_count_invalid: number;
+    description: string;
+    comment_count: number;
+    change_seq: number;
+    tag_count_lore: number;
+    bg_color: string | null;
+    generated_samples: Array<'720p' | '480p' | 'original'> | null;
+    duration: string | null;
+    is_comment_disabled: boolean;
+    is_comment_locked: boolean;
+    has_large: boolean;
+    has_visible_children: boolean;
+    children_ids: string | null;
+    pool_ids: Array<number>;
+    is_favorited: boolean;
+    file_url?: string;
+    large_file_url?: string;
+    preview_file_url?: string;
+};
+
+export type RawPost = {
     id: number;
     created_at: string;
     updated_at: string;
@@ -506,55 +566,47 @@ export type Post = {
     id: number;
     created_at: string;
     updated_at: string;
-    file: {
-        width: number;
-        height: number;
-        ext: string;
-        size: number;
-        md5: string;
-        url: string | null;
-    };
-    preview: {
-        width: number;
-        height: number;
-        url: string | null;
-    };
-    sample: {
-        has: boolean;
-        height: number | null;
-        width: number | null;
-        url: string | null;
-        alternates: {
-            has?: boolean;
-            original?: PostSampleAlternate;
-            variants?: {
-                webm?: PostSampleAlternate;
-                mp4?: PostSampleAlternate;
-            };
-            samples?: {
-                '480p'?: PostSampleAlternate;
-                '720p'?: PostSampleAlternate;
-            };
+    change_seq: number;
+    files: {
+        meta: {
+            md5: string;
+            ext: string;
+            size: number;
+            duration: number | null;
+            has_sample: boolean;
+        };
+        original: {
+            width: number;
+            height: number;
+            url: string | null;
+        };
+        preview: {
+            width: number;
+            height: number;
+            jpg: string | null;
+            webp: string | null;
+        };
+        sample: {
+            width: number;
+            height: number;
+            jpg: string | null;
+            webp: string | null;
         };
     };
-    score: {
-        up: number;
-        down: number;
-        total: number;
+    uploader_id: number;
+    uploader_name: string;
+    approver_id: number | null;
+    stats: {
+        score: {
+            up: number;
+            down: number;
+            total: number;
+        };
+        fav_count: number;
+        is_favorited: boolean;
+        vote: -1 | 0 | 1;
+        comment_count: number;
     };
-    tags: {
-        general: Array<string>;
-        artist: Array<string>;
-        copyright: Array<string>;
-        character: Array<string>;
-        species: Array<string>;
-        invalid: Array<string>;
-        meta: Array<string>;
-        lore: Array<string>;
-        contributor: Array<string>;
-    };
-    locked_tags: Array<string> | null;
-    change_seq: number;
     flags: {
         pending: boolean;
         flagged: boolean;
@@ -563,24 +615,22 @@ export type Post = {
         rating_locked: boolean;
         deleted: boolean;
     };
-    rating: Ratings;
-    fav_count: number;
-    sources: Array<string>;
-    pools: Array<number>;
+    has: {
+        parent: boolean;
+        children: boolean;
+        active_children: boolean;
+        notes: boolean;
+        sample: boolean;
+    };
     relationships: {
         parent_id: number | null;
-        has_children: boolean;
-        has_active_children: boolean;
         children: Array<number>;
     };
-    approver_id: number | null;
-    uploader_id: number;
+    pools: Array<number>;
+    rating: Ratings;
+    locked_tags: Array<string>;
+    sources: Array<string>;
     description: string;
-    comment_count: number;
-    is_favorited: boolean;
-    has_notes: boolean;
-    duration: number | null;
-    uploader_name: string;
 };
 
 export type PostApproval = {
@@ -717,7 +767,7 @@ export type Tag = {
     id: number;
     name: string;
     post_count: number;
-    related_tags: Array<string>;
+    related_tags: string;
     related_tags_updated_at: string | null;
     category: TagCategories;
     is_locked: boolean;
@@ -851,7 +901,7 @@ export type User = {
     id: number;
     created_at: string;
     name: string;
-    level: number;
+    level: UserLevels;
     base_upload_limit: number;
     post_upload_count: number;
     post_update_count: number;
@@ -859,9 +909,14 @@ export type User = {
     is_banned: boolean;
     can_approve_posts: boolean;
     can_upload_free: boolean;
-    level_string: string;
+    level_string: UserLevelsNames;
     avatar_id: number | null;
     is_verified?: boolean;
+    has_cropped_avatar: boolean;
+    /**
+     * Only visible to Admin+.
+     */
+    last_logged_in_at?: string;
 };
 
 export type UserFeedback = {
@@ -902,6 +957,7 @@ export type WikiPage = {
     parent: string | null;
     creator_name: string;
     category_id: TagCategories;
+    featured_posts?: Array<number>;
 };
 
 export type WikiPageVersion = {
@@ -917,6 +973,7 @@ export type WikiPageVersion = {
     is_deleted: boolean;
     reason: string | null;
     parent: string | null;
+    featured_posts?: Array<number>;
 };
 
 export type ApiKey = {
@@ -996,21 +1053,13 @@ export type MessageSuccessResponse = {
 
 export type PostRecommendation = {
     post_id: number;
-    /**
-     * Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177
-     *
-     */
     score: number;
-    /**
-     * Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178
-     *
-     */
     explanation: string | null;
 };
 
 export type RecommendedPosts = {
     post_id: number;
-    model_version: 'opensearch';
+    model_version: string;
     results: Array<PostRecommendation>;
 };
 
@@ -1027,8 +1076,265 @@ export type UpDownVote = 1 | -1;
 
 export type UpDownMehVote = 1 | 0 | -1;
 
+export type MinimalUser = {
+    id: number;
+    name: string;
+    level_string: UserLevelsNames;
+    favorite_count: number;
+};
+
+export type ThumbnailPost = {
+    id: number;
+    created_at: string;
+    md5: string;
+    file_ext: string;
+    width: number;
+    height: number;
+    size: number;
+    preview_url: string | null;
+    preview_webp: string | null;
+    sample_url: string | null;
+    file_url: string | null;
+    preview_width: number;
+    preview_height: number;
+    uploader_id: number;
+    uploader: string;
+    score: number;
+    fav_count: number;
+    is_favorited: boolean;
+    vote: -1 | 0 | 1;
+    comment_count: number;
+    /**
+     * space separated list of flags:
+     * - pending
+     * - flagged
+     * - deleted
+     *
+     */
+    flags: string;
+    /**
+     * space separated list of ids
+     */
+    pools: string;
+    rating: Ratings;
+    tags: string;
+};
+
+export type PostData = {
+    post_data: Array<ThumbnailPost>;
+};
+
+export type CommentVote = {
+    id: number;
+    comment_id: number;
+    user_id: number;
+    score: UpDownVote;
+    created_at: string;
+    updated_at: string;
+};
+
+export type LegacyPost = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    file: {
+        width: number;
+        height: number;
+        ext: string;
+        size: number;
+        md5: string;
+        url: string | null;
+    };
+    preview: {
+        width: number;
+        height: number;
+        url: string | null;
+    };
+    sample: {
+        has: boolean;
+        height: number | null;
+        width: number | null;
+        url: string | null;
+        alternates: {
+            has?: boolean;
+            original?: PostSampleAlternate;
+            variants?: {
+                webm?: PostSampleAlternate;
+                mp4?: PostSampleAlternate;
+            };
+            samples?: {
+                '480p'?: PostSampleAlternate;
+                '720p'?: PostSampleAlternate;
+            };
+        };
+    };
+    score: {
+        up: number;
+        down: number;
+        total: number;
+    };
+    tags: {
+        general: Array<string>;
+        artist: Array<string>;
+        copyright: Array<string>;
+        character: Array<string>;
+        species: Array<string>;
+        invalid: Array<string>;
+        meta: Array<string>;
+        lore: Array<string>;
+        contributor: Array<string>;
+    };
+    locked_tags: Array<string> | null;
+    change_seq: number;
+    flags: {
+        pending: boolean;
+        flagged: boolean;
+        note_locked: boolean;
+        status_locked: boolean;
+        rating_locked: boolean;
+        deleted: boolean;
+    };
+    rating: Ratings;
+    fav_count: number;
+    sources: Array<string>;
+    pools: Array<number>;
+    relationships: {
+        parent_id: number | null;
+        has_children: boolean;
+        has_active_children: boolean;
+        children: Array<number>;
+    };
+    approver_id: number | null;
+    uploader_id: number;
+    description: string;
+    comment_count: number;
+    is_favorited: boolean;
+    has_notes: boolean;
+    duration: number | null;
+    uploader_name: string;
+    vote: -1 | 0 | 1;
+};
+
+export type BasicPost = Post & {
+    tags: Array<string>;
+};
+
+export type ExtendedPost = Post & {
+    tags: {
+        general: Array<string>;
+        artist: Array<string>;
+        contributor: Array<string>;
+        copyright: Array<string>;
+        character: Array<string>;
+        species: Array<string>;
+        invalid: Array<string>;
+        meta: Array<string>;
+        lore: Array<string>;
+    };
+};
+
+export type ExceptionLog = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    class_name: string;
+    version: string;
+    extra_params: {
+        [key: string]: unknown;
+    };
+    message: string;
+    trace: string;
+    code: string;
+    user_id: number;
+};
+
+export type Appeal = {
+    id: number;
+    creator_id?: number;
+    disp_id: string;
+    qtype: 'flag';
+    status: 'pending' | 'partial' | 'approved' | 'rejected';
+    reason?: string;
+    response?: string;
+    claimant_id?: number | null;
+    handler_id: number | null;
+    accused_id?: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type DbExport = {
+    name: DbExportNames;
+    file_name: string;
+    file_size: number;
+    updated_at: string;
+    url: string;
+    /**
+     * SHA-256
+     */
+    checksum: string;
+};
+
+export type DbExportNames = 'artists' | 'bulk_update_requests' | 'pools' | 'post_replacements' | 'posts' | 'post_versions' | 'tag_aliases' | 'tag_implications' | 'tags' | 'wiki_pages';
+
+export type UserLevels = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80;
+
+export type UserLevelsNames = 'Anonymous' | 'Blocked' | 'Member' | 'Privileged' | 'Former Staff' | 'Staff' | 'Janitor' | 'Moderator' | 'Admin';
+
+export type StaffFile = {
+    id: number;
+    creator_id: number;
+    storage_id: string;
+    md5: string;
+    file_ext: string;
+    file_size: number;
+    original_filename: string;
+    title: string;
+    description: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type StaffWiki = {
+    id: number;
+    creator_id: number;
+    updater_id: number;
+    claimant_id: number | null;
+    title: string;
+    body: string;
+    created_at: string;
+    updated_at: string;
+};
+
+export type StaffWikiVersion = {
+    id: number;
+    staff_wiki_id: number;
+    updater_id: number;
+    claimant_id: number | null;
+    title: string;
+    body: string;
+    created_at: string;
+    updated_at: string;
+};
+
+export type VoteTrend = Tag | VoteTrendMetatag | VoteTrendUploader;
+
+export type VoteTrendMetatag = {
+    name: string;
+    post_count: number;
+    uploader_id: null;
+    uploader: null;
+};
+
+export type VoteTrendUploader = {
+    name: string;
+    post_count: number;
+    uploader_id: number;
+    uploader: User;
+};
+
 /**
- * Search for a specific id. Multiple can be separated by commas, up to 100.
+ * Search for a specific id. Multiple can be separated by commas, up to 320.
  */
 export type IdQuery = number | string;
 
@@ -1053,6 +1359,16 @@ export type IpAddrQuery = string;
 export type OrderQuery = 'id_asc' | 'id_desc';
 
 /**
+ * Use the new V2 format. See the `v2=true` responses.
+ */
+export type V2Query = boolean;
+
+/**
+ * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+ */
+export type ModeQuery = 'basic' | 'extended' | 'thumbnail';
+
+/**
  * The ID of the item.
  */
 export type IdPath = number;
@@ -1064,7 +1380,7 @@ export type IdOrNamePath = number | string;
 
 export type Warning = WarningRecordType;
 
-export type GetApiKeysData = {
+export type ApiKeysIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -1077,7 +1393,7 @@ export type GetApiKeysData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id' | 'id_asc' | 'id_desc' | 'name' | 'name_asc' | 'name_desc' | 'created_at' | 'created_at_asc' | 'created_at_desc' | 'updated_at' | 'updated_at_asc' | 'updated_at_desc' | 'expires_at' | 'expires_at_asc' | 'expires_at_desc' | 'last_used_at' | 'last_used_at_asc' | 'last_used_at_desc';
@@ -1087,7 +1403,7 @@ export type GetApiKeysData = {
     url: '/api_keys.json';
 };
 
-export type GetApiKeysErrors = {
+export type ApiKeysIndexErrors = {
     /**
      * Access Denied
      */
@@ -1098,18 +1414,18 @@ export type GetApiKeysErrors = {
     404: NotFoundResponse;
 };
 
-export type GetApiKeysError = GetApiKeysErrors[keyof GetApiKeysErrors];
+export type ApiKeysIndexError = ApiKeysIndexErrors[keyof ApiKeysIndexErrors];
 
-export type GetApiKeysResponses = {
+export type ApiKeysIndexResponses = {
     /**
      * Success
      */
     200: Array<ApiKey>;
 };
 
-export type GetApiKeysResponse = GetApiKeysResponses[keyof GetApiKeysResponses];
+export type ApiKeysIndexResponse = ApiKeysIndexResponses[keyof ApiKeysIndexResponses];
 
-export type CreateApiKeyData = {
+export type ApiKeysCreateData = {
     body?: {
         /**
          * CSRF Token
@@ -1124,7 +1440,7 @@ export type CreateApiKeyData = {
     url: '/api_keys.json';
 };
 
-export type CreateApiKeyErrors = {
+export type ApiKeysCreateErrors = {
     /**
      * Access Denied
      */
@@ -1137,18 +1453,18 @@ export type CreateApiKeyErrors = {
     };
 };
 
-export type CreateApiKeyError = CreateApiKeyErrors[keyof CreateApiKeyErrors];
+export type ApiKeysCreateError = ApiKeysCreateErrors[keyof ApiKeysCreateErrors];
 
-export type CreateApiKeyResponses = {
+export type ApiKeysCreateResponses = {
     /**
      * Success
      */
     201: ApiKey;
 };
 
-export type CreateApiKeyResponse = CreateApiKeyResponses[keyof CreateApiKeyResponses];
+export type ApiKeysCreateResponse = ApiKeysCreateResponses[keyof ApiKeysCreateResponses];
 
-export type DeleteApiKeyData = {
+export type ApiKeysDestroyData = {
     body?: never;
     path: {
         /**
@@ -1160,7 +1476,7 @@ export type DeleteApiKeyData = {
     url: '/api_keys/{id}.json';
 };
 
-export type DeleteApiKeyErrors = {
+export type ApiKeysDestroyErrors = {
     /**
      * Access Denied
      */
@@ -1171,18 +1487,18 @@ export type DeleteApiKeyErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteApiKeyError = DeleteApiKeyErrors[keyof DeleteApiKeyErrors];
+export type ApiKeysDestroyError = ApiKeysDestroyErrors[keyof ApiKeysDestroyErrors];
 
-export type DeleteApiKeyResponses = {
+export type ApiKeysDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteApiKeyResponse = DeleteApiKeyResponses[keyof DeleteApiKeyResponses];
+export type ApiKeysDestroyResponse = ApiKeysDestroyResponses[keyof ApiKeysDestroyResponses];
 
-export type RegenerateApiKeyData = {
+export type ApiKeysRegenerateData = {
     body?: {
         /**
          * CSRF Token
@@ -1199,7 +1515,7 @@ export type RegenerateApiKeyData = {
     url: '/api_keys/{id}/regenerate.json';
 };
 
-export type RegenerateApiKeyErrors = {
+export type ApiKeysRegenerateErrors = {
     /**
      * Access Denied
      */
@@ -1212,18 +1528,18 @@ export type RegenerateApiKeyErrors = {
     };
 };
 
-export type RegenerateApiKeyError = RegenerateApiKeyErrors[keyof RegenerateApiKeyErrors];
+export type ApiKeysRegenerateError = ApiKeysRegenerateErrors[keyof ApiKeysRegenerateErrors];
 
-export type RegenerateApiKeyResponses = {
+export type ApiKeysRegenerateResponses = {
     /**
      * Success
      */
     201: ApiKey;
 };
 
-export type RegenerateApiKeyResponse = RegenerateApiKeyResponses[keyof RegenerateApiKeyResponses];
+export type ApiKeysRegenerateResponse = ApiKeysRegenerateResponses[keyof ApiKeysRegenerateResponses];
 
-export type SearchArtistsData = {
+export type AppealsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -1236,7 +1552,222 @@ export type SearchArtistsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: number | string;
+        /**
+         * The order of the results.
+         */
+        'search[order]'?: 'id_asc' | 'id_desc';
+        /**
+         * Must be Janitor+ to use any id other than your own.
+         */
+        'search[creator_id]'?: number;
+        /**
+         * Must be Janitor+.
+         */
+        'search[creator_name]'?: string;
+        /**
+         * Must be Janitor+.
+         */
+        'search[claimant_id]'?: number;
+        /**
+         * Must be Janitor+.
+         */
+        'search[claimant_name]'?: string;
+        /**
+         * Must be Janitor+.
+         */
+        'search[accused_id]'?: number;
+        /**
+         * Must be Janitor+.
+         */
+        'search[accused_name]'?: string;
+        'search[qtype]'?: 'flag';
+        'search[status]'?: ('pending' | 'partial' | 'approved' | 'rejected') & ('pending_claimed' | 'pending_unclaimed');
+    };
+    url: '/appeals.json';
+};
+
+export type AppealsIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type AppealsIndexError = AppealsIndexErrors[keyof AppealsIndexErrors];
+
+export type AppealsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<ApiKey>;
+};
+
+export type AppealsIndexResponse = AppealsIndexResponses[keyof AppealsIndexResponses];
+
+export type AppealsShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/appeals/{id}.json';
+};
+
+export type AppealsShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type AppealsShowError = AppealsShowErrors[keyof AppealsShowErrors];
+
+export type AppealsShowResponses = {
+    /**
+     * Success
+     */
+    200: Appeal;
+};
+
+export type AppealsShowResponse = AppealsShowResponses[keyof AppealsShowResponses];
+
+export type AppealsUpdateData = {
+    body?: {
+        status?: 'partial' | 'approved';
+        response?: string;
+        /**
+         * An update dmail will always be sent when the status is changed.
+         */
+        send_update_dmail?: boolean;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/appeals/{id}.json';
+};
+
+export type AppealsUpdateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type AppealsUpdateError = AppealsUpdateErrors[keyof AppealsUpdateErrors];
+
+export type AppealsUpdateResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type AppealsUpdateResponse = AppealsUpdateResponses[keyof AppealsUpdateResponses];
+
+export type AppealsClaimData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/appeals/{id}/claim.json';
+};
+
+export type AppealsClaimErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type AppealsClaimError = AppealsClaimErrors[keyof AppealsClaimErrors];
+
+export type AppealsClaimResponses = {
+    /**
+     * Success
+     */
+    201: Appeal;
+};
+
+export type AppealsClaimResponse = AppealsClaimResponses[keyof AppealsClaimResponses];
+
+export type AppealsUnclaimData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/appeals/{id}/unclaim.json';
+};
+
+export type AppealsUnclaimErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type AppealsUnclaimError = AppealsUnclaimErrors[keyof AppealsUnclaimErrors];
+
+export type AppealsUnclaimResponses = {
+    /**
+     * Success
+     */
+    201: Appeal;
+};
+
+export type AppealsUnclaimResponse = AppealsUnclaimResponses[keyof AppealsUnclaimResponses];
+
+export type ArtistsIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'updated_at' | 'name' | 'post_count';
@@ -1256,7 +1787,7 @@ export type SearchArtistsData = {
     url: '/artists.json';
 };
 
-export type SearchArtistsResponses = {
+export type ArtistsIndexResponses = {
     /**
      * Success
      */
@@ -1265,31 +1796,31 @@ export type SearchArtistsResponses = {
     }>;
 };
 
-export type SearchArtistsResponse = SearchArtistsResponses[keyof SearchArtistsResponses];
+export type ArtistsIndexResponse = ArtistsIndexResponses[keyof ArtistsIndexResponses];
 
-export type CreateArtistData = {
+export type ArtistsCreateData = {
     body?: {
-        'artist[name]': string;
-        'artist[other_names]'?: Array<string>;
-        'artist[other_names_string]'?: string;
-        'artist[url_string]'?: string;
-        'artist[notes]'?: string;
-        'artist[group_name]'?: string;
+        name: string;
+        other_names?: Array<string>;
+        other_names_string?: string;
+        url_string?: string;
+        notes?: string;
+        group_name?: string;
         /**
-         * Only usable for Janitor+
+         * Only usable for Staff+
          */
-        'artist[linked_user_id]'?: number | null;
+        linked_user_id?: number | null;
         /**
-         * Only usable for Janitor+
+         * Only usable for Staff+
          */
-        'artist[is_locked]'?: boolean;
+        is_locked?: boolean;
     };
     path?: never;
     query?: never;
     url: '/artists.json';
 };
 
-export type CreateArtistErrors = {
+export type ArtistsCreateErrors = {
     /**
      * Access Denied
      */
@@ -1302,18 +1833,18 @@ export type CreateArtistErrors = {
     };
 };
 
-export type CreateArtistError = CreateArtistErrors[keyof CreateArtistErrors];
+export type ArtistsCreateError = ArtistsCreateErrors[keyof ArtistsCreateErrors];
 
-export type CreateArtistResponses = {
+export type ArtistsCreateResponses = {
     /**
      * Success
      */
     201: Artist;
 };
 
-export type CreateArtistResponse = CreateArtistResponses[keyof CreateArtistResponses];
+export type ArtistsCreateResponse = ArtistsCreateResponses[keyof ArtistsCreateResponses];
 
-export type DeleteArtistData = {
+export type ArtistsDestroyData = {
     body?: never;
     path: {
         /**
@@ -1325,7 +1856,7 @@ export type DeleteArtistData = {
     url: '/artists/{idOrName}.json';
 };
 
-export type DeleteArtistErrors = {
+export type ArtistsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -1336,18 +1867,18 @@ export type DeleteArtistErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteArtistError = DeleteArtistErrors[keyof DeleteArtistErrors];
+export type ArtistsDestroyError = ArtistsDestroyErrors[keyof ArtistsDestroyErrors];
 
-export type DeleteArtistResponses = {
+export type ArtistsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteArtistResponse = DeleteArtistResponses[keyof DeleteArtistResponses];
+export type ArtistsDestroyResponse = ArtistsDestroyResponses[keyof ArtistsDestroyResponses];
 
-export type GetArtistData = {
+export type ArtistsShowData = {
     body?: never;
     path: {
         /**
@@ -1359,16 +1890,16 @@ export type GetArtistData = {
     url: '/artists/{idOrName}.json';
 };
 
-export type GetArtistErrors = {
+export type ArtistsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetArtistError = GetArtistErrors[keyof GetArtistErrors];
+export type ArtistsShowError = ArtistsShowErrors[keyof ArtistsShowErrors];
 
-export type GetArtistResponses = {
+export type ArtistsShowResponses = {
     /**
      * Success
      */
@@ -1378,27 +1909,27 @@ export type GetArtistResponses = {
     };
 };
 
-export type GetArtistResponse = GetArtistResponses[keyof GetArtistResponses];
+export type ArtistsShowResponse = ArtistsShowResponses[keyof ArtistsShowResponses];
 
-export type EditArtistData = {
+export type ArtistsUpdateData = {
     body?: {
         /**
-         * Only usable for Janitor+
+         * Only usable for Staff+
          */
-        'artist[name]'?: string;
-        'artist[other_names]'?: Array<string>;
-        'artist[other_names_string]'?: string;
-        'artist[url_string]'?: string;
-        'artist[notes]'?: string;
-        'artist[group_name]'?: string;
+        name?: string;
+        other_names?: Array<string>;
+        other_names_string?: string;
+        url_string?: string;
+        notes?: string;
+        group_name?: string;
         /**
-         * Only usable for Janitor+
+         * Only usable for Staff+
          */
-        'artist[linked_user_id]'?: number | null;
+        linked_user_id?: number | null;
         /**
-         * Only usable for Janitor+
+         * Only usable for Staff+
          */
-        'artist[is_locked]'?: boolean;
+        is_locked?: boolean;
     };
     path: {
         /**
@@ -1410,7 +1941,7 @@ export type EditArtistData = {
     url: '/artists/{idOrName}.json';
 };
 
-export type EditArtistErrors = {
+export type ArtistsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -1427,18 +1958,18 @@ export type EditArtistErrors = {
     };
 };
 
-export type EditArtistError = EditArtistErrors[keyof EditArtistErrors];
+export type ArtistsUpdateError = ArtistsUpdateErrors[keyof ArtistsUpdateErrors];
 
-export type EditArtistResponses = {
+export type ArtistsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditArtistResponse = EditArtistResponses[keyof EditArtistResponses];
+export type ArtistsUpdateResponse = ArtistsUpdateResponses[keyof ArtistsUpdateResponses];
 
-export type RevertArtistData = {
+export type ArtistsRevertData = {
     body?: never;
     path: {
         /**
@@ -1455,7 +1986,7 @@ export type RevertArtistData = {
     url: '/artists/{idOrName}/revert.json';
 };
 
-export type RevertArtistErrors = {
+export type ArtistsRevertErrors = {
     /**
      * Access Denied
      */
@@ -1470,18 +2001,18 @@ export type RevertArtistErrors = {
     422: AccessDeniedResponse;
 };
 
-export type RevertArtistError = RevertArtistErrors[keyof RevertArtistErrors];
+export type ArtistsRevertError = ArtistsRevertErrors[keyof ArtistsRevertErrors];
 
-export type RevertArtistResponses = {
+export type ArtistsRevertResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RevertArtistResponse = RevertArtistResponses[keyof RevertArtistResponses];
+export type ArtistsRevertResponse = ArtistsRevertResponses[keyof ArtistsRevertResponses];
 
-export type SearchArtistVersionsData = {
+export type ArtistVersionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -1494,7 +2025,7 @@ export type SearchArtistVersionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -1525,16 +2056,16 @@ export type SearchArtistVersionsData = {
     url: '/artist_versions.json';
 };
 
-export type SearchArtistVersionsResponses = {
+export type ArtistVersionsIndexResponses = {
     /**
      * Success
      */
     200: Array<ArtistVersion>;
 };
 
-export type SearchArtistVersionsResponse = SearchArtistVersionsResponses[keyof SearchArtistVersionsResponses];
+export type ArtistVersionsIndexResponse = ArtistVersionsIndexResponses[keyof ArtistVersionsIndexResponses];
 
-export type SearchArtistUrlsData = {
+export type ArtistUrlsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -1547,7 +2078,7 @@ export type SearchArtistUrlsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -1598,7 +2129,7 @@ export type SearchArtistUrlsData = {
     url: '/artist_urls.json';
 };
 
-export type SearchArtistUrlsResponses = {
+export type ArtistUrlsIndexResponses = {
     /**
      * Success
      */
@@ -1607,9 +2138,9 @@ export type SearchArtistUrlsResponses = {
     }>;
 };
 
-export type SearchArtistUrlsResponse = SearchArtistUrlsResponses[keyof SearchArtistUrlsResponses];
+export type ArtistUrlsIndexResponse = ArtistUrlsIndexResponses[keyof ArtistUrlsIndexResponses];
 
-export type SearchAvoidPostingsData = {
+export type AvoidPostingsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -1622,7 +2153,7 @@ export type SearchAvoidPostingsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -1656,7 +2187,7 @@ export type SearchAvoidPostingsData = {
          */
         'search[details]'?: string;
         /**
-         * The staff notes on the avoid posting entry. Must be Janitor+ to use.
+         * The staff notes on the avoid posting entry. Must be Staff+ to use.
          */
         'search[staff_notes]'?: string;
         /**
@@ -1667,35 +2198,37 @@ export type SearchAvoidPostingsData = {
     url: '/avoid_postings.json';
 };
 
-export type SearchAvoidPostingsResponses = {
+export type AvoidPostingsIndexResponses = {
     /**
      * Success
      */
     200: Array<AvoidPosting>;
 };
 
-export type SearchAvoidPostingsResponse = SearchAvoidPostingsResponses[keyof SearchAvoidPostingsResponses];
+export type AvoidPostingsIndexResponse = AvoidPostingsIndexResponses[keyof AvoidPostingsIndexResponses];
 
-export type CreateAvoidPostingData = {
+export type AvoidPostingsCreateData = {
     body?: {
-        'avoid_posting[details]'?: string;
-        'avoid_posting[staff_notes]'?: string;
-        'avoid_posting[is_active]'?: boolean;
-        /**
-         * If provided and the artist does not exist, an artist will be created.
-         */
-        'avoid_posting[artist_attributes][name]'?: string;
-        'avoid_posting[artist_attributes][other_names_string]'?: string;
-        'avoid_posting[artist_attributes][other_names]'?: Array<string>;
-        'avoid_posting[artist_attributes][group_name]'?: string;
-        'avoid_posting[artist_attributes][linked_user_id]'?: number;
+        details?: string;
+        staff_notes?: string;
+        is_active?: boolean;
+        artist_attributes: {
+            /**
+             * If provided and the artist does not exist, an artist will be created.
+             */
+            name: string;
+            other_names_string?: string;
+            other_names?: Array<string>;
+            group_name?: string;
+            linked_user_id?: number;
+        };
     };
     path?: never;
     query?: never;
     url: '/avoid_postings.json';
 };
 
-export type CreateAvoidPostingErrors = {
+export type AvoidPostingsCreateErrors = {
     /**
      * Access Denied
      */
@@ -1708,18 +2241,18 @@ export type CreateAvoidPostingErrors = {
     };
 };
 
-export type CreateAvoidPostingError = CreateAvoidPostingErrors[keyof CreateAvoidPostingErrors];
+export type AvoidPostingsCreateError = AvoidPostingsCreateErrors[keyof AvoidPostingsCreateErrors];
 
-export type CreateAvoidPostingResponses = {
+export type AvoidPostingsCreateResponses = {
     /**
      * Success
      */
     201: AvoidPosting;
 };
 
-export type CreateAvoidPostingResponse = CreateAvoidPostingResponses[keyof CreateAvoidPostingResponses];
+export type AvoidPostingsCreateResponse = AvoidPostingsCreateResponses[keyof AvoidPostingsCreateResponses];
 
-export type DestroyAvoidPostingData = {
+export type AvoidPostingsDestroyData = {
     body?: never;
     path: {
         /**
@@ -1731,7 +2264,7 @@ export type DestroyAvoidPostingData = {
     url: '/avoid_postings/{idOrName}.json';
 };
 
-export type DestroyAvoidPostingErrors = {
+export type AvoidPostingsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -1742,18 +2275,18 @@ export type DestroyAvoidPostingErrors = {
     404: NotFoundResponse;
 };
 
-export type DestroyAvoidPostingError = DestroyAvoidPostingErrors[keyof DestroyAvoidPostingErrors];
+export type AvoidPostingsDestroyError = AvoidPostingsDestroyErrors[keyof AvoidPostingsDestroyErrors];
 
-export type DestroyAvoidPostingResponses = {
+export type AvoidPostingsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DestroyAvoidPostingResponse = DestroyAvoidPostingResponses[keyof DestroyAvoidPostingResponses];
+export type AvoidPostingsDestroyResponse = AvoidPostingsDestroyResponses[keyof AvoidPostingsDestroyResponses];
 
-export type GetAvoidPostingData = {
+export type AvoidPostingsShowData = {
     body?: never;
     path: {
         /**
@@ -1765,34 +2298,39 @@ export type GetAvoidPostingData = {
     url: '/avoid_postings/{idOrName}.json';
 };
 
-export type GetAvoidPostingErrors = {
+export type AvoidPostingsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetAvoidPostingError = GetAvoidPostingErrors[keyof GetAvoidPostingErrors];
+export type AvoidPostingsShowError = AvoidPostingsShowErrors[keyof AvoidPostingsShowErrors];
 
-export type GetAvoidPostingResponses = {
+export type AvoidPostingsShowResponses = {
     /**
      * Success
      */
     200: AvoidPosting;
 };
 
-export type GetAvoidPostingResponse = GetAvoidPostingResponses[keyof GetAvoidPostingResponses];
+export type AvoidPostingsShowResponse = AvoidPostingsShowResponses[keyof AvoidPostingsShowResponses];
 
-export type EditAvoidPostingData = {
+export type AvoidPostingsUpdateData = {
     body?: {
-        'avoid_posting[details]'?: string;
-        'avoid_posting[staff_notes]'?: string;
-        'avoid_posting[is_active]'?: boolean;
-        'avoid_posting[artist_attributes][name]'?: string;
-        'avoid_posting[artist_attributes][other_names_string]'?: string;
-        'avoid_posting[artist_attributes][other_names]'?: Array<string>;
-        'avoid_posting[artist_attributes][group_name]'?: string;
-        'avoid_posting[artist_attributes][linked_user_id]'?: number;
+        details?: string;
+        staff_notes?: string;
+        is_active?: boolean;
+        artist_attributes?: {
+            /**
+             * If provided and the artist does not exist, an artist will be created.
+             */
+            name?: string;
+            other_names_string?: string;
+            other_names?: Array<string>;
+            group_name?: string;
+            linked_user_id?: number;
+        };
     };
     path: {
         /**
@@ -1804,7 +2342,7 @@ export type EditAvoidPostingData = {
     url: '/avoid_postings/{idOrName}.json';
 };
 
-export type EditAvoidPostingErrors = {
+export type AvoidPostingsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -1821,18 +2359,18 @@ export type EditAvoidPostingErrors = {
     };
 };
 
-export type EditAvoidPostingError = EditAvoidPostingErrors[keyof EditAvoidPostingErrors];
+export type AvoidPostingsUpdateError = AvoidPostingsUpdateErrors[keyof AvoidPostingsUpdateErrors];
 
-export type EditAvoidPostingResponses = {
+export type AvoidPostingsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditAvoidPostingResponse = EditAvoidPostingResponses[keyof EditAvoidPostingResponses];
+export type AvoidPostingsUpdateResponse = AvoidPostingsUpdateResponses[keyof AvoidPostingsUpdateResponses];
 
-export type DeleteAvoidPostingData = {
+export type AvoidPostingsDeleteData = {
     body?: never;
     path: {
         /**
@@ -1844,7 +2382,7 @@ export type DeleteAvoidPostingData = {
     url: '/avoid_postings/{idOrName}/delete.json';
 };
 
-export type DeleteAvoidPostingErrors = {
+export type AvoidPostingsDeleteErrors = {
     /**
      * Access Denied
      */
@@ -1855,18 +2393,18 @@ export type DeleteAvoidPostingErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteAvoidPostingError = DeleteAvoidPostingErrors[keyof DeleteAvoidPostingErrors];
+export type AvoidPostingsDeleteError = AvoidPostingsDeleteErrors[keyof AvoidPostingsDeleteErrors];
 
-export type DeleteAvoidPostingResponses = {
+export type AvoidPostingsDeleteResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteAvoidPostingResponse = DeleteAvoidPostingResponses[keyof DeleteAvoidPostingResponses];
+export type AvoidPostingsDeleteResponse = AvoidPostingsDeleteResponses[keyof AvoidPostingsDeleteResponses];
 
-export type UndeleteAvoidPostingData = {
+export type AvoidPostingsUndeleteData = {
     body?: never;
     path: {
         /**
@@ -1878,7 +2416,7 @@ export type UndeleteAvoidPostingData = {
     url: '/avoid_postings/{idOrName}/undelete.json';
 };
 
-export type UndeleteAvoidPostingErrors = {
+export type AvoidPostingsUndeleteErrors = {
     /**
      * Access Denied
      */
@@ -1889,18 +2427,18 @@ export type UndeleteAvoidPostingErrors = {
     404: NotFoundResponse;
 };
 
-export type UndeleteAvoidPostingError = UndeleteAvoidPostingErrors[keyof UndeleteAvoidPostingErrors];
+export type AvoidPostingsUndeleteError = AvoidPostingsUndeleteErrors[keyof AvoidPostingsUndeleteErrors];
 
-export type UndeleteAvoidPostingResponses = {
+export type AvoidPostingsUndeleteResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type UndeleteAvoidPostingResponse = UndeleteAvoidPostingResponses[keyof UndeleteAvoidPostingResponses];
+export type AvoidPostingsUndeleteResponse = AvoidPostingsUndeleteResponses[keyof AvoidPostingsUndeleteResponses];
 
-export type SearchAvoidPostingVersionsData = {
+export type AvoidPostingVersionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -1913,7 +2451,7 @@ export type SearchAvoidPostingVersionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -1960,16 +2498,16 @@ export type SearchAvoidPostingVersionsData = {
     url: '/avoid_posting_versions.json';
 };
 
-export type SearchAvoidPostingVersionsResponses = {
+export type AvoidPostingVersionsIndexResponses = {
     /**
      * Success
      */
     200: Array<AvoidPostingVersion>;
 };
 
-export type SearchAvoidPostingVersionsResponse = SearchAvoidPostingVersionsResponses[keyof SearchAvoidPostingVersionsResponses];
+export type AvoidPostingVersionsIndexResponse = AvoidPostingVersionsIndexResponses[keyof AvoidPostingVersionsIndexResponses];
 
-export type SearchBansData = {
+export type BansIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -1982,7 +2520,7 @@ export type SearchBansData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -2017,16 +2555,16 @@ export type SearchBansData = {
     url: '/bans.json';
 };
 
-export type SearchBansResponses = {
+export type BansIndexResponses = {
     /**
      * Success
      */
     200: Array<Ban>;
 };
 
-export type SearchBansResponse = SearchBansResponses[keyof SearchBansResponses];
+export type BansIndexResponse = BansIndexResponses[keyof BansIndexResponses];
 
-export type GetBanData = {
+export type BansShowData = {
     body?: never;
     path: {
         /**
@@ -2038,25 +2576,25 @@ export type GetBanData = {
     url: '/bans/{id}.json';
 };
 
-export type GetBanErrors = {
+export type BansShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetBanError = GetBanErrors[keyof GetBanErrors];
+export type BansShowError = BansShowErrors[keyof BansShowErrors];
 
-export type GetBanResponses = {
+export type BansShowResponses = {
     /**
      * Success
      */
     200: Ban;
 };
 
-export type GetBanResponse = GetBanResponses[keyof GetBanResponses];
+export type BansShowResponse = BansShowResponses[keyof BansShowResponses];
 
-export type SearchBlipsData = {
+export type BlipsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -2069,7 +2607,7 @@ export type SearchBlipsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -2085,26 +2623,26 @@ export type SearchBlipsData = {
     url: '/blips.json';
 };
 
-export type SearchBlipsResponses = {
+export type BlipsIndexResponses = {
     /**
      * Success
      */
     200: Array<Blip>;
 };
 
-export type SearchBlipsResponse = SearchBlipsResponses[keyof SearchBlipsResponses];
+export type BlipsIndexResponse = BlipsIndexResponses[keyof BlipsIndexResponses];
 
-export type CreateBlipData = {
+export type BlipsCreateData = {
     body?: {
-        'blip[body]': string;
-        'blip[response_to]'?: number;
+        body: string;
+        response_to?: number;
     };
     path?: never;
     query?: never;
     url: '/blips.json';
 };
 
-export type CreateBlipErrors = {
+export type BlipsCreateErrors = {
     /**
      * Access Denied
      */
@@ -2121,18 +2659,18 @@ export type CreateBlipErrors = {
     };
 };
 
-export type CreateBlipError = CreateBlipErrors[keyof CreateBlipErrors];
+export type BlipsCreateError = BlipsCreateErrors[keyof BlipsCreateErrors];
 
-export type CreateBlipResponses = {
+export type BlipsCreateResponses = {
     /**
      * Success
      */
     201: Blip;
 };
 
-export type CreateBlipResponse = CreateBlipResponses[keyof CreateBlipResponses];
+export type BlipsCreateResponse = BlipsCreateResponses[keyof BlipsCreateResponses];
 
-export type DestroyBlipData = {
+export type BlipsDestroyData = {
     body?: never;
     path: {
         /**
@@ -2144,7 +2682,7 @@ export type DestroyBlipData = {
     url: '/blips/{id}.json';
 };
 
-export type DestroyBlipErrors = {
+export type BlipsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -2155,18 +2693,18 @@ export type DestroyBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type DestroyBlipError = DestroyBlipErrors[keyof DestroyBlipErrors];
+export type BlipsDestroyError = BlipsDestroyErrors[keyof BlipsDestroyErrors];
 
-export type DestroyBlipResponses = {
+export type BlipsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DestroyBlipResponse = DestroyBlipResponses[keyof DestroyBlipResponses];
+export type BlipsDestroyResponse = BlipsDestroyResponses[keyof BlipsDestroyResponses];
 
-export type GetBlipData = {
+export type BlipsShowData = {
     body?: never;
     path: {
         /**
@@ -2178,7 +2716,7 @@ export type GetBlipData = {
     url: '/blips/{id}.json';
 };
 
-export type GetBlipErrors = {
+export type BlipsShowErrors = {
     /**
      * Access Denied
      */
@@ -2189,20 +2727,20 @@ export type GetBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type GetBlipError = GetBlipErrors[keyof GetBlipErrors];
+export type BlipsShowError = BlipsShowErrors[keyof BlipsShowErrors];
 
-export type GetBlipResponses = {
+export type BlipsShowResponses = {
     /**
      * Success
      */
     200: Blip;
 };
 
-export type GetBlipResponse = GetBlipResponses[keyof GetBlipResponses];
+export type BlipsShowResponse = BlipsShowResponses[keyof BlipsShowResponses];
 
-export type EditBlipData = {
+export type BlipsUpdateData = {
     body?: {
-        'blip[body]'?: string;
+        body?: string;
     };
     path: {
         /**
@@ -2214,7 +2752,7 @@ export type EditBlipData = {
     url: '/blips/{id}.json';
 };
 
-export type EditBlipErrors = {
+export type BlipsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -2231,18 +2769,18 @@ export type EditBlipErrors = {
     };
 };
 
-export type EditBlipError = EditBlipErrors[keyof EditBlipErrors];
+export type BlipsUpdateError = BlipsUpdateErrors[keyof BlipsUpdateErrors];
 
-export type EditBlipResponses = {
+export type BlipsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditBlipResponse = EditBlipResponses[keyof EditBlipResponses];
+export type BlipsUpdateResponse = BlipsUpdateResponses[keyof BlipsUpdateResponses];
 
-export type DeleteBlipData = {
+export type BlipsDeleteData = {
     body?: never;
     path: {
         /**
@@ -2254,7 +2792,7 @@ export type DeleteBlipData = {
     url: '/blips/{id}/delete.json';
 };
 
-export type DeleteBlipErrors = {
+export type BlipsDeleteErrors = {
     /**
      * Access Denied
      */
@@ -2265,18 +2803,9 @@ export type DeleteBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteBlipError = DeleteBlipErrors[keyof DeleteBlipErrors];
+export type BlipsDeleteError = BlipsDeleteErrors[keyof BlipsDeleteErrors];
 
-export type DeleteBlipResponses = {
-    /**
-     * Success
-     */
-    201: Blip;
-};
-
-export type DeleteBlipResponse = DeleteBlipResponses[keyof DeleteBlipResponses];
-
-export type UndeleteBlipData = {
+export type BlipsUndeleteData = {
     body?: never;
     path: {
         /**
@@ -2288,7 +2817,7 @@ export type UndeleteBlipData = {
     url: '/blips/{id}/undelete.json';
 };
 
-export type UndeleteBlipErrors = {
+export type BlipsUndeleteErrors = {
     /**
      * Access Denied
      */
@@ -2299,18 +2828,9 @@ export type UndeleteBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type UndeleteBlipError = UndeleteBlipErrors[keyof UndeleteBlipErrors];
+export type BlipsUndeleteError = BlipsUndeleteErrors[keyof BlipsUndeleteErrors];
 
-export type UndeleteBlipResponses = {
-    /**
-     * Success
-     */
-    201: Blip;
-};
-
-export type UndeleteBlipResponse = UndeleteBlipResponses[keyof UndeleteBlipResponses];
-
-export type MarkBlipData = {
+export type BlipsWarningData = {
     body?: Warning;
     path: {
         /**
@@ -2322,7 +2842,7 @@ export type MarkBlipData = {
     url: '/blips/{id}/warning.json';
 };
 
-export type MarkBlipErrors = {
+export type BlipsWarningErrors = {
     /**
      * Access Denied
      */
@@ -2333,18 +2853,18 @@ export type MarkBlipErrors = {
     404: NotFoundResponse;
 };
 
-export type MarkBlipError = MarkBlipErrors[keyof MarkBlipErrors];
+export type BlipsWarningError = BlipsWarningErrors[keyof BlipsWarningErrors];
 
-export type MarkBlipResponses = {
+export type BlipsWarningResponses = {
     /**
      * Success
      */
     200: DTextResponse;
 };
 
-export type MarkBlipResponse = MarkBlipResponses[keyof MarkBlipResponses];
+export type BlipsWarningResponse = BlipsWarningResponses[keyof BlipsWarningResponses];
 
-export type SearchBulkUpdateRequestsData = {
+export type BulkUpdateRequestsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -2357,7 +2877,7 @@ export type SearchBulkUpdateRequestsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'status_desc' | 'updated_at_desc' | 'updated_at_asc';
@@ -2377,32 +2897,35 @@ export type SearchBulkUpdateRequestsData = {
     url: '/bulk_update_requests.json';
 };
 
-export type SearchBulkUpdateRequestsResponses = {
+export type BulkUpdateRequestsIndexResponses = {
     /**
      * Success
      */
     200: Array<BulkUpdateRequest>;
 };
 
-export type SearchBulkUpdateRequestsResponse = SearchBulkUpdateRequestsResponses[keyof SearchBulkUpdateRequestsResponses];
+export type BulkUpdateRequestsIndexResponse = BulkUpdateRequestsIndexResponses[keyof BulkUpdateRequestsIndexResponses];
 
-export type CreateBulkUpdateRequestData = {
+export type BulkUpdateRequestsCreateData = {
     body?: {
-        'bulk_update_request[script]': string;
-        'bulk_update_request[title]': string;
-        'bulk_update_request[reason]': string;
-        'bulk_update_request[forum_topic_id]'?: number;
+        script: string;
+        title: string;
+        reason: string;
+        /**
+         * You must be able to reply to the topic.
+         */
+        forum_topic_id?: number;
         /**
          * Only usable for Admin+
          */
-        'bulk_update_request[skip_forum]'?: boolean;
+        skip_forum?: boolean;
     };
     path?: never;
     query?: never;
     url: '/bulk_update_requests.json';
 };
 
-export type CreateBulkUpdateRequestErrors = {
+export type BulkUpdateRequestsCreateErrors = {
     /**
      * Access Denied
      */
@@ -2415,18 +2938,18 @@ export type CreateBulkUpdateRequestErrors = {
     };
 };
 
-export type CreateBulkUpdateRequestError = CreateBulkUpdateRequestErrors[keyof CreateBulkUpdateRequestErrors];
+export type BulkUpdateRequestsCreateError = BulkUpdateRequestsCreateErrors[keyof BulkUpdateRequestsCreateErrors];
 
-export type CreateBulkUpdateRequestResponses = {
+export type BulkUpdateRequestsCreateResponses = {
     /**
      * Success
      */
     201: BulkUpdateRequest;
 };
 
-export type CreateBulkUpdateRequestResponse = CreateBulkUpdateRequestResponses[keyof CreateBulkUpdateRequestResponses];
+export type BulkUpdateRequestsCreateResponse = BulkUpdateRequestsCreateResponses[keyof BulkUpdateRequestsCreateResponses];
 
-export type RejectBulkUpdateRequestData = {
+export type BulkUpdateRequestsDestroyData = {
     body?: never;
     path: {
         /**
@@ -2438,7 +2961,7 @@ export type RejectBulkUpdateRequestData = {
     url: '/bulk_update_requests/{id}.json';
 };
 
-export type RejectBulkUpdateRequestErrors = {
+export type BulkUpdateRequestsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -2449,18 +2972,18 @@ export type RejectBulkUpdateRequestErrors = {
     404: NotFoundResponse;
 };
 
-export type RejectBulkUpdateRequestError = RejectBulkUpdateRequestErrors[keyof RejectBulkUpdateRequestErrors];
+export type BulkUpdateRequestsDestroyError = BulkUpdateRequestsDestroyErrors[keyof BulkUpdateRequestsDestroyErrors];
 
-export type RejectBulkUpdateRequestResponses = {
+export type BulkUpdateRequestsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RejectBulkUpdateRequestResponse = RejectBulkUpdateRequestResponses[keyof RejectBulkUpdateRequestResponses];
+export type BulkUpdateRequestsDestroyResponse = BulkUpdateRequestsDestroyResponses[keyof BulkUpdateRequestsDestroyResponses];
 
-export type GetBulkUpdateRequestData = {
+export type BulkUpdateRequestsShowData = {
     body?: never;
     path: {
         /**
@@ -2472,35 +2995,35 @@ export type GetBulkUpdateRequestData = {
     url: '/bulk_update_requests/{id}.json';
 };
 
-export type GetBulkUpdateRequestErrors = {
+export type BulkUpdateRequestsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetBulkUpdateRequestError = GetBulkUpdateRequestErrors[keyof GetBulkUpdateRequestErrors];
+export type BulkUpdateRequestsShowError = BulkUpdateRequestsShowErrors[keyof BulkUpdateRequestsShowErrors];
 
-export type GetBulkUpdateRequestResponses = {
+export type BulkUpdateRequestsShowResponses = {
     /**
      * Success
      */
     200: BulkUpdateRequest;
 };
 
-export type GetBulkUpdateRequestResponse = GetBulkUpdateRequestResponses[keyof GetBulkUpdateRequestResponses];
+export type BulkUpdateRequestsShowResponse = BulkUpdateRequestsShowResponses[keyof BulkUpdateRequestsShowResponses];
 
-export type EditBulkUpdateRequestData = {
+export type BulkUpdateRequestsUpdateData = {
     body?: {
-        'bulk_update_request[script]'?: string;
+        script?: string;
         /**
          * You must be Admin+.
          */
-        'bulk_update_request[forum_topic_id]'?: string;
+        forum_topic_id?: string;
         /**
          * You must be Admin+.
          */
-        'bulk_update_request[forum_post_id]'?: string;
+        forum_post_id?: string;
     };
     path: {
         /**
@@ -2512,7 +3035,7 @@ export type EditBulkUpdateRequestData = {
     url: '/bulk_update_requests/{id}.json';
 };
 
-export type EditBulkUpdateRequestErrors = {
+export type BulkUpdateRequestsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -2529,18 +3052,18 @@ export type EditBulkUpdateRequestErrors = {
     };
 };
 
-export type EditBulkUpdateRequestError = EditBulkUpdateRequestErrors[keyof EditBulkUpdateRequestErrors];
+export type BulkUpdateRequestsUpdateError = BulkUpdateRequestsUpdateErrors[keyof BulkUpdateRequestsUpdateErrors];
 
-export type EditBulkUpdateRequestResponses = {
+export type BulkUpdateRequestsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditBulkUpdateRequestResponse = EditBulkUpdateRequestResponses[keyof EditBulkUpdateRequestResponses];
+export type BulkUpdateRequestsUpdateResponse = BulkUpdateRequestsUpdateResponses[keyof BulkUpdateRequestsUpdateResponses];
 
-export type ApproveBulkUpdateRequestData = {
+export type BulkUpdateRequestsApproveData = {
     body?: never;
     path: {
         /**
@@ -2552,7 +3075,7 @@ export type ApproveBulkUpdateRequestData = {
     url: '/bulk_update_requests/{id}/approve.json';
 };
 
-export type ApproveBulkUpdateRequestErrors = {
+export type BulkUpdateRequestsApproveErrors = {
     /**
      * Access Denied
      */
@@ -2563,18 +3086,18 @@ export type ApproveBulkUpdateRequestErrors = {
     404: NotFoundResponse;
 };
 
-export type ApproveBulkUpdateRequestError = ApproveBulkUpdateRequestErrors[keyof ApproveBulkUpdateRequestErrors];
+export type BulkUpdateRequestsApproveError = BulkUpdateRequestsApproveErrors[keyof BulkUpdateRequestsApproveErrors];
 
-export type ApproveBulkUpdateRequestResponses = {
+export type BulkUpdateRequestsApproveResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type ApproveBulkUpdateRequestResponse = ApproveBulkUpdateRequestResponses[keyof ApproveBulkUpdateRequestResponses];
+export type BulkUpdateRequestsApproveResponse = BulkUpdateRequestsApproveResponses[keyof BulkUpdateRequestsApproveResponses];
 
-export type SearchCommentsData = {
+export type CommentsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -2587,7 +3110,7 @@ export type SearchCommentsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -2608,7 +3131,7 @@ export type SearchCommentsData = {
         'search[creator_id]'?: number;
         'search[is_sticky]'?: boolean;
         /**
-         * Only usable by Moderator+
+         * Only usable by Staff+
          */
         'search[is_hidden]'?: boolean;
         'search[do_not_bump_post]'?: boolean;
@@ -2616,35 +3139,35 @@ export type SearchCommentsData = {
     url: '/comments.json';
 };
 
-export type SearchCommentsResponses = {
+export type CommentsIndexResponses = {
     /**
      * Success
      */
     200: Array<Comment>;
 };
 
-export type SearchCommentsResponse = SearchCommentsResponses[keyof SearchCommentsResponses];
+export type CommentsIndexResponse = CommentsIndexResponses[keyof CommentsIndexResponses];
 
-export type CreateCommentData = {
+export type CommentsCreateData = {
     body?: {
-        'comment[body]': string;
-        'comment[post_id]': number;
-        'comment[do_not_bump_post]'?: boolean;
+        body: string;
+        post_id: number;
+        do_not_bump_post?: boolean;
         /**
-         * Only usable for Janitor+
+         * Only usable for Staff+
          */
-        'comment[is_sticky]'?: boolean;
+        is_sticky?: boolean;
         /**
          * Only usable for Moderator+
          */
-        'comment[is_hidden]'?: boolean;
+        is_hidden?: boolean;
     };
     path?: never;
     query?: never;
     url: '/comments.json';
 };
 
-export type CreateCommentErrors = {
+export type CommentsCreateErrors = {
     /**
      * Access Denied
      */
@@ -2657,18 +3180,18 @@ export type CreateCommentErrors = {
     };
 };
 
-export type CreateCommentError = CreateCommentErrors[keyof CreateCommentErrors];
+export type CommentsCreateError = CommentsCreateErrors[keyof CommentsCreateErrors];
 
-export type CreateCommentResponses = {
+export type CommentsCreateResponses = {
     /**
      * Success
      */
     201: Comment;
 };
 
-export type CreateCommentResponse = CreateCommentResponses[keyof CreateCommentResponses];
+export type CommentsCreateResponse = CommentsCreateResponses[keyof CommentsCreateResponses];
 
-export type DeleteCommentData = {
+export type CommentsDestroyData = {
     body?: never;
     path: {
         /**
@@ -2680,7 +3203,7 @@ export type DeleteCommentData = {
     url: '/comments/{id}.json';
 };
 
-export type DeleteCommentErrors = {
+export type CommentsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -2691,18 +3214,18 @@ export type DeleteCommentErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteCommentError = DeleteCommentErrors[keyof DeleteCommentErrors];
+export type CommentsDestroyError = CommentsDestroyErrors[keyof CommentsDestroyErrors];
 
-export type DeleteCommentResponses = {
+export type CommentsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteCommentResponse = DeleteCommentResponses[keyof DeleteCommentResponses];
+export type CommentsDestroyResponse = CommentsDestroyResponses[keyof CommentsDestroyResponses];
 
-export type GetCommentData = {
+export type CommentsShowData = {
     body?: never;
     path: {
         /**
@@ -2714,7 +3237,7 @@ export type GetCommentData = {
     url: '/comments/{id}.json';
 };
 
-export type GetCommentErrors = {
+export type CommentsShowErrors = {
     /**
      * Access Denied
      */
@@ -2725,28 +3248,28 @@ export type GetCommentErrors = {
     404: NotFoundResponse;
 };
 
-export type GetCommentError = GetCommentErrors[keyof GetCommentErrors];
+export type CommentsShowError = CommentsShowErrors[keyof CommentsShowErrors];
 
-export type GetCommentResponses = {
+export type CommentsShowResponses = {
     /**
      * Success
      */
     200: Comment;
 };
 
-export type GetCommentResponse = GetCommentResponses[keyof GetCommentResponses];
+export type CommentsShowResponse = CommentsShowResponses[keyof CommentsShowResponses];
 
-export type EditCommentData = {
+export type CommentsUpdateData = {
     body?: {
-        'comment[body]'?: string;
+        body?: string;
         /**
-         * Only usable for Janitor+
+         * Only usable for Staff+
          */
-        'comment[is_sticky]'?: boolean;
+        is_sticky?: boolean;
         /**
          * Only usable for Moderator+
          */
-        'comment[is_hidden]'?: boolean;
+        is_hidden?: boolean;
     };
     path: {
         /**
@@ -2758,7 +3281,7 @@ export type EditCommentData = {
     url: '/comments/{id}.json';
 };
 
-export type EditCommentErrors = {
+export type CommentsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -2775,18 +3298,18 @@ export type EditCommentErrors = {
     };
 };
 
-export type EditCommentError = EditCommentErrors[keyof EditCommentErrors];
+export type CommentsUpdateError = CommentsUpdateErrors[keyof CommentsUpdateErrors];
 
-export type EditCommentResponses = {
+export type CommentsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditCommentResponse = EditCommentResponses[keyof EditCommentResponses];
+export type CommentsUpdateResponse = CommentsUpdateResponses[keyof CommentsUpdateResponses];
 
-export type HideCommentData = {
+export type CommentsHideData = {
     body?: never;
     path: {
         /**
@@ -2798,7 +3321,7 @@ export type HideCommentData = {
     url: '/comments/{id}/hide.json';
 };
 
-export type HideCommentErrors = {
+export type CommentsHideErrors = {
     /**
      * Access Denied
      */
@@ -2809,18 +3332,18 @@ export type HideCommentErrors = {
     404: NotFoundResponse;
 };
 
-export type HideCommentError = HideCommentErrors[keyof HideCommentErrors];
+export type CommentsHideError = CommentsHideErrors[keyof CommentsHideErrors];
 
-export type HideCommentResponses = {
+export type CommentsHideResponses = {
     /**
      * Success
      */
     201: Comment;
 };
 
-export type HideCommentResponse = HideCommentResponses[keyof HideCommentResponses];
+export type CommentsHideResponse = CommentsHideResponses[keyof CommentsHideResponses];
 
-export type UnhideCommentData = {
+export type CommentsUnhideData = {
     body?: never;
     path: {
         /**
@@ -2832,7 +3355,7 @@ export type UnhideCommentData = {
     url: '/comments/{id}/unhide.json';
 };
 
-export type UnhideCommentErrors = {
+export type CommentsUnhideErrors = {
     /**
      * Access Denied
      */
@@ -2843,18 +3366,18 @@ export type UnhideCommentErrors = {
     404: NotFoundResponse;
 };
 
-export type UnhideCommentError = UnhideCommentErrors[keyof UnhideCommentErrors];
+export type CommentsUnhideError = CommentsUnhideErrors[keyof CommentsUnhideErrors];
 
-export type UnhideCommentResponses = {
+export type CommentsUnhideResponses = {
     /**
      * Success
      */
     201: Comment;
 };
 
-export type UnhideCommentResponse = UnhideCommentResponses[keyof UnhideCommentResponses];
+export type CommentsUnhideResponse = CommentsUnhideResponses[keyof CommentsUnhideResponses];
 
-export type MarkCommentData = {
+export type CommentsWarningData = {
     body?: Warning;
     path: {
         /**
@@ -2866,7 +3389,7 @@ export type MarkCommentData = {
     url: '/comments/{id}/warning.json';
 };
 
-export type MarkCommentErrors = {
+export type CommentsWarningErrors = {
     /**
      * Access Denied
      */
@@ -2877,18 +3400,18 @@ export type MarkCommentErrors = {
     404: NotFoundResponse;
 };
 
-export type MarkCommentError = MarkCommentErrors[keyof MarkCommentErrors];
+export type CommentsWarningError = CommentsWarningErrors[keyof CommentsWarningErrors];
 
-export type MarkCommentResponses = {
+export type CommentsWarningResponses = {
     /**
      * Success
      */
     200: DTextResponse;
 };
 
-export type MarkCommentResponse = MarkCommentResponses[keyof MarkCommentResponses];
+export type CommentsWarningResponse = CommentsWarningResponses[keyof CommentsWarningResponses];
 
-export type DeleteCommentVoteData = {
+export type CommentVotesDestroyData = {
     body?: never;
     path: {
         /**
@@ -2900,7 +3423,7 @@ export type DeleteCommentVoteData = {
     url: '/comments/{id}/votes.json';
 };
 
-export type DeleteCommentVoteErrors = {
+export type CommentVotesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -2917,18 +3440,18 @@ export type DeleteCommentVoteErrors = {
     };
 };
 
-export type DeleteCommentVoteError = DeleteCommentVoteErrors[keyof DeleteCommentVoteErrors];
+export type CommentVotesDestroyError = CommentVotesDestroyErrors[keyof CommentVotesDestroyErrors];
 
-export type DeleteCommentVoteResponses = {
+export type CommentVotesDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteCommentVoteResponse = DeleteCommentVoteResponses[keyof DeleteCommentVoteResponses];
+export type CommentVotesDestroyResponse = CommentVotesDestroyResponses[keyof CommentVotesDestroyResponses];
 
-export type CreateCommentVoteData = {
+export type CommentVotesCreateData = {
     body?: never;
     path: {
         /**
@@ -2943,7 +3466,7 @@ export type CreateCommentVoteData = {
     url: '/comments/{id}/votes.json';
 };
 
-export type CreateCommentVoteErrors = {
+export type CommentVotesCreateErrors = {
     /**
      * Access Denied
      */
@@ -2960,9 +3483,9 @@ export type CreateCommentVoteErrors = {
     };
 };
 
-export type CreateCommentVoteError = CreateCommentVoteErrors[keyof CreateCommentVoteErrors];
+export type CommentVotesCreateError = CommentVotesCreateErrors[keyof CommentVotesCreateErrors];
 
-export type CreateCommentVoteResponses = {
+export type CommentVotesCreateResponses = {
     /**
      * Success
      */
@@ -2972,79 +3495,9 @@ export type CreateCommentVoteResponses = {
     };
 };
 
-export type CreateCommentVoteResponse = CreateCommentVoteResponses[keyof CreateCommentVoteResponses];
+export type CommentVotesCreateResponse = CommentVotesCreateResponses[keyof CommentVotesCreateResponses];
 
-export type LockCommentVotesData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * The IDs of the comment votes, comma separated.
-         */
-        ids: string;
-    };
-    url: '/comment_votes/lock.json';
-};
-
-export type LockCommentVotesErrors = {
-    /**
-     * Access Denied
-     */
-    403: AccessDeniedResponse;
-    /**
-     * Not Found
-     */
-    404: NotFoundResponse;
-    /**
-     * Invalid Input Data
-     */
-    422: {
-        errors: Array<string>;
-    };
-};
-
-export type LockCommentVotesError = LockCommentVotesErrors[keyof LockCommentVotesErrors];
-
-export type LockCommentVotesResponses = {
-    /**
-     * Success
-     */
-    204: void;
-};
-
-export type LockCommentVotesResponse = LockCommentVotesResponses[keyof LockCommentVotesResponses];
-
-export type DeleteCommentVotesData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * The IDs of the comment votes, comma separated.
-         */
-        ids: string;
-    };
-    url: '/comment_votes/delete.json';
-};
-
-export type DeleteCommentVotesErrors = {
-    /**
-     * Access Denied
-     */
-    403: AccessDeniedResponse;
-};
-
-export type DeleteCommentVotesError = DeleteCommentVotesErrors[keyof DeleteCommentVotesErrors];
-
-export type DeleteCommentVotesResponses = {
-    /**
-     * Success
-     */
-    204: void;
-};
-
-export type DeleteCommentVotesResponse = DeleteCommentVotesResponses[keyof DeleteCommentVotesResponses];
-
-export type SearchDMailsData = {
+export type CommentVotesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -3057,7 +3510,165 @@ export type SearchDMailsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: number | string;
+        /**
+         * The order of the results. You must be Admin+.
+         */
+        'search[order]'?: 'id_asc' | 'id_desc' | 'ip_addr';
+        'search[post_id]'?: number;
+        'search[user_name]'?: string;
+        'search[user_id]'?: number;
+        /**
+         * Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided.
+         */
+        'search[comment_creator_name]'?: string;
+        /**
+         * Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided.
+         */
+        'search[comment_creator_id]'?: number;
+        /**
+         * You must be Admin+. Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
+         */
+        'search[user_ip_addr]'?: string;
+        /**
+         * Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided.
+         */
+        'search[score]'?: UpDownVote;
+        /**
+         * You must be Admin+. Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided.
+         */
+        'search[duplicates_only]'?: boolean;
+    };
+    url: '/comment_votes.json';
+};
+
+export type CommentVotesIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<CommentVote>;
+};
+
+export type CommentVotesIndexResponse = CommentVotesIndexResponses[keyof CommentVotesIndexResponses];
+
+export type CommentVotesLockData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * The IDs of the comment votes, comma separated.
+         */
+        ids: string;
+    };
+    url: '/comment_votes/lock.json';
+};
+
+export type CommentVotesLockErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type CommentVotesLockError = CommentVotesLockErrors[keyof CommentVotesLockErrors];
+
+export type CommentVotesLockResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type CommentVotesLockResponse = CommentVotesLockResponses[keyof CommentVotesLockResponses];
+
+export type CommentVotesDeleteData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * The IDs of the comment votes, comma separated.
+         */
+        ids: string;
+    };
+    url: '/comment_votes/delete.json';
+};
+
+export type CommentVotesDeleteErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type CommentVotesDeleteError = CommentVotesDeleteErrors[keyof CommentVotesDeleteErrors];
+
+export type CommentVotesDeleteResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type CommentVotesDeleteResponse = CommentVotesDeleteResponses[keyof CommentVotesDeleteResponses];
+
+export type DbExportsIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/db_exports.json';
+};
+
+export type DbExportsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<DbExport>;
+};
+
+export type DbExportsIndexResponse = DbExportsIndexResponses[keyof DbExportsIndexResponses];
+
+export type HealthIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/health';
+};
+
+export type HealthIndexResponses = {
+    /**
+     * Success
+     */
+    200: string;
+};
+
+export type HealthIndexResponse = HealthIndexResponses[keyof HealthIndexResponses];
+
+export type DmailsIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[title_matches]'?: string;
@@ -3073,16 +3684,16 @@ export type SearchDMailsData = {
     url: '/dmails.json';
 };
 
-export type SearchDMailsResponses = {
+export type DmailsIndexResponses = {
     /**
      * Success
      */
     200: Array<DMail>;
 };
 
-export type SearchDMailsResponse = SearchDMailsResponses[keyof SearchDMailsResponses];
+export type DmailsIndexResponse = DmailsIndexResponses[keyof DmailsIndexResponses];
 
-export type DeleteDMailData = {
+export type DmailsDestroyData = {
     body?: never;
     path: {
         /**
@@ -3094,7 +3705,7 @@ export type DeleteDMailData = {
     url: '/dmails/{id}.json';
 };
 
-export type DeleteDMailErrors = {
+export type DmailsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -3105,18 +3716,18 @@ export type DeleteDMailErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteDMailError = DeleteDMailErrors[keyof DeleteDMailErrors];
+export type DmailsDestroyError = DmailsDestroyErrors[keyof DmailsDestroyErrors];
 
-export type DeleteDMailResponses = {
+export type DmailsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteDMailResponse = DeleteDMailResponses[keyof DeleteDMailResponses];
+export type DmailsDestroyResponse = DmailsDestroyResponses[keyof DmailsDestroyResponses];
 
-export type GetDMailData = {
+export type DmailsShowData = {
     body?: never;
     path: {
         /**
@@ -3124,11 +3735,13 @@ export type GetDMailData = {
          */
         id: number;
     };
-    query?: never;
+    query?: {
+        key?: string;
+    };
     url: '/dmails/{id}.json';
 };
 
-export type GetDMailErrors = {
+export type DmailsShowErrors = {
     /**
      * Access Denied
      */
@@ -3139,18 +3752,18 @@ export type GetDMailErrors = {
     404: NotFoundResponse;
 };
 
-export type GetDMailError = GetDMailErrors[keyof GetDMailErrors];
+export type DmailsShowError = DmailsShowErrors[keyof DmailsShowErrors];
 
-export type GetDMailResponses = {
+export type DmailsShowResponses = {
     /**
      * Success
      */
     200: DMail;
 };
 
-export type GetDMailResponse = GetDMailResponses[keyof GetDMailResponses];
+export type DmailsShowResponse = DmailsShowResponses[keyof DmailsShowResponses];
 
-export type MarkDMailAsReadData = {
+export type DmailsMarkAsReadData = {
     body?: never;
     path: {
         /**
@@ -3162,7 +3775,7 @@ export type MarkDMailAsReadData = {
     url: '/dmails/{id}/mark_as_read.json';
 };
 
-export type MarkDMailAsReadErrors = {
+export type DmailsMarkAsReadErrors = {
     /**
      * Access Denied
      */
@@ -3173,18 +3786,18 @@ export type MarkDMailAsReadErrors = {
     404: NotFoundResponse;
 };
 
-export type MarkDMailAsReadError = MarkDMailAsReadErrors[keyof MarkDMailAsReadErrors];
+export type DmailsMarkAsReadError = DmailsMarkAsReadErrors[keyof DmailsMarkAsReadErrors];
 
-export type MarkDMailAsReadResponses = {
+export type DmailsMarkAsReadResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type MarkDMailAsReadResponse = MarkDMailAsReadResponses[keyof MarkDMailAsReadResponses];
+export type DmailsMarkAsReadResponse = DmailsMarkAsReadResponses[keyof DmailsMarkAsReadResponses];
 
-export type MarkDMailAsUnreadData = {
+export type DmailsMarkAsUnreadData = {
     body?: never;
     path: {
         /**
@@ -3196,7 +3809,7 @@ export type MarkDMailAsUnreadData = {
     url: '/dmails/{id}/mark_as_unread.json';
 };
 
-export type MarkDMailAsUnreadErrors = {
+export type DmailsMarkAsUnreadErrors = {
     /**
      * Access Denied
      */
@@ -3207,25 +3820,25 @@ export type MarkDMailAsUnreadErrors = {
     404: NotFoundResponse;
 };
 
-export type MarkDMailAsUnreadError = MarkDMailAsUnreadErrors[keyof MarkDMailAsUnreadErrors];
+export type DmailsMarkAsUnreadError = DmailsMarkAsUnreadErrors[keyof DmailsMarkAsUnreadErrors];
 
-export type MarkDMailAsUnreadResponses = {
+export type DmailsMarkAsUnreadResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type MarkDMailAsUnreadResponse = MarkDMailAsUnreadResponses[keyof MarkDMailAsUnreadResponses];
+export type DmailsMarkAsUnreadResponse = DmailsMarkAsUnreadResponses[keyof DmailsMarkAsUnreadResponses];
 
-export type MarkAllDMailsAsReadData = {
+export type DmailsMarkAllAsReadData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/dmails/mark_all_as_read.json';
 };
 
-export type MarkAllDMailsAsReadErrors = {
+export type DmailsMarkAllAsReadErrors = {
     /**
      * Access Denied
      */
@@ -3236,18 +3849,18 @@ export type MarkAllDMailsAsReadErrors = {
     404: NotFoundResponse;
 };
 
-export type MarkAllDMailsAsReadError = MarkAllDMailsAsReadErrors[keyof MarkAllDMailsAsReadErrors];
+export type DmailsMarkAllAsReadError = DmailsMarkAllAsReadErrors[keyof DmailsMarkAllAsReadErrors];
 
-export type MarkAllDMailsAsReadResponses = {
+export type DmailsMarkAllAsReadResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type MarkAllDMailsAsReadResponse = MarkAllDMailsAsReadResponses[keyof MarkAllDMailsAsReadResponses];
+export type DmailsMarkAllAsReadResponse = DmailsMarkAllAsReadResponses[keyof DmailsMarkAllAsReadResponses];
 
-export type PreviewDTextData = {
+export type DtextPreviewsCreateData = {
     body?: {
         body: string;
     };
@@ -3256,16 +3869,16 @@ export type PreviewDTextData = {
     url: '/dtext_preview.json';
 };
 
-export type PreviewDTextResponses = {
+export type DtextPreviewsCreateResponses = {
     /**
      * Success
      */
     200: DTextResponse;
 };
 
-export type PreviewDTextResponse = PreviewDTextResponses[keyof PreviewDTextResponses];
+export type DtextPreviewsCreateResponse = DtextPreviewsCreateResponses[keyof DtextPreviewsCreateResponses];
 
-export type SearchEditHistoriesData = {
+export type EditHistoriesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -3278,7 +3891,7 @@ export type SearchEditHistoriesData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -3299,25 +3912,25 @@ export type SearchEditHistoriesData = {
     url: '/edit_histories.json';
 };
 
-export type SearchEditHistoriesErrors = {
+export type EditHistoriesIndexErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type SearchEditHistoriesError = SearchEditHistoriesErrors[keyof SearchEditHistoriesErrors];
+export type EditHistoriesIndexError = EditHistoriesIndexErrors[keyof EditHistoriesIndexErrors];
 
-export type SearchEditHistoriesResponses = {
+export type EditHistoriesIndexResponses = {
     /**
      * Success
      */
     200: Array<EditHistory>;
 };
 
-export type SearchEditHistoriesResponse = SearchEditHistoriesResponses[keyof SearchEditHistoriesResponses];
+export type EditHistoriesIndexResponse = EditHistoriesIndexResponses[keyof EditHistoriesIndexResponses];
 
-export type GetEditHistoryData = {
+export type EditHistoriesShowData = {
     body?: never;
     path: {
         /**
@@ -3334,25 +3947,25 @@ export type GetEditHistoryData = {
     url: '/edit_histories/{id}.json';
 };
 
-export type GetEditHistoryErrors = {
+export type EditHistoriesShowErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type GetEditHistoryError = GetEditHistoryErrors[keyof GetEditHistoryErrors];
+export type EditHistoriesShowError = EditHistoriesShowErrors[keyof EditHistoriesShowErrors];
 
-export type GetEditHistoryResponses = {
+export type EditHistoriesShowResponses = {
     /**
      * Success
      */
     200: Array<EditHistory>;
 };
 
-export type GetEditHistoryResponse = GetEditHistoryResponses[keyof GetEditHistoryResponses];
+export type EditHistoriesShowResponse = EditHistoriesShowResponses[keyof EditHistoriesShowResponses];
 
-export type SearchEmailBlacklistsData = {
+export type EmailBlacklistsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -3365,7 +3978,7 @@ export type SearchEmailBlacklistsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'reason' | 'domain';
@@ -3375,26 +3988,26 @@ export type SearchEmailBlacklistsData = {
     url: '/email_blacklists.json';
 };
 
-export type SearchEmailBlacklistsResponses = {
+export type EmailBlacklistsIndexResponses = {
     /**
      * Success
      */
     200: Array<EmailBlacklist>;
 };
 
-export type SearchEmailBlacklistsResponse = SearchEmailBlacklistsResponses[keyof SearchEmailBlacklistsResponses];
+export type EmailBlacklistsIndexResponse = EmailBlacklistsIndexResponses[keyof EmailBlacklistsIndexResponses];
 
-export type CreateEmailBlacklistData = {
+export type EmailBlacklistsCreateData = {
     body?: {
-        'email_blacklist[domain]': string;
-        'email_blacklist[reason]': string;
+        domain: string;
+        reason: string;
     };
     path?: never;
     query?: never;
     url: '/email_blacklists.json';
 };
 
-export type CreateEmailBlacklistErrors = {
+export type EmailBlacklistsCreateErrors = {
     /**
      * Invalid Input Data
      */
@@ -3403,18 +4016,18 @@ export type CreateEmailBlacklistErrors = {
     };
 };
 
-export type CreateEmailBlacklistError = CreateEmailBlacklistErrors[keyof CreateEmailBlacklistErrors];
+export type EmailBlacklistsCreateError = EmailBlacklistsCreateErrors[keyof EmailBlacklistsCreateErrors];
 
-export type CreateEmailBlacklistResponses = {
+export type EmailBlacklistsCreateResponses = {
     /**
      * Success
      */
     201: EmailBlacklist;
 };
 
-export type CreateEmailBlacklistResponse = CreateEmailBlacklistResponses[keyof CreateEmailBlacklistResponses];
+export type EmailBlacklistsCreateResponse = EmailBlacklistsCreateResponses[keyof EmailBlacklistsCreateResponses];
 
-export type DeleteEmailBlacklistData = {
+export type EmailBlacklistsDestroyData = {
     body?: never;
     path: {
         /**
@@ -3426,7 +4039,7 @@ export type DeleteEmailBlacklistData = {
     url: '/email_blacklists/{id}.json';
 };
 
-export type DeleteEmailBlacklistErrors = {
+export type EmailBlacklistsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -3437,18 +4050,18 @@ export type DeleteEmailBlacklistErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteEmailBlacklistError = DeleteEmailBlacklistErrors[keyof DeleteEmailBlacklistErrors];
+export type EmailBlacklistsDestroyError = EmailBlacklistsDestroyErrors[keyof EmailBlacklistsDestroyErrors];
 
-export type DeleteEmailBlacklistResponses = {
+export type EmailBlacklistsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteEmailBlacklistResponse = DeleteEmailBlacklistResponses[keyof DeleteEmailBlacklistResponses];
+export type EmailBlacklistsDestroyResponse = EmailBlacklistsDestroyResponses[keyof EmailBlacklistsDestroyResponses];
 
-export type ListFavoritesData = {
+export type FavoritesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -3461,14 +4074,18 @@ export type ListFavoritesData = {
          */
         page?: number;
         /**
-         * You must be the user or Moderator+ if the user has their favorites hidden.
+         * Use the new V2 format. See the `v2=true` responses.
          */
-        user_id?: number;
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
     };
     url: '/favorites.json';
 };
 
-export type ListFavoritesErrors = {
+export type FavoritesIndexErrors = {
     /**
      * Access Denied
      */
@@ -3479,20 +4096,22 @@ export type ListFavoritesErrors = {
     404: NotFoundResponse;
 };
 
-export type ListFavoritesError = ListFavoritesErrors[keyof ListFavoritesErrors];
+export type FavoritesIndexError = FavoritesIndexErrors[keyof FavoritesIndexErrors];
 
-export type ListFavoritesResponses = {
+export type FavoritesIndexResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
     200: {
-        posts: Array<Post>;
-    };
+        posts: Array<LegacyPost>;
+    } | Array<BasicPost> | Array<ExtendedPost> | Array<ThumbnailPost>;
 };
 
-export type ListFavoritesResponse = ListFavoritesResponses[keyof ListFavoritesResponses];
+export type FavoritesIndexResponse = FavoritesIndexResponses[keyof FavoritesIndexResponses];
 
-export type AddFavoriteData = {
+export type FavoritesCreateData = {
     body?: {
         post_id: number;
     };
@@ -3501,7 +4120,7 @@ export type AddFavoriteData = {
     url: '/favorites.json';
 };
 
-export type AddFavoriteErrors = {
+export type FavoritesCreateErrors = {
     /**
      * Access Denied
      */
@@ -3518,9 +4137,9 @@ export type AddFavoriteErrors = {
     };
 };
 
-export type AddFavoriteError = AddFavoriteErrors[keyof AddFavoriteErrors];
+export type FavoritesCreateError = FavoritesCreateErrors[keyof FavoritesCreateErrors];
 
-export type AddFavoriteResponses = {
+export type FavoritesCreateResponses = {
     /**
      * Success
      */
@@ -3530,9 +4149,9 @@ export type AddFavoriteResponses = {
     };
 };
 
-export type AddFavoriteResponse = AddFavoriteResponses[keyof AddFavoriteResponses];
+export type FavoritesCreateResponse = FavoritesCreateResponses[keyof FavoritesCreateResponses];
 
-export type RemoveFavoriteData = {
+export type FavoritesDestroyData = {
     body?: never;
     path: {
         /**
@@ -3544,7 +4163,7 @@ export type RemoveFavoriteData = {
     url: '/favorites/{id}.json';
 };
 
-export type RemoveFavoriteErrors = {
+export type FavoritesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -3561,9 +4180,9 @@ export type RemoveFavoriteErrors = {
     };
 };
 
-export type RemoveFavoriteError = RemoveFavoriteErrors[keyof RemoveFavoriteErrors];
+export type FavoritesDestroyError = FavoritesDestroyErrors[keyof FavoritesDestroyErrors];
 
-export type RemoveFavoriteResponses = {
+export type FavoritesDestroyResponses = {
     /**
      * Success
      */
@@ -3573,9 +4192,9 @@ export type RemoveFavoriteResponses = {
     };
 };
 
-export type RemoveFavoriteResponse = RemoveFavoriteResponses[keyof RemoveFavoriteResponses];
+export type FavoritesDestroyResponse = FavoritesDestroyResponses[keyof FavoritesDestroyResponses];
 
-export type SearchForumPostsData = {
+export type ForumPostsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -3588,7 +4207,7 @@ export type SearchForumPostsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -3606,26 +4225,26 @@ export type SearchForumPostsData = {
     url: '/forum_posts.json';
 };
 
-export type SearchForumPostsResponses = {
+export type ForumPostsIndexResponses = {
     /**
      * Success
      */
     200: Array<ForumPost>;
 };
 
-export type SearchForumPostsResponse = SearchForumPostsResponses[keyof SearchForumPostsResponses];
+export type ForumPostsIndexResponse = ForumPostsIndexResponses[keyof ForumPostsIndexResponses];
 
-export type CreateForumPostData = {
+export type ForumPostsCreateData = {
     body?: {
-        'forum_post[body]': string;
-        'forum_post[topic_id]': number;
+        body: string;
+        topic_id: number;
     };
     path?: never;
     query?: never;
     url: '/forum_posts.json';
 };
 
-export type CreateForumPostErrors = {
+export type ForumPostsCreateErrors = {
     /**
      * Access Denied
      */
@@ -3638,18 +4257,18 @@ export type CreateForumPostErrors = {
     };
 };
 
-export type CreateForumPostError = CreateForumPostErrors[keyof CreateForumPostErrors];
+export type ForumPostsCreateError = ForumPostsCreateErrors[keyof ForumPostsCreateErrors];
 
-export type CreateForumPostResponses = {
+export type ForumPostsCreateResponses = {
     /**
      * Success
      */
     201: ForumPost;
 };
 
-export type CreateForumPostResponse = CreateForumPostResponses[keyof CreateForumPostResponses];
+export type ForumPostsCreateResponse = ForumPostsCreateResponses[keyof ForumPostsCreateResponses];
 
-export type DeleteForumPostData = {
+export type ForumPostsDestroyData = {
     body?: never;
     path: {
         /**
@@ -3661,7 +4280,7 @@ export type DeleteForumPostData = {
     url: '/forum_posts/{id}.json';
 };
 
-export type DeleteForumPostErrors = {
+export type ForumPostsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -3672,18 +4291,18 @@ export type DeleteForumPostErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteForumPostError = DeleteForumPostErrors[keyof DeleteForumPostErrors];
+export type ForumPostsDestroyError = ForumPostsDestroyErrors[keyof ForumPostsDestroyErrors];
 
-export type DeleteForumPostResponses = {
+export type ForumPostsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteForumPostResponse = DeleteForumPostResponses[keyof DeleteForumPostResponses];
+export type ForumPostsDestroyResponse = ForumPostsDestroyResponses[keyof ForumPostsDestroyResponses];
 
-export type GetForumPostData = {
+export type ForumPostsShowData = {
     body?: never;
     path: {
         /**
@@ -3695,7 +4314,7 @@ export type GetForumPostData = {
     url: '/forum_posts/{id}.json';
 };
 
-export type GetForumPostErrors = {
+export type ForumPostsShowErrors = {
     /**
      * Access Denied
      */
@@ -3706,20 +4325,20 @@ export type GetForumPostErrors = {
     404: NotFoundResponse;
 };
 
-export type GetForumPostError = GetForumPostErrors[keyof GetForumPostErrors];
+export type ForumPostsShowError = ForumPostsShowErrors[keyof ForumPostsShowErrors];
 
-export type GetForumPostResponses = {
+export type ForumPostsShowResponses = {
     /**
      * Success
      */
     200: ForumPost;
 };
 
-export type GetForumPostResponse = GetForumPostResponses[keyof GetForumPostResponses];
+export type ForumPostsShowResponse = ForumPostsShowResponses[keyof ForumPostsShowResponses];
 
-export type EditForumPostData = {
+export type ForumPostsUpdateData = {
     body?: {
-        'forum_post[body]'?: string;
+        body?: string;
     };
     path: {
         /**
@@ -3731,7 +4350,7 @@ export type EditForumPostData = {
     url: '/forum_posts/{id}.json';
 };
 
-export type EditForumPostErrors = {
+export type ForumPostsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -3748,18 +4367,18 @@ export type EditForumPostErrors = {
     };
 };
 
-export type EditForumPostError = EditForumPostErrors[keyof EditForumPostErrors];
+export type ForumPostsUpdateError = ForumPostsUpdateErrors[keyof ForumPostsUpdateErrors];
 
-export type EditForumPostResponses = {
+export type ForumPostsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditForumPostResponse = EditForumPostResponses[keyof EditForumPostResponses];
+export type ForumPostsUpdateResponse = ForumPostsUpdateResponses[keyof ForumPostsUpdateResponses];
 
-export type HideForumPostData = {
+export type ForumPostsHideData = {
     body?: never;
     path: {
         /**
@@ -3771,7 +4390,7 @@ export type HideForumPostData = {
     url: '/forum_posts/{id}/hide.json';
 };
 
-export type HideForumPostErrors = {
+export type ForumPostsHideErrors = {
     /**
      * Access Denied
      */
@@ -3782,18 +4401,18 @@ export type HideForumPostErrors = {
     404: NotFoundResponse;
 };
 
-export type HideForumPostError = HideForumPostErrors[keyof HideForumPostErrors];
+export type ForumPostsHideError = ForumPostsHideErrors[keyof ForumPostsHideErrors];
 
-export type HideForumPostResponses = {
+export type ForumPostsHideResponses = {
     /**
      * Success
      */
     201: ForumPost;
 };
 
-export type HideForumPostResponse = HideForumPostResponses[keyof HideForumPostResponses];
+export type ForumPostsHideResponse = ForumPostsHideResponses[keyof ForumPostsHideResponses];
 
-export type UnhideForumPostData = {
+export type ForumPostsUnhideData = {
     body?: never;
     path: {
         /**
@@ -3805,7 +4424,7 @@ export type UnhideForumPostData = {
     url: '/forum_posts/{id}/unhide.json';
 };
 
-export type UnhideForumPostErrors = {
+export type ForumPostsUnhideErrors = {
     /**
      * Access Denied
      */
@@ -3816,18 +4435,18 @@ export type UnhideForumPostErrors = {
     404: NotFoundResponse;
 };
 
-export type UnhideForumPostError = UnhideForumPostErrors[keyof UnhideForumPostErrors];
+export type ForumPostsUnhideError = ForumPostsUnhideErrors[keyof ForumPostsUnhideErrors];
 
-export type UnhideForumPostResponses = {
+export type ForumPostsUnhideResponses = {
     /**
      * Success
      */
     201: ForumPost;
 };
 
-export type UnhideForumPostResponse = UnhideForumPostResponses[keyof UnhideForumPostResponses];
+export type ForumPostsUnhideResponse = ForumPostsUnhideResponses[keyof ForumPostsUnhideResponses];
 
-export type MarkForumPostData = {
+export type ForumPostsWarningData = {
     body?: Warning;
     path: {
         /**
@@ -3839,7 +4458,7 @@ export type MarkForumPostData = {
     url: '/forum_posts/{id}/warning.json';
 };
 
-export type MarkForumPostErrors = {
+export type ForumPostsWarningErrors = {
     /**
      * Access Denied
      */
@@ -3850,18 +4469,18 @@ export type MarkForumPostErrors = {
     404: NotFoundResponse;
 };
 
-export type MarkForumPostError = MarkForumPostErrors[keyof MarkForumPostErrors];
+export type ForumPostsWarningError = ForumPostsWarningErrors[keyof ForumPostsWarningErrors];
 
-export type MarkForumPostResponses = {
+export type ForumPostsWarningResponses = {
     /**
      * Success
      */
     200: DTextResponse;
 };
 
-export type MarkForumPostResponse = MarkForumPostResponses[keyof MarkForumPostResponses];
+export type ForumPostsWarningResponse = ForumPostsWarningResponses[keyof ForumPostsWarningResponses];
 
-export type DeleteForumPostVoteData = {
+export type ForumPostVotesDestroyData = {
     body?: never;
     path: {
         /**
@@ -3873,7 +4492,7 @@ export type DeleteForumPostVoteData = {
     url: '/forum_posts/{id}/votes.json';
 };
 
-export type DeleteForumPostVoteErrors = {
+export type ForumPostVotesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -3890,20 +4509,60 @@ export type DeleteForumPostVoteErrors = {
     };
 };
 
-export type DeleteForumPostVoteError = DeleteForumPostVoteErrors[keyof DeleteForumPostVoteErrors];
+export type ForumPostVotesDestroyError = ForumPostVotesDestroyErrors[keyof ForumPostVotesDestroyErrors];
 
-export type DeleteForumPostVoteResponses = {
+export type ForumPostVotesDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteForumPostVoteResponse = DeleteForumPostVoteResponses[keyof DeleteForumPostVoteResponses];
+export type ForumPostVotesDestroyResponse = ForumPostVotesDestroyResponses[keyof ForumPostVotesDestroyResponses];
 
-export type CreateForumPostVoteData = {
+export type ForumPostVotesShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/forum_posts/{id}/votes.json';
+};
+
+export type ForumPostVotesShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type ForumPostVotesShowError = ForumPostVotesShowErrors[keyof ForumPostVotesShowErrors];
+
+export type ForumPostVotesShowResponses = {
+    /**
+     * Success
+     */
+    200: Array<ForumPostVote>;
+};
+
+export type ForumPostVotesShowResponse = ForumPostVotesShowResponses[keyof ForumPostVotesShowResponses];
+
+export type ForumPostVotesCreateData = {
     body?: {
-        'forum_post_vote[score]': UpDownMehVote;
+        score: UpDownMehVote;
     };
     path: {
         /**
@@ -3915,7 +4574,7 @@ export type CreateForumPostVoteData = {
     url: '/forum_posts/{id}/votes.json';
 };
 
-export type CreateForumPostVoteErrors = {
+export type ForumPostVotesCreateErrors = {
     /**
      * Access Denied
      */
@@ -3932,18 +4591,18 @@ export type CreateForumPostVoteErrors = {
     };
 };
 
-export type CreateForumPostVoteError = CreateForumPostVoteErrors[keyof CreateForumPostVoteErrors];
+export type ForumPostVotesCreateError = ForumPostVotesCreateErrors[keyof ForumPostVotesCreateErrors];
 
-export type CreateForumPostVoteResponses = {
+export type ForumPostVotesCreateResponses = {
     /**
      * Success
      */
     200: ForumPostVote;
 };
 
-export type CreateForumPostVoteResponse = CreateForumPostVoteResponses[keyof CreateForumPostVoteResponses];
+export type ForumPostVotesCreateResponse = ForumPostVotesCreateResponses[keyof ForumPostVotesCreateResponses];
 
-export type SearchForumTopicsData = {
+export type ForumTopicsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -3956,7 +4615,7 @@ export type SearchForumTopicsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'sticky';
@@ -3970,42 +4629,44 @@ export type SearchForumTopicsData = {
     url: '/forum_topics.json';
 };
 
-export type SearchForumTopicsResponses = {
+export type ForumTopicsIndexResponses = {
     /**
      * Success
      */
     200: Array<ForumTopic>;
 };
 
-export type SearchForumTopicsResponse = SearchForumTopicsResponses[keyof SearchForumTopicsResponses];
+export type ForumTopicsIndexResponse = ForumTopicsIndexResponses[keyof ForumTopicsIndexResponses];
 
-export type CreateForumTopicData = {
+export type ForumTopicsCreateData = {
     body?: {
-        'forum_topic[title]': string;
-        'forum_topic[category_id]': number;
-        /**
-         * Forum post ID. Mutually exclusive with body, one must be provided.
-         */
-        'forum_topic[original_post_attributes][id]'?: number;
-        /**
-         * First forum post body. Mutually exclusive with id, one must be provided.
-         */
-        'forum_topic[original_post_attributes][body]'?: string;
+        title: string;
+        category_id: number;
         /**
          * You must be Moderator+.
          */
-        'forum_topic[is_sticky]'?: boolean;
+        is_sticky?: boolean;
         /**
          * You must be Moderator+.
          */
-        'forum_topic[is_locked]'?: boolean;
+        is_locked?: boolean;
+        original_post_attributes: {
+            /**
+             * Forum post ID. Mutually exclusive with body, one must be provided.
+             */
+            id?: number;
+            /**
+             * First forum post body. Mutually exclusive with id, one must be provided.
+             */
+            body?: string;
+        };
     };
     path?: never;
     query?: never;
     url: '/forum_topics.json';
 };
 
-export type CreateForumTopicErrors = {
+export type ForumTopicsCreateErrors = {
     /**
      * Access Denied
      */
@@ -4018,18 +4679,18 @@ export type CreateForumTopicErrors = {
     };
 };
 
-export type CreateForumTopicError = CreateForumTopicErrors[keyof CreateForumTopicErrors];
+export type ForumTopicsCreateError = ForumTopicsCreateErrors[keyof ForumTopicsCreateErrors];
 
-export type CreateForumTopicResponses = {
+export type ForumTopicsCreateResponses = {
     /**
      * Success
      */
     201: ForumTopic;
 };
 
-export type CreateForumTopicResponse = CreateForumTopicResponses[keyof CreateForumTopicResponses];
+export type ForumTopicsCreateResponse = ForumTopicsCreateResponses[keyof ForumTopicsCreateResponses];
 
-export type DeleteForumTopicData = {
+export type ForumTopicsDestroyData = {
     body?: never;
     path: {
         /**
@@ -4041,7 +4702,7 @@ export type DeleteForumTopicData = {
     url: '/forum_topics/{id}.json';
 };
 
-export type DeleteForumTopicErrors = {
+export type ForumTopicsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -4052,18 +4713,18 @@ export type DeleteForumTopicErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteForumTopicError = DeleteForumTopicErrors[keyof DeleteForumTopicErrors];
+export type ForumTopicsDestroyError = ForumTopicsDestroyErrors[keyof ForumTopicsDestroyErrors];
 
-export type DeleteForumTopicResponses = {
+export type ForumTopicsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteForumTopicResponse = DeleteForumTopicResponses[keyof DeleteForumTopicResponses];
+export type ForumTopicsDestroyResponse = ForumTopicsDestroyResponses[keyof ForumTopicsDestroyResponses];
 
-export type GetForumTopicData = {
+export type ForumTopicsShowData = {
     body?: never;
     path: {
         /**
@@ -4075,7 +4736,7 @@ export type GetForumTopicData = {
     url: '/forum_topics/{id}.json';
 };
 
-export type GetForumTopicErrors = {
+export type ForumTopicsShowErrors = {
     /**
      * Access Denied
      */
@@ -4086,37 +4747,39 @@ export type GetForumTopicErrors = {
     404: NotFoundResponse;
 };
 
-export type GetForumTopicError = GetForumTopicErrors[keyof GetForumTopicErrors];
+export type ForumTopicsShowError = ForumTopicsShowErrors[keyof ForumTopicsShowErrors];
 
-export type GetForumTopicResponses = {
+export type ForumTopicsShowResponses = {
     /**
      * Success
      */
     200: ForumTopic;
 };
 
-export type GetForumTopicResponse = GetForumTopicResponses[keyof GetForumTopicResponses];
+export type ForumTopicsShowResponse = ForumTopicsShowResponses[keyof ForumTopicsShowResponses];
 
-export type EditForumTopicData = {
+export type ForumTopicsUpdateData = {
     body?: {
-        'forum_topic[title]'?: string;
-        'forum_topic[category_id]'?: number;
-        /**
-         * Forum post ID. Silently ignored
-         */
-        'forum_topic[original_post_attributes][id]'?: number;
-        /**
-         * First forum post body.
-         */
-        'forum_topic[original_post_attributes][body]'?: string;
+        title?: string;
+        category_id?: number;
         /**
          * You must be Moderator+.
          */
-        'forum_topic[is_sticky]'?: boolean;
+        is_sticky?: boolean;
         /**
          * You must be Moderator+.
          */
-        'forum_topic[is_locked]'?: boolean;
+        is_locked?: boolean;
+        original_post_attributes?: {
+            /**
+             * Forum post ID. Silently ignored
+             */
+            id?: number;
+            /**
+             * First forum post body.
+             */
+            body?: string;
+        };
     };
     path: {
         /**
@@ -4128,7 +4791,7 @@ export type EditForumTopicData = {
     url: '/forum_topics/{id}.json';
 };
 
-export type EditForumTopicErrors = {
+export type ForumTopicsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -4145,18 +4808,18 @@ export type EditForumTopicErrors = {
     };
 };
 
-export type EditForumTopicError = EditForumTopicErrors[keyof EditForumTopicErrors];
+export type ForumTopicsUpdateError = ForumTopicsUpdateErrors[keyof ForumTopicsUpdateErrors];
 
-export type EditForumTopicResponses = {
+export type ForumTopicsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditForumTopicResponse = EditForumTopicResponses[keyof EditForumTopicResponses];
+export type ForumTopicsUpdateResponse = ForumTopicsUpdateResponses[keyof ForumTopicsUpdateResponses];
 
-export type HideForumTopicData = {
+export type ForumTopicsHideData = {
     body?: never;
     path: {
         /**
@@ -4168,7 +4831,7 @@ export type HideForumTopicData = {
     url: '/forum_topics/{id}/hide.json';
 };
 
-export type HideForumTopicErrors = {
+export type ForumTopicsHideErrors = {
     /**
      * Access Denied
      */
@@ -4179,18 +4842,18 @@ export type HideForumTopicErrors = {
     404: NotFoundResponse;
 };
 
-export type HideForumTopicError = HideForumTopicErrors[keyof HideForumTopicErrors];
+export type ForumTopicsHideError = ForumTopicsHideErrors[keyof ForumTopicsHideErrors];
 
-export type HideForumTopicResponses = {
+export type ForumTopicsHideResponses = {
     /**
      * Success
      */
     201: ForumTopic;
 };
 
-export type HideForumTopicResponse = HideForumTopicResponses[keyof HideForumTopicResponses];
+export type ForumTopicsHideResponse = ForumTopicsHideResponses[keyof ForumTopicsHideResponses];
 
-export type UnhideForumTopicData = {
+export type ForumTopicsUnhideData = {
     body?: never;
     path: {
         /**
@@ -4202,7 +4865,7 @@ export type UnhideForumTopicData = {
     url: '/forum_topics/{id}/unhide.json';
 };
 
-export type UnhideForumTopicErrors = {
+export type ForumTopicsUnhideErrors = {
     /**
      * Access Denied
      */
@@ -4213,18 +4876,18 @@ export type UnhideForumTopicErrors = {
     404: NotFoundResponse;
 };
 
-export type UnhideForumTopicError = UnhideForumTopicErrors[keyof UnhideForumTopicErrors];
+export type ForumTopicsUnhideError = ForumTopicsUnhideErrors[keyof ForumTopicsUnhideErrors];
 
-export type UnhideForumTopicResponses = {
+export type ForumTopicsUnhideResponses = {
     /**
      * Success
      */
     201: ForumTopic;
 };
 
-export type UnhideForumTopicResponse = UnhideForumTopicResponses[keyof UnhideForumTopicResponses];
+export type ForumTopicsUnhideResponse = ForumTopicsUnhideResponses[keyof ForumTopicsUnhideResponses];
 
-export type SubscribeForumTopicData = {
+export type ForumTopicsSubscribeData = {
     body?: never;
     path: {
         /**
@@ -4236,7 +4899,7 @@ export type SubscribeForumTopicData = {
     url: '/forum_topics/{id}/subscribe.json';
 };
 
-export type SubscribeForumTopicErrors = {
+export type ForumTopicsSubscribeErrors = {
     /**
      * Access Denied
      */
@@ -4247,18 +4910,18 @@ export type SubscribeForumTopicErrors = {
     404: NotFoundResponse;
 };
 
-export type SubscribeForumTopicError = SubscribeForumTopicErrors[keyof SubscribeForumTopicErrors];
+export type ForumTopicsSubscribeError = ForumTopicsSubscribeErrors[keyof ForumTopicsSubscribeErrors];
 
-export type SubscribeForumTopicResponses = {
+export type ForumTopicsSubscribeResponses = {
     /**
      * Success
      */
     201: ForumTopic;
 };
 
-export type SubscribeForumTopicResponse = SubscribeForumTopicResponses[keyof SubscribeForumTopicResponses];
+export type ForumTopicsSubscribeResponse = ForumTopicsSubscribeResponses[keyof ForumTopicsSubscribeResponses];
 
-export type UnsubscribeForumTopicData = {
+export type ForumTopicsUnsubscribeData = {
     body?: never;
     path: {
         /**
@@ -4270,7 +4933,7 @@ export type UnsubscribeForumTopicData = {
     url: '/forum_topics/{id}/unsubscribe.json';
 };
 
-export type UnsubscribeForumTopicErrors = {
+export type ForumTopicsUnsubscribeErrors = {
     /**
      * Access Denied
      */
@@ -4281,18 +4944,18 @@ export type UnsubscribeForumTopicErrors = {
     404: NotFoundResponse;
 };
 
-export type UnsubscribeForumTopicError = UnsubscribeForumTopicErrors[keyof UnsubscribeForumTopicErrors];
+export type ForumTopicsUnsubscribeError = ForumTopicsUnsubscribeErrors[keyof ForumTopicsUnsubscribeErrors];
 
-export type UnsubscribeForumTopicResponses = {
+export type ForumTopicsUnsubscribeResponses = {
     /**
      * Success
      */
     201: ForumTopic;
 };
 
-export type UnsubscribeForumTopicResponse = UnsubscribeForumTopicResponses[keyof UnsubscribeForumTopicResponses];
+export type ForumTopicsUnsubscribeResponse = ForumTopicsUnsubscribeResponses[keyof ForumTopicsUnsubscribeResponses];
 
-export type MarkAllForumTopicsAsReadData = {
+export type ForumTopicsMarkAllAsReadData = {
     body?: {
         category_id: number;
     };
@@ -4301,56 +4964,65 @@ export type MarkAllForumTopicsAsReadData = {
     url: '/forum_topics/mark_all_as_read.json';
 };
 
-export type MarkAllForumTopicsAsReadErrors = {
+export type ForumTopicsMarkAllAsReadErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type MarkAllForumTopicsAsReadError = MarkAllForumTopicsAsReadErrors[keyof MarkAllForumTopicsAsReadErrors];
+export type ForumTopicsMarkAllAsReadError = ForumTopicsMarkAllAsReadErrors[keyof ForumTopicsMarkAllAsReadErrors];
 
-export type MarkAllForumTopicsAsReadResponses = {
+export type ForumTopicsMarkAllAsReadResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type MarkAllForumTopicsAsReadResponse = MarkAllForumTopicsAsReadResponses[keyof MarkAllForumTopicsAsReadResponses];
+export type ForumTopicsMarkAllAsReadResponse = ForumTopicsMarkAllAsReadResponses[keyof ForumTopicsMarkAllAsReadResponses];
 
-export type ListHelpPagesData = {
+export type HelpIndexData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/help.json';
 };
 
-export type ListHelpPagesResponses = {
+export type HelpIndexErrors = {
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type HelpIndexError = HelpIndexErrors[keyof HelpIndexErrors];
+
+export type HelpIndexResponses = {
     /**
      * Success
      */
-    200: Array<Help>;
+    200: HelpPage;
 };
 
-export type ListHelpPagesResponse = ListHelpPagesResponses[keyof ListHelpPagesResponses];
+export type HelpIndexResponse = HelpIndexResponses[keyof HelpIndexResponses];
 
-export type CreateHelpPageData = {
+export type HelpCreateData = {
     body?: {
-        'help_page[name]': string;
-        'help_page[wiki_page]': string;
+        name: string;
+        wiki_page: string;
         /**
          * Separate with a comma followed by a space.
          */
-        'help_page[related]'?: string;
-        'help_page[title]'?: string;
+        related?: string;
+        title?: string;
     };
     path?: never;
     query?: never;
     url: '/help.json';
 };
 
-export type CreateHelpPageErrors = {
+export type HelpCreateErrors = {
     /**
      * Access Denied
      */
@@ -4363,18 +5035,34 @@ export type CreateHelpPageErrors = {
     };
 };
 
-export type CreateHelpPageError = CreateHelpPageErrors[keyof CreateHelpPageErrors];
+export type HelpCreateError = HelpCreateErrors[keyof HelpCreateErrors];
 
-export type CreateHelpPageResponses = {
+export type HelpCreateResponses = {
     /**
      * Success
      */
-    201: Help;
+    201: HelpPage;
 };
 
-export type CreateHelpPageResponse = CreateHelpPageResponses[keyof CreateHelpPageResponses];
+export type HelpCreateResponse = HelpCreateResponses[keyof HelpCreateResponses];
 
-export type DeleteHelpPageData = {
+export type HelpListData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/help/list.json';
+};
+
+export type HelpListResponses = {
+    /**
+     * Success
+     */
+    200: Array<HelpPage>;
+};
+
+export type HelpListResponse = HelpListResponses[keyof HelpListResponses];
+
+export type HelpDestroyData = {
     body?: never;
     path: {
         /**
@@ -4386,7 +5074,7 @@ export type DeleteHelpPageData = {
     url: '/help/{id}.json';
 };
 
-export type DeleteHelpPageErrors = {
+export type HelpDestroyErrors = {
     /**
      * Access Denied
      */
@@ -4397,18 +5085,18 @@ export type DeleteHelpPageErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteHelpPageError = DeleteHelpPageErrors[keyof DeleteHelpPageErrors];
+export type HelpDestroyError = HelpDestroyErrors[keyof HelpDestroyErrors];
 
-export type DeleteHelpPageResponses = {
+export type HelpDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteHelpPageResponse = DeleteHelpPageResponses[keyof DeleteHelpPageResponses];
+export type HelpDestroyResponse = HelpDestroyResponses[keyof HelpDestroyResponses];
 
-export type GetHelpPageData = {
+export type HelpShowData = {
     body?: never;
     path: {
         /**
@@ -4420,7 +5108,7 @@ export type GetHelpPageData = {
     url: '/help/{id}.json';
 };
 
-export type GetHelpPageErrors = {
+export type HelpShowErrors = {
     /**
      * Access Denied
      */
@@ -4431,26 +5119,26 @@ export type GetHelpPageErrors = {
     404: NotFoundResponse;
 };
 
-export type GetHelpPageError = GetHelpPageErrors[keyof GetHelpPageErrors];
+export type HelpShowError = HelpShowErrors[keyof HelpShowErrors];
 
-export type GetHelpPageResponses = {
+export type HelpShowResponses = {
     /**
      * Success
      */
-    200: Help;
+    200: HelpPage;
 };
 
-export type GetHelpPageResponse = GetHelpPageResponses[keyof GetHelpPageResponses];
+export type HelpShowResponse = HelpShowResponses[keyof HelpShowResponses];
 
-export type EditHelpPageData = {
+export type HelpUpdateData = {
     body?: {
-        'help_page[name]'?: string;
-        'help_page[wiki_page]'?: string;
+        name?: string;
+        wiki_page?: string;
         /**
          * Separate with a comma followed by a space.
          */
-        'help_page[related]'?: string;
-        'help_page[title]'?: string;
+        related?: string;
+        title?: string;
     };
     path: {
         /**
@@ -4462,7 +5150,7 @@ export type EditHelpPageData = {
     url: '/help/{id}.json';
 };
 
-export type EditHelpPageErrors = {
+export type HelpUpdateErrors = {
     /**
      * Access Denied
      */
@@ -4479,18 +5167,18 @@ export type EditHelpPageErrors = {
     };
 };
 
-export type EditHelpPageError = EditHelpPageErrors[keyof EditHelpPageErrors];
+export type HelpUpdateError = HelpUpdateErrors[keyof HelpUpdateErrors];
 
-export type EditHelpPageResponses = {
+export type HelpUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditHelpPageResponse = EditHelpPageResponses[keyof EditHelpPageResponses];
+export type HelpUpdateResponse = HelpUpdateResponses[keyof HelpUpdateResponses];
 
-export type ListIpBansData = {
+export type IpBansIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -4503,7 +5191,7 @@ export type ListIpBansData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -4521,26 +5209,26 @@ export type ListIpBansData = {
     url: '/ip_bans.json';
 };
 
-export type ListIpBansResponses = {
+export type IpBansIndexResponses = {
     /**
      * Success
      */
     200: Array<IpBan>;
 };
 
-export type ListIpBansResponse = ListIpBansResponses[keyof ListIpBansResponses];
+export type IpBansIndexResponse = IpBansIndexResponses[keyof IpBansIndexResponses];
 
-export type CreateIpBanData = {
+export type IpBansCreateData = {
     body?: {
-        'ip_ban[ip_addr]': string;
-        'ip_ban[reason]': string;
+        ip_addr: string;
+        reason: string;
     };
     path?: never;
     query?: never;
     url: '/ip_bans.json';
 };
 
-export type CreateIpBanErrors = {
+export type IpBansCreateErrors = {
     /**
      * Access Denied
      */
@@ -4553,18 +5241,18 @@ export type CreateIpBanErrors = {
     };
 };
 
-export type CreateIpBanError = CreateIpBanErrors[keyof CreateIpBanErrors];
+export type IpBansCreateError = IpBansCreateErrors[keyof IpBansCreateErrors];
 
-export type CreateIpBanResponses = {
+export type IpBansCreateResponses = {
     /**
      * Success
      */
     201: IpBan;
 };
 
-export type CreateIpBanResponse = CreateIpBanResponses[keyof CreateIpBanResponses];
+export type IpBansCreateResponse = IpBansCreateResponses[keyof IpBansCreateResponses];
 
-export type DeleteIpBanData = {
+export type IpBansDestroyData = {
     body?: never;
     path: {
         /**
@@ -4576,7 +5264,7 @@ export type DeleteIpBanData = {
     url: '/ip_bans/{id}.json';
 };
 
-export type DeleteIpBanErrors = {
+export type IpBansDestroyErrors = {
     /**
      * Access Denied
      */
@@ -4587,21 +5275,25 @@ export type DeleteIpBanErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteIpBanError = DeleteIpBanErrors[keyof DeleteIpBanErrors];
+export type IpBansDestroyError = IpBansDestroyErrors[keyof IpBansDestroyErrors];
 
-export type DeleteIpBanResponses = {
+export type IpBansDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteIpBanResponse = DeleteIpBanResponses[keyof DeleteIpBanResponses];
+export type IpBansDestroyResponse = IpBansDestroyResponses[keyof IpBansDestroyResponses];
 
-export type QueryIqdbGetData = {
+export type IqdbQueriesShowData = {
     body?: never;
     path?: never;
     query?: {
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
         'search[score_cutoff]'?: number;
         'search[url]'?: string;
         'search[post_id]'?: number;
@@ -4610,25 +5302,30 @@ export type QueryIqdbGetData = {
     url: '/iqdb_queries.json';
 };
 
-export type QueryIqdbGetErrors = {
+export type IqdbQueriesShowErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type QueryIqdbGetError = QueryIqdbGetErrors[keyof QueryIqdbGetErrors];
+export type IqdbQueriesShowError = IqdbQueriesShowErrors[keyof IqdbQueriesShowErrors];
 
-export type QueryIqdbGetResponses = {
+export type IqdbQueriesShowResponses = {
     /**
      * Success
      */
-    200: Array<IqdbResponse>;
+    200: Array<IqdbResponse> | Array<{
+        hash: string;
+        post_id: number;
+        score: number;
+        post: BasicPost;
+    }>;
 };
 
-export type QueryIqdbGetResponse = QueryIqdbGetResponses[keyof QueryIqdbGetResponses];
+export type IqdbQueriesShowResponse = IqdbQueriesShowResponses[keyof IqdbQueriesShowResponses];
 
-export type QueryIqdbPostData = {
+export type IqdbQueriesShowPostData = {
     body?: {
         score_cutoff?: number;
         url?: string;
@@ -4636,29 +5333,39 @@ export type QueryIqdbPostData = {
         hash?: string;
     };
     path?: never;
-    query?: never;
+    query?: {
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+    };
     url: '/iqdb_queries.json';
 };
 
-export type QueryIqdbPostErrors = {
+export type IqdbQueriesShowPostErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type QueryIqdbPostError = QueryIqdbPostErrors[keyof QueryIqdbPostErrors];
+export type IqdbQueriesShowPostError = IqdbQueriesShowPostErrors[keyof IqdbQueriesShowPostErrors];
 
-export type QueryIqdbPostResponses = {
+export type IqdbQueriesShowPostResponses = {
     /**
      * Success
      */
-    200: Array<IqdbResponse>;
+    200: Array<IqdbResponse> | Array<{
+        hash: string;
+        post_id: number;
+        score: number;
+        post: BasicPost;
+    }>;
 };
 
-export type QueryIqdbPostResponse = QueryIqdbPostResponses[keyof QueryIqdbPostResponses];
+export type IqdbQueriesShowPostResponse = IqdbQueriesShowPostResponses[keyof IqdbQueriesShowPostResponses];
 
-export type SearchMascotsData = {
+export type MascotsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -4671,23 +5378,23 @@ export type SearchMascotsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
     };
     url: '/mascots.json';
 };
 
-export type SearchMascotsResponses = {
+export type MascotsIndexResponses = {
     /**
      * Success
      */
     200: Array<Mascot>;
 };
 
-export type SearchMascotsResponse = SearchMascotsResponses[keyof SearchMascotsResponses];
+export type MascotsIndexResponse = MascotsIndexResponses[keyof MascotsIndexResponses];
 
-export type CreateMascotData = {
+export type MascotsCreateData = {
     body?: {
         'mascot[mascot_file]': Blob | File;
         'mascot[display_name]': string;
@@ -4706,7 +5413,7 @@ export type CreateMascotData = {
     url: '/mascots.json';
 };
 
-export type CreateMascotErrors = {
+export type MascotsCreateErrors = {
     /**
      * Access Denied
      */
@@ -4719,18 +5426,18 @@ export type CreateMascotErrors = {
     };
 };
 
-export type CreateMascotError = CreateMascotErrors[keyof CreateMascotErrors];
+export type MascotsCreateError = MascotsCreateErrors[keyof MascotsCreateErrors];
 
-export type CreateMascotResponses = {
+export type MascotsCreateResponses = {
     /**
      * Success
      */
     201: Mascot;
 };
 
-export type CreateMascotResponse = CreateMascotResponses[keyof CreateMascotResponses];
+export type MascotsCreateResponse = MascotsCreateResponses[keyof MascotsCreateResponses];
 
-export type DeleteMascotData = {
+export type MascotsDestroyData = {
     body?: never;
     path: {
         /**
@@ -4742,7 +5449,7 @@ export type DeleteMascotData = {
     url: '/mascots/{id}.json';
 };
 
-export type DeleteMascotErrors = {
+export type MascotsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -4753,18 +5460,18 @@ export type DeleteMascotErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteMascotError = DeleteMascotErrors[keyof DeleteMascotErrors];
+export type MascotsDestroyError = MascotsDestroyErrors[keyof MascotsDestroyErrors];
 
-export type DeleteMascotResponses = {
+export type MascotsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteMascotResponse = DeleteMascotResponses[keyof DeleteMascotResponses];
+export type MascotsDestroyResponse = MascotsDestroyResponses[keyof MascotsDestroyResponses];
 
-export type EditMascotData = {
+export type MascotsUpdateData = {
     body?: {
         'mascot[mascot_file]'?: Blob | File;
         'mascot[display_name]'?: string;
@@ -4788,7 +5495,7 @@ export type EditMascotData = {
     url: '/mascots/{id}.json';
 };
 
-export type EditMascotErrors = {
+export type MascotsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -4805,18 +5512,18 @@ export type EditMascotErrors = {
     };
 };
 
-export type EditMascotError = EditMascotErrors[keyof EditMascotErrors];
+export type MascotsUpdateError = MascotsUpdateErrors[keyof MascotsUpdateErrors];
 
-export type EditMascotResponses = {
+export type MascotsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditMascotResponse = EditMascotResponses[keyof EditMascotResponses];
+export type MascotsUpdateResponse = MascotsUpdateResponses[keyof MascotsUpdateResponses];
 
-export type SearchModActionsData = {
+export type ModActionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -4829,7 +5536,7 @@ export type SearchModActionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc';
@@ -4840,16 +5547,16 @@ export type SearchModActionsData = {
     url: '/mod_actions.json';
 };
 
-export type SearchModActionsResponses = {
+export type ModActionsIndexResponses = {
     /**
      * Success
      */
     200: Array<ModAction>;
 };
 
-export type SearchModActionsResponse = SearchModActionsResponses[keyof SearchModActionsResponses];
+export type ModActionsIndexResponse = ModActionsIndexResponses[keyof ModActionsIndexResponses];
 
-export type GetModActionData = {
+export type ModActionsShowData = {
     body?: never;
     path: {
         /**
@@ -4861,7 +5568,7 @@ export type GetModActionData = {
     url: '/mod_actions/{id}.json';
 };
 
-export type GetModActionErrors = {
+export type ModActionsShowErrors = {
     /**
      * Access Denied
      */
@@ -4872,18 +5579,18 @@ export type GetModActionErrors = {
     404: NotFoundResponse;
 };
 
-export type GetModActionError = GetModActionErrors[keyof GetModActionErrors];
+export type ModActionsShowError = ModActionsShowErrors[keyof ModActionsShowErrors];
 
-export type GetModActionResponses = {
+export type ModActionsShowResponses = {
     /**
      * Success
      */
     200: ModAction;
 };
 
-export type GetModActionResponse = GetModActionResponses[keyof GetModActionResponses];
+export type ModActionsShowResponse = ModActionsShowResponses[keyof ModActionsShowResponses];
 
-export type ListNewsUpdatesData = {
+export type NewsUpdatesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -4899,25 +5606,25 @@ export type ListNewsUpdatesData = {
     url: '/news_updates.json';
 };
 
-export type ListNewsUpdatesResponses = {
+export type NewsUpdatesIndexResponses = {
     /**
      * Success
      */
     200: Array<NewsUpdate>;
 };
 
-export type ListNewsUpdatesResponse = ListNewsUpdatesResponses[keyof ListNewsUpdatesResponses];
+export type NewsUpdatesIndexResponse = NewsUpdatesIndexResponses[keyof NewsUpdatesIndexResponses];
 
-export type CreateNewsUpdateData = {
+export type NewsUpdatesCreateData = {
     body?: {
-        'news_update[message]': string;
+        message: string;
     };
     path?: never;
     query?: never;
     url: '/news_updates.json';
 };
 
-export type CreateNewsUpdateErrors = {
+export type NewsUpdatesCreateErrors = {
     /**
      * Access Denied
      */
@@ -4930,18 +5637,18 @@ export type CreateNewsUpdateErrors = {
     };
 };
 
-export type CreateNewsUpdateError = CreateNewsUpdateErrors[keyof CreateNewsUpdateErrors];
+export type NewsUpdatesCreateError = NewsUpdatesCreateErrors[keyof NewsUpdatesCreateErrors];
 
-export type CreateNewsUpdateResponses = {
+export type NewsUpdatesCreateResponses = {
     /**
      * Success
      */
     201: NewsUpdate;
 };
 
-export type CreateNewsUpdateResponse = CreateNewsUpdateResponses[keyof CreateNewsUpdateResponses];
+export type NewsUpdatesCreateResponse = NewsUpdatesCreateResponses[keyof NewsUpdatesCreateResponses];
 
-export type DeleteNewsUpdateData = {
+export type NewsUpdatesDestroyData = {
     body?: never;
     path: {
         /**
@@ -4953,7 +5660,7 @@ export type DeleteNewsUpdateData = {
     url: '/news_updates/{id}.json';
 };
 
-export type DeleteNewsUpdateErrors = {
+export type NewsUpdatesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -4964,20 +5671,20 @@ export type DeleteNewsUpdateErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteNewsUpdateError = DeleteNewsUpdateErrors[keyof DeleteNewsUpdateErrors];
+export type NewsUpdatesDestroyError = NewsUpdatesDestroyErrors[keyof NewsUpdatesDestroyErrors];
 
-export type DeleteNewsUpdateResponses = {
+export type NewsUpdatesDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteNewsUpdateResponse = DeleteNewsUpdateResponses[keyof DeleteNewsUpdateResponses];
+export type NewsUpdatesDestroyResponse = NewsUpdatesDestroyResponses[keyof NewsUpdatesDestroyResponses];
 
-export type EditNewsUpdateData = {
+export type NewsUpdatesUpdateData = {
     body?: {
-        'news_update[message]': string;
+        message: string;
     };
     path: {
         /**
@@ -4989,7 +5696,7 @@ export type EditNewsUpdateData = {
     url: '/news_updates/{id}.json';
 };
 
-export type EditNewsUpdateErrors = {
+export type NewsUpdatesUpdateErrors = {
     /**
      * Access Denied
      */
@@ -5006,18 +5713,18 @@ export type EditNewsUpdateErrors = {
     };
 };
 
-export type EditNewsUpdateError = EditNewsUpdateErrors[keyof EditNewsUpdateErrors];
+export type NewsUpdatesUpdateError = NewsUpdatesUpdateErrors[keyof NewsUpdatesUpdateErrors];
 
-export type EditNewsUpdateResponses = {
+export type NewsUpdatesUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditNewsUpdateResponse = EditNewsUpdateResponses[keyof EditNewsUpdateResponses];
+export type NewsUpdatesUpdateResponse = NewsUpdatesUpdateResponses[keyof NewsUpdatesUpdateResponses];
 
-export type SearchNotesData = {
+export type NotesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -5030,7 +5737,7 @@ export type SearchNotesData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -5049,34 +5756,34 @@ export type SearchNotesData = {
     url: '/notes.json';
 };
 
-export type SearchNotesResponses = {
+export type NotesIndexResponses = {
     /**
      * Success
      */
     200: Array<Note>;
 };
 
-export type SearchNotesResponse = SearchNotesResponses[keyof SearchNotesResponses];
+export type NotesIndexResponse = NotesIndexResponses[keyof NotesIndexResponses];
 
-export type CreateNoteData = {
+export type NotesCreateData = {
     body?: {
-        'note[post_id]': number;
-        'note[x]': number;
-        'note[y]': number;
-        'note[width]': number;
-        'note[height]': number;
-        'note[body]': string;
+        post_id: number;
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+        body: string;
         /**
          * Passthrough, used in frontend.
          */
-        'note[html_id]'?: string;
+        html_id?: string;
     };
     path?: never;
     query?: never;
     url: '/notes.json';
 };
 
-export type CreateNoteErrors = {
+export type NotesCreateErrors = {
     /**
      * Access Denied
      */
@@ -5089,9 +5796,9 @@ export type CreateNoteErrors = {
     };
 };
 
-export type CreateNoteError = CreateNoteErrors[keyof CreateNoteErrors];
+export type NotesCreateError = NotesCreateErrors[keyof NotesCreateErrors];
 
-export type CreateNoteResponses = {
+export type NotesCreateResponses = {
     /**
      * Success
      */
@@ -5103,9 +5810,9 @@ export type CreateNoteResponses = {
     };
 };
 
-export type CreateNoteResponse = CreateNoteResponses[keyof CreateNoteResponses];
+export type NotesCreateResponse = NotesCreateResponses[keyof NotesCreateResponses];
 
-export type DeleteNoteData = {
+export type NotesDestroyData = {
     body?: never;
     path: {
         /**
@@ -5117,7 +5824,7 @@ export type DeleteNoteData = {
     url: '/notes/{id}.json';
 };
 
-export type DeleteNoteErrors = {
+export type NotesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -5128,18 +5835,18 @@ export type DeleteNoteErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteNoteError = DeleteNoteErrors[keyof DeleteNoteErrors];
+export type NotesDestroyError = NotesDestroyErrors[keyof NotesDestroyErrors];
 
-export type DeleteNoteResponses = {
+export type NotesDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteNoteResponse = DeleteNoteResponses[keyof DeleteNoteResponses];
+export type NotesDestroyResponse = NotesDestroyResponses[keyof NotesDestroyResponses];
 
-export type GetNoteData = {
+export type NotesShowData = {
     body?: never;
     path: {
         /**
@@ -5151,31 +5858,31 @@ export type GetNoteData = {
     url: '/notes/{id}.json';
 };
 
-export type GetNoteErrors = {
+export type NotesShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetNoteError = GetNoteErrors[keyof GetNoteErrors];
+export type NotesShowError = NotesShowErrors[keyof NotesShowErrors];
 
-export type GetNoteResponses = {
+export type NotesShowResponses = {
     /**
      * Success
      */
     200: Note;
 };
 
-export type GetNoteResponse = GetNoteResponses[keyof GetNoteResponses];
+export type NotesShowResponse = NotesShowResponses[keyof NotesShowResponses];
 
-export type EditNoteData = {
+export type NotesUpdateData = {
     body?: {
-        'note[x]'?: number;
-        'note[y]'?: number;
-        'note[width]'?: number;
-        'note[height]'?: number;
-        'note[body]'?: string;
+        x?: number;
+        y?: number;
+        width?: number;
+        height?: number;
+        body?: string;
     };
     path: {
         /**
@@ -5187,7 +5894,7 @@ export type EditNoteData = {
     url: '/notes/{id}.json';
 };
 
-export type EditNoteErrors = {
+export type NotesUpdateErrors = {
     /**
      * Access Denied
      */
@@ -5204,18 +5911,18 @@ export type EditNoteErrors = {
     };
 };
 
-export type EditNoteError = EditNoteErrors[keyof EditNoteErrors];
+export type NotesUpdateError = NotesUpdateErrors[keyof NotesUpdateErrors];
 
-export type EditNoteResponses = {
+export type NotesUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditNoteResponse = EditNoteResponses[keyof EditNoteResponses];
+export type NotesUpdateResponse = NotesUpdateResponses[keyof NotesUpdateResponses];
 
-export type RevertNoteData = {
+export type NotesRevertData = {
     body?: never;
     path: {
         /**
@@ -5232,7 +5939,7 @@ export type RevertNoteData = {
     url: '/notes/{id}/revert.json';
 };
 
-export type RevertNoteErrors = {
+export type NotesRevertErrors = {
     /**
      * Access Denied
      */
@@ -5249,18 +5956,18 @@ export type RevertNoteErrors = {
     };
 };
 
-export type RevertNoteError = RevertNoteErrors[keyof RevertNoteErrors];
+export type NotesRevertError = NotesRevertErrors[keyof NotesRevertErrors];
 
-export type RevertNoteResponses = {
+export type NotesRevertResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RevertNoteResponse = RevertNoteResponses[keyof RevertNoteResponses];
+export type NotesRevertResponse = NotesRevertResponses[keyof NotesRevertResponses];
 
-export type SearchNoteVersionsData = {
+export type NoteVersionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -5273,7 +5980,7 @@ export type SearchNoteVersionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -5294,16 +6001,16 @@ export type SearchNoteVersionsData = {
     url: '/note_versions.json';
 };
 
-export type SearchNoteVersionsResponses = {
+export type NoteVersionsIndexResponses = {
     /**
      * Success
      */
     200: Array<NoteVersion>;
 };
 
-export type SearchNoteVersionsResponse = SearchNoteVersionsResponses[keyof SearchNoteVersionsResponses];
+export type NoteVersionsIndexResponse = NoteVersionsIndexResponses[keyof NoteVersionsIndexResponses];
 
-export type SearchPoolsData = {
+export type PoolsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -5316,7 +6023,7 @@ export type SearchPoolsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'created_at' | 'post_count';
@@ -5330,36 +6037,36 @@ export type SearchPoolsData = {
     url: '/pools.json';
 };
 
-export type SearchPoolsResponses = {
+export type PoolsIndexResponses = {
     /**
      * Success
      */
     200: Array<Pool>;
 };
 
-export type SearchPoolsResponse = SearchPoolsResponses[keyof SearchPoolsResponses];
+export type PoolsIndexResponse = PoolsIndexResponses[keyof PoolsIndexResponses];
 
-export type CreatePoolData = {
+export type PoolsCreateData = {
     body?: {
-        'pool[name]': string;
-        'pool[description]'?: string;
-        'pool[category]'?: PoolCategories;
-        'pool[is_active]'?: boolean;
+        name: string;
+        description?: string;
+        category?: PoolCategories;
+        is_active?: boolean;
         /**
          * Space separated list of post IDs. Mutually exclusive with post_ids.
          */
-        'pool[post_ids_string]'?: string;
+        post_ids_string?: string;
         /**
          * Array of post IDs. Mutually exclusive with post_ids_string.
          */
-        'pool[post_ids]'?: Array<number>;
+        post_ids?: Array<number>;
     };
     path?: never;
     query?: never;
     url: '/pools.json';
 };
 
-export type CreatePoolErrors = {
+export type PoolsCreateErrors = {
     /**
      * Access Denied
      */
@@ -5372,18 +6079,18 @@ export type CreatePoolErrors = {
     };
 };
 
-export type CreatePoolError = CreatePoolErrors[keyof CreatePoolErrors];
+export type PoolsCreateError = PoolsCreateErrors[keyof PoolsCreateErrors];
 
-export type CreatePoolResponses = {
+export type PoolsCreateResponses = {
     /**
      * Success
      */
     201: Pool;
 };
 
-export type CreatePoolResponse = CreatePoolResponses[keyof CreatePoolResponses];
+export type PoolsCreateResponse = PoolsCreateResponses[keyof PoolsCreateResponses];
 
-export type DeletePoolData = {
+export type PoolsDestroyData = {
     body?: never;
     path: {
         /**
@@ -5395,7 +6102,7 @@ export type DeletePoolData = {
     url: '/pools/{id}.json';
 };
 
-export type DeletePoolErrors = {
+export type PoolsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -5406,18 +6113,18 @@ export type DeletePoolErrors = {
     404: NotFoundResponse;
 };
 
-export type DeletePoolError = DeletePoolErrors[keyof DeletePoolErrors];
+export type PoolsDestroyError = PoolsDestroyErrors[keyof PoolsDestroyErrors];
 
-export type DeletePoolResponses = {
+export type PoolsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeletePoolResponse = DeletePoolResponses[keyof DeletePoolResponses];
+export type PoolsDestroyResponse = PoolsDestroyResponses[keyof PoolsDestroyResponses];
 
-export type GetPoolData = {
+export type PoolsShowData = {
     body?: never;
     path: {
         /**
@@ -5429,38 +6136,38 @@ export type GetPoolData = {
     url: '/pools/{id}.json';
 };
 
-export type GetPoolErrors = {
+export type PoolsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetPoolError = GetPoolErrors[keyof GetPoolErrors];
+export type PoolsShowError = PoolsShowErrors[keyof PoolsShowErrors];
 
-export type GetPoolResponses = {
+export type PoolsShowResponses = {
     /**
      * Success
      */
     200: Pool;
 };
 
-export type GetPoolResponse = GetPoolResponses[keyof GetPoolResponses];
+export type PoolsShowResponse = PoolsShowResponses[keyof PoolsShowResponses];
 
-export type EditPoolData = {
+export type PoolsUpdateData = {
     body?: {
-        'pool[name]'?: string;
-        'pool[description]'?: string;
-        'pool[is_active]'?: boolean;
-        'pool[category]'?: PoolCategories;
+        name?: string;
+        description?: string;
+        is_active?: boolean;
+        category?: PoolCategories;
         /**
          * Space separated list of post IDs. Mutually exclusive with post_ids.
          */
-        'pool[post_ids_string]'?: string;
+        post_ids_string?: string;
         /**
          * Array of post IDs. Mutually exclusive with post_ids_string.
          */
-        'pool[post_ids]'?: Array<number>;
+        post_ids?: Array<number>;
     };
     path: {
         /**
@@ -5472,7 +6179,7 @@ export type EditPoolData = {
     url: '/pools/{id}.json';
 };
 
-export type EditPoolErrors = {
+export type PoolsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -5489,18 +6196,18 @@ export type EditPoolErrors = {
     };
 };
 
-export type EditPoolError = EditPoolErrors[keyof EditPoolErrors];
+export type PoolsUpdateError = PoolsUpdateErrors[keyof PoolsUpdateErrors];
 
-export type EditPoolResponses = {
+export type PoolsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditPoolResponse = EditPoolResponses[keyof EditPoolResponses];
+export type PoolsUpdateResponse = PoolsUpdateResponses[keyof PoolsUpdateResponses];
 
-export type RevertPoolData = {
+export type PoolsRevertData = {
     body?: never;
     path: {
         /**
@@ -5517,7 +6224,7 @@ export type RevertPoolData = {
     url: '/pools/{id}/revert.json';
 };
 
-export type RevertPoolErrors = {
+export type PoolsRevertErrors = {
     /**
      * Access Denied
      */
@@ -5534,18 +6241,18 @@ export type RevertPoolErrors = {
     };
 };
 
-export type RevertPoolError = RevertPoolErrors[keyof RevertPoolErrors];
+export type PoolsRevertError = PoolsRevertErrors[keyof PoolsRevertErrors];
 
-export type RevertPoolResponses = {
+export type PoolsRevertResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RevertPoolResponse = RevertPoolResponses[keyof RevertPoolResponses];
+export type PoolsRevertResponse = PoolsRevertResponses[keyof PoolsRevertResponses];
 
-export type RemovePostFromPoolData = {
+export type PoolElementsDestroyData = {
     body?: {
         /**
          * Mutually exclusive with pool_name.
@@ -5562,25 +6269,25 @@ export type RemovePostFromPoolData = {
     url: '/pool_element.json';
 };
 
-export type RemovePostFromPoolErrors = {
+export type PoolElementsDestroyErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type RemovePostFromPoolError = RemovePostFromPoolErrors[keyof RemovePostFromPoolErrors];
+export type PoolElementsDestroyError = PoolElementsDestroyErrors[keyof PoolElementsDestroyErrors];
 
-export type RemovePostFromPoolResponses = {
+export type PoolElementsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RemovePostFromPoolResponse = RemovePostFromPoolResponses[keyof RemovePostFromPoolResponses];
+export type PoolElementsDestroyResponse = PoolElementsDestroyResponses[keyof PoolElementsDestroyResponses];
 
-export type AddPostToPoolData = {
+export type PoolElementsCreateData = {
     body?: {
         /**
          * Mutually exclusive with pool_name.
@@ -5597,25 +6304,25 @@ export type AddPostToPoolData = {
     url: '/pool_element.json';
 };
 
-export type AddPostToPoolErrors = {
+export type PoolElementsCreateErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type AddPostToPoolError = AddPostToPoolErrors[keyof AddPostToPoolErrors];
+export type PoolElementsCreateError = PoolElementsCreateErrors[keyof PoolElementsCreateErrors];
 
-export type AddPostToPoolResponses = {
+export type PoolElementsCreateResponses = {
     /**
      * Success
      */
     201: Pool;
 };
 
-export type AddPostToPoolResponse = AddPostToPoolResponses[keyof AddPostToPoolResponses];
+export type PoolElementsCreateResponse = PoolElementsCreateResponses[keyof PoolElementsCreateResponses];
 
-export type GetRecentPoolsData = {
+export type PoolElementsRecentData = {
     body?: {
         /**
          * Mutually exclusive with pool_name.
@@ -5632,7 +6339,7 @@ export type GetRecentPoolsData = {
     url: '/pool_element/recent.json';
 };
 
-export type GetRecentPoolsResponses = {
+export type PoolElementsRecentResponses = {
     /**
      * Success
      */
@@ -5642,9 +6349,9 @@ export type GetRecentPoolsResponses = {
     }>;
 };
 
-export type GetRecentPoolsResponse = GetRecentPoolsResponses[keyof GetRecentPoolsResponses];
+export type PoolElementsRecentResponse = PoolElementsRecentResponses[keyof PoolElementsRecentResponses];
 
-export type SearchPoolVersionsData = {
+export type PoolVersionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -5657,7 +6364,7 @@ export type SearchPoolVersionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -5675,16 +6382,16 @@ export type SearchPoolVersionsData = {
     url: '/pool_versions.json';
 };
 
-export type SearchPoolVersionsResponses = {
+export type PoolVersionsIndexResponses = {
     /**
      * Success
      */
     200: Array<PoolVersion>;
 };
 
-export type SearchPoolVersionsResponse = SearchPoolVersionsResponses[keyof SearchPoolVersionsResponses];
+export type PoolVersionsIndexResponse = PoolVersionsIndexResponses[keyof PoolVersionsIndexResponses];
 
-export type ListPopularData = {
+export type PopularIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -5692,6 +6399,14 @@ export type ListPopularData = {
          * The maximum number of results to return. Between 0 and 320.
          */
         limit?: number;
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
         /**
          * The date to list popular uploads for. Only The day, month, and year are considered.
          */
@@ -5704,18 +6419,31 @@ export type ListPopularData = {
     url: '/popular.json';
 };
 
-export type ListPopularResponses = {
+export type PopularIndexErrors = {
     /**
-     * Success
+     * Invalid Input Data
      */
-    200: {
-        posts: Array<Post>;
+    422: {
+        errors: Array<string>;
     };
 };
 
-export type ListPopularResponse = ListPopularResponses[keyof ListPopularResponses];
+export type PopularIndexError = PopularIndexErrors[keyof PopularIndexErrors];
 
-export type SearchPostsData = {
+export type PopularIndexResponses = {
+    /**
+     * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
+     */
+    200: {
+        posts: Array<LegacyPost>;
+    } | Array<BasicPost> | Array<ExtendedPost> | Array<ThumbnailPost>;
+};
+
+export type PopularIndexResponse = PopularIndexResponses[keyof PopularIndexResponses];
+
+export type PostsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -5727,6 +6455,14 @@ export type SearchPostsData = {
          * The page number of results to get. Between 1 and 750.
          */
         page?: number;
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
         tags?: string;
         md5?: string;
         random?: string;
@@ -5734,47 +6470,61 @@ export type SearchPostsData = {
     url: '/posts.json';
 };
 
-export type SearchPostsResponses = {
+export type PostsIndexResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
     200: {
-        posts: Array<Post>;
-    };
+        posts: Array<LegacyPost>;
+    } | Array<BasicPost> | Array<ExtendedPost> | Array<ThumbnailPost> | {
+        post: LegacyPost;
+    } | (BasicPost & unknown) | (ExtendedPost & unknown) | (ThumbnailPost & unknown);
 };
 
-export type SearchPostsResponse = SearchPostsResponses[keyof SearchPostsResponses];
+export type PostsIndexResponse = PostsIndexResponses[keyof PostsIndexResponses];
 
-export type GetRandomPostData = {
+export type PostsRandomData = {
     body?: never;
     path?: never;
     query?: {
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
         tags?: string;
     };
     url: '/posts/random.json';
 };
 
-export type GetRandomPostErrors = {
+export type PostsRandomErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetRandomPostError = GetRandomPostErrors[keyof GetRandomPostErrors];
+export type PostsRandomError = PostsRandomErrors[keyof PostsRandomErrors];
 
-export type GetRandomPostResponses = {
+export type PostsRandomResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
     200: {
-        post: Post;
-    };
+        post: LegacyPost;
+    } | (BasicPost & unknown) | (ExtendedPost & unknown) | (ThumbnailPost & unknown);
 };
 
-export type GetRandomPostResponse = GetRandomPostResponses[keyof GetRandomPostResponses];
+export type PostsRandomResponse = PostsRandomResponses[keyof PostsRandomResponses];
 
-export type GetPostData = {
+export type PostsShowData = {
     body?: never;
     path: {
         /**
@@ -5782,99 +6532,110 @@ export type GetPostData = {
          */
         id: number;
     };
-    query?: never;
+    query?: {
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
+    };
     url: '/posts/{id}.json';
 };
 
-export type GetPostErrors = {
+export type PostsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetPostError = GetPostErrors[keyof GetPostErrors];
+export type PostsShowError = PostsShowErrors[keyof PostsShowErrors];
 
-export type GetPostResponses = {
+export type PostsShowResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
     200: {
-        post: Post;
-    };
+        post: LegacyPost;
+    } | (BasicPost & unknown) | (ExtendedPost & unknown) | (ThumbnailPost & unknown);
 };
 
-export type GetPostResponse = GetPostResponses[keyof GetPostResponses];
+export type PostsShowResponse = PostsShowResponses[keyof PostsShowResponses];
 
-export type EditPostData = {
+export type PostsUpdateData = {
     body?: {
         /**
          * Replaces all tags on the post.
          */
-        'post[tag_string]'?: string;
+        tag_string?: string;
         /**
          * The tag string before your edits, used to reconcile conflicts.
          */
-        'post[old_tag_string]'?: string;
+        old_tag_string?: string;
         /**
          * Tags with a minus are removed, else they are added. Mutually exclusive with tag_string.
          */
-        'post[tag_string_diff]'?: string;
+        tag_string_diff?: string;
         /**
          * Sources with a minus are removed, else they are added. It is not possible to add inactive sources through this. Mutually exclusive with source.
          */
-        'post[source_diff]'?: string;
+        source_diff?: string;
         /**
          * Replaces all sources on the post.
          */
-        'post[source]'?: string;
+        source?: string;
         /**
          * The sources before your edits, used to reconcile conflicts.
          */
-        'post[old_source]'?: string;
-        'post[parent_id]'?: number;
-        'post[old_parent_id]'?: number;
-        'post[description]'?: string;
-        'post[old_description]'?: string;
-        'post[rating]'?: Ratings;
-        'post[old_rating]'?: Ratings;
-        'post[edit_reason]'?: string;
+        old_source?: string;
+        parent_id?: number;
+        old_parent_id?: number;
+        description?: string;
+        old_description?: string;
+        rating?: Ratings;
+        old_rating?: Ratings;
+        edit_reason?: string;
         /**
          * You must be Privileged+.
          */
-        'post[is_rating_locked]'?: boolean;
+        is_rating_locked?: boolean;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
-        'post[is_note_locked]'?: boolean;
+        is_note_locked?: boolean;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
-        'post[bg_colo]r'?: string;
+        bg_color?: string;
         /**
          * You must be Moderator+.
          */
-        'post[is_comment_locked]'?: boolean;
+        is_comment_locked?: boolean;
         /**
          * You must be Admin+.
          */
-        'post[is_comment_disabled]'?: boolean;
+        is_comment_disabled?: boolean;
         /**
          * You must be Admin+.
          */
-        'post[is_status_locked]'?: boolean;
+        is_status_locked?: boolean;
         /**
          * You must be Admin+.
          */
-        'post[locked_tags]'?: string;
+        locked_tags?: string;
         /**
          * You must be Admin+.
          */
-        'post[hide_from_anonymous]'?: boolean;
+        hide_from_anonymous?: boolean;
         /**
          * You must be Admin+.
          */
-        'post[hide_from_search_engines]'?: boolean;
+        hide_from_search_engines?: boolean;
     };
     path: {
         /**
@@ -5882,11 +6643,20 @@ export type EditPostData = {
          */
         id: number;
     };
-    query?: never;
+    query?: {
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
+    };
     url: '/posts/{id}.json';
 };
 
-export type EditPostErrors = {
+export type PostsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -5903,18 +6673,22 @@ export type EditPostErrors = {
     };
 };
 
-export type EditPostError = EditPostErrors[keyof EditPostErrors];
+export type PostsUpdateError = PostsUpdateErrors[keyof PostsUpdateErrors];
 
-export type EditPostResponses = {
+export type PostsUpdateResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
-    200: Post;
+    200: {
+        post: LegacyPost;
+    } | (BasicPost & unknown) | (ExtendedPost & unknown) | (ThumbnailPost & unknown);
 };
 
-export type EditPostResponse = EditPostResponses[keyof EditPostResponses];
+export type PostsUpdateResponse = PostsUpdateResponses[keyof PostsUpdateResponses];
 
-export type UpdatePostIqdbData = {
+export type PostsUpdateIqdbData = {
     body?: never;
     path: {
         /**
@@ -5922,11 +6696,20 @@ export type UpdatePostIqdbData = {
          */
         id: number;
     };
-    query?: never;
+    query?: {
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
+    };
     url: '/posts/{id}/update_iqdb.json';
 };
 
-export type UpdatePostIqdbErrors = {
+export type PostsUpdateIqdbErrors = {
     /**
      * Access Denied
      */
@@ -5943,20 +6726,22 @@ export type UpdatePostIqdbErrors = {
     };
 };
 
-export type UpdatePostIqdbError = UpdatePostIqdbErrors[keyof UpdatePostIqdbErrors];
+export type PostsUpdateIqdbError = PostsUpdateIqdbErrors[keyof PostsUpdateIqdbErrors];
 
-export type UpdatePostIqdbResponses = {
+export type PostsUpdateIqdbResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
     200: {
-        post: Post;
-    };
+        post: LegacyPost;
+    } | (BasicPost & unknown) | (ExtendedPost & unknown) | (ThumbnailPost & unknown);
 };
 
-export type UpdatePostIqdbResponse = UpdatePostIqdbResponses[keyof UpdatePostIqdbResponses];
+export type PostsUpdateIqdbResponse = PostsUpdateIqdbResponses[keyof PostsUpdateIqdbResponses];
 
-export type MarkPostAsTranslatedData = {
+export type PostsMarkAsTranslatedData = {
     body?: {
         translation_check?: boolean;
         partially_translated?: boolean;
@@ -5967,11 +6752,20 @@ export type MarkPostAsTranslatedData = {
          */
         id: number;
     };
-    query?: never;
+    query?: {
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
+    };
     url: '/posts/{id}/mark_as_translated.json';
 };
 
-export type MarkPostAsTranslatedErrors = {
+export type PostsMarkAsTranslatedErrors = {
     /**
      * Access Denied
      */
@@ -5988,20 +6782,22 @@ export type MarkPostAsTranslatedErrors = {
     };
 };
 
-export type MarkPostAsTranslatedError = MarkPostAsTranslatedErrors[keyof MarkPostAsTranslatedErrors];
+export type PostsMarkAsTranslatedError = PostsMarkAsTranslatedErrors[keyof PostsMarkAsTranslatedErrors];
 
-export type MarkPostAsTranslatedResponses = {
+export type PostsMarkAsTranslatedResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
     200: {
-        post: Post;
-    };
+        post: LegacyPost;
+    } | (BasicPost & unknown) | (ExtendedPost & unknown) | (ThumbnailPost & unknown);
 };
 
-export type MarkPostAsTranslatedResponse = MarkPostAsTranslatedResponses[keyof MarkPostAsTranslatedResponses];
+export type PostsMarkAsTranslatedResponse = PostsMarkAsTranslatedResponses[keyof PostsMarkAsTranslatedResponses];
 
-export type CopyNotesToPostData = {
+export type PostsCopyNotesData = {
     body?: {
         other_post_id: number;
     };
@@ -6015,7 +6811,7 @@ export type CopyNotesToPostData = {
     url: '/posts/{id}/copy_notes.json';
 };
 
-export type CopyNotesToPostErrors = {
+export type PostsCopyNotesErrors = {
     /**
      * Error
      */
@@ -6030,18 +6826,18 @@ export type CopyNotesToPostErrors = {
     404: NotFoundResponse;
 };
 
-export type CopyNotesToPostError = CopyNotesToPostErrors[keyof CopyNotesToPostErrors];
+export type PostsCopyNotesError = PostsCopyNotesErrors[keyof PostsCopyNotesErrors];
 
-export type CopyNotesToPostResponses = {
+export type PostsCopyNotesResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type CopyNotesToPostResponse = CopyNotesToPostResponses[keyof CopyNotesToPostResponses];
+export type PostsCopyNotesResponse = PostsCopyNotesResponses[keyof PostsCopyNotesResponses];
 
-export type RevertPostData = {
+export type PostsRevertData = {
     body?: never;
     path: {
         /**
@@ -6058,7 +6854,7 @@ export type RevertPostData = {
     url: '/posts/{id}/revert.json';
 };
 
-export type RevertPostErrors = {
+export type PostsRevertErrors = {
     /**
      * Access Denied
      */
@@ -6075,18 +6871,18 @@ export type RevertPostErrors = {
     };
 };
 
-export type RevertPostError = RevertPostErrors[keyof RevertPostErrors];
+export type PostsRevertError = PostsRevertErrors[keyof PostsRevertErrors];
 
-export type RevertPostResponses = {
+export type PostsRevertResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RevertPostResponse = RevertPostResponses[keyof RevertPostResponses];
+export type PostsRevertResponse = PostsRevertResponses[keyof PostsRevertResponses];
 
-export type GetPostInSequenceData = {
+export type PostsShowSeqData = {
     body?: never;
     path: {
         /**
@@ -6096,6 +6892,14 @@ export type GetPostInSequenceData = {
     };
     query?: {
         /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
+        /**
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         */
+        mode?: 'basic' | 'extended' | 'thumbnail';
+        /**
          * The direction to move in the sequence.
          */
         seq?: 'next' | 'prev';
@@ -6103,7 +6907,7 @@ export type GetPostInSequenceData = {
     url: '/posts/{id}/show_seq.json';
 };
 
-export type GetPostInSequenceErrors = {
+export type PostsShowSeqErrors = {
     /**
      * Access Denied
      */
@@ -6120,20 +6924,22 @@ export type GetPostInSequenceErrors = {
     };
 };
 
-export type GetPostInSequenceError = GetPostInSequenceErrors[keyof GetPostInSequenceErrors];
+export type PostsShowSeqError = PostsShowSeqErrors[keyof PostsShowSeqErrors];
 
-export type GetPostInSequenceResponses = {
+export type PostsShowSeqResponses = {
     /**
      * Success
+     * if `v2=true`, open the schema and find the schema for the mode being used.
+     *
      */
     200: {
-        post: Post;
-    };
+        post: LegacyPost;
+    } | (BasicPost & unknown) | (ExtendedPost & unknown) | (ThumbnailPost & unknown);
 };
 
-export type GetPostInSequenceResponse = GetPostInSequenceResponses[keyof GetPostInSequenceResponses];
+export type PostsShowSeqResponse = PostsShowSeqResponses[keyof PostsShowSeqResponses];
 
-export type UnflagPostData = {
+export type PostFlagsDestroyData = {
     body?: {
         /**
          * Approves the post if set to "approve".
@@ -6150,7 +6956,7 @@ export type UnflagPostData = {
     url: '/posts/{id}/flag.json';
 };
 
-export type UnflagPostErrors = {
+export type PostFlagsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -6161,18 +6967,18 @@ export type UnflagPostErrors = {
     404: NotFoundResponse;
 };
 
-export type UnflagPostError = UnflagPostErrors[keyof UnflagPostErrors];
+export type PostFlagsDestroyError = PostFlagsDestroyErrors[keyof PostFlagsDestroyErrors];
 
-export type UnflagPostResponses = {
+export type PostFlagsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type UnflagPostResponse = UnflagPostResponses[keyof UnflagPostResponses];
+export type PostFlagsDestroyResponse = PostFlagsDestroyResponses[keyof PostFlagsDestroyResponses];
 
-export type ListPostFavoritesData = {
+export type PostFavoritesIndexData = {
     body?: never;
     path: {
         /**
@@ -6193,7 +6999,7 @@ export type ListPostFavoritesData = {
     url: '/posts/{id}/favorites.json';
 };
 
-export type ListPostFavoritesErrors = {
+export type PostFavoritesIndexErrors = {
     /**
      * Access Denied
      */
@@ -6204,18 +7010,18 @@ export type ListPostFavoritesErrors = {
     404: NotFoundResponse;
 };
 
-export type ListPostFavoritesError = ListPostFavoritesErrors[keyof ListPostFavoritesErrors];
+export type PostFavoritesIndexError = PostFavoritesIndexErrors[keyof PostFavoritesIndexErrors];
 
-export type ListPostFavoritesResponses = {
+export type PostFavoritesIndexResponses = {
     /**
      * Success
      */
-    200: Array<Post>;
+    200: Array<MinimalUser>;
 };
 
-export type ListPostFavoritesResponse = ListPostFavoritesResponses[keyof ListPostFavoritesResponses];
+export type PostFavoritesIndexResponse = PostFavoritesIndexResponses[keyof PostFavoritesIndexResponses];
 
-export type DeletePostVoteData = {
+export type PostVotesDestroyData = {
     body?: never;
     path: {
         /**
@@ -6227,7 +7033,7 @@ export type DeletePostVoteData = {
     url: '/posts/{id}/votes.json';
 };
 
-export type DeletePostVoteErrors = {
+export type PostVotesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -6244,18 +7050,18 @@ export type DeletePostVoteErrors = {
     };
 };
 
-export type DeletePostVoteError = DeletePostVoteErrors[keyof DeletePostVoteErrors];
+export type PostVotesDestroyError = PostVotesDestroyErrors[keyof PostVotesDestroyErrors];
 
-export type DeletePostVoteResponses = {
+export type PostVotesDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeletePostVoteResponse = DeletePostVoteResponses[keyof DeletePostVoteResponses];
+export type PostVotesDestroyResponse = PostVotesDestroyResponses[keyof PostVotesDestroyResponses];
 
-export type CreatePostVoteData = {
+export type PostVotesCreateData = {
     body?: never;
     path: {
         /**
@@ -6270,7 +7076,7 @@ export type CreatePostVoteData = {
     url: '/posts/{id}/votes.json';
 };
 
-export type CreatePostVoteErrors = {
+export type PostVotesCreateErrors = {
     /**
      * Access Denied
      */
@@ -6287,9 +7093,9 @@ export type CreatePostVoteErrors = {
     };
 };
 
-export type CreatePostVoteError = CreatePostVoteErrors[keyof CreatePostVoteErrors];
+export type PostVotesCreateError = PostVotesCreateErrors[keyof PostVotesCreateErrors];
 
-export type CreatePostVoteResponses = {
+export type PostVotesCreateResponses = {
     /**
      * Success
      */
@@ -6301,9 +7107,9 @@ export type CreatePostVoteResponses = {
     };
 };
 
-export type CreatePostVoteResponse = CreatePostVoteResponses[keyof CreatePostVoteResponses];
+export type PostVotesCreateResponse = PostVotesCreateResponses[keyof PostVotesCreateResponses];
 
-export type GetRecommendedPostsData = {
+export type PostRecommendationsArtistData = {
     body?: never;
     path: {
         /**
@@ -6321,28 +7127,67 @@ export type GetRecommendedPostsData = {
          */
         page?: number;
     };
-    url: '/posts/{id}/recommended.json';
+    url: '/posts/{id}/similar/artist.json';
 };
 
-export type GetRecommendedPostsErrors = {
+export type PostRecommendationsArtistErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetRecommendedPostsError = GetRecommendedPostsErrors[keyof GetRecommendedPostsErrors];
+export type PostRecommendationsArtistError = PostRecommendationsArtistErrors[keyof PostRecommendationsArtistErrors];
 
-export type GetRecommendedPostsResponses = {
+export type PostRecommendationsArtistResponses = {
     /**
      * Success
      */
-    200: RecommendedPosts;
+    200: RecommendedPosts & PostData;
 };
 
-export type GetRecommendedPostsResponse = GetRecommendedPostsResponses[keyof GetRecommendedPostsResponses];
+export type PostRecommendationsArtistResponse = PostRecommendationsArtistResponses[keyof PostRecommendationsArtistResponses];
 
-export type SearchPostSetsData = {
+export type PostRecommendationsTagsData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+    };
+    url: '/posts/{id}/similar/tags.json';
+};
+
+export type PostRecommendationsTagsErrors = {
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type PostRecommendationsTagsError = PostRecommendationsTagsErrors[keyof PostRecommendationsTagsErrors];
+
+export type PostRecommendationsTagsResponses = {
+    /**
+     * Success
+     */
+    200: RecommendedPosts & PostData;
+};
+
+export type PostRecommendationsTagsResponse = PostRecommendationsTagsResponses[keyof PostRecommendationsTagsResponses];
+
+export type PostSetsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -6355,7 +7200,7 @@ export type SearchPostSetsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'shortname' | 'post_count' | 'postcount' | 'created_at' | 'updated_at' | 'update';
@@ -6373,29 +7218,29 @@ export type SearchPostSetsData = {
     url: '/post_sets.json';
 };
 
-export type SearchPostSetsResponses = {
+export type PostSetsIndexResponses = {
     /**
      * Success
      */
     200: Array<PostSet>;
 };
 
-export type SearchPostSetsResponse = SearchPostSetsResponses[keyof SearchPostSetsResponses];
+export type PostSetsIndexResponse = PostSetsIndexResponses[keyof PostSetsIndexResponses];
 
-export type CreatePostSetData = {
+export type PostSetsCreateData = {
     body?: {
-        'post_set[name]': string;
-        'post_set[shortname]': string;
-        'post_set[description]'?: string;
-        'post_set[is_public]'?: boolean;
-        'post_set[ransfer_on_delete]'?: boolean;
+        name: string;
+        shortname: string;
+        description?: string;
+        is_public?: boolean;
+        ransfer_on_delete?: boolean;
     };
     path?: never;
     query?: never;
     url: '/post_sets.json';
 };
 
-export type CreatePostSetErrors = {
+export type PostSetsCreateErrors = {
     /**
      * Access Denied
      */
@@ -6408,18 +7253,18 @@ export type CreatePostSetErrors = {
     };
 };
 
-export type CreatePostSetError = CreatePostSetErrors[keyof CreatePostSetErrors];
+export type PostSetsCreateError = PostSetsCreateErrors[keyof PostSetsCreateErrors];
 
-export type CreatePostSetResponses = {
+export type PostSetsCreateResponses = {
     /**
      * Success
      */
     201: PostSet;
 };
 
-export type CreatePostSetResponse = CreatePostSetResponses[keyof CreatePostSetResponses];
+export type PostSetsCreateResponse = PostSetsCreateResponses[keyof PostSetsCreateResponses];
 
-export type DeletePostSetData = {
+export type PostSetsDestroyData = {
     body?: never;
     path: {
         /**
@@ -6431,7 +7276,7 @@ export type DeletePostSetData = {
     url: '/post_sets/{id}.json';
 };
 
-export type DeletePostSetErrors = {
+export type PostSetsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -6442,18 +7287,18 @@ export type DeletePostSetErrors = {
     404: NotFoundResponse;
 };
 
-export type DeletePostSetError = DeletePostSetErrors[keyof DeletePostSetErrors];
+export type PostSetsDestroyError = PostSetsDestroyErrors[keyof PostSetsDestroyErrors];
 
-export type DeletePostSetResponses = {
+export type PostSetsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeletePostSetResponse = DeletePostSetResponses[keyof DeletePostSetResponses];
+export type PostSetsDestroyResponse = PostSetsDestroyResponses[keyof PostSetsDestroyResponses];
 
-export type GetPostSetData = {
+export type PostSetsShowData = {
     body?: never;
     path: {
         /**
@@ -6465,7 +7310,7 @@ export type GetPostSetData = {
     url: '/post_sets/{id}.json';
 };
 
-export type GetPostSetErrors = {
+export type PostSetsShowErrors = {
     /**
      * Access Denied
      */
@@ -6476,24 +7321,24 @@ export type GetPostSetErrors = {
     404: NotFoundResponse;
 };
 
-export type GetPostSetError = GetPostSetErrors[keyof GetPostSetErrors];
+export type PostSetsShowError = PostSetsShowErrors[keyof PostSetsShowErrors];
 
-export type GetPostSetResponses = {
+export type PostSetsShowResponses = {
     /**
      * Success
      */
     200: PostSet;
 };
 
-export type GetPostSetResponse = GetPostSetResponses[keyof GetPostSetResponses];
+export type PostSetsShowResponse = PostSetsShowResponses[keyof PostSetsShowResponses];
 
-export type EditPostSetData = {
+export type PostSetsUpdateData = {
     body?: {
-        'post_set[name]'?: string;
-        'post_set[shortname]'?: string;
-        'post_set[description]'?: string;
-        'post_set[is_public]'?: boolean;
-        'post_set[transfer_on_delete]'?: boolean;
+        name?: string;
+        shortname?: string;
+        description?: string;
+        is_public?: boolean;
+        transfer_on_delete?: boolean;
     };
     path: {
         /**
@@ -6505,7 +7350,7 @@ export type EditPostSetData = {
     url: '/post_sets/{id}.json';
 };
 
-export type EditPostSetErrors = {
+export type PostSetsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -6522,20 +7367,20 @@ export type EditPostSetErrors = {
     };
 };
 
-export type EditPostSetError = EditPostSetErrors[keyof EditPostSetErrors];
+export type PostSetsUpdateError = PostSetsUpdateErrors[keyof PostSetsUpdateErrors];
 
-export type EditPostSetResponses = {
+export type PostSetsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditPostSetResponse = EditPostSetResponses[keyof EditPostSetResponses];
+export type PostSetsUpdateResponse = PostSetsUpdateResponses[keyof PostSetsUpdateResponses];
 
-export type UpdatePostSetPostsData = {
+export type PostSetsUpdatePostsData = {
     body?: {
-        'post_set[post_ids_string]': string;
+        post_ids_string: string;
     };
     path: {
         /**
@@ -6547,7 +7392,7 @@ export type UpdatePostSetPostsData = {
     url: '/post_sets/{id}/update_posts.json';
 };
 
-export type UpdatePostSetPostsErrors = {
+export type PostSetsUpdatePostsErrors = {
     /**
      * Access Denied
      */
@@ -6564,18 +7409,18 @@ export type UpdatePostSetPostsErrors = {
     };
 };
 
-export type UpdatePostSetPostsError = UpdatePostSetPostsErrors[keyof UpdatePostSetPostsErrors];
+export type PostSetsUpdatePostsError = PostSetsUpdatePostsErrors[keyof PostSetsUpdatePostsErrors];
 
-export type UpdatePostSetPostsResponses = {
+export type PostSetsUpdatePostsResponses = {
     /**
      * Success
      */
     200: PostSet;
 };
 
-export type UpdatePostSetPostsResponse = UpdatePostSetPostsResponses[keyof UpdatePostSetPostsResponses];
+export type PostSetsUpdatePostsResponse = PostSetsUpdatePostsResponses[keyof PostSetsUpdatePostsResponses];
 
-export type AddPostsToPostSetData = {
+export type PostSetsAddPostsData = {
     body?: {
         /**
          * post_ids[]=1&post_ids[]=2
@@ -6592,7 +7437,7 @@ export type AddPostsToPostSetData = {
     url: '/post_sets/{id}/add_posts.json';
 };
 
-export type AddPostsToPostSetErrors = {
+export type PostSetsAddPostsErrors = {
     /**
      * Access Denied
      */
@@ -6609,18 +7454,18 @@ export type AddPostsToPostSetErrors = {
     };
 };
 
-export type AddPostsToPostSetError = AddPostsToPostSetErrors[keyof AddPostsToPostSetErrors];
+export type PostSetsAddPostsError = PostSetsAddPostsErrors[keyof PostSetsAddPostsErrors];
 
-export type AddPostsToPostSetResponses = {
+export type PostSetsAddPostsResponses = {
     /**
      * Success
      */
     201: PostSet;
 };
 
-export type AddPostsToPostSetResponse = AddPostsToPostSetResponses[keyof AddPostsToPostSetResponses];
+export type PostSetsAddPostsResponse = PostSetsAddPostsResponses[keyof PostSetsAddPostsResponses];
 
-export type RemovePostsFromPostSetData = {
+export type PostSetsRemovePostsData = {
     body?: {
         /**
          * post_ids[]=1&post_ids[]=2
@@ -6637,7 +7482,7 @@ export type RemovePostsFromPostSetData = {
     url: '/post_sets/{id}/remove_posts.json';
 };
 
-export type RemovePostsFromPostSetErrors = {
+export type PostSetsRemovePostsErrors = {
     /**
      * Access Denied
      */
@@ -6654,25 +7499,25 @@ export type RemovePostsFromPostSetErrors = {
     };
 };
 
-export type RemovePostsFromPostSetError = RemovePostsFromPostSetErrors[keyof RemovePostsFromPostSetErrors];
+export type PostSetsRemovePostsError = PostSetsRemovePostsErrors[keyof PostSetsRemovePostsErrors];
 
-export type RemovePostsFromPostSetResponses = {
+export type PostSetsRemovePostsResponses = {
     /**
      * Success
      */
     201: PostSet;
 };
 
-export type RemovePostsFromPostSetResponse = RemovePostsFromPostSetResponses[keyof RemovePostsFromPostSetResponses];
+export type PostSetsRemovePostsResponse = PostSetsRemovePostsResponses[keyof PostSetsRemovePostsResponses];
 
-export type ListPostSetsForSelectData = {
+export type PostSetsForSelectData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/post_sets/for_select.json';
 };
 
-export type ListPostSetsForSelectErrors = {
+export type PostSetsForSelectErrors = {
     /**
      * Access Denied
      */
@@ -6685,9 +7530,9 @@ export type ListPostSetsForSelectErrors = {
     };
 };
 
-export type ListPostSetsForSelectError = ListPostSetsForSelectErrors[keyof ListPostSetsForSelectErrors];
+export type PostSetsForSelectError = PostSetsForSelectErrors[keyof PostSetsForSelectErrors];
 
-export type ListPostSetsForSelectResponses = {
+export type PostSetsForSelectResponses = {
     /**
      * Success
      */
@@ -6697,9 +7542,9 @@ export type ListPostSetsForSelectResponses = {
     };
 };
 
-export type ListPostSetsForSelectResponse = ListPostSetsForSelectResponses[keyof ListPostSetsForSelectResponses];
+export type PostSetsForSelectResponse = PostSetsForSelectResponses[keyof PostSetsForSelectResponses];
 
-export type SearchPostApprovalsData = {
+export type PostApprovalsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -6712,7 +7557,7 @@ export type SearchPostApprovalsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -6727,16 +7572,16 @@ export type SearchPostApprovalsData = {
     url: '/post_approvals.json';
 };
 
-export type SearchPostApprovalsResponses = {
+export type PostApprovalsIndexResponses = {
     /**
      * Success
      */
     200: Array<PostApproval>;
 };
 
-export type SearchPostApprovalsResponse = SearchPostApprovalsResponses[keyof SearchPostApprovalsResponses];
+export type PostApprovalsIndexResponse = PostApprovalsIndexResponses[keyof PostApprovalsIndexResponses];
 
-export type SearchPostEventsData = {
+export type PostEventsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -6749,13 +7594,17 @@ export type SearchPostEventsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
          * The order of the results.
          */
         'search[order]'?: 'id_asc' | 'id_desc';
+        /**
+         * Use the new V2 format. See the `v2=true` responses.
+         */
+        v2?: boolean;
         'search[post_id]'?: number;
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -6764,18 +7613,18 @@ export type SearchPostEventsData = {
     url: '/post_events.json';
 };
 
-export type SearchPostEventsResponses = {
+export type PostEventsIndexResponses = {
     /**
      * Success
      */
     200: {
         post_events: Array<PostEvent>;
-    };
+    } | Array<PostEvent>;
 };
 
-export type SearchPostEventsResponse = SearchPostEventsResponses[keyof SearchPostEventsResponses];
+export type PostEventsIndexResponse = PostEventsIndexResponses[keyof PostEventsIndexResponses];
 
-export type SearchPostFlagsData = {
+export type PostFlagsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -6788,7 +7637,7 @@ export type SearchPostFlagsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -6810,28 +7659,28 @@ export type SearchPostFlagsData = {
     url: '/post_flags.json';
 };
 
-export type SearchPostFlagsResponses = {
+export type PostFlagsIndexResponses = {
     /**
      * Success
      */
     200: Array<PostFlag>;
 };
 
-export type SearchPostFlagsResponse = SearchPostFlagsResponses[keyof SearchPostFlagsResponses];
+export type PostFlagsIndexResponse = PostFlagsIndexResponses[keyof PostFlagsIndexResponses];
 
-export type CreatePostFlagData = {
+export type PostFlagsCreateData = {
     body?: {
-        'post_flag[post_id]': number;
-        'post_flag[reason_name]': 'uploading_guidelines' | 'young_human' | 'dnp_artist' | 'pay_content' | 'trace' | 'previously_deleted' | 'real_porn' | 'corrupt' | 'inferior';
-        'post_flag[parent_id]'?: number;
-        'post_flag[note]'?: string;
+        post_id: number;
+        reason_name: 'uploading_guidelines' | 'young_human' | 'dnp_artist' | 'pay_content' | 'trace' | 'previously_deleted' | 'real_porn' | 'corrupt' | 'inferior';
+        parent_id?: number;
+        note?: string;
     };
     path?: never;
     query?: never;
     url: '/post_flags.json';
 };
 
-export type CreatePostFlagErrors = {
+export type PostFlagsCreateErrors = {
     /**
      * Access Denied
      */
@@ -6844,18 +7693,18 @@ export type CreatePostFlagErrors = {
     };
 };
 
-export type CreatePostFlagError = CreatePostFlagErrors[keyof CreatePostFlagErrors];
+export type PostFlagsCreateError = PostFlagsCreateErrors[keyof PostFlagsCreateErrors];
 
-export type CreatePostFlagResponses = {
+export type PostFlagsCreateResponses = {
     /**
      * Success
      */
     201: PostFlag;
 };
 
-export type CreatePostFlagResponse = CreatePostFlagResponses[keyof CreatePostFlagResponses];
+export type PostFlagsCreateResponse = PostFlagsCreateResponses[keyof PostFlagsCreateResponses];
 
-export type GetPostFlagData = {
+export type PostFlagsShowData = {
     body?: never;
     path: {
         /**
@@ -6867,25 +7716,25 @@ export type GetPostFlagData = {
     url: '/post_flags/{id}.json';
 };
 
-export type GetPostFlagErrors = {
+export type PostFlagsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetPostFlagError = GetPostFlagErrors[keyof GetPostFlagErrors];
+export type PostFlagsShowError = PostFlagsShowErrors[keyof PostFlagsShowErrors];
 
-export type GetPostFlagResponses = {
+export type PostFlagsShowResponses = {
     /**
      * Success
      */
     200: PostFlag;
 };
 
-export type GetPostFlagResponse = GetPostFlagResponses[keyof GetPostFlagResponses];
+export type PostFlagsShowResponse = PostFlagsShowResponses[keyof PostFlagsShowResponses];
 
-export type ClearPostFlagNoteData = {
+export type PostFlagsClearNoteData = {
     body?: never;
     path: {
         /**
@@ -6897,7 +7746,7 @@ export type ClearPostFlagNoteData = {
     url: '/post_flags/{id}/clear_note.json';
 };
 
-export type ClearPostFlagNoteErrors = {
+export type PostFlagsClearNoteErrors = {
     /**
      * Access Denied
      */
@@ -6908,18 +7757,18 @@ export type ClearPostFlagNoteErrors = {
     404: NotFoundResponse;
 };
 
-export type ClearPostFlagNoteError = ClearPostFlagNoteErrors[keyof ClearPostFlagNoteErrors];
+export type PostFlagsClearNoteError = PostFlagsClearNoteErrors[keyof PostFlagsClearNoteErrors];
 
-export type ClearPostFlagNoteResponses = {
+export type PostFlagsClearNoteResponses = {
     /**
      * Success
      */
     201: PostFlag;
 };
 
-export type ClearPostFlagNoteResponse = ClearPostFlagNoteResponses[keyof ClearPostFlagNoteResponses];
+export type PostFlagsClearNoteResponse = PostFlagsClearNoteResponses[keyof PostFlagsClearNoteResponses];
 
-export type SearchPostReplacementsData = {
+export type PostReplacementsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -6932,7 +7781,7 @@ export type SearchPostReplacementsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[file_ext]'?: string;
@@ -6957,16 +7806,16 @@ export type SearchPostReplacementsData = {
     url: '/post_replacements.json';
 };
 
-export type SearchPostReplacementsResponses = {
+export type PostReplacementsIndexResponses = {
     /**
      * Success
      */
     200: Array<PostReplacement>;
 };
 
-export type SearchPostReplacementsResponse = SearchPostReplacementsResponses[keyof SearchPostReplacementsResponses];
+export type PostReplacementsIndexResponse = PostReplacementsIndexResponses[keyof PostReplacementsIndexResponses];
 
-export type CreatePostReplacementData = {
+export type PostReplacementsCreateData = {
     body?: {
         /**
          * Mutually exclusive with replacement_url.
@@ -6979,7 +7828,7 @@ export type CreatePostReplacementData = {
         'post_replacement[reason]': string;
         'post_replacement[source]'?: string;
         /**
-         * You must be Janitor+.
+         * You must be Approver
          */
         'post_replacement[as_pending]'?: boolean;
     };
@@ -6988,7 +7837,7 @@ export type CreatePostReplacementData = {
     url: '/post_replacements.json';
 };
 
-export type CreatePostReplacementErrors = {
+export type PostReplacementsCreateErrors = {
     /**
      * Access Denied
      */
@@ -7005,9 +7854,9 @@ export type CreatePostReplacementErrors = {
     };
 };
 
-export type CreatePostReplacementError = CreatePostReplacementErrors[keyof CreatePostReplacementErrors];
+export type PostReplacementsCreateError = PostReplacementsCreateErrors[keyof PostReplacementsCreateErrors];
 
-export type CreatePostReplacementResponses = {
+export type PostReplacementsCreateResponses = {
     /**
      * Success
      */
@@ -7017,9 +7866,9 @@ export type CreatePostReplacementResponses = {
     };
 };
 
-export type CreatePostReplacementResponse = CreatePostReplacementResponses[keyof CreatePostReplacementResponses];
+export type PostReplacementsCreateResponse = PostReplacementsCreateResponses[keyof PostReplacementsCreateResponses];
 
-export type DeletePostReplacementData = {
+export type PostReplacementsDestroyData = {
     body?: never;
     path: {
         /**
@@ -7031,7 +7880,7 @@ export type DeletePostReplacementData = {
     url: '/post_replacements/{id}.json';
 };
 
-export type DeletePostReplacementErrors = {
+export type PostReplacementsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -7042,18 +7891,18 @@ export type DeletePostReplacementErrors = {
     404: NotFoundResponse;
 };
 
-export type DeletePostReplacementError = DeletePostReplacementErrors[keyof DeletePostReplacementErrors];
+export type PostReplacementsDestroyError = PostReplacementsDestroyErrors[keyof PostReplacementsDestroyErrors];
 
-export type DeletePostReplacementResponses = {
+export type PostReplacementsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeletePostReplacementResponse = DeletePostReplacementResponses[keyof DeletePostReplacementResponses];
+export type PostReplacementsDestroyResponse = PostReplacementsDestroyResponses[keyof PostReplacementsDestroyResponses];
 
-export type ApprovePostReplacementData = {
+export type PostReplacementsApproveData = {
     body?: never;
     path: {
         /**
@@ -7065,7 +7914,7 @@ export type ApprovePostReplacementData = {
     url: '/post_replacements/{id}/approve.json';
 };
 
-export type ApprovePostReplacementErrors = {
+export type PostReplacementsApproveErrors = {
     /**
      * Access Denied
      */
@@ -7082,18 +7931,18 @@ export type ApprovePostReplacementErrors = {
     };
 };
 
-export type ApprovePostReplacementError = ApprovePostReplacementErrors[keyof ApprovePostReplacementErrors];
+export type PostReplacementsApproveError = PostReplacementsApproveErrors[keyof PostReplacementsApproveErrors];
 
-export type ApprovePostReplacementResponses = {
+export type PostReplacementsApproveResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type ApprovePostReplacementResponse = ApprovePostReplacementResponses[keyof ApprovePostReplacementResponses];
+export type PostReplacementsApproveResponse = PostReplacementsApproveResponses[keyof PostReplacementsApproveResponses];
 
-export type RejectPostReplacementData = {
+export type PostReplacementsRejectData = {
     body?: never;
     path: {
         /**
@@ -7105,7 +7954,7 @@ export type RejectPostReplacementData = {
     url: '/post_replacements/{id}/reject.json';
 };
 
-export type RejectPostReplacementErrors = {
+export type PostReplacementsRejectErrors = {
     /**
      * Access Denied
      */
@@ -7122,18 +7971,18 @@ export type RejectPostReplacementErrors = {
     };
 };
 
-export type RejectPostReplacementError = RejectPostReplacementErrors[keyof RejectPostReplacementErrors];
+export type PostReplacementsRejectError = PostReplacementsRejectErrors[keyof PostReplacementsRejectErrors];
 
-export type RejectPostReplacementResponses = {
+export type PostReplacementsRejectResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RejectPostReplacementResponse = RejectPostReplacementResponses[keyof RejectPostReplacementResponses];
+export type PostReplacementsRejectResponse = PostReplacementsRejectResponses[keyof PostReplacementsRejectResponses];
 
-export type PromotePostReplacementData = {
+export type PostReplacementsPromoteData = {
     body?: never;
     path: {
         /**
@@ -7145,7 +7994,7 @@ export type PromotePostReplacementData = {
     url: '/post_replacements/{id}/promote.json';
 };
 
-export type PromotePostReplacementErrors = {
+export type PostReplacementsPromoteErrors = {
     /**
      * Access Denied
      */
@@ -7162,9 +8011,9 @@ export type PromotePostReplacementErrors = {
     };
 };
 
-export type PromotePostReplacementError = PromotePostReplacementErrors[keyof PromotePostReplacementErrors];
+export type PostReplacementsPromoteError = PostReplacementsPromoteErrors[keyof PostReplacementsPromoteErrors];
 
-export type PromotePostReplacementResponses = {
+export type PostReplacementsPromoteResponses = {
     /**
      * Success
      */
@@ -7173,9 +8022,9 @@ export type PromotePostReplacementResponses = {
     };
 };
 
-export type PromotePostReplacementResponse = PromotePostReplacementResponses[keyof PromotePostReplacementResponses];
+export type PostReplacementsPromoteResponse = PostReplacementsPromoteResponses[keyof PostReplacementsPromoteResponses];
 
-export type TogglePostReplacementPenaltyData = {
+export type PostReplacementsTogglePenalizeData = {
     body?: never;
     path: {
         /**
@@ -7187,7 +8036,7 @@ export type TogglePostReplacementPenaltyData = {
     url: '/post_replacements/{id}/toggle_penalize.json';
 };
 
-export type TogglePostReplacementPenaltyErrors = {
+export type PostReplacementsTogglePenalizeErrors = {
     /**
      * Access Denied
      */
@@ -7204,18 +8053,18 @@ export type TogglePostReplacementPenaltyErrors = {
     };
 };
 
-export type TogglePostReplacementPenaltyError = TogglePostReplacementPenaltyErrors[keyof TogglePostReplacementPenaltyErrors];
+export type PostReplacementsTogglePenalizeError = PostReplacementsTogglePenalizeErrors[keyof PostReplacementsTogglePenalizeErrors];
 
-export type TogglePostReplacementPenaltyResponses = {
+export type PostReplacementsTogglePenalizeResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type TogglePostReplacementPenaltyResponse = TogglePostReplacementPenaltyResponses[keyof TogglePostReplacementPenaltyResponses];
+export type PostReplacementsTogglePenalizeResponse = PostReplacementsTogglePenalizeResponses[keyof PostReplacementsTogglePenalizeResponses];
 
-export type SearchPostVersionsData = {
+export type PostVersionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -7228,7 +8077,7 @@ export type SearchPostVersionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[updater_name]'?: string;
@@ -7254,16 +8103,16 @@ export type SearchPostVersionsData = {
     url: '/post_versions.json';
 };
 
-export type SearchPostVersionsResponses = {
+export type PostVersionsIndexResponses = {
     /**
      * Success
      */
     200: Array<PostVersion>;
 };
 
-export type SearchPostVersionsResponse = SearchPostVersionsResponses[keyof SearchPostVersionsResponses];
+export type PostVersionsIndexResponse = PostVersionsIndexResponses[keyof PostVersionsIndexResponses];
 
-export type HidePostVersionData = {
+export type PostVersionsHideData = {
     body?: never;
     path: {
         /**
@@ -7275,7 +8124,7 @@ export type HidePostVersionData = {
     url: '/post_versions/{id}/hide.json';
 };
 
-export type HidePostVersionErrors = {
+export type PostVersionsHideErrors = {
     /**
      * Access Denied
      */
@@ -7286,9 +8135,9 @@ export type HidePostVersionErrors = {
     404: NotFoundResponse;
 };
 
-export type HidePostVersionError = HidePostVersionErrors[keyof HidePostVersionErrors];
+export type PostVersionsHideError = PostVersionsHideErrors[keyof PostVersionsHideErrors];
 
-export type UnhidePostVersionData = {
+export type PostVersionsUnhideData = {
     body?: never;
     path: {
         /**
@@ -7300,7 +8149,7 @@ export type UnhidePostVersionData = {
     url: '/post_versions/{id}/unhide.json';
 };
 
-export type UnhidePostVersionErrors = {
+export type PostVersionsUnhideErrors = {
     /**
      * Access Denied
      */
@@ -7311,9 +8160,9 @@ export type UnhidePostVersionErrors = {
     404: NotFoundResponse;
 };
 
-export type UnhidePostVersionError = UnhidePostVersionErrors[keyof UnhidePostVersionErrors];
+export type PostVersionsUnhideError = PostVersionsUnhideErrors[keyof PostVersionsUnhideErrors];
 
-export type UndoPostVersionData = {
+export type PostVersionsUndoData = {
     body?: never;
     path: {
         /**
@@ -7325,7 +8174,7 @@ export type UndoPostVersionData = {
     url: '/post_versions/{id}/undo.json';
 };
 
-export type UndoPostVersionErrors = {
+export type PostVersionsUndoErrors = {
     /**
      * Access Denied
      */
@@ -7336,18 +8185,18 @@ export type UndoPostVersionErrors = {
     404: NotFoundResponse;
 };
 
-export type UndoPostVersionError = UndoPostVersionErrors[keyof UndoPostVersionErrors];
+export type PostVersionsUndoError = PostVersionsUndoErrors[keyof PostVersionsUndoErrors];
 
-export type UndoPostVersionResponses = {
+export type PostVersionsUndoResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type UndoPostVersionResponse = UndoPostVersionResponses[keyof UndoPostVersionResponses];
+export type PostVersionsUndoResponse = PostVersionsUndoResponses[keyof PostVersionsUndoResponses];
 
-export type SearchPostVotesData = {
+export type PostVotesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -7360,7 +8209,7 @@ export type SearchPostVotesData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -7394,16 +8243,16 @@ export type SearchPostVotesData = {
     url: '/post_votes.json';
 };
 
-export type SearchPostVotesResponses = {
+export type PostVotesIndexResponses = {
     /**
      * Success
      */
     200: Array<PostVote>;
 };
 
-export type SearchPostVotesResponse = SearchPostVotesResponses[keyof SearchPostVotesResponses];
+export type PostVotesIndexResponse = PostVotesIndexResponses[keyof PostVotesIndexResponses];
 
-export type LockPostVotesData = {
+export type PostVotesLockData = {
     body?: never;
     path?: never;
     query: {
@@ -7415,7 +8264,7 @@ export type LockPostVotesData = {
     url: '/post_votes/lock.json';
 };
 
-export type LockPostVotesErrors = {
+export type PostVotesLockErrors = {
     /**
      * Access Denied
      */
@@ -7432,18 +8281,18 @@ export type LockPostVotesErrors = {
     };
 };
 
-export type LockPostVotesError = LockPostVotesErrors[keyof LockPostVotesErrors];
+export type PostVotesLockError = PostVotesLockErrors[keyof PostVotesLockErrors];
 
-export type LockPostVotesResponses = {
+export type PostVotesLockResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type LockPostVotesResponse = LockPostVotesResponses[keyof LockPostVotesResponses];
+export type PostVotesLockResponse = PostVotesLockResponses[keyof PostVotesLockResponses];
 
-export type DeletePostVotesData = {
+export type PostVotesDeleteData = {
     body?: never;
     path?: never;
     query: {
@@ -7455,25 +8304,25 @@ export type DeletePostVotesData = {
     url: '/post_votes/delete.json';
 };
 
-export type DeletePostVotesErrors = {
+export type PostVotesDeleteErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type DeletePostVotesError = DeletePostVotesErrors[keyof DeletePostVotesErrors];
+export type PostVotesDeleteError = PostVotesDeleteErrors[keyof PostVotesDeleteErrors];
 
-export type DeletePostVotesResponses = {
+export type PostVotesDeleteResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeletePostVotesResponse = DeletePostVotesResponses[keyof DeletePostVotesResponses];
+export type PostVotesDeleteResponse = PostVotesDeleteResponses[keyof PostVotesDeleteResponses];
 
-export type SearchTagsData = {
+export type TagsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -7486,7 +8335,7 @@ export type SearchTagsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'date' | 'count' | 'similarity';
@@ -7501,16 +8350,16 @@ export type SearchTagsData = {
     url: '/tags.json';
 };
 
-export type SearchTagsResponses = {
+export type TagsIndexResponses = {
     /**
      * Success
      */
     200: Array<Tag>;
 };
 
-export type SearchTagsResponse = SearchTagsResponses[keyof SearchTagsResponses];
+export type TagsIndexResponse = TagsIndexResponses[keyof TagsIndexResponses];
 
-export type DeleteTagData = {
+export type TagsDestroyData = {
     body?: never;
     path: {
         /**
@@ -7522,7 +8371,7 @@ export type DeleteTagData = {
     url: '/tags/{id}.json';
 };
 
-export type DeleteTagErrors = {
+export type TagsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -7533,54 +8382,54 @@ export type DeleteTagErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteTagError = DeleteTagErrors[keyof DeleteTagErrors];
+export type TagsDestroyError = TagsDestroyErrors[keyof TagsDestroyErrors];
 
-export type DeleteTagResponses = {
+export type TagsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteTagResponse = DeleteTagResponses[keyof DeleteTagResponses];
+export type TagsDestroyResponse = TagsDestroyResponses[keyof TagsDestroyResponses];
 
-export type GetTagData = {
+export type TagsShowData = {
     body?: never;
     path: {
         /**
-         * The ID of the item.
+         * An ID that can be either an integer or a name.
          */
-        id: number;
+        id: number | string;
     };
     query?: never;
     url: '/tags/{id}.json';
 };
 
-export type GetTagErrors = {
+export type TagsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetTagError = GetTagErrors[keyof GetTagErrors];
+export type TagsShowError = TagsShowErrors[keyof TagsShowErrors];
 
-export type GetTagResponses = {
+export type TagsShowResponses = {
     /**
      * Success
      */
     200: Tag;
 };
 
-export type GetTagResponse = GetTagResponses[keyof GetTagResponses];
+export type TagsShowResponse = TagsShowResponses[keyof TagsShowResponses];
 
-export type EditTagData = {
+export type TagsUpdateData = {
     body?: {
-        'tag[category]'?: TagCategories;
+        category?: TagCategories;
         /**
          * Must be Admin+.
          */
-        'tag[is_locked]'?: boolean;
+        is_locked?: boolean;
     };
     path: {
         /**
@@ -7592,7 +8441,7 @@ export type EditTagData = {
     url: '/tags/{id}.json';
 };
 
-export type EditTagErrors = {
+export type TagsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -7609,18 +8458,18 @@ export type EditTagErrors = {
     };
 };
 
-export type EditTagError = EditTagErrors[keyof EditTagErrors];
+export type TagsUpdateError = TagsUpdateErrors[keyof TagsUpdateErrors];
 
-export type EditTagResponses = {
+export type TagsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditTagResponse = EditTagResponses[keyof EditTagResponses];
+export type TagsUpdateResponse = TagsUpdateResponses[keyof TagsUpdateResponses];
 
-export type GetTagCorrectionData = {
+export type TagCorrectionsShowData = {
     body?: never;
     path: {
         /**
@@ -7632,25 +8481,25 @@ export type GetTagCorrectionData = {
     url: '/tags/{id}/correction.json';
 };
 
-export type GetTagCorrectionErrors = {
+export type TagCorrectionsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetTagCorrectionError = GetTagCorrectionErrors[keyof GetTagCorrectionErrors];
+export type TagCorrectionsShowError = TagCorrectionsShowErrors[keyof TagCorrectionsShowErrors];
 
-export type GetTagCorrectionResponses = {
+export type TagCorrectionsShowResponses = {
     /**
      * Success
      */
     200: TagCorrection;
 };
 
-export type GetTagCorrectionResponse = GetTagCorrectionResponses[keyof GetTagCorrectionResponses];
+export type TagCorrectionsShowResponse = TagCorrectionsShowResponses[keyof TagCorrectionsShowResponses];
 
-export type CorrectTagData = {
+export type TagCorrectionsCreateData = {
     body?: {
         /**
          * If not set, nothing will happen.
@@ -7667,7 +8516,7 @@ export type CorrectTagData = {
     url: '/tags/{id}/correction.json';
 };
 
-export type CorrectTagErrors = {
+export type TagCorrectionsCreateErrors = {
     /**
      * Access Denied
      */
@@ -7678,9 +8527,9 @@ export type CorrectTagErrors = {
     404: NotFoundResponse;
 };
 
-export type CorrectTagError = CorrectTagErrors[keyof CorrectTagErrors];
+export type TagCorrectionsCreateError = TagCorrectionsCreateErrors[keyof TagCorrectionsCreateErrors];
 
-export type PreviewTagsData = {
+export type TagsPreviewData = {
     body?: {
         /**
          * The tags to preview, space separated.
@@ -7692,25 +8541,25 @@ export type PreviewTagsData = {
     url: '/tags/preview.json';
 };
 
-export type PreviewTagsErrors = {
+export type TagsPreviewErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type PreviewTagsError = PreviewTagsErrors[keyof PreviewTagsErrors];
+export type TagsPreviewError = TagsPreviewErrors[keyof TagsPreviewErrors];
 
-export type PreviewTagsResponses = {
+export type TagsPreviewResponses = {
     /**
      * Success
      */
     200: Array<TagPreview>;
 };
 
-export type PreviewTagsResponse = PreviewTagsResponses[keyof PreviewTagsResponses];
+export type TagsPreviewResponse = TagsPreviewResponses[keyof TagsPreviewResponses];
 
-export type SearchTagTypeVersionsData = {
+export type TagTypeVersionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -7723,7 +8572,7 @@ export type SearchTagTypeVersionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[tag]'?: string;
@@ -7733,16 +8582,16 @@ export type SearchTagTypeVersionsData = {
     url: '/tag_type_versions.json';
 };
 
-export type SearchTagTypeVersionsResponses = {
+export type TagTypeVersionsIndexResponses = {
     /**
      * Success
      */
     200: Array<TagTypeVersion>;
 };
 
-export type SearchTagTypeVersionsResponse = SearchTagTypeVersionsResponses[keyof SearchTagTypeVersionsResponses];
+export type TagTypeVersionsIndexResponse = TagTypeVersionsIndexResponses[keyof TagTypeVersionsIndexResponses];
 
-export type SearchTagAliasesData = {
+export type TagAliasesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -7755,7 +8604,7 @@ export type SearchTagAliasesData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count';
@@ -7773,16 +8622,16 @@ export type SearchTagAliasesData = {
     url: '/tag_aliases.json';
 };
 
-export type SearchTagAliasesResponses = {
+export type TagAliasesIndexResponses = {
     /**
      * Success
      */
     200: Array<TagAlias>;
 };
 
-export type SearchTagAliasesResponse = SearchTagAliasesResponses[keyof SearchTagAliasesResponses];
+export type TagAliasesIndexResponse = TagAliasesIndexResponses[keyof TagAliasesIndexResponses];
 
-export type RejectTagAliasData = {
+export type TagAliasesDestroyData = {
     body?: never;
     path: {
         /**
@@ -7794,7 +8643,7 @@ export type RejectTagAliasData = {
     url: '/tag_aliases/{id}.json';
 };
 
-export type RejectTagAliasErrors = {
+export type TagAliasesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -7805,18 +8654,18 @@ export type RejectTagAliasErrors = {
     404: NotFoundResponse;
 };
 
-export type RejectTagAliasError = RejectTagAliasErrors[keyof RejectTagAliasErrors];
+export type TagAliasesDestroyError = TagAliasesDestroyErrors[keyof TagAliasesDestroyErrors];
 
-export type RejectTagAliasResponses = {
+export type TagAliasesDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RejectTagAliasResponse = RejectTagAliasResponses[keyof RejectTagAliasResponses];
+export type TagAliasesDestroyResponse = TagAliasesDestroyResponses[keyof TagAliasesDestroyResponses];
 
-export type GetTagAliasData = {
+export type TagAliasesShowData = {
     body?: never;
     path: {
         /**
@@ -7828,29 +8677,29 @@ export type GetTagAliasData = {
     url: '/tag_aliases/{id}.json';
 };
 
-export type GetTagAliasErrors = {
+export type TagAliasesShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetTagAliasError = GetTagAliasErrors[keyof GetTagAliasErrors];
+export type TagAliasesShowError = TagAliasesShowErrors[keyof TagAliasesShowErrors];
 
-export type GetTagAliasResponses = {
+export type TagAliasesShowResponses = {
     /**
      * Success
      */
     200: TagAlias;
 };
 
-export type GetTagAliasResponse = GetTagAliasResponses[keyof GetTagAliasResponses];
+export type TagAliasesShowResponse = TagAliasesShowResponses[keyof TagAliasesShowResponses];
 
-export type EditTagAliasData = {
+export type TagAliasesUpdateData = {
     body?: {
-        'tag_alias[antecedent_name]'?: string;
-        'tag_alias[consequent_name]'?: string;
-        'tag_alias[forum_topic_id]'?: string;
+        antecedent_name?: string;
+        consequent_name?: string;
+        forum_topic_id?: string;
     };
     path: {
         /**
@@ -7862,7 +8711,7 @@ export type EditTagAliasData = {
     url: '/tag_aliases/{id}.json';
 };
 
-export type EditTagAliasErrors = {
+export type TagAliasesUpdateErrors = {
     /**
      * Access Denied
      */
@@ -7879,18 +8728,18 @@ export type EditTagAliasErrors = {
     };
 };
 
-export type EditTagAliasError = EditTagAliasErrors[keyof EditTagAliasErrors];
+export type TagAliasesUpdateError = TagAliasesUpdateErrors[keyof TagAliasesUpdateErrors];
 
-export type EditTagAliasResponses = {
+export type TagAliasesUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditTagAliasResponse = EditTagAliasResponses[keyof EditTagAliasResponses];
+export type TagAliasesUpdateResponse = TagAliasesUpdateResponses[keyof TagAliasesUpdateResponses];
 
-export type ApproveTagAliasData = {
+export type TagAliasesApproveData = {
     body?: never;
     path: {
         /**
@@ -7902,7 +8751,7 @@ export type ApproveTagAliasData = {
     url: '/tag_aliases/{id}/approve.json';
 };
 
-export type ApproveTagAliasErrors = {
+export type TagAliasesApproveErrors = {
     /**
      * Access Denied
      */
@@ -7919,33 +8768,33 @@ export type ApproveTagAliasErrors = {
     };
 };
 
-export type ApproveTagAliasError = ApproveTagAliasErrors[keyof ApproveTagAliasErrors];
+export type TagAliasesApproveError = TagAliasesApproveErrors[keyof TagAliasesApproveErrors];
 
-export type ApproveTagAliasResponses = {
+export type TagAliasesApproveResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type ApproveTagAliasResponse = ApproveTagAliasResponses[keyof ApproveTagAliasResponses];
+export type TagAliasesApproveResponse = TagAliasesApproveResponses[keyof TagAliasesApproveResponses];
 
-export type CreateTagAliasData = {
+export type TagAliasRequestsCreateData = {
     body?: {
-        'tag_alias[antecedent_name]': string;
-        'tag_alias[consequent_name]': string;
-        'tag_alias[reason]': string;
+        antecedent_name: string;
+        consequent_name: string;
+        reason: string;
         /**
          * Must be Admin+.
          */
-        'tag_alias[skip_forum]'?: boolean;
+        skip_forum?: boolean;
     };
     path?: never;
     query?: never;
     url: '/tag_alias_requests.json';
 };
 
-export type CreateTagAliasErrors = {
+export type TagAliasRequestsCreateErrors = {
     /**
      * Access Denied
      */
@@ -7956,9 +8805,9 @@ export type CreateTagAliasErrors = {
     406: unknown;
 };
 
-export type CreateTagAliasError = CreateTagAliasErrors[keyof CreateTagAliasErrors];
+export type TagAliasRequestsCreateError = TagAliasRequestsCreateErrors[keyof TagAliasRequestsCreateErrors];
 
-export type SearchTagImplicationsData = {
+export type TagImplicationsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -7971,7 +8820,7 @@ export type SearchTagImplicationsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count';
@@ -7989,16 +8838,16 @@ export type SearchTagImplicationsData = {
     url: '/tag_implications.json';
 };
 
-export type SearchTagImplicationsResponses = {
+export type TagImplicationsIndexResponses = {
     /**
      * Success
      */
     200: Array<TagImplication>;
 };
 
-export type SearchTagImplicationsResponse = SearchTagImplicationsResponses[keyof SearchTagImplicationsResponses];
+export type TagImplicationsIndexResponse = TagImplicationsIndexResponses[keyof TagImplicationsIndexResponses];
 
-export type RejectTagImplicationData = {
+export type TagImplicationsDestroyData = {
     body?: never;
     path: {
         /**
@@ -8010,7 +8859,7 @@ export type RejectTagImplicationData = {
     url: '/tag_implications/{id}.json';
 };
 
-export type RejectTagImplicationErrors = {
+export type TagImplicationsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -8021,18 +8870,18 @@ export type RejectTagImplicationErrors = {
     404: NotFoundResponse;
 };
 
-export type RejectTagImplicationError = RejectTagImplicationErrors[keyof RejectTagImplicationErrors];
+export type TagImplicationsDestroyError = TagImplicationsDestroyErrors[keyof TagImplicationsDestroyErrors];
 
-export type RejectTagImplicationResponses = {
+export type TagImplicationsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RejectTagImplicationResponse = RejectTagImplicationResponses[keyof RejectTagImplicationResponses];
+export type TagImplicationsDestroyResponse = TagImplicationsDestroyResponses[keyof TagImplicationsDestroyResponses];
 
-export type GetTagImplicationData = {
+export type TagImplicationsShowData = {
     body?: never;
     path: {
         /**
@@ -8044,29 +8893,29 @@ export type GetTagImplicationData = {
     url: '/tag_implications/{id}.json';
 };
 
-export type GetTagImplicationErrors = {
+export type TagImplicationsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetTagImplicationError = GetTagImplicationErrors[keyof GetTagImplicationErrors];
+export type TagImplicationsShowError = TagImplicationsShowErrors[keyof TagImplicationsShowErrors];
 
-export type GetTagImplicationResponses = {
+export type TagImplicationsShowResponses = {
     /**
      * Success
      */
     200: TagImplication;
 };
 
-export type GetTagImplicationResponse = GetTagImplicationResponses[keyof GetTagImplicationResponses];
+export type TagImplicationsShowResponse = TagImplicationsShowResponses[keyof TagImplicationsShowResponses];
 
-export type EditTagImplicationData = {
+export type TagImplicationsUpdateData = {
     body?: {
-        'tag_implication[antecedent_name]'?: string;
-        'tag_implication[consequent_name]'?: string;
-        'tag_implication[forum_topic_id]'?: string;
+        antecedent_name?: string;
+        consequent_name?: string;
+        forum_topic_id?: string;
     };
     path: {
         /**
@@ -8078,7 +8927,7 @@ export type EditTagImplicationData = {
     url: '/tag_implications/{id}.json';
 };
 
-export type EditTagImplicationErrors = {
+export type TagImplicationsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -8095,18 +8944,18 @@ export type EditTagImplicationErrors = {
     };
 };
 
-export type EditTagImplicationError = EditTagImplicationErrors[keyof EditTagImplicationErrors];
+export type TagImplicationsUpdateError = TagImplicationsUpdateErrors[keyof TagImplicationsUpdateErrors];
 
-export type EditTagImplicationResponses = {
+export type TagImplicationsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditTagImplicationResponse = EditTagImplicationResponses[keyof EditTagImplicationResponses];
+export type TagImplicationsUpdateResponse = TagImplicationsUpdateResponses[keyof TagImplicationsUpdateResponses];
 
-export type ApproveTagImplicationData = {
+export type TagImplicationsApproveData = {
     body?: never;
     path: {
         /**
@@ -8118,7 +8967,7 @@ export type ApproveTagImplicationData = {
     url: '/tag_implications/{id}/approve.json';
 };
 
-export type ApproveTagImplicationErrors = {
+export type TagImplicationsApproveErrors = {
     /**
      * Access Denied
      */
@@ -8135,33 +8984,33 @@ export type ApproveTagImplicationErrors = {
     };
 };
 
-export type ApproveTagImplicationError = ApproveTagImplicationErrors[keyof ApproveTagImplicationErrors];
+export type TagImplicationsApproveError = TagImplicationsApproveErrors[keyof TagImplicationsApproveErrors];
 
-export type ApproveTagImplicationResponses = {
+export type TagImplicationsApproveResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type ApproveTagImplicationResponse = ApproveTagImplicationResponses[keyof ApproveTagImplicationResponses];
+export type TagImplicationsApproveResponse = TagImplicationsApproveResponses[keyof TagImplicationsApproveResponses];
 
-export type CreateTagImplicationData = {
+export type TagImplicationRequestsCreateData = {
     body?: {
-        'tag_implication[antecedent_name]': string;
-        'tag_implication[consequent_name]': string;
-        'tag_implication[reason]': string;
+        antecedent_name: string;
+        consequent_name: string;
+        reason: string;
         /**
          * Must be Admin+.
          */
-        'tag_implication[skip_forum]'?: boolean;
+        skip_forum?: boolean;
     };
     path?: never;
     query?: never;
     url: '/tag_implication_requests.json';
 };
 
-export type CreateTagImplicationErrors = {
+export type TagImplicationRequestsCreateErrors = {
     /**
      * Access Denied
      */
@@ -8172,9 +9021,9 @@ export type CreateTagImplicationErrors = {
     406: unknown;
 };
 
-export type CreateTagImplicationError = CreateTagImplicationErrors[keyof CreateTagImplicationErrors];
+export type TagImplicationRequestsCreateError = TagImplicationRequestsCreateErrors[keyof TagImplicationRequestsCreateErrors];
 
-export type ListBulkRelatedTagsData = {
+export type RelatedTagsBulkData = {
     body?: {
         query?: string;
         category_id?: TagCategories;
@@ -8184,25 +9033,25 @@ export type ListBulkRelatedTagsData = {
     url: '/related_tag/bulk.json';
 };
 
-export type ListBulkRelatedTagsErrors = {
+export type RelatedTagsBulkErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type ListBulkRelatedTagsError = ListBulkRelatedTagsErrors[keyof ListBulkRelatedTagsErrors];
+export type RelatedTagsBulkError = RelatedTagsBulkErrors[keyof RelatedTagsBulkErrors];
 
-export type ListBulkRelatedTagsResponses = {
+export type RelatedTagsBulkResponses = {
     /**
      * Success
      */
     200: BulkRelatedTag;
 };
 
-export type ListBulkRelatedTagsResponse = ListBulkRelatedTagsResponses[keyof ListBulkRelatedTagsResponses];
+export type RelatedTagsBulkResponse = RelatedTagsBulkResponses[keyof RelatedTagsBulkResponses];
 
-export type ListSearchTrendsData = {
+export type SearchTrendsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -8219,57 +9068,57 @@ export type ListSearchTrendsData = {
     url: '/search_trends.json';
 };
 
-export type ListSearchTrendsResponses = {
+export type SearchTrendsIndexResponses = {
     /**
      * Success
      */
     200: Array<SearchTrend>;
 };
 
-export type ListSearchTrendsResponse = ListSearchTrendsResponses[keyof ListSearchTrendsResponses];
+export type SearchTrendsIndexResponse = SearchTrendsIndexResponses[keyof SearchTrendsIndexResponses];
 
-export type ListRisingSearchTrendsData = {
+export type SearchTrendsRisingData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/search_trends/rising.json';
 };
 
-export type ListRisingSearchTrendsResponses = {
+export type SearchTrendsRisingResponses = {
     /**
      * Success
      */
     200: Array<RisingSearchTrend>;
 };
 
-export type ListRisingSearchTrendsResponse = ListRisingSearchTrendsResponses[keyof ListRisingSearchTrendsResponses];
+export type SearchTrendsRisingResponse = SearchTrendsRisingResponses[keyof SearchTrendsRisingResponses];
 
-export type ClearSearchTrendsCacheData = {
+export type SearchTrendsClearCacheData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/search_trends/clear_cache.json';
 };
 
-export type ClearSearchTrendsCacheErrors = {
+export type SearchTrendsClearCacheErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type ClearSearchTrendsCacheError = ClearSearchTrendsCacheErrors[keyof ClearSearchTrendsCacheErrors];
+export type SearchTrendsClearCacheError = SearchTrendsClearCacheErrors[keyof SearchTrendsClearCacheErrors];
 
-export type ClearSearchTrendsCacheResponses = {
+export type SearchTrendsClearCacheResponses = {
     /**
      * Success
      */
     200: MessageSuccessResponse;
 };
 
-export type ClearSearchTrendsCacheResponse = ClearSearchTrendsCacheResponses[keyof ClearSearchTrendsCacheResponses];
+export type SearchTrendsClearCacheResponse = SearchTrendsClearCacheResponses[keyof SearchTrendsClearCacheResponses];
 
-export type UpdateSearchTrendsSettingsData = {
+export type SearchTrendsUpdateSettingsData = {
     body?: {
         trends_enabled?: boolean;
         trends_displayed?: boolean;
@@ -8286,25 +9135,61 @@ export type UpdateSearchTrendsSettingsData = {
     url: '/search_trends/update_settings.json';
 };
 
-export type UpdateSearchTrendsSettingsErrors = {
+export type SearchTrendsUpdateSettingsErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type UpdateSearchTrendsSettingsError = UpdateSearchTrendsSettingsErrors[keyof UpdateSearchTrendsSettingsErrors];
+export type SearchTrendsUpdateSettingsError = SearchTrendsUpdateSettingsErrors[keyof SearchTrendsUpdateSettingsErrors];
 
-export type UpdateSearchTrendsSettingsResponses = {
+export type SearchTrendsUpdateSettingsResponses = {
     /**
      * Success
      */
     200: MessageSuccessResponse;
 };
 
-export type UpdateSearchTrendsSettingsResponse = UpdateSearchTrendsSettingsResponses[keyof UpdateSearchTrendsSettingsResponses];
+export type SearchTrendsUpdateSettingsResponse = SearchTrendsUpdateSettingsResponses[keyof SearchTrendsUpdateSettingsResponses];
 
-export type SearchSearchTrendBlacklistsData = {
+export type SearchTrendsPurgeData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/search_trends/{id}/purge.json';
+};
+
+export type SearchTrendsPurgeErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type SearchTrendsPurgeError = SearchTrendsPurgeErrors[keyof SearchTrendsPurgeErrors];
+
+export type SearchTrendsPurgeResponses = {
+    /**
+     * Success
+     */
+    200: {
+        deleted_count: number;
+    };
+};
+
+export type SearchTrendsPurgeResponse = SearchTrendsPurgeResponses[keyof SearchTrendsPurgeResponses];
+
+export type SearchTrendBlacklistsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -8326,25 +9211,25 @@ export type SearchSearchTrendBlacklistsData = {
     url: '/search_trend_blacklists.json';
 };
 
-export type SearchSearchTrendBlacklistsErrors = {
+export type SearchTrendBlacklistsIndexErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type SearchSearchTrendBlacklistsError = SearchSearchTrendBlacklistsErrors[keyof SearchSearchTrendBlacklistsErrors];
+export type SearchTrendBlacklistsIndexError = SearchTrendBlacklistsIndexErrors[keyof SearchTrendBlacklistsIndexErrors];
 
-export type SearchSearchTrendBlacklistsResponses = {
+export type SearchTrendBlacklistsIndexResponses = {
     /**
      * Success
      */
     200: Array<SearchTrendBlacklist>;
 };
 
-export type SearchSearchTrendBlacklistsResponse = SearchSearchTrendBlacklistsResponses[keyof SearchSearchTrendBlacklistsResponses];
+export type SearchTrendBlacklistsIndexResponse = SearchTrendBlacklistsIndexResponses[keyof SearchTrendBlacklistsIndexResponses];
 
-export type CreateSearchTrendBlacklistData = {
+export type SearchTrendBlacklistsCreateData = {
     body?: {
         tag: string;
         reason: string;
@@ -8354,7 +9239,7 @@ export type CreateSearchTrendBlacklistData = {
     url: '/search_trend_blacklists.json';
 };
 
-export type CreateSearchTrendBlacklistErrors = {
+export type SearchTrendBlacklistsCreateErrors = {
     /**
      * Access Denied
      */
@@ -8367,18 +9252,18 @@ export type CreateSearchTrendBlacklistErrors = {
     };
 };
 
-export type CreateSearchTrendBlacklistError = CreateSearchTrendBlacklistErrors[keyof CreateSearchTrendBlacklistErrors];
+export type SearchTrendBlacklistsCreateError = SearchTrendBlacklistsCreateErrors[keyof SearchTrendBlacklistsCreateErrors];
 
-export type CreateSearchTrendBlacklistResponses = {
+export type SearchTrendBlacklistsCreateResponses = {
     /**
      * Success
      */
     201: SearchTrendBlacklist;
 };
 
-export type CreateSearchTrendBlacklistResponse = CreateSearchTrendBlacklistResponses[keyof CreateSearchTrendBlacklistResponses];
+export type SearchTrendBlacklistsCreateResponse = SearchTrendBlacklistsCreateResponses[keyof SearchTrendBlacklistsCreateResponses];
 
-export type DeleteSearchTrendBlacklistData = {
+export type SearchTrendBlacklistsDestroyData = {
     body?: never;
     path: {
         /**
@@ -8390,7 +9275,7 @@ export type DeleteSearchTrendBlacklistData = {
     url: '/search_trend_blacklists/{id}.json';
 };
 
-export type DeleteSearchTrendBlacklistErrors = {
+export type SearchTrendBlacklistsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -8401,54 +9286,18 @@ export type DeleteSearchTrendBlacklistErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteSearchTrendBlacklistError = DeleteSearchTrendBlacklistErrors[keyof DeleteSearchTrendBlacklistErrors];
+export type SearchTrendBlacklistsDestroyError = SearchTrendBlacklistsDestroyErrors[keyof SearchTrendBlacklistsDestroyErrors];
 
-export type DeleteSearchTrendBlacklistResponses = {
+export type SearchTrendBlacklistsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteSearchTrendBlacklistResponse = DeleteSearchTrendBlacklistResponses[keyof DeleteSearchTrendBlacklistResponses];
+export type SearchTrendBlacklistsDestroyResponse = SearchTrendBlacklistsDestroyResponses[keyof SearchTrendBlacklistsDestroyResponses];
 
-export type PurgeSearchTrendBlacklistData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of the item.
-         */
-        id: number;
-    };
-    query?: never;
-    url: '/search_trend_blacklists/{id}/purge.json';
-};
-
-export type PurgeSearchTrendBlacklistErrors = {
-    /**
-     * Access Denied
-     */
-    403: AccessDeniedResponse;
-    /**
-     * Not Found
-     */
-    404: NotFoundResponse;
-};
-
-export type PurgeSearchTrendBlacklistError = PurgeSearchTrendBlacklistErrors[keyof PurgeSearchTrendBlacklistErrors];
-
-export type PurgeSearchTrendBlacklistResponses = {
-    /**
-     * Success
-     */
-    200: {
-        deleted_count: number;
-    };
-};
-
-export type PurgeSearchTrendBlacklistResponse = PurgeSearchTrendBlacklistResponses[keyof PurgeSearchTrendBlacklistResponses];
-
-export type LoginData = {
+export type SessionsCreateData = {
     body?: {
         /**
          * CSRF Token
@@ -8466,7 +9315,7 @@ export type LoginData = {
     url: '/session.json';
 };
 
-export type LoginErrors = {
+export type SessionsCreateErrors = {
     /**
      * Access Denied
      */
@@ -8477,9 +9326,9 @@ export type LoginErrors = {
     406: unknown;
 };
 
-export type LoginError = LoginErrors[keyof LoginErrors];
+export type SessionsCreateError = SessionsCreateErrors[keyof SessionsCreateErrors];
 
-export type SearchStaffNotesData = {
+export type StaffNotesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -8492,7 +9341,7 @@ export type SearchStaffNotesData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -8512,25 +9361,25 @@ export type SearchStaffNotesData = {
     url: '/staff_notes.json';
 };
 
-export type SearchStaffNotesResponses = {
+export type StaffNotesIndexResponses = {
     /**
      * Success
      */
     200: Array<StaffNote>;
 };
 
-export type SearchStaffNotesResponse = SearchStaffNotesResponses[keyof SearchStaffNotesResponses];
+export type StaffNotesIndexResponse = StaffNotesIndexResponses[keyof StaffNotesIndexResponses];
 
-export type CreateStaffNoteData = {
+export type StaffNotesCreateData = {
     body?: {
-        'staff_note[body]': string;
+        body: string;
     };
     path?: never;
     query?: never;
     url: '/staff_notes.json';
 };
 
-export type CreateStaffNoteErrors = {
+export type StaffNotesCreateErrors = {
     /**
      * Access Denied
      */
@@ -8547,18 +9396,18 @@ export type CreateStaffNoteErrors = {
     };
 };
 
-export type CreateStaffNoteError = CreateStaffNoteErrors[keyof CreateStaffNoteErrors];
+export type StaffNotesCreateError = StaffNotesCreateErrors[keyof StaffNotesCreateErrors];
 
-export type CreateStaffNoteResponses = {
+export type StaffNotesCreateResponses = {
     /**
      * Success
      */
     201: StaffNote;
 };
 
-export type CreateStaffNoteResponse = CreateStaffNoteResponses[keyof CreateStaffNoteResponses];
+export type StaffNotesCreateResponse = StaffNotesCreateResponses[keyof StaffNotesCreateResponses];
 
-export type GetStaffNoteData = {
+export type StaffNotesShowData = {
     body?: never;
     path: {
         /**
@@ -8570,7 +9419,7 @@ export type GetStaffNoteData = {
     url: '/staff_notes/{id}.json';
 };
 
-export type GetStaffNoteErrors = {
+export type StaffNotesShowErrors = {
     /**
      * Access Denied
      */
@@ -8581,20 +9430,20 @@ export type GetStaffNoteErrors = {
     404: NotFoundResponse;
 };
 
-export type GetStaffNoteError = GetStaffNoteErrors[keyof GetStaffNoteErrors];
+export type StaffNotesShowError = StaffNotesShowErrors[keyof StaffNotesShowErrors];
 
-export type GetStaffNoteResponses = {
+export type StaffNotesShowResponses = {
     /**
      * Success
      */
     200: StaffNote;
 };
 
-export type GetStaffNoteResponse = GetStaffNoteResponses[keyof GetStaffNoteResponses];
+export type StaffNotesShowResponse = StaffNotesShowResponses[keyof StaffNotesShowResponses];
 
-export type EditStaffNoteData = {
+export type StaffNotesUpdateData = {
     body?: {
-        'staff_note[body]'?: string;
+        body?: string;
     };
     path: {
         /**
@@ -8606,7 +9455,7 @@ export type EditStaffNoteData = {
     url: '/staff_notes/{id}.json';
 };
 
-export type EditStaffNoteErrors = {
+export type StaffNotesUpdateErrors = {
     /**
      * Access Denied
      */
@@ -8623,18 +9472,18 @@ export type EditStaffNoteErrors = {
     };
 };
 
-export type EditStaffNoteError = EditStaffNoteErrors[keyof EditStaffNoteErrors];
+export type StaffNotesUpdateError = StaffNotesUpdateErrors[keyof StaffNotesUpdateErrors];
 
-export type EditStaffNoteResponses = {
+export type StaffNotesUpdateResponses = {
     /**
      * Success
      */
     200: StaffNote;
 };
 
-export type EditStaffNoteResponse = EditStaffNoteResponses[keyof EditStaffNoteResponses];
+export type StaffNotesUpdateResponse = StaffNotesUpdateResponses[keyof StaffNotesUpdateResponses];
 
-export type DeleteStaffNoteData = {
+export type StaffNotesDeleteData = {
     body?: never;
     path: {
         /**
@@ -8646,7 +9495,7 @@ export type DeleteStaffNoteData = {
     url: '/staff_notes/{id}/delete.json';
 };
 
-export type DeleteStaffNoteErrors = {
+export type StaffNotesDeleteErrors = {
     /**
      * Access Denied
      */
@@ -8657,18 +9506,18 @@ export type DeleteStaffNoteErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteStaffNoteError = DeleteStaffNoteErrors[keyof DeleteStaffNoteErrors];
+export type StaffNotesDeleteError = StaffNotesDeleteErrors[keyof StaffNotesDeleteErrors];
 
-export type DeleteStaffNoteResponses = {
+export type StaffNotesDeleteResponses = {
     /**
      * Success
      */
     201: StaffNote;
 };
 
-export type DeleteStaffNoteResponse = DeleteStaffNoteResponses[keyof DeleteStaffNoteResponses];
+export type StaffNotesDeleteResponse = StaffNotesDeleteResponses[keyof StaffNotesDeleteResponses];
 
-export type UndeleteStaffNoteData = {
+export type StaffNotesUndeleteData = {
     body?: never;
     path: {
         /**
@@ -8680,7 +9529,7 @@ export type UndeleteStaffNoteData = {
     url: '/staff_notes/{id}/undelete.json';
 };
 
-export type UndeleteStaffNoteErrors = {
+export type StaffNotesUndeleteErrors = {
     /**
      * Access Denied
      */
@@ -8691,18 +9540,18 @@ export type UndeleteStaffNoteErrors = {
     404: NotFoundResponse;
 };
 
-export type UndeleteStaffNoteError = UndeleteStaffNoteErrors[keyof UndeleteStaffNoteErrors];
+export type StaffNotesUndeleteError = StaffNotesUndeleteErrors[keyof StaffNotesUndeleteErrors];
 
-export type UndeleteStaffNoteResponses = {
+export type StaffNotesUndeleteResponses = {
     /**
      * Success
      */
     201: StaffNote;
 };
 
-export type UndeleteStaffNoteResponse = UndeleteStaffNoteResponses[keyof UndeleteStaffNoteResponses];
+export type StaffNotesUndeleteResponse = StaffNotesUndeleteResponses[keyof StaffNotesUndeleteResponses];
 
-export type SearchTakedownsData = {
+export type TakedownsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -8715,7 +9564,7 @@ export type SearchTakedownsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -8728,39 +9577,39 @@ export type SearchTakedownsData = {
         'search[order]'?: 'id_asc' | 'id_desc' | 'status' | 'post_count';
         'search[status]'?: string;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[source]'?: string;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[reason]'?: string;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[creator_id]'?: number;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[creator_name]'?: string;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[reason_hidden]'?: boolean;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[instructions]'?: string;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[post_id]'?: number;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[notes]'?: string;
         /**
-         * Must be Moderator+ to use.
+         * Must be Moderator+ or Approver to use.
          */
         'search[creator_logged_in]'?: boolean;
         /**
@@ -8775,47 +9624,47 @@ export type SearchTakedownsData = {
     url: '/takedowns.json';
 };
 
-export type SearchTakedownsResponses = {
+export type TakedownsIndexResponses = {
     /**
      * Success
      */
     200: Array<Takedown>;
 };
 
-export type SearchTakedownsResponse = SearchTakedownsResponses[keyof SearchTakedownsResponses];
+export type TakedownsIndexResponse = TakedownsIndexResponses[keyof TakedownsIndexResponses];
 
-export type CreateTakedownData = {
+export type TakedownsCreateData = {
     body?: {
-        'takedown[email]': string;
-        'takedown[source]'?: string;
-        'takedown[instructions]'?: string;
-        'takedown[reason]': string;
+        email: string;
+        source?: string;
+        instructions?: string;
+        reason: string;
         /**
-         * takedown[post_ids][]=1&takedown[post_ids][]=2
+         * post_ids][]=1&takedown[post_ids][=2
          */
-        'takedown[post_ids]'?: Array<number>;
-        'takedown[reason_hidden]'?: boolean;
+        post_ids?: Array<number>;
+        reason_hidden?: boolean;
         /**
          * Must have the bd staff user flag to use.
          */
-        'takedown[notes]'?: string;
+        notes?: string;
         /**
          * Must have the bd staff user flag to use.
-         * takedown[del_post_ids][]=1&takedown[del_post_ids][]=2
+         * del_post_ids][]=1&takedown[del_post_ids][=2
          *
          */
-        'takedown[del_post_ids]'?: Array<number>;
+        del_post_ids?: Array<number>;
         /**
          * Must have the bd staff user flag to use.
          */
-        'takedown[status]'?: string;
+        status?: string;
     };
     path?: never;
     query?: never;
     url: '/takedowns.json';
 };
 
-export type CreateTakedownErrors = {
+export type TakedownsCreateErrors = {
     /**
      * Access Denied
      */
@@ -8828,18 +9677,18 @@ export type CreateTakedownErrors = {
     };
 };
 
-export type CreateTakedownError = CreateTakedownErrors[keyof CreateTakedownErrors];
+export type TakedownsCreateError = TakedownsCreateErrors[keyof TakedownsCreateErrors];
 
-export type CreateTakedownResponses = {
+export type TakedownsCreateResponses = {
     /**
      * Success
      */
     201: Takedown;
 };
 
-export type CreateTakedownResponse = CreateTakedownResponses[keyof CreateTakedownResponses];
+export type TakedownsCreateResponse = TakedownsCreateResponses[keyof TakedownsCreateResponses];
 
-export type DeleteTakedownData = {
+export type TakedownsDestroyData = {
     body?: never;
     path: {
         /**
@@ -8851,7 +9700,7 @@ export type DeleteTakedownData = {
     url: '/takedowns/{id}.json';
 };
 
-export type DeleteTakedownErrors = {
+export type TakedownsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -8862,18 +9711,18 @@ export type DeleteTakedownErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteTakedownError = DeleteTakedownErrors[keyof DeleteTakedownErrors];
+export type TakedownsDestroyError = TakedownsDestroyErrors[keyof TakedownsDestroyErrors];
 
-export type DeleteTakedownResponses = {
+export type TakedownsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteTakedownResponse = DeleteTakedownResponses[keyof DeleteTakedownResponses];
+export type TakedownsDestroyResponse = TakedownsDestroyResponses[keyof TakedownsDestroyResponses];
 
-export type GetTakedownData = {
+export type TakedownsShowData = {
     body?: never;
     path: {
         /**
@@ -8885,28 +9734,28 @@ export type GetTakedownData = {
     url: '/takedowns/{id}.json';
 };
 
-export type GetTakedownErrors = {
+export type TakedownsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetTakedownError = GetTakedownErrors[keyof GetTakedownErrors];
+export type TakedownsShowError = TakedownsShowErrors[keyof TakedownsShowErrors];
 
-export type GetTakedownResponses = {
+export type TakedownsShowResponses = {
     /**
      * Success
      */
     200: Takedown;
 };
 
-export type GetTakedownResponse = GetTakedownResponses[keyof GetTakedownResponses];
+export type TakedownsShowResponse = TakedownsShowResponses[keyof TakedownsShowResponses];
 
-export type EditTakedownData = {
+export type TakedownsUpdateData = {
     body?: {
-        'takedown[notes]'?: string;
-        'takedown[reason_hidden]'?: boolean;
+        notes?: string;
+        reason_hidden?: boolean;
         takedown_posts?: string;
         /**
          * If not truthy, the takedown will be denied.
@@ -8924,7 +9773,7 @@ export type EditTakedownData = {
     url: '/takedowns/{id}.json';
 };
 
-export type EditTakedownErrors = {
+export type TakedownsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -8941,18 +9790,18 @@ export type EditTakedownErrors = {
     };
 };
 
-export type EditTakedownError = EditTakedownErrors[keyof EditTakedownErrors];
+export type TakedownsUpdateError = TakedownsUpdateErrors[keyof TakedownsUpdateErrors];
 
-export type EditTakedownResponses = {
+export type TakedownsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditTakedownResponse = EditTakedownResponses[keyof EditTakedownResponses];
+export type TakedownsUpdateResponse = TakedownsUpdateResponses[keyof TakedownsUpdateResponses];
 
-export type AddPostsToTakedownByIdsData = {
+export type TakedownsAddByIdsData = {
     body?: {
         post_ids: string;
     };
@@ -8966,7 +9815,7 @@ export type AddPostsToTakedownByIdsData = {
     url: '/takedowns/{id}/add_by_ids.json';
 };
 
-export type AddPostsToTakedownByIdsErrors = {
+export type TakedownsAddByIdsErrors = {
     /**
      * Access Denied
      */
@@ -8977,9 +9826,9 @@ export type AddPostsToTakedownByIdsErrors = {
     404: NotFoundResponse;
 };
 
-export type AddPostsToTakedownByIdsError = AddPostsToTakedownByIdsErrors[keyof AddPostsToTakedownByIdsErrors];
+export type TakedownsAddByIdsError = TakedownsAddByIdsErrors[keyof TakedownsAddByIdsErrors];
 
-export type AddPostsToTakedownByIdsResponses = {
+export type TakedownsAddByIdsResponses = {
     /**
      * Success
      */
@@ -8989,9 +9838,9 @@ export type AddPostsToTakedownByIdsResponses = {
     };
 };
 
-export type AddPostsToTakedownByIdsResponse = AddPostsToTakedownByIdsResponses[keyof AddPostsToTakedownByIdsResponses];
+export type TakedownsAddByIdsResponse = TakedownsAddByIdsResponses[keyof TakedownsAddByIdsResponses];
 
-export type AddPostsToTakedownByTagsData = {
+export type TakedownsAddByTagsData = {
     body?: {
         post_tags: string;
     };
@@ -9005,7 +9854,7 @@ export type AddPostsToTakedownByTagsData = {
     url: '/takedowns/{id}/add_by_tags.json';
 };
 
-export type AddPostsToTakedownByTagsErrors = {
+export type TakedownsAddByTagsErrors = {
     /**
      * Access Denied
      */
@@ -9016,9 +9865,9 @@ export type AddPostsToTakedownByTagsErrors = {
     404: NotFoundResponse;
 };
 
-export type AddPostsToTakedownByTagsError = AddPostsToTakedownByTagsErrors[keyof AddPostsToTakedownByTagsErrors];
+export type TakedownsAddByTagsError = TakedownsAddByTagsErrors[keyof TakedownsAddByTagsErrors];
 
-export type AddPostsToTakedownByTagsResponses = {
+export type TakedownsAddByTagsResponses = {
     /**
      * Success
      */
@@ -9028,9 +9877,9 @@ export type AddPostsToTakedownByTagsResponses = {
     };
 };
 
-export type AddPostsToTakedownByTagsResponse = AddPostsToTakedownByTagsResponses[keyof AddPostsToTakedownByTagsResponses];
+export type TakedownsAddByTagsResponse = TakedownsAddByTagsResponses[keyof TakedownsAddByTagsResponses];
 
-export type CountMatchingPostsData = {
+export type TakedownsCountMatchingPostsData = {
     body?: {
         post_tags: string;
     };
@@ -9044,7 +9893,7 @@ export type CountMatchingPostsData = {
     url: '/takedowns/{id}/count_matching_posts.json';
 };
 
-export type CountMatchingPostsErrors = {
+export type TakedownsCountMatchingPostsErrors = {
     /**
      * Access Denied
      */
@@ -9055,9 +9904,9 @@ export type CountMatchingPostsErrors = {
     404: NotFoundResponse;
 };
 
-export type CountMatchingPostsError = CountMatchingPostsErrors[keyof CountMatchingPostsErrors];
+export type TakedownsCountMatchingPostsError = TakedownsCountMatchingPostsErrors[keyof TakedownsCountMatchingPostsErrors];
 
-export type CountMatchingPostsResponses = {
+export type TakedownsCountMatchingPostsResponses = {
     /**
      * Success
      */
@@ -9066,9 +9915,9 @@ export type CountMatchingPostsResponses = {
     };
 };
 
-export type CountMatchingPostsResponse = CountMatchingPostsResponses[keyof CountMatchingPostsResponses];
+export type TakedownsCountMatchingPostsResponse = TakedownsCountMatchingPostsResponses[keyof TakedownsCountMatchingPostsResponses];
 
-export type RemovePostsFromTakedownByIdsData = {
+export type TakedownsRemoveByIdsData = {
     body?: {
         post_ids: string;
     };
@@ -9082,7 +9931,7 @@ export type RemovePostsFromTakedownByIdsData = {
     url: '/takedowns/{id}/remove_by_ids.json';
 };
 
-export type RemovePostsFromTakedownByIdsErrors = {
+export type TakedownsRemoveByIdsErrors = {
     /**
      * Access Denied
      */
@@ -9093,18 +9942,18 @@ export type RemovePostsFromTakedownByIdsErrors = {
     404: NotFoundResponse;
 };
 
-export type RemovePostsFromTakedownByIdsError = RemovePostsFromTakedownByIdsErrors[keyof RemovePostsFromTakedownByIdsErrors];
+export type TakedownsRemoveByIdsError = TakedownsRemoveByIdsErrors[keyof TakedownsRemoveByIdsErrors];
 
-export type RemovePostsFromTakedownByIdsResponses = {
+export type TakedownsRemoveByIdsResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RemovePostsFromTakedownByIdsResponse = RemovePostsFromTakedownByIdsResponses[keyof RemovePostsFromTakedownByIdsResponses];
+export type TakedownsRemoveByIdsResponse = TakedownsRemoveByIdsResponses[keyof TakedownsRemoveByIdsResponses];
 
-export type SearchTicketsData = {
+export type TicketsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -9117,40 +9966,40 @@ export type SearchTicketsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[creator_name]'?: string;
         /**
-         * You must be Janitor+ unless providing your own id.
+         * You must be Staff+ unless providing your own id.
          */
         'search[creator_id]'?: number;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[claimant_name]'?: string;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[claimant_id]'?: number;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[accused_name]'?: string;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[accused_id]'?: number;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[disp_id]'?: number;
         'search[qtype]'?: TicketTypes;
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[reason]'?: string;
         'search[status]'?: 'pending' | 'partial' | 'approved' | 'pending_claimed' | 'pending_unclaimed';
@@ -9158,25 +10007,25 @@ export type SearchTicketsData = {
     url: '/tickets.json';
 };
 
-export type SearchTicketsErrors = {
+export type TicketsIndexErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type SearchTicketsError = SearchTicketsErrors[keyof SearchTicketsErrors];
+export type TicketsIndexError = TicketsIndexErrors[keyof TicketsIndexErrors];
 
-export type SearchTicketsResponses = {
+export type TicketsIndexResponses = {
     /**
      * Success
      */
     200: Array<Ticket>;
 };
 
-export type SearchTicketsResponse = SearchTicketsResponses[keyof SearchTicketsResponses];
+export type TicketsIndexResponse = TicketsIndexResponses[keyof TicketsIndexResponses];
 
-export type GetTicketData = {
+export type TicketsShowData = {
     body?: never;
     path: {
         /**
@@ -9188,7 +10037,7 @@ export type GetTicketData = {
     url: '/tickets/{id}.json';
 };
 
-export type GetTicketErrors = {
+export type TicketsShowErrors = {
     /**
      * Access Denied
      */
@@ -9199,26 +10048,26 @@ export type GetTicketErrors = {
     404: NotFoundResponse;
 };
 
-export type GetTicketError = GetTicketErrors[keyof GetTicketErrors];
+export type TicketsShowError = TicketsShowErrors[keyof TicketsShowErrors];
 
-export type GetTicketResponses = {
+export type TicketsShowResponses = {
     /**
      * Success
      */
     200: Ticket;
 };
 
-export type GetTicketResponse = GetTicketResponses[keyof GetTicketResponses];
+export type TicketsShowResponse = TicketsShowResponses[keyof TicketsShowResponses];
 
-export type EditTicketData = {
+export type TicketsUpdateData = {
     body?: {
-        'ticket[status]'?: 'partial' | 'approved';
-        'ticket[response]': string;
-        'ticket[record_type]'?: WarningTypes;
+        status?: 'partial' | 'approved';
+        response: string;
+        record_type?: WarningTypes;
         /**
          * An update dmail will always be sent when the status is changed.
          */
-        'ticket[send_update_dmail]'?: boolean;
+        send_update_dmail?: boolean;
     };
     path: {
         /**
@@ -9230,7 +10079,7 @@ export type EditTicketData = {
     url: '/tickets/{id}.json';
 };
 
-export type EditTicketErrors = {
+export type TicketsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -9241,18 +10090,18 @@ export type EditTicketErrors = {
     404: NotFoundResponse;
 };
 
-export type EditTicketError = EditTicketErrors[keyof EditTicketErrors];
+export type TicketsUpdateError = TicketsUpdateErrors[keyof TicketsUpdateErrors];
 
-export type EditTicketResponses = {
+export type TicketsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditTicketResponse = EditTicketResponses[keyof EditTicketResponses];
+export type TicketsUpdateResponse = TicketsUpdateResponses[keyof TicketsUpdateResponses];
 
-export type ClaimTicketData = {
+export type TicketsClaimData = {
     body?: never;
     path: {
         /**
@@ -9264,7 +10113,7 @@ export type ClaimTicketData = {
     url: '/tickets/{id}/claim.json';
 };
 
-export type ClaimTicketErrors = {
+export type TicketsClaimErrors = {
     /**
      * Access Denied
      */
@@ -9275,18 +10124,18 @@ export type ClaimTicketErrors = {
     404: NotFoundResponse;
 };
 
-export type ClaimTicketError = ClaimTicketErrors[keyof ClaimTicketErrors];
+export type TicketsClaimError = TicketsClaimErrors[keyof TicketsClaimErrors];
 
-export type ClaimTicketResponses = {
+export type TicketsClaimResponses = {
     /**
      * Success
      */
     201: Ticket;
 };
 
-export type ClaimTicketResponse = ClaimTicketResponses[keyof ClaimTicketResponses];
+export type TicketsClaimResponse = TicketsClaimResponses[keyof TicketsClaimResponses];
 
-export type UnclaimTicketData = {
+export type TicketsUnclaimData = {
     body?: never;
     path: {
         /**
@@ -9298,7 +10147,7 @@ export type UnclaimTicketData = {
     url: '/tickets/{id}/unclaim.json';
 };
 
-export type UnclaimTicketErrors = {
+export type TicketsUnclaimErrors = {
     /**
      * Access Denied
      */
@@ -9309,18 +10158,18 @@ export type UnclaimTicketErrors = {
     404: NotFoundResponse;
 };
 
-export type UnclaimTicketError = UnclaimTicketErrors[keyof UnclaimTicketErrors];
+export type TicketsUnclaimError = TicketsUnclaimErrors[keyof TicketsUnclaimErrors];
 
-export type UnclaimTicketResponses = {
+export type TicketsUnclaimResponses = {
     /**
      * Success
      */
     201: Ticket;
 };
 
-export type UnclaimTicketResponse = UnclaimTicketResponses[keyof UnclaimTicketResponses];
+export type TicketsUnclaimResponse = TicketsUnclaimResponses[keyof TicketsUnclaimResponses];
 
-export type SearchUploadsData = {
+export type UploadsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -9333,7 +10182,7 @@ export type SearchUploadsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -9360,16 +10209,16 @@ export type SearchUploadsData = {
     url: '/uploads.json';
 };
 
-export type SearchUploadsResponses = {
+export type UploadsIndexResponses = {
     /**
      * Success
      */
     200: Array<Upload>;
 };
 
-export type SearchUploadsResponse = SearchUploadsResponses[keyof SearchUploadsResponses];
+export type UploadsIndexResponse = UploadsIndexResponses[keyof UploadsIndexResponses];
 
-export type UploadPostData = {
+export type UploadsCreateData = {
     body?: {
         /**
          * Mutually exclusive with direct_url.
@@ -9402,7 +10251,7 @@ export type UploadPostData = {
     url: '/uploads.json';
 };
 
-export type UploadPostErrors = {
+export type UploadsCreateErrors = {
     /**
      * Access Denied
      */
@@ -9413,9 +10262,9 @@ export type UploadPostErrors = {
     412: MessageErrorResponse;
 };
 
-export type UploadPostError = UploadPostErrors[keyof UploadPostErrors];
+export type UploadsCreateError = UploadsCreateErrors[keyof UploadsCreateErrors];
 
-export type UploadPostResponses = {
+export type UploadsCreateResponses = {
     /**
      * Success
      */
@@ -9426,9 +10275,9 @@ export type UploadPostResponses = {
     };
 };
 
-export type UploadPostResponse = UploadPostResponses[keyof UploadPostResponses];
+export type UploadsCreateResponse = UploadsCreateResponses[keyof UploadsCreateResponses];
 
-export type GetUploadData = {
+export type UploadsShowData = {
     body?: never;
     path: {
         /**
@@ -9440,7 +10289,7 @@ export type GetUploadData = {
     url: '/uploads/{id}.json';
 };
 
-export type GetUploadErrors = {
+export type UploadsShowErrors = {
     /**
      * Access Denied
      */
@@ -9451,18 +10300,18 @@ export type GetUploadErrors = {
     404: NotFoundResponse;
 };
 
-export type GetUploadError = GetUploadErrors[keyof GetUploadErrors];
+export type UploadsShowError = UploadsShowErrors[keyof UploadsShowErrors];
 
-export type GetUploadResponses = {
+export type UploadsShowResponses = {
     /**
      * Success
      */
     200: Upload;
 };
 
-export type GetUploadResponse = GetUploadResponses[keyof GetUploadResponses];
+export type UploadsShowResponse = UploadsShowResponses[keyof UploadsShowResponses];
 
-export type SearchUploadWhitelistsData = {
+export type UploadWhitelistsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -9475,7 +10324,7 @@ export type SearchUploadWhitelistsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'domain' | 'path' | 'updated_at' | 'created_at';
@@ -9487,30 +10336,30 @@ export type SearchUploadWhitelistsData = {
     url: '/upload_whitelists.json';
 };
 
-export type SearchUploadWhitelistsResponses = {
+export type UploadWhitelistsIndexResponses = {
     /**
      * Success
      */
     200: Array<UploadWhitelist>;
 };
 
-export type SearchUploadWhitelistsResponse = SearchUploadWhitelistsResponses[keyof SearchUploadWhitelistsResponses];
+export type UploadWhitelistsIndexResponse = UploadWhitelistsIndexResponses[keyof UploadWhitelistsIndexResponses];
 
-export type CreateUploadWhitelistData = {
+export type UploadWhitelistsCreateData = {
     body?: {
-        'upload_whitelist[allowed]': string;
-        'upload_whitelist[domain]': string;
-        'upload_whitelist[path]': string;
-        'upload_whitelist[reason]'?: string;
-        'upload_whitelist[note]'?: string;
-        'upload_whitelist[hidden]'?: boolean;
+        allowed: string;
+        domain: string;
+        path: string;
+        reason?: string;
+        note?: string;
+        hidden?: boolean;
     };
     path?: never;
     query?: never;
     url: '/upload_whitelists.json';
 };
 
-export type CreateUploadWhitelistErrors = {
+export type UploadWhitelistsCreateErrors = {
     /**
      * Access Denied
      */
@@ -9523,18 +10372,18 @@ export type CreateUploadWhitelistErrors = {
     };
 };
 
-export type CreateUploadWhitelistError = CreateUploadWhitelistErrors[keyof CreateUploadWhitelistErrors];
+export type UploadWhitelistsCreateError = UploadWhitelistsCreateErrors[keyof UploadWhitelistsCreateErrors];
 
-export type CreateUploadWhitelistResponses = {
+export type UploadWhitelistsCreateResponses = {
     /**
      * Success
      */
     201: UploadWhitelist;
 };
 
-export type CreateUploadWhitelistResponse = CreateUploadWhitelistResponses[keyof CreateUploadWhitelistResponses];
+export type UploadWhitelistsCreateResponse = UploadWhitelistsCreateResponses[keyof UploadWhitelistsCreateResponses];
 
-export type DeleteUploadWhitelistData = {
+export type UploadWhitelistsDestroyData = {
     body?: never;
     path: {
         /**
@@ -9546,7 +10395,7 @@ export type DeleteUploadWhitelistData = {
     url: '/upload_whitelists/{id}.json';
 };
 
-export type DeleteUploadWhitelistErrors = {
+export type UploadWhitelistsDestroyErrors = {
     /**
      * Access Denied
      */
@@ -9557,24 +10406,24 @@ export type DeleteUploadWhitelistErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteUploadWhitelistError = DeleteUploadWhitelistErrors[keyof DeleteUploadWhitelistErrors];
+export type UploadWhitelistsDestroyError = UploadWhitelistsDestroyErrors[keyof UploadWhitelistsDestroyErrors];
 
-export type DeleteUploadWhitelistResponses = {
+export type UploadWhitelistsDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteUploadWhitelistResponse = DeleteUploadWhitelistResponses[keyof DeleteUploadWhitelistResponses];
+export type UploadWhitelistsDestroyResponse = UploadWhitelistsDestroyResponses[keyof UploadWhitelistsDestroyResponses];
 
-export type EditUploadWhitelistData = {
+export type UploadWhitelistsUpdateData = {
     body?: {
-        'upload_whitelist[allowed]'?: string;
-        'upload_whitelist[pattern]'?: string;
-        'upload_whitelist[reason]'?: string;
-        'upload_whitelist[note]'?: string;
-        'upload_whitelist[hidden]'?: boolean;
+        allowed?: string;
+        pattern?: string;
+        reason?: string;
+        note?: string;
+        hidden?: boolean;
     };
     path: {
         /**
@@ -9586,7 +10435,7 @@ export type EditUploadWhitelistData = {
     url: '/upload_whitelists/{id}.json';
 };
 
-export type EditUploadWhitelistErrors = {
+export type UploadWhitelistsUpdateErrors = {
     /**
      * Access Denied
      */
@@ -9603,18 +10452,18 @@ export type EditUploadWhitelistErrors = {
     };
 };
 
-export type EditUploadWhitelistError = EditUploadWhitelistErrors[keyof EditUploadWhitelistErrors];
+export type UploadWhitelistsUpdateError = UploadWhitelistsUpdateErrors[keyof UploadWhitelistsUpdateErrors];
 
-export type EditUploadWhitelistResponses = {
+export type UploadWhitelistsUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditUploadWhitelistResponse = EditUploadWhitelistResponses[keyof EditUploadWhitelistResponses];
+export type UploadWhitelistsUpdateResponse = UploadWhitelistsUpdateResponses[keyof UploadWhitelistsUpdateResponses];
 
-export type CheckIfUrlIsAllowedData = {
+export type UploadWhitelistsIsAllowedData = {
     body?: never;
     path?: never;
     query?: {
@@ -9623,7 +10472,7 @@ export type CheckIfUrlIsAllowedData = {
     url: '/upload_whitelists/is_allowed.json';
 };
 
-export type CheckIfUrlIsAllowedErrors = {
+export type UploadWhitelistsIsAllowedErrors = {
     /**
      * Access Denied
      */
@@ -9640,9 +10489,9 @@ export type CheckIfUrlIsAllowedErrors = {
     };
 };
 
-export type CheckIfUrlIsAllowedError = CheckIfUrlIsAllowedErrors[keyof CheckIfUrlIsAllowedErrors];
+export type UploadWhitelistsIsAllowedError = UploadWhitelistsIsAllowedErrors[keyof UploadWhitelistsIsAllowedErrors];
 
-export type CheckIfUrlIsAllowedResponses = {
+export type UploadWhitelistsIsAllowedResponses = {
     /**
      * Success
      */
@@ -9654,9 +10503,9 @@ export type CheckIfUrlIsAllowedResponses = {
     };
 };
 
-export type CheckIfUrlIsAllowedResponse = CheckIfUrlIsAllowedResponses[keyof CheckIfUrlIsAllowedResponses];
+export type UploadWhitelistsIsAllowedResponse = UploadWhitelistsIsAllowedResponses[keyof UploadWhitelistsIsAllowedResponses];
 
-export type SearchUsersData = {
+export type UsersIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -9669,7 +10518,7 @@ export type SearchUsersData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -9680,9 +10529,9 @@ export type SearchUsersData = {
         'search[name_matches]'?: string;
         'search[about_me]'?: string;
         'search[avatar_id]'?: number;
-        'search[level]'?: number;
-        'search[min_level]'?: number;
-        'search[max_level]'?: number;
+        'search[level]'?: UserLevels;
+        'search[min_level]'?: UserLevels;
+        'search[max_level]'?: UserLevels;
         'search[can_upload_free]'?: boolean;
         'search[can_approve_posts]'?: boolean;
         /**
@@ -9693,57 +10542,57 @@ export type SearchUsersData = {
     url: '/users.json';
 };
 
-export type SearchUsersResponses = {
+export type UsersIndexResponses = {
     /**
      * Success
      */
     200: Array<User | FullCurrentUser>;
 };
 
-export type SearchUsersResponse = SearchUsersResponses[keyof SearchUsersResponses];
+export type UsersIndexResponse = UsersIndexResponses[keyof UsersIndexResponses];
 
-export type GetMeData = {
+export type UsersMeData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/users/me.json';
 };
 
-export type GetMeResponses = {
+export type UsersMeResponses = {
     /**
      * Success
      */
     200: FullCurrentUser;
 };
 
-export type GetMeResponse = GetMeResponses[keyof GetMeResponses];
+export type UsersMeResponse = UsersMeResponses[keyof UsersMeResponses];
 
-export type GetAvatarMenuData = {
+export type UsersAvatarMenuData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/users/avatar_menu.json';
 };
 
-export type GetAvatarMenuErrors = {
+export type UsersAvatarMenuErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type GetAvatarMenuError = GetAvatarMenuErrors[keyof GetAvatarMenuErrors];
+export type UsersAvatarMenuError = UsersAvatarMenuErrors[keyof UsersAvatarMenuErrors];
 
-export type GetAvatarMenuResponses = {
+export type UsersAvatarMenuResponses = {
     /**
      * Success
      */
     200: UserAvatarMenu;
 };
 
-export type GetAvatarMenuResponse = GetAvatarMenuResponses[keyof GetAvatarMenuResponses];
+export type UsersAvatarMenuResponse = UsersAvatarMenuResponses[keyof UsersAvatarMenuResponses];
 
-export type GetUserData = {
+export type UsersShowData = {
     body?: never;
     path: {
         /**
@@ -9755,60 +10604,60 @@ export type GetUserData = {
     url: '/users/{idOrName}.json';
 };
 
-export type GetUserErrors = {
+export type UsersShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetUserError = GetUserErrors[keyof GetUserErrors];
+export type UsersShowError = UsersShowErrors[keyof UsersShowErrors];
 
-export type GetUserResponses = {
+export type UsersShowResponses = {
     /**
      * Success
      */
     200: FullUser | FullCurrentUser;
 };
 
-export type GetUserResponse = GetUserResponses[keyof GetUserResponses];
+export type UsersShowResponse = UsersShowResponses[keyof UsersShowResponses];
 
-export type EditCurrentUserData = {
+export type UsersUpdateData = {
     body?: {
-        'user[comment_threshold]'?: number;
-        'user[default_image_size]'?: 'large' | 'fit' | 'fitv' | 'original';
-        'user[favorite_tags]'?: string;
-        'user[blacklisted_tags]'?: string;
+        comment_threshold?: number;
+        default_image_size?: 'large' | 'fit' | 'fitv' | 'original';
+        favorite_tags?: string;
+        blacklisted_tags?: string;
         /**
          * https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
          */
-        'user[time_zone]'?: string;
-        'user[per_page]'?: number;
-        'user[custom_style]'?: string;
-        'user[description_collapsed_initially]'?: boolean;
-        'user[hide_comments]'?: boolean;
-        'user[receive_email_notifications]'?: boolean;
-        'user[enable_keyboard_navigation]'?: boolean;
-        'user[enable_privacy_mode]'?: boolean;
-        'user[disable_user_dmails]'?: boolean;
-        'user[blacklist_users]'?: boolean;
-        'user[show_post_statistics]'?: boolean;
-        'user[style_usernames]'?: boolean;
-        'user[show_hidden_comments]'?: boolean;
-        'user[enable_autocomplete]'?: boolean;
-        'user[disable_cropped_thumbnails]'?: boolean;
-        'user[enable_safe_mode]'?: boolean;
-        'user[disable_responsive_mode]'?: boolean;
-        'user[dmail_filter_attributes][id]'?: number;
-        'user[dmail_filter_attributes][words]'?: string;
-        'user[profile_about]'?: string;
-        'user[profile_artinfo]'?: string;
-        'user[avatar_id]'?: number;
+        time_zone?: string;
+        per_page?: number;
+        custom_style?: string;
+        description_collapsed_initially?: boolean;
+        hide_comments?: boolean;
+        receive_email_notifications?: boolean;
+        enable_keyboard_navigation?: boolean;
+        enable_privacy_mode?: boolean;
+        disable_user_dmails?: boolean;
+        blacklist_users?: boolean;
+        show_post_statistics?: boolean;
+        style_usernames?: boolean;
+        show_hidden_comments?: boolean;
+        enable_autocomplete?: boolean;
+        disable_cropped_thumbnails?: boolean;
+        enable_safe_mode?: boolean;
+        disable_responsive_mode?: boolean;
+        'dmail_filter_attributes][id'?: number;
+        'dmail_filter_attributes][words'?: string;
+        profile_about?: string;
+        profile_artinfo?: string;
+        avatar_id?: number;
         /**
          * You must have uploaded at least 10 posts.
          */
-        'user[enable_compact_uploader]'?: boolean;
-        'user[forum_notification_dot]'?: boolean;
+        enable_compact_uploader?: boolean;
+        forum_notification_dot?: boolean;
     };
     path: {
         /**
@@ -9820,7 +10669,7 @@ export type EditCurrentUserData = {
     url: '/users/{idOrName}.json';
 };
 
-export type EditCurrentUserErrors = {
+export type UsersUpdateErrors = {
     /**
      * Access Denied
      */
@@ -9833,18 +10682,18 @@ export type EditCurrentUserErrors = {
     };
 };
 
-export type EditCurrentUserError = EditCurrentUserErrors[keyof EditCurrentUserErrors];
+export type UsersUpdateError = UsersUpdateErrors[keyof UsersUpdateErrors];
 
-export type EditCurrentUserResponses = {
+export type UsersUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditCurrentUserResponse = EditCurrentUserResponses[keyof EditCurrentUserResponses];
+export type UsersUpdateResponse = UsersUpdateResponses[keyof UsersUpdateResponses];
 
-export type GetUserUploadLimitData = {
+export type UsersUploadLimitData = {
     body?: never;
     path: {
         /**
@@ -9856,25 +10705,25 @@ export type GetUserUploadLimitData = {
     url: '/users/{idOrName}/upload_limit.json';
 };
 
-export type GetUserUploadLimitErrors = {
+export type UsersUploadLimitErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type GetUserUploadLimitError = GetUserUploadLimitErrors[keyof GetUserUploadLimitErrors];
+export type UsersUploadLimitError = UsersUploadLimitErrors[keyof UsersUploadLimitErrors];
 
-export type GetUserUploadLimitResponses = {
+export type UsersUploadLimitResponses = {
     /**
      * Success
      */
     200: FullUser | FullCurrentUser;
 };
 
-export type GetUserUploadLimitResponse = GetUserUploadLimitResponses[keyof GetUserUploadLimitResponses];
+export type UsersUploadLimitResponse = UsersUploadLimitResponses[keyof UsersUploadLimitResponses];
 
-export type ClearUserFavoritesData = {
+export type UsersFlushFavoritesData = {
     body?: never;
     path: {
         /**
@@ -9886,7 +10735,7 @@ export type ClearUserFavoritesData = {
     url: '/users/{idOrName}/flush_favorites.json';
 };
 
-export type ClearUserFavoritesErrors = {
+export type UsersFlushFavoritesErrors = {
     /**
      * Access Denied
      */
@@ -9897,9 +10746,9 @@ export type ClearUserFavoritesErrors = {
     404: NotFoundResponse;
 };
 
-export type ClearUserFavoritesError = ClearUserFavoritesErrors[keyof ClearUserFavoritesErrors];
+export type UsersFlushFavoritesError = UsersFlushFavoritesErrors[keyof UsersFlushFavoritesErrors];
 
-export type StaffFixUserCountsData = {
+export type UsersFixCountsData = {
     body?: never;
     path: {
         /**
@@ -9911,7 +10760,7 @@ export type StaffFixUserCountsData = {
     url: '/users/{idOrName}/fix_counts.json';
 };
 
-export type StaffFixUserCountsErrors = {
+export type UsersFixCountsErrors = {
     /**
      * Access Denied
      */
@@ -9922,9 +10771,9 @@ export type StaffFixUserCountsErrors = {
     404: NotFoundResponse;
 };
 
-export type StaffFixUserCountsError = StaffFixUserCountsErrors[keyof StaffFixUserCountsErrors];
+export type UsersFixCountsError = UsersFixCountsErrors[keyof UsersFixCountsErrors];
 
-export type ToggleUserUploadsData = {
+export type UsersToggleUploadsData = {
     body?: never;
     path: {
         /**
@@ -9936,7 +10785,7 @@ export type ToggleUserUploadsData = {
     url: '/users/{idOrName}/toggle_uploads.json';
 };
 
-export type ToggleUserUploadsErrors = {
+export type UsersToggleUploadsErrors = {
     /**
      * Access Denied
      */
@@ -9947,11 +10796,11 @@ export type ToggleUserUploadsErrors = {
     404: NotFoundResponse;
 };
 
-export type ToggleUserUploadsError = ToggleUserUploadsErrors[keyof ToggleUserUploadsErrors];
+export type UsersToggleUploadsError = UsersToggleUploadsErrors[keyof UsersToggleUploadsErrors];
 
-export type DisableUserUploadsData = {
+export type UsersDisableUploadsData = {
     body?: {
-        'staff_note[body]': string;
+        body: string;
     };
     path: {
         /**
@@ -9963,7 +10812,7 @@ export type DisableUserUploadsData = {
     url: '/users/{idOrName}/disable_uploads.json';
 };
 
-export type DisableUserUploadsErrors = {
+export type UsersDisableUploadsErrors = {
     /**
      * Access Denied
      */
@@ -9974,108 +10823,27 @@ export type DisableUserUploadsErrors = {
     404: NotFoundResponse;
 };
 
-export type DisableUserUploadsError = DisableUserUploadsErrors[keyof DisableUserUploadsErrors];
+export type UsersDisableUploadsError = UsersDisableUploadsErrors[keyof UsersDisableUploadsErrors];
 
-export type AuditUserDMailsData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of the user.
-         */
-        user_id: number;
-    };
-    query?: {
-        /**
-         * The maximum number of results to return. Between 0 and 320.
-         */
-        limit?: number;
-        /**
-         * The page number of results to get. Between 1 and 750.
-         */
-        page?: number;
-    };
-    url: '/users/{user_id}/dmails.json';
-};
-
-export type AuditUserDMailsErrors = {
-    /**
-     * Access Denied
-     */
-    403: AccessDeniedResponse;
-    /**
-     * Not Found
-     */
-    404: NotFoundResponse;
-};
-
-export type AuditUserDMailsError = AuditUserDMailsErrors[keyof AuditUserDMailsErrors];
-
-export type AuditUserDMailsResponses = {
-    /**
-     * Success
-     */
-    200: Array<DMail>;
-};
-
-export type AuditUserDMailsResponse = AuditUserDMailsResponses[keyof AuditUserDMailsResponses];
-
-export type AuditUserDMailData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of the user.
-         */
-        user_id: number;
-        /**
-         * The ID of the item.
-         */
-        id: number;
-    };
-    query?: never;
-    url: '/users/{user_id}/dmails/{id}.json';
-};
-
-export type AuditUserDMailErrors = {
-    /**
-     * Access Denied
-     */
-    403: AccessDeniedResponse;
-    /**
-     * Not Found
-     */
-    404: NotFoundResponse;
-};
-
-export type AuditUserDMailError = AuditUserDMailErrors[keyof AuditUserDMailErrors];
-
-export type AuditUserDMailResponses = {
-    /**
-     * Success
-     */
-    200: DMail;
-};
-
-export type AuditUserDMailResponse = AuditUserDMailResponses[keyof AuditUserDMailResponses];
-
-export type FixUserCountsData = {
+export type MaintenanceUserCountFixesCreateData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/maintenance/user/count_fixes.json';
 };
 
-export type FixUserCountsErrors = {
+export type MaintenanceUserCountFixesCreateErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type FixUserCountsError = FixUserCountsErrors[keyof FixUserCountsErrors];
+export type MaintenanceUserCountFixesCreateError = MaintenanceUserCountFixesCreateErrors[keyof MaintenanceUserCountFixesCreateErrors];
 
-export type UpdateUserDmailFilterData = {
+export type MaintenanceUserDmailFiltersUpdateData = {
     body?: {
-        'dmail_filter[words]': string;
+        words: string;
     };
     path?: never;
     query: {
@@ -10087,25 +10855,54 @@ export type UpdateUserDmailFilterData = {
     url: '/maintenance/user/dmail_filter.json';
 };
 
-export type UpdateUserDmailFilterErrors = {
+export type MaintenanceUserDmailFiltersUpdateErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type UpdateUserDmailFilterError = UpdateUserDmailFilterErrors[keyof UpdateUserDmailFilterErrors];
+export type MaintenanceUserDmailFiltersUpdateError = MaintenanceUserDmailFiltersUpdateErrors[keyof MaintenanceUserDmailFiltersUpdateErrors];
 
-export type UpdateUserDmailFilterResponses = {
+export type MaintenanceUserDmailFiltersUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type UpdateUserDmailFilterResponse = UpdateUserDmailFilterResponses[keyof UpdateUserDmailFilterResponses];
+export type MaintenanceUserDmailFiltersUpdateResponse = MaintenanceUserDmailFiltersUpdateResponses[keyof MaintenanceUserDmailFiltersUpdateResponses];
 
-export type SearchUserFeedbacksData = {
+export type MaintenanceUserAvatarsUpdateData = {
+    body?: {
+        /**
+         * The x coordinate of the top left corner of the crop area.
+         */
+        avatar_crop_x: number;
+        /**
+         * The y coordinate of the top left corner of the crop area.
+         */
+        avatar_crop_y: number;
+        /**
+         * The width of the crop area. The height is always the same as the width.
+         */
+        avatar_crop_w: number;
+    };
+    path?: never;
+    query?: never;
+    url: '/maintenance/user/avatar.json';
+};
+
+export type MaintenanceUserAvatarsUpdateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type MaintenanceUserAvatarsUpdateError = MaintenanceUserAvatarsUpdateErrors[keyof MaintenanceUserAvatarsUpdateErrors];
+
+export type UserFeedbacksIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -10118,7 +10915,7 @@ export type SearchUserFeedbacksData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -10126,7 +10923,7 @@ export type SearchUserFeedbacksData = {
          */
         'search[order]'?: 'id_asc' | 'id_desc';
         /**
-         * You must be Janitor+.
+         * You must be Staff+.
          */
         'search[deleted]'?: 'included' | 'excluded' | 'only';
         'search[body_matches]'?: string;
@@ -10139,28 +10936,28 @@ export type SearchUserFeedbacksData = {
     url: '/user_feedbacks.json';
 };
 
-export type SearchUserFeedbacksResponses = {
+export type UserFeedbacksIndexResponses = {
     /**
      * Success
      */
     200: Array<UserFeedback>;
 };
 
-export type SearchUserFeedbacksResponse = SearchUserFeedbacksResponses[keyof SearchUserFeedbacksResponses];
+export type UserFeedbacksIndexResponse = UserFeedbacksIndexResponses[keyof UserFeedbacksIndexResponses];
 
-export type CreateUserFeedbackData = {
+export type UserFeedbacksCreateData = {
     body?: {
-        'user_feedback[user_id]'?: number;
-        'user_feedback[user_name]'?: string;
-        'user_feedback[body]': string;
-        'user_feedback[category]': FeedbackCategories;
+        user_id?: number;
+        user_name?: string;
+        body: string;
+        category: FeedbackCategories;
     };
     path?: never;
     query?: never;
     url: '/user_feedbacks.json';
 };
 
-export type CreateUserFeedbackErrors = {
+export type UserFeedbacksCreateErrors = {
     /**
      * Access Denied
      */
@@ -10173,18 +10970,18 @@ export type CreateUserFeedbackErrors = {
     };
 };
 
-export type CreateUserFeedbackError = CreateUserFeedbackErrors[keyof CreateUserFeedbackErrors];
+export type UserFeedbacksCreateError = UserFeedbacksCreateErrors[keyof UserFeedbacksCreateErrors];
 
-export type CreateUserFeedbackResponses = {
+export type UserFeedbacksCreateResponses = {
     /**
      * Success
      */
     201: UserFeedback;
 };
 
-export type CreateUserFeedbackResponse = CreateUserFeedbackResponses[keyof CreateUserFeedbackResponses];
+export type UserFeedbacksCreateResponse = UserFeedbacksCreateResponses[keyof UserFeedbacksCreateResponses];
 
-export type DestroyUserFeedbackData = {
+export type UserFeedbacksDestroyData = {
     body?: never;
     path: {
         /**
@@ -10196,7 +10993,7 @@ export type DestroyUserFeedbackData = {
     url: '/user_feedbacks/{id}.json';
 };
 
-export type DestroyUserFeedbackErrors = {
+export type UserFeedbacksDestroyErrors = {
     /**
      * Access Denied
      */
@@ -10207,18 +11004,18 @@ export type DestroyUserFeedbackErrors = {
     404: NotFoundResponse;
 };
 
-export type DestroyUserFeedbackError = DestroyUserFeedbackErrors[keyof DestroyUserFeedbackErrors];
+export type UserFeedbacksDestroyError = UserFeedbacksDestroyErrors[keyof UserFeedbacksDestroyErrors];
 
-export type DestroyUserFeedbackResponses = {
+export type UserFeedbacksDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DestroyUserFeedbackResponse = DestroyUserFeedbackResponses[keyof DestroyUserFeedbackResponses];
+export type UserFeedbacksDestroyResponse = UserFeedbacksDestroyResponses[keyof UserFeedbacksDestroyResponses];
 
-export type GetUserFeedbackData = {
+export type UserFeedbacksShowData = {
     body?: never;
     path: {
         /**
@@ -10230,7 +11027,7 @@ export type GetUserFeedbackData = {
     url: '/user_feedbacks/{id}.json';
 };
 
-export type GetUserFeedbackErrors = {
+export type UserFeedbacksShowErrors = {
     /**
      * Access Denied
      */
@@ -10241,21 +11038,21 @@ export type GetUserFeedbackErrors = {
     404: NotFoundResponse;
 };
 
-export type GetUserFeedbackError = GetUserFeedbackErrors[keyof GetUserFeedbackErrors];
+export type UserFeedbacksShowError = UserFeedbacksShowErrors[keyof UserFeedbacksShowErrors];
 
-export type GetUserFeedbackResponses = {
+export type UserFeedbacksShowResponses = {
     /**
      * Success
      */
     200: UserFeedback;
 };
 
-export type GetUserFeedbackResponse = GetUserFeedbackResponses[keyof GetUserFeedbackResponses];
+export type UserFeedbacksShowResponse = UserFeedbacksShowResponses[keyof UserFeedbacksShowResponses];
 
-export type EditUserFeedbackData = {
+export type UserFeedbacksUpdateData = {
     body?: {
-        'user_feedback[body]'?: string;
-        'user_feedback[category]'?: FeedbackCategories;
+        body?: string;
+        category?: FeedbackCategories;
     };
     path: {
         /**
@@ -10267,7 +11064,7 @@ export type EditUserFeedbackData = {
     url: '/user_feedbacks/{id}.json';
 };
 
-export type EditUserFeedbackErrors = {
+export type UserFeedbacksUpdateErrors = {
     /**
      * Access Denied
      */
@@ -10284,18 +11081,18 @@ export type EditUserFeedbackErrors = {
     };
 };
 
-export type EditUserFeedbackError = EditUserFeedbackErrors[keyof EditUserFeedbackErrors];
+export type UserFeedbacksUpdateError = UserFeedbacksUpdateErrors[keyof UserFeedbacksUpdateErrors];
 
-export type EditUserFeedbackResponses = {
+export type UserFeedbacksUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditUserFeedbackResponse = EditUserFeedbackResponses[keyof EditUserFeedbackResponses];
+export type UserFeedbacksUpdateResponse = UserFeedbacksUpdateResponses[keyof UserFeedbacksUpdateResponses];
 
-export type DeleteUserFeedbackData = {
+export type UserFeedbacksDeleteData = {
     body?: never;
     path: {
         /**
@@ -10307,7 +11104,7 @@ export type DeleteUserFeedbackData = {
     url: '/user_feedbacks/{id}/delete.json';
 };
 
-export type DeleteUserFeedbackErrors = {
+export type UserFeedbacksDeleteErrors = {
     /**
      * Access Denied
      */
@@ -10318,18 +11115,18 @@ export type DeleteUserFeedbackErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteUserFeedbackError = DeleteUserFeedbackErrors[keyof DeleteUserFeedbackErrors];
+export type UserFeedbacksDeleteError = UserFeedbacksDeleteErrors[keyof UserFeedbacksDeleteErrors];
 
-export type DeleteUserFeedbackResponses = {
+export type UserFeedbacksDeleteResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteUserFeedbackResponse = DeleteUserFeedbackResponses[keyof DeleteUserFeedbackResponses];
+export type UserFeedbacksDeleteResponse = UserFeedbacksDeleteResponses[keyof UserFeedbacksDeleteResponses];
 
-export type UndeleteUserFeedbackData = {
+export type UserFeedbacksUndeleteData = {
     body?: never;
     path: {
         /**
@@ -10341,7 +11138,7 @@ export type UndeleteUserFeedbackData = {
     url: '/user_feedbacks/{id}/undelete.json';
 };
 
-export type UndeleteUserFeedbackErrors = {
+export type UserFeedbacksUndeleteErrors = {
     /**
      * Access Denied
      */
@@ -10352,18 +11149,18 @@ export type UndeleteUserFeedbackErrors = {
     404: NotFoundResponse;
 };
 
-export type UndeleteUserFeedbackError = UndeleteUserFeedbackErrors[keyof UndeleteUserFeedbackErrors];
+export type UserFeedbacksUndeleteError = UserFeedbacksUndeleteErrors[keyof UserFeedbacksUndeleteErrors];
 
-export type UndeleteUserFeedbackResponses = {
+export type UserFeedbacksUndeleteResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type UndeleteUserFeedbackResponse = UndeleteUserFeedbackResponses[keyof UndeleteUserFeedbackResponses];
+export type UserFeedbacksUndeleteResponse = UserFeedbacksUndeleteResponses[keyof UserFeedbacksUndeleteResponses];
 
-export type SearchUserNameChangeRequestsData = {
+export type UserNameChangeRequestsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -10376,7 +11173,7 @@ export type SearchUserNameChangeRequestsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -10391,26 +11188,26 @@ export type SearchUserNameChangeRequestsData = {
     url: '/user_name_change_requests.json';
 };
 
-export type SearchUserNameChangeRequestsResponses = {
+export type UserNameChangeRequestsIndexResponses = {
     /**
      * Success
      */
     200: Array<UserNameChangeRequest>;
 };
 
-export type SearchUserNameChangeRequestsResponse = SearchUserNameChangeRequestsResponses[keyof SearchUserNameChangeRequestsResponses];
+export type UserNameChangeRequestsIndexResponse = UserNameChangeRequestsIndexResponses[keyof UserNameChangeRequestsIndexResponses];
 
-export type CreateUserNameChangeRequestData = {
+export type UserNameChangeRequestsCreateData = {
     body?: {
-        'user_name_change_request[desired_name]': string;
-        'user_name_change_request[change_reason]'?: string;
+        desired_name: string;
+        change_reason?: string;
     };
     path?: never;
     query?: never;
     url: '/user_name_change_requests.json';
 };
 
-export type CreateUserNameChangeRequestErrors = {
+export type UserNameChangeRequestsCreateErrors = {
     /**
      * Access Denied
      */
@@ -10423,9 +11220,9 @@ export type CreateUserNameChangeRequestErrors = {
     };
 };
 
-export type CreateUserNameChangeRequestError = CreateUserNameChangeRequestErrors[keyof CreateUserNameChangeRequestErrors];
+export type UserNameChangeRequestsCreateError = UserNameChangeRequestsCreateErrors[keyof UserNameChangeRequestsCreateErrors];
 
-export type DeleteUserNameChangeRequestData = {
+export type UserNameChangeRequestsDestroyData = {
     body?: never;
     path: {
         /**
@@ -10437,16 +11234,16 @@ export type DeleteUserNameChangeRequestData = {
     url: '/user_name_change_requests/{id}.json';
 };
 
-export type DeleteUserNameChangeRequestErrors = {
+export type UserNameChangeRequestsDestroyErrors = {
     /**
      * Access Denied
      */
     403: AccessDeniedResponse;
 };
 
-export type DeleteUserNameChangeRequestError = DeleteUserNameChangeRequestErrors[keyof DeleteUserNameChangeRequestErrors];
+export type UserNameChangeRequestsDestroyError = UserNameChangeRequestsDestroyErrors[keyof UserNameChangeRequestsDestroyErrors];
 
-export type GetUserNameChangeRequestData = {
+export type UserNameChangeRequestsShowData = {
     body?: never;
     path: {
         /**
@@ -10458,7 +11255,7 @@ export type GetUserNameChangeRequestData = {
     url: '/user_name_change_requests/{id}.json';
 };
 
-export type GetUserNameChangeRequestErrors = {
+export type UserNameChangeRequestsShowErrors = {
     /**
      * Access Denied
      */
@@ -10469,18 +11266,18 @@ export type GetUserNameChangeRequestErrors = {
     404: NotFoundResponse;
 };
 
-export type GetUserNameChangeRequestError = GetUserNameChangeRequestErrors[keyof GetUserNameChangeRequestErrors];
+export type UserNameChangeRequestsShowError = UserNameChangeRequestsShowErrors[keyof UserNameChangeRequestsShowErrors];
 
-export type GetUserNameChangeRequestResponses = {
+export type UserNameChangeRequestsShowResponses = {
     /**
      * Success
      */
     200: UserNameChangeRequest;
 };
 
-export type GetUserNameChangeRequestResponse = GetUserNameChangeRequestResponses[keyof GetUserNameChangeRequestResponses];
+export type UserNameChangeRequestsShowResponse = UserNameChangeRequestsShowResponses[keyof UserNameChangeRequestsShowResponses];
 
-export type SearchWikiPagesData = {
+export type WikiPagesIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -10493,7 +11290,7 @@ export type SearchWikiPagesData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'title' | 'post_count';
@@ -10511,43 +11308,47 @@ export type SearchWikiPagesData = {
     url: '/wiki_pages.json';
 };
 
-export type SearchWikiPagesResponses = {
+export type WikiPagesIndexResponses = {
     /**
      * Success
      */
     200: Array<WikiPage>;
 };
 
-export type SearchWikiPagesResponse = SearchWikiPagesResponses[keyof SearchWikiPagesResponses];
+export type WikiPagesIndexResponse = WikiPagesIndexResponses[keyof WikiPagesIndexResponses];
 
-export type CreateWikiPageData = {
+export type WikiPagesCreateData = {
     body?: {
-        'wiki_page[title]': string;
-        'wiki_page[body]': string;
-        'wiki_page[edit_reason]'?: string;
+        title: string;
+        body: string;
+        edit_reason?: string;
         /**
          * Must be Privileged+ to use.
          */
-        'wiki_page[parent]'?: string;
+        parent?: string;
         /**
-         * Must be Janitor+ to use.
+         * Must be Staff+ to use.
          */
-        'wiki_page[is_locked]'?: boolean;
+        is_locked?: boolean;
         /**
-         * Must be Janitor+ to use.
+         * Must be Staff+ to use.
          */
-        'wiki_page[is_deleted]'?: boolean;
+        is_deleted?: boolean;
         /**
-         * Must be Janitor+ to use.
+         * Must be Staff+ to use.
          */
-        'wiki_page[skip_secondary_validations]'?: boolean;
+        skip_secondary_validations?: boolean;
+        /**
+         * Space separated
+         */
+        featured_posts_string?: string;
     };
     path?: never;
     query?: never;
     url: '/wiki_pages.json';
 };
 
-export type CreateWikiPageErrors = {
+export type WikiPagesCreateErrors = {
     /**
      * Access Denied
      */
@@ -10560,18 +11361,18 @@ export type CreateWikiPageErrors = {
     };
 };
 
-export type CreateWikiPageError = CreateWikiPageErrors[keyof CreateWikiPageErrors];
+export type WikiPagesCreateError = WikiPagesCreateErrors[keyof WikiPagesCreateErrors];
 
-export type CreateWikiPageResponses = {
+export type WikiPagesCreateResponses = {
     /**
      * Success
      */
     201: WikiPage;
 };
 
-export type CreateWikiPageResponse = CreateWikiPageResponses[keyof CreateWikiPageResponses];
+export type WikiPagesCreateResponse = WikiPagesCreateResponses[keyof WikiPagesCreateResponses];
 
-export type DeleteWikiPageData = {
+export type WikiPagesDestroyData = {
     body?: never;
     path: {
         /**
@@ -10583,7 +11384,7 @@ export type DeleteWikiPageData = {
     url: '/wiki_pages/{id}.json';
 };
 
-export type DeleteWikiPageErrors = {
+export type WikiPagesDestroyErrors = {
     /**
      * Access Denied
      */
@@ -10594,18 +11395,18 @@ export type DeleteWikiPageErrors = {
     404: NotFoundResponse;
 };
 
-export type DeleteWikiPageError = DeleteWikiPageErrors[keyof DeleteWikiPageErrors];
+export type WikiPagesDestroyError = WikiPagesDestroyErrors[keyof WikiPagesDestroyErrors];
 
-export type DeleteWikiPageResponses = {
+export type WikiPagesDestroyResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type DeleteWikiPageResponse = DeleteWikiPageResponses[keyof DeleteWikiPageResponses];
+export type WikiPagesDestroyResponse = WikiPagesDestroyResponses[keyof WikiPagesDestroyResponses];
 
-export type GetWikiPageData = {
+export type WikiPagesShowData = {
     body?: never;
     path: {
         /**
@@ -10617,53 +11418,57 @@ export type GetWikiPageData = {
     url: '/wiki_pages/{id}.json';
 };
 
-export type GetWikiPageErrors = {
+export type WikiPagesShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetWikiPageError = GetWikiPageErrors[keyof GetWikiPageErrors];
+export type WikiPagesShowError = WikiPagesShowErrors[keyof WikiPagesShowErrors];
 
-export type GetWikiPageResponses = {
+export type WikiPagesShowResponses = {
     /**
      * Success
      */
     200: WikiPage;
 };
 
-export type GetWikiPageResponse = GetWikiPageResponses[keyof GetWikiPageResponses];
+export type WikiPagesShowResponse = WikiPagesShowResponses[keyof WikiPagesShowResponses];
 
-export type EditWikiPageData = {
+export type WikiPagesUpdateData = {
     body?: {
-        'wiki_page[body]'?: string;
-        'wiki_page[edit_reason]'?: string;
+        body?: string;
+        edit_reason?: string;
         /**
          * Must be Privileged+ to use.
          */
-        'wiki_page[parent]'?: string;
+        parent?: string;
         /**
-         * Must be Janitor+ to use.
+         * Must be Staff+ to use.
          */
-        'wiki_page[title]'?: string;
+        title?: string;
         /**
-         * Must be Janitor+ to use.
+         * Must be Staff+ to use.
          */
-        'wiki_page[is_locked]'?: boolean;
+        is_locked?: boolean;
         /**
-         * Must be Janitor+ to use.
+         * Must be Staff+ to use.
          */
-        'wiki_page[is_deleted]'?: boolean;
+        is_deleted?: boolean;
         /**
-         * Must be Janitor+ to use.
+         * Must be Staff+ to use.
          */
-        'wiki_page[skip_secondary_validations]'?: boolean;
-        'wiki_page[category_id]'?: TagCategories;
+        skip_secondary_validations?: boolean;
+        category_id?: TagCategories;
         /**
          * Must be Admin+ to use.
          */
-        'wiki_page[category_is_locked]'?: boolean;
+        category_is_locked?: boolean;
+        /**
+         * Space separated
+         */
+        featured_posts_string?: string;
     };
     path: {
         /**
@@ -10675,7 +11480,7 @@ export type EditWikiPageData = {
     url: '/wiki_pages/{id}.json';
 };
 
-export type EditWikiPageErrors = {
+export type WikiPagesUpdateErrors = {
     /**
      * Access Denied
      */
@@ -10692,18 +11497,18 @@ export type EditWikiPageErrors = {
     };
 };
 
-export type EditWikiPageError = EditWikiPageErrors[keyof EditWikiPageErrors];
+export type WikiPagesUpdateError = WikiPagesUpdateErrors[keyof WikiPagesUpdateErrors];
 
-export type EditWikiPageResponses = {
+export type WikiPagesUpdateResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type EditWikiPageResponse = EditWikiPageResponses[keyof EditWikiPageResponses];
+export type WikiPagesUpdateResponse = WikiPagesUpdateResponses[keyof WikiPagesUpdateResponses];
 
-export type RevertWikiPageData = {
+export type WikiPagesRevertData = {
     body?: never;
     path: {
         /**
@@ -10720,7 +11525,7 @@ export type RevertWikiPageData = {
     url: '/wiki_pages/{id}/revert.json';
 };
 
-export type RevertWikiPageErrors = {
+export type WikiPagesRevertErrors = {
     /**
      * Access Denied
      */
@@ -10737,18 +11542,18 @@ export type RevertWikiPageErrors = {
     };
 };
 
-export type RevertWikiPageError = RevertWikiPageErrors[keyof RevertWikiPageErrors];
+export type WikiPagesRevertError = WikiPagesRevertErrors[keyof WikiPagesRevertErrors];
 
-export type RevertWikiPageResponses = {
+export type WikiPagesRevertResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RevertWikiPageResponse = RevertWikiPageResponses[keyof RevertWikiPageResponses];
+export type WikiPagesRevertResponse = WikiPagesRevertResponses[keyof WikiPagesRevertResponses];
 
-export type SearchWikiPageVersionsData = {
+export type WikiPageVersionsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -10761,7 +11566,7 @@ export type SearchWikiPageVersionsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         /**
@@ -10783,16 +11588,16 @@ export type SearchWikiPageVersionsData = {
     url: '/wiki_page_versions.json';
 };
 
-export type SearchWikiPageVersionsResponses = {
+export type WikiPageVersionsIndexResponses = {
     /**
      * Success
      */
     200: Array<WikiPageVersion>;
 };
 
-export type SearchWikiPageVersionsResponse = SearchWikiPageVersionsResponses[keyof SearchWikiPageVersionsResponses];
+export type WikiPageVersionsIndexResponse = WikiPageVersionsIndexResponses[keyof WikiPageVersionsIndexResponses];
 
-export type GetWikiPageVersionData = {
+export type WikiPageVersionsShowData = {
     body?: never;
     path: {
         /**
@@ -10804,25 +11609,25 @@ export type GetWikiPageVersionData = {
     url: '/wiki_page_versions/{id}.json';
 };
 
-export type GetWikiPageVersionErrors = {
+export type WikiPageVersionsShowErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type GetWikiPageVersionError = GetWikiPageVersionErrors[keyof GetWikiPageVersionErrors];
+export type WikiPageVersionsShowError = WikiPageVersionsShowErrors[keyof WikiPageVersionsShowErrors];
 
-export type GetWikiPageVersionResponses = {
+export type WikiPageVersionsShowResponses = {
     /**
      * Success
      */
     200: WikiPageVersion;
 };
 
-export type GetWikiPageVersionResponse = GetWikiPageVersionResponses[keyof GetWikiPageVersionResponses];
+export type WikiPageVersionsShowResponse = WikiPageVersionsShowResponses[keyof WikiPageVersionsShowResponses];
 
-export type GetAltListData = {
+export type StaffUsersAltListData = {
     body?: never;
     path?: never;
     query?: {
@@ -10831,41 +11636,39 @@ export type GetAltListData = {
          */
         page?: number;
     };
-    url: '/admin/users/alt_list.json';
+    url: '/staff/users/alt_list.json';
 };
 
-export type GetAltListResponses = {
+export type StaffUsersAltListResponses = {
     /**
      * Success
      */
     200: Array<number | Array<number>>;
 };
 
-export type GetAltListResponse = GetAltListResponses[keyof GetAltListResponses];
+export type StaffUsersAltListResponse = StaffUsersAltListResponses[keyof StaffUsersAltListResponses];
 
-export type AdminEditUserData = {
+export type StaffUsersUpdateData = {
     body?: {
         /**
          * Must have the bd staff user flag to use.
          */
-        'user[verified]'?: boolean;
-        /**
-         * Must have the bd staff user flag to promote to Admin+.
-         */
-        'user[level]'?: number;
-        'user[name]'?: string;
-        'user[profile_about]'?: string;
-        'user[profile_artinfo]'?: string;
-        'user[base_upload_limit]'?: number;
-        'user[enable_privacy_mode]'?: boolean;
+        verified?: boolean;
+        level?: UserLevels;
+        name?: string;
+        profile_about?: string;
+        profile_artinfo?: string;
+        base_upload_limit?: number;
+        enable_privacy_mode?: boolean;
         /**
          * Must have the bd staff user flag to use.
          */
-        'user[email]'?: string;
-        'user[can_approve_posts]'?: boolean;
-        'user[can_upload_free]'?: boolean;
-        'user[no_flagging]'?: boolean;
-        'user[replacements_beta]'?: boolean;
+        email?: string;
+        can_approve_posts?: boolean;
+        can_upload_free?: boolean;
+        no_flagging?: boolean;
+        replacements_beta?: boolean;
+        custom_title?: string;
     };
     path: {
         /**
@@ -10874,10 +11677,10 @@ export type AdminEditUserData = {
         id: number;
     };
     query?: never;
-    url: '/admin/users/{id}.json';
+    url: '/staff/users/{id}.json';
 };
 
-export type AdminEditUserErrors = {
+export type StaffUsersUpdateErrors = {
     /**
      * Error
      */
@@ -10898,18 +11701,16 @@ export type AdminEditUserErrors = {
     };
 };
 
-export type AdminEditUserError = AdminEditUserErrors[keyof AdminEditUserErrors];
+export type StaffUsersUpdateError = StaffUsersUpdateErrors[keyof StaffUsersUpdateErrors];
 
-export type AdminEditUserResponses = {
+export type StaffUsersUpdateResponses = {
     /**
      * Success
      */
-    204: void;
+    200: unknown;
 };
 
-export type AdminEditUserResponse = AdminEditUserResponses[keyof AdminEditUserResponses];
-
-export type AdminAnonymizeUserData = {
+export type StaffUsersAnonymizeConfirmData = {
     body?: never;
     path: {
         /**
@@ -10918,19 +11719,299 @@ export type AdminAnonymizeUserData = {
         id: number;
     };
     query?: never;
-    url: '/admin/users/{id}/anonymize.json';
+    url: '/staff/users/{id}/anonymize.json';
 };
 
-export type AdminAnonymizeUserErrors = {
+export type StaffUsersAnonymizeConfirmErrors = {
     /**
      * Not Found
      */
     404: NotFoundResponse;
 };
 
-export type AdminAnonymizeUserError = AdminAnonymizeUserErrors[keyof AdminAnonymizeUserErrors];
+export type StaffUsersAnonymizeConfirmError = StaffUsersAnonymizeConfirmErrors[keyof StaffUsersAnonymizeConfirmErrors];
 
-export type DeletePostData = {
+export type StaffDmailsIndexData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the user.
+         */
+        user_id: number;
+    };
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+    };
+    url: '/staff/users/{user_id}/dmails.json';
+};
+
+export type StaffDmailsIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffDmailsIndexError = StaffDmailsIndexErrors[keyof StaffDmailsIndexErrors];
+
+export type StaffDmailsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<DMail>;
+};
+
+export type StaffDmailsIndexResponse = StaffDmailsIndexResponses[keyof StaffDmailsIndexResponses];
+
+export type StaffDmailsShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the user.
+         */
+        user_id: number;
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/users/{user_id}/dmails/{id}.json';
+};
+
+export type StaffDmailsShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffDmailsShowError = StaffDmailsShowErrors[keyof StaffDmailsShowErrors];
+
+export type StaffDmailsShowResponses = {
+    /**
+     * Success
+     */
+    200: DMail;
+};
+
+export type StaffDmailsShowResponse = StaffDmailsShowResponses[keyof StaffDmailsShowResponses];
+
+export type StaffAutomodDmailsIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: number | string;
+        'search[title_matches]'?: string;
+        'search[message_matches]'?: string;
+        'search[to_name]'?: string;
+        'search[to_id]'?: number;
+        'search[from_name]'?: string;
+        'search[from_id]'?: number;
+        'search[is_read]'?: boolean;
+        'search[is_deleted]'?: boolean;
+        'search[read]'?: boolean;
+    };
+    url: '/staff/automod_dmails.json';
+};
+
+export type StaffAutomodDmailsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<DMail>;
+};
+
+export type StaffAutomodDmailsIndexResponse = StaffAutomodDmailsIndexResponses[keyof StaffAutomodDmailsIndexResponses];
+
+export type StaffAutomodDmailsShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/automod_dmails/{id}.json';
+};
+
+export type StaffAutomodDmailsShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffAutomodDmailsShowError = StaffAutomodDmailsShowErrors[keyof StaffAutomodDmailsShowErrors];
+
+export type StaffAutomodDmailsShowResponses = {
+    /**
+     * Success
+     */
+    200: DMail;
+};
+
+export type StaffAutomodDmailsShowResponse = StaffAutomodDmailsShowResponses[keyof StaffAutomodDmailsShowResponses];
+
+export type StaffAutomodDmailsMarkAsReadData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/automod_dmails/{id}/mark_as_read.json';
+};
+
+export type StaffAutomodDmailsMarkAsReadErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffAutomodDmailsMarkAsReadError = StaffAutomodDmailsMarkAsReadErrors[keyof StaffAutomodDmailsMarkAsReadErrors];
+
+export type StaffAutomodDmailsMarkAsReadResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type StaffAutomodDmailsMarkAsReadResponse = StaffAutomodDmailsMarkAsReadResponses[keyof StaffAutomodDmailsMarkAsReadResponses];
+
+export type StaffAutomodDmailsMarkAsUnreadData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/automod_dmails/{id}/mark_as_unread.json';
+};
+
+export type StaffAutomodDmailsMarkAsUnreadErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffAutomodDmailsMarkAsUnreadError = StaffAutomodDmailsMarkAsUnreadErrors[keyof StaffAutomodDmailsMarkAsUnreadErrors];
+
+export type StaffAutomodDmailsMarkAsUnreadResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type StaffAutomodDmailsMarkAsUnreadResponse = StaffAutomodDmailsMarkAsUnreadResponses[keyof StaffAutomodDmailsMarkAsUnreadResponses];
+
+export type StaffExceptionsIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * The order of the results.
+         */
+        'search[order]'?: 'id_asc' | 'id_desc';
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: number | string;
+        'search[user_name]'?: string;
+        'search[code]'?: string;
+        'search[commit]'?: string;
+        'search[class_name]'?: string;
+        'search[without_class_name]'?: string;
+    };
+    url: '/staff/exceptions.json';
+};
+
+export type StaffExceptionsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<ExceptionLog>;
+};
+
+export type StaffExceptionsIndexResponse = StaffExceptionsIndexResponses[keyof StaffExceptionsIndexResponses];
+
+export type StaffExceptionsShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/exceptions/{id}.json';
+};
+
+export type StaffExceptionsShowResponses = {
+    /**
+     * Success
+     */
+    200: ExceptionLog;
+};
+
+export type StaffExceptionsShowResponse = StaffExceptionsShowResponses[keyof StaffExceptionsShowResponses];
+
+export type StaffPostPostsDeleteData = {
     body?: {
         /**
          * If the post does not have an active flag, this is required.
@@ -10949,6 +12030,30 @@ export type DeletePostData = {
          */
         copy_tags?: boolean;
         /**
+         * The content of the dmail to send to the uploader.
+         * Placeholders:
+         * - %REASON%
+         * - %POST_ID%
+         * - %STAFF_NAME%
+         * - %STAFF_ID%
+         * - %UPLOADER_ID%
+         * - %FLAG_ID%
+         *
+         */
+        dmail?: string;
+        /**
+         * The title of the dmail to send to the uploader.
+         * Placeholders:
+         * - %REASON%
+         * - %POST_ID%
+         * - %STAFF_NAME%
+         * - %STAFF_ID%
+         * - %UPLOADER_ID%
+         * - %FLAG_ID%
+         *
+         */
+        dmail_title?: string;
+        /**
          * If not set, nothing will happen.
          */
         commit?: 'Delete';
@@ -10960,10 +12065,10 @@ export type DeletePostData = {
         id: number;
     };
     query?: never;
-    url: '/moderator/post/posts/{id}/delete.json';
+    url: '/staff/post/posts/{id}/delete.json';
 };
 
-export type DeletePostErrors = {
+export type StaffPostPostsDeleteErrors = {
     /**
      * Access Denied
      */
@@ -10980,9 +12085,9 @@ export type DeletePostErrors = {
     };
 };
 
-export type DeletePostError = DeletePostErrors[keyof DeletePostErrors];
+export type StaffPostPostsDeleteError = StaffPostPostsDeleteErrors[keyof StaffPostPostsDeleteErrors];
 
-export type UndeletePostData = {
+export type StaffPostPostsUndeleteData = {
     body?: never;
     path: {
         /**
@@ -10991,10 +12096,10 @@ export type UndeletePostData = {
         id: number;
     };
     query?: never;
-    url: '/moderator/post/posts/{id}/undelete.json';
+    url: '/staff/post/posts/{id}/undelete.json';
 };
 
-export type UndeletePostErrors = {
+export type StaffPostPostsUndeleteErrors = {
     /**
      * Access Denied
      */
@@ -11011,9 +12116,9 @@ export type UndeletePostErrors = {
     };
 };
 
-export type UndeletePostError = UndeletePostErrors[keyof UndeletePostErrors];
+export type StaffPostPostsUndeleteError = StaffPostPostsUndeleteErrors[keyof StaffPostPostsUndeleteErrors];
 
-export type UndeletePostResponses = {
+export type StaffPostPostsUndeleteResponses = {
     /**
      * Success
      */
@@ -11022,9 +12127,9 @@ export type UndeletePostResponses = {
     };
 };
 
-export type UndeletePostResponse = UndeletePostResponses[keyof UndeletePostResponses];
+export type StaffPostPostsUndeleteResponse = StaffPostPostsUndeleteResponses[keyof StaffPostPostsUndeleteResponses];
 
-export type RegeneratePostThumbnailsData = {
+export type StaffPostPostsRegenerateThumbnailsData = {
     body?: never;
     path: {
         /**
@@ -11033,10 +12138,10 @@ export type RegeneratePostThumbnailsData = {
         id: number;
     };
     query?: never;
-    url: '/moderator/post/posts/{id}/regenerate_thumbnails.json';
+    url: '/staff/post/posts/{id}/regenerate_thumbnails.json';
 };
 
-export type RegeneratePostThumbnailsErrors = {
+export type StaffPostPostsRegenerateThumbnailsErrors = {
     /**
      * Access Denied
      */
@@ -11053,9 +12158,9 @@ export type RegeneratePostThumbnailsErrors = {
     };
 };
 
-export type RegeneratePostThumbnailsError = RegeneratePostThumbnailsErrors[keyof RegeneratePostThumbnailsErrors];
+export type StaffPostPostsRegenerateThumbnailsError = StaffPostPostsRegenerateThumbnailsErrors[keyof StaffPostPostsRegenerateThumbnailsErrors];
 
-export type RegeneratePostThumbnailsResponses = {
+export type StaffPostPostsRegenerateThumbnailsResponses = {
     /**
      * Success
      */
@@ -11064,9 +12169,9 @@ export type RegeneratePostThumbnailsResponses = {
     };
 };
 
-export type RegeneratePostThumbnailsResponse = RegeneratePostThumbnailsResponses[keyof RegeneratePostThumbnailsResponses];
+export type StaffPostPostsRegenerateThumbnailsResponse = StaffPostPostsRegenerateThumbnailsResponses[keyof StaffPostPostsRegenerateThumbnailsResponses];
 
-export type RegeneratePostVideosData = {
+export type StaffPostPostsRegenerateVideosData = {
     body?: never;
     path: {
         /**
@@ -11075,10 +12180,10 @@ export type RegeneratePostVideosData = {
         id: number;
     };
     query?: never;
-    url: '/moderator/post/posts/{id}/regenerate_videos.json';
+    url: '/staff/post/posts/{id}/regenerate_videos.json';
 };
 
-export type RegeneratePostVideosErrors = {
+export type StaffPostPostsRegenerateVideosErrors = {
     /**
      * Access Denied
      */
@@ -11095,18 +12200,18 @@ export type RegeneratePostVideosErrors = {
     };
 };
 
-export type RegeneratePostVideosError = RegeneratePostVideosErrors[keyof RegeneratePostVideosErrors];
+export type StaffPostPostsRegenerateVideosError = StaffPostPostsRegenerateVideosErrors[keyof StaffPostPostsRegenerateVideosErrors];
 
-export type RegeneratePostVideosResponses = {
+export type StaffPostPostsRegenerateVideosResponses = {
     /**
      * Success
      */
     204: void;
 };
 
-export type RegeneratePostVideosResponse = RegeneratePostVideosResponses[keyof RegeneratePostVideosResponses];
+export type StaffPostPostsRegenerateVideosResponse = StaffPostPostsRegenerateVideosResponses[keyof StaffPostPostsRegenerateVideosResponses];
 
-export type ExpungePostData = {
+export type StaffPostPostsExpungeData = {
     body?: {
         reason?: string;
     };
@@ -11117,10 +12222,10 @@ export type ExpungePostData = {
         id: number;
     };
     query?: never;
-    url: '/moderator/post/posts/{id}/expunge.json';
+    url: '/staff/post/posts/{id}/expunge.json';
 };
 
-export type ExpungePostErrors = {
+export type StaffPostPostsExpungeErrors = {
     /**
      * Access Denied
      */
@@ -11137,9 +12242,9 @@ export type ExpungePostErrors = {
     };
 };
 
-export type ExpungePostError = ExpungePostErrors[keyof ExpungePostErrors];
+export type StaffPostPostsExpungeError = StaffPostPostsExpungeErrors[keyof StaffPostPostsExpungeErrors];
 
-export type ExpungePostResponses = {
+export type StaffPostPostsExpungeResponses = {
     /**
      * Success
      */
@@ -11148,9 +12253,9 @@ export type ExpungePostResponses = {
     };
 };
 
-export type ExpungePostResponse = ExpungePostResponses[keyof ExpungePostResponses];
+export type StaffPostPostsExpungeResponse = StaffPostPostsExpungeResponses[keyof StaffPostPostsExpungeResponses];
 
-export type MovePostFavoritesData = {
+export type StaffPostPostsMoveFavoritesData = {
     body?: {
         /**
          * If not set, nothing will happen.
@@ -11164,10 +12269,10 @@ export type MovePostFavoritesData = {
         id: number;
     };
     query?: never;
-    url: '/moderator/post/posts/{id}/move_favorites.json';
+    url: '/staff/post/posts/{id}/move_favorites.json';
 };
 
-export type MovePostFavoritesErrors = {
+export type StaffPostPostsMoveFavoritesErrors = {
     /**
      * Access Denied
      */
@@ -11178,9 +12283,9 @@ export type MovePostFavoritesErrors = {
     404: NotFoundResponse;
 };
 
-export type MovePostFavoritesError = MovePostFavoritesErrors[keyof MovePostFavoritesErrors];
+export type StaffPostPostsMoveFavoritesError = StaffPostPostsMoveFavoritesErrors[keyof StaffPostPostsMoveFavoritesErrors];
 
-export type AiCheckPostData = {
+export type StaffPostPostsAiCheckData = {
     body?: never;
     path: {
         /**
@@ -11189,10 +12294,10 @@ export type AiCheckPostData = {
         id: number;
     };
     query?: never;
-    url: '/moderator/post/posts/{id}/ai_check.json';
+    url: '/staff/post/posts/{id}/ai_check.json';
 };
 
-export type AiCheckPostErrors = {
+export type StaffPostPostsAiCheckErrors = {
     /**
      * Access Denied
      */
@@ -11209,18 +12314,21 @@ export type AiCheckPostErrors = {
     };
 };
 
-export type AiCheckPostError = AiCheckPostErrors[keyof AiCheckPostErrors];
+export type StaffPostPostsAiCheckError = StaffPostPostsAiCheckErrors[keyof StaffPostPostsAiCheckErrors];
 
-export type UnapprovePostData = {
-    body?: {
-        post_id: number;
+export type StaffPostPostsPreviousOwnersData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
     };
-    path?: never;
     query?: never;
-    url: '/moderator/post/approval.json';
+    url: '/staff/post/posts/{id}/previous_owners.json';
 };
 
-export type UnapprovePostErrors = {
+export type StaffPostPostsPreviousOwnersErrors = {
     /**
      * Access Denied
      */
@@ -11231,27 +12339,115 @@ export type UnapprovePostErrors = {
     404: NotFoundResponse;
 };
 
-export type UnapprovePostError = UnapprovePostErrors[keyof UnapprovePostErrors];
+export type StaffPostPostsPreviousOwnersError = StaffPostPostsPreviousOwnersErrors[keyof StaffPostPostsPreviousOwnersErrors];
 
-export type UnapprovePostResponses = {
+export type StaffPostPostsPreviousOwnersResponses = {
+    /**
+     * Success
+     */
+    200: Array<{
+        id: number;
+        name: string;
+    }>;
+};
+
+export type StaffPostPostsPreviousOwnersResponse = StaffPostPostsPreviousOwnersResponses[keyof StaffPostPostsPreviousOwnersResponses];
+
+export type StaffPostPostsReownerData = {
+    body?: {
+        /**
+         * Must be a string
+         * Name: `name`
+         * ID: `!1234`
+         *
+         */
+        'reowner[new_owner]': string;
+        /**
+         * Also reown post versions, must be BD Staff to set to true. (default false)
+         */
+        'reowner[reowner_versions]'?: boolean;
+        /**
+         * Also reown post events, must be BD Staff to set to false. (default true)
+         */
+        'reowner[post_events]'?: boolean;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/post/posts/{id}/reowner.json';
+};
+
+export type StaffPostPostsReownerErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffPostPostsReownerError = StaffPostPostsReownerErrors[keyof StaffPostPostsReownerErrors];
+
+export type StaffPostPostsReownerResponses = {
+    /**
+     * Success
+     */
+    201: RawPost;
+    /**
+     * No Change
+     */
+    204: void;
+};
+
+export type StaffPostPostsReownerResponse = StaffPostPostsReownerResponses[keyof StaffPostPostsReownerResponses];
+
+export type StaffPostApprovalsDestroyData = {
+    body?: {
+        post_id: number;
+    };
+    path?: never;
+    query?: never;
+    url: '/staff/post/approval.json';
+};
+
+export type StaffPostApprovalsDestroyErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffPostApprovalsDestroyError = StaffPostApprovalsDestroyErrors[keyof StaffPostApprovalsDestroyErrors];
+
+export type StaffPostApprovalsDestroyResponses = {
     /**
      * Success/Failure
      */
     204: void;
 };
 
-export type UnapprovePostResponse = UnapprovePostResponses[keyof UnapprovePostResponses];
+export type StaffPostApprovalsDestroyResponse = StaffPostApprovalsDestroyResponses[keyof StaffPostApprovalsDestroyResponses];
 
-export type ApprovePostData = {
+export type StaffPostApprovalsCreateData = {
     body?: {
         post_id: number;
     };
     path?: never;
     query?: never;
-    url: '/moderator/post/approval.json';
+    url: '/staff/post/approval.json';
 };
 
-export type ApprovePostErrors = {
+export type StaffPostApprovalsCreateErrors = {
     /**
      * Access Denied
      */
@@ -11262,9 +12458,9 @@ export type ApprovePostErrors = {
     404: NotFoundResponse;
 };
 
-export type ApprovePostError = ApprovePostErrors[keyof ApprovePostErrors];
+export type StaffPostApprovalsCreateError = StaffPostApprovalsCreateErrors[keyof StaffPostApprovalsCreateErrors];
 
-export type ApprovePostResponses = {
+export type StaffPostApprovalsCreateResponses = {
     /**
      * Success
      */
@@ -11277,9 +12473,134 @@ export type ApprovePostResponses = {
     204: void;
 };
 
-export type ApprovePostResponse = ApprovePostResponses[keyof ApprovePostResponses];
+export type StaffPostApprovalsCreateResponse = StaffPostApprovalsCreateResponses[keyof StaffPostApprovalsCreateResponses];
 
-export type SearchPostDisapprovalsData = {
+export type StaffUserCleanupsClearAvatarData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/user_cleanups/{id}/clear_avatar.json';
+};
+
+export type StaffUserCleanupsClearAvatarErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUserCleanupsClearAvatarError = StaffUserCleanupsClearAvatarErrors[keyof StaffUserCleanupsClearAvatarErrors];
+
+export type StaffUserCleanupsClearProfileData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/user_cleanups/{id}/clear_profile.json';
+};
+
+export type StaffUserCleanupsClearProfileErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUserCleanupsClearProfileError = StaffUserCleanupsClearProfileErrors[keyof StaffUserCleanupsClearProfileErrors];
+
+export type StaffUserCleanupsHideCommentsData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/user_cleanups/{id}/hide_comments.json';
+};
+
+export type StaffUserCleanupsHideCommentsErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUserCleanupsHideCommentsError = StaffUserCleanupsHideCommentsErrors[keyof StaffUserCleanupsHideCommentsErrors];
+
+export type StaffUserCleanupsHideForumPostsData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/user_cleanups/{id}/hide_forum_posts.json';
+};
+
+export type StaffUserCleanupsHideForumPostsErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUserCleanupsHideForumPostsError = StaffUserCleanupsHideForumPostsErrors[keyof StaffUserCleanupsHideForumPostsErrors];
+
+export type StaffUserCleanupsHideBlipsData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/user_cleanups/{id}/hide_blips.json';
+};
+
+export type StaffUserCleanupsHideBlipsErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUserCleanupsHideBlipsError = StaffUserCleanupsHideBlipsErrors[keyof StaffUserCleanupsHideBlipsErrors];
+
+export type StaffPostDisapprovalsIndexData = {
     body?: never;
     path?: never;
     query?: {
@@ -11292,7 +12613,7 @@ export type SearchPostDisapprovalsData = {
          */
         page?: number;
         /**
-         * Search for a specific id. Multiple can be separated by commas, up to 100.
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: number | string;
         'search[order]'?: 'id_asc' | 'id_desc' | 'post_id' | 'post_id_desc';
@@ -11304,30 +12625,30 @@ export type SearchPostDisapprovalsData = {
         'search[reason]'?: string;
         'search[has_message]'?: boolean;
     };
-    url: '/moderator/post/disapprovals.json';
+    url: '/staff/post/disapprovals.json';
 };
 
-export type SearchPostDisapprovalsResponses = {
+export type StaffPostDisapprovalsIndexResponses = {
     /**
      * Success
      */
     200: Array<PostDisapproval>;
 };
 
-export type SearchPostDisapprovalsResponse = SearchPostDisapprovalsResponses[keyof SearchPostDisapprovalsResponses];
+export type StaffPostDisapprovalsIndexResponse = StaffPostDisapprovalsIndexResponses[keyof StaffPostDisapprovalsIndexResponses];
 
-export type CreatePostDisapprovalData = {
+export type StaffPostDisapprovalsCreateData = {
     body?: {
-        'post_disapproval[post_id]': number;
-        'post_disapproval[reason]': 'borderline_quality' | 'borderline_relevancy' | 'other';
-        'post_disapproval[message]'?: string;
+        post_id: number;
+        reason: 'borderline_quality' | 'borderline_relevancy' | 'other';
+        message?: string;
     };
     path?: never;
     query?: never;
-    url: '/moderator/post/disapprovals.json';
+    url: '/staff/post/disapprovals.json';
 };
 
-export type CreatePostDisapprovalErrors = {
+export type StaffPostDisapprovalsCreateErrors = {
     /**
      * Access Denied
      */
@@ -11340,13 +12661,577 @@ export type CreatePostDisapprovalErrors = {
     };
 };
 
-export type CreatePostDisapprovalError = CreatePostDisapprovalErrors[keyof CreatePostDisapprovalErrors];
+export type StaffPostDisapprovalsCreateError = StaffPostDisapprovalsCreateErrors[keyof StaffPostDisapprovalsCreateErrors];
 
-export type CreatePostDisapprovalResponses = {
+export type StaffPostDisapprovalsCreateResponses = {
     /**
      * Success
      */
     201: PostDisapproval;
 };
 
-export type CreatePostDisapprovalResponse = CreatePostDisapprovalResponses[keyof CreatePostDisapprovalResponses];
+export type StaffPostDisapprovalsCreateResponse = StaffPostDisapprovalsCreateResponses[keyof StaffPostDisapprovalsCreateResponses];
+
+export type StaffFilesIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: number | string;
+        'search[order]'?: 'id_asc' | 'id_desc' | 'original_filename' | 'time';
+        'search[creator_id]'?: number;
+        'search[creator_name]'?: string;
+        'search[original_filename]'?: string;
+        'search[file_ext]'?: string;
+    };
+    url: '/staff/files.json';
+};
+
+export type StaffFilesIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type StaffFilesIndexError = StaffFilesIndexErrors[keyof StaffFilesIndexErrors];
+
+export type StaffFilesIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<StaffFile>;
+};
+
+export type StaffFilesIndexResponse = StaffFilesIndexResponses[keyof StaffFilesIndexResponses];
+
+export type StaffFilesCreateData = {
+    body?: {
+        'staff_file[file]': Blob | File;
+        'staff_file[title]'?: string;
+        'staff_file[description]'?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/staff/files.json';
+};
+
+export type StaffFilesCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffFilesCreateError = StaffFilesCreateErrors[keyof StaffFilesCreateErrors];
+
+export type StaffFilesCreateResponses = {
+    /**
+     * Success
+     */
+    201: StaffFile;
+};
+
+export type StaffFilesCreateResponse = StaffFilesCreateResponses[keyof StaffFilesCreateResponses];
+
+export type StaffFilesDestroyData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/files/{id}.json';
+};
+
+export type StaffFilesDestroyErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffFilesDestroyError = StaffFilesDestroyErrors[keyof StaffFilesDestroyErrors];
+
+export type StaffFilesDestroyResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type StaffFilesDestroyResponse = StaffFilesDestroyResponses[keyof StaffFilesDestroyResponses];
+
+export type StaffFilesShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/files/{id}.json';
+};
+
+export type StaffFilesShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffFilesShowError = StaffFilesShowErrors[keyof StaffFilesShowErrors];
+
+export type StaffFilesShowResponses = {
+    /**
+     * Success
+     */
+    200: StaffFile;
+};
+
+export type StaffFilesShowResponse = StaffFilesShowResponses[keyof StaffFilesShowResponses];
+
+export type StaffFilesUpdateData = {
+    body?: {
+        'staff_file[title]'?: string;
+        'staff_file[description]'?: string;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/files/{id}.json';
+};
+
+export type StaffFilesUpdateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffFilesUpdateError = StaffFilesUpdateErrors[keyof StaffFilesUpdateErrors];
+
+export type StaffFilesUpdateResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type StaffFilesUpdateResponse = StaffFilesUpdateResponses[keyof StaffFilesUpdateResponses];
+
+export type StaffWikisIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: number | string;
+        'search[order]'?: 'id_asc' | 'id_desc' | 'title';
+        'search[creator_id]'?: number;
+        'search[creator_name]'?: string;
+        'search[title]'?: string;
+        'search[body_matches]'?: string;
+        'search[editor_id]'?: number;
+    };
+    url: '/staff/wikis.json';
+};
+
+export type StaffWikisIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type StaffWikisIndexError = StaffWikisIndexErrors[keyof StaffWikisIndexErrors];
+
+export type StaffWikisIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<StaffWiki>;
+};
+
+export type StaffWikisIndexResponse = StaffWikisIndexResponses[keyof StaffWikisIndexResponses];
+
+export type StaffWikisCreateData = {
+    body?: {
+        'staff_wiki[title]': string;
+        'staff_wiki[body]'?: string;
+        'staff_wiki[related_type]'?: 'User' | 'Artist' | 'StaffWiki';
+        'staff_wiki[related_id]'?: number;
+    };
+    path?: never;
+    query?: never;
+    url: '/staff/wikis.json';
+};
+
+export type StaffWikisCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffWikisCreateError = StaffWikisCreateErrors[keyof StaffWikisCreateErrors];
+
+export type StaffWikisCreateResponses = {
+    /**
+     * Success
+     */
+    201: StaffWiki;
+};
+
+export type StaffWikisCreateResponse = StaffWikisCreateResponses[keyof StaffWikisCreateResponses];
+
+export type StaffWikisDestroyData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{id}.json';
+};
+
+export type StaffWikisDestroyErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffWikisDestroyError = StaffWikisDestroyErrors[keyof StaffWikisDestroyErrors];
+
+export type StaffWikisDestroyResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type StaffWikisDestroyResponse = StaffWikisDestroyResponses[keyof StaffWikisDestroyResponses];
+
+export type StaffWikisShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{id}.json';
+};
+
+export type StaffWikisShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffWikisShowError = StaffWikisShowErrors[keyof StaffWikisShowErrors];
+
+export type StaffWikisShowResponses = {
+    /**
+     * Success
+     */
+    200: StaffWiki;
+};
+
+export type StaffWikisShowResponse = StaffWikisShowResponses[keyof StaffWikisShowResponses];
+
+export type StaffWikisUpdateData = {
+    body?: {
+        'staff_wiki[title]'?: string;
+        'staff_wiki[body]'?: string;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{id}.json';
+};
+
+export type StaffWikisUpdateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffWikisUpdateError = StaffWikisUpdateErrors[keyof StaffWikisUpdateErrors];
+
+export type StaffWikisUpdateResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type StaffWikisUpdateResponse = StaffWikisUpdateResponses[keyof StaffWikisUpdateResponses];
+
+export type StaffWikisClaimData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{id}/claim.json';
+};
+
+export type StaffWikisClaimErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffWikisClaimError = StaffWikisClaimErrors[keyof StaffWikisClaimErrors];
+
+export type StaffWikisClaimResponses = {
+    /**
+     * Success
+     */
+    201: StaffWiki;
+};
+
+export type StaffWikisClaimResponse = StaffWikisClaimResponses[keyof StaffWikisClaimResponses];
+
+export type StaffWikisUnclaimData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{id}/unclaim.json';
+};
+
+export type StaffWikisUnclaimErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffWikisUnclaimError = StaffWikisUnclaimErrors[keyof StaffWikisUnclaimErrors];
+
+export type StaffWikisUnclaimResponses = {
+    /**
+     * Success
+     */
+    201: StaffWiki;
+};
+
+export type StaffWikisUnclaimResponse = StaffWikisUnclaimResponses[keyof StaffWikisUnclaimResponses];
+
+export type StaffWikiVersionsIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: number | string;
+        'search[order]'?: 'id_asc' | 'id_desc' | 'title';
+        'search[updater_id]'?: number;
+        'search[updater_name]'?: string;
+        'search[staff_wiki_id]'?: number;
+        'search[title]'?: string;
+        'search[body]'?: string;
+    };
+    url: '/staff/wiki_versions.json';
+};
+
+export type StaffWikiVersionsIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type StaffWikiVersionsIndexError = StaffWikiVersionsIndexErrors[keyof StaffWikiVersionsIndexErrors];
+
+export type StaffWikiVersionsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<StaffWikiVersion>;
+};
+
+export type StaffWikiVersionsIndexResponse = StaffWikiVersionsIndexResponses[keyof StaffWikiVersionsIndexResponses];
+
+export type StaffWikiVersionsShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wiki_versions/{id}.json';
+};
+
+export type StaffWikiVersionsShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffWikiVersionsShowError = StaffWikiVersionsShowErrors[keyof StaffWikiVersionsShowErrors];
+
+export type StaffWikiVersionsShowResponses = {
+    /**
+     * Success
+     */
+    200: StaffWikiVersion;
+};
+
+export type StaffWikiVersionsShowResponse = StaffWikiVersionsShowResponses[keyof StaffWikiVersionsShowResponses];
+
+export type StaffVoteTrendsIndexData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The name or ID of the user. IDs must be prefixed with `!`.
+         */
+        user: string | number;
+        /**
+         * Boolean, must be `1` for true (casted to integer, checked `== 0`).
+         */
+        disable_vote_normality?: number;
+        threshold?: number;
+        /**
+         * days
+         */
+        duration?: number;
+    };
+    url: '/staff/vote_trends.json';
+};
+
+export type StaffVoteTrendsIndexResponses = {
+    /**
+     * 2D array: first item VoteTrend, second item score
+     */
+    200: Array<VoteTrend | Array<number>>;
+};
+
+export type StaffVoteTrendsIndexResponse = StaffVoteTrendsIndexResponses[keyof StaffVoteTrendsIndexResponses];

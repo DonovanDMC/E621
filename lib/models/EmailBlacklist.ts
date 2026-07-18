@@ -8,7 +8,7 @@ interface EmailBlacklist extends EmailBlacklistData {}
 /** @category Models */
 @Schema("EmailBlacklist")
 class EmailBlacklist extends Base<EmailBlacklistData> {
-    @OperationID("deleteEmailBlacklist")
+    @OperationID("email_blacklists#destroy")
     async delete(): Promise<null> {
         return this.e621.emailBlacklists.delete(this.id);
     }

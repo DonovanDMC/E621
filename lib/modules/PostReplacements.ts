@@ -1,13 +1,18 @@
 import {
-    approvePostReplacement,
-    createPostReplacement,
-    deletePostReplacement,
-    promotePostReplacement,
-    rejectPostReplacement,
-    searchPostReplacements,
-    togglePostReplacementPenalty,
+    postReplacements_approve,
+    postReplacements_create,
+    postReplacements_destroy,
+    postReplacements_promote,
+    postReplacements_reject,
+    postReplacements_index,
+    postReplacements_togglePenalize,
 } from "../generated/sdk.js";
-import { type CreatePostReplacementResponses, type SearchPostReplacementsData, type CreatePostReplacementData } from "../generated/types.js";
+import {
+    type PostReplacementsCreateResponses,
+    type LegacyPost as LegacyPostData,
+    type PostReplacementsIndexData,
+    type PostReplacementsCreateData,
+} from "../generated/types.js";
 import Post from "../models/Post.js";
 import PostReplacement from "../models/PostReplacement.js";
 import {
@@ -21,65 +26,69 @@ import {
 import Base from "./Base.js";
 
 /** @category Modules/Types */
-export interface CreatePostReplacementOptions extends TransformDataBodyToOptions<CreatePostReplacementData> {}
+export interface CreatePostReplacementOptions extends TransformDataBodyToOptions<PostReplacementsCreateData> {}
 /** @category Modules/Types */
-export interface SearchPostReplacementsOptions extends TransformDataQueryToOptions<SearchPostReplacementsData> {}
+export interface SearchPostReplacementsOptions extends TransformDataQueryToOptions<PostReplacementsIndexData> {}
 /** @category Modules/Types */
-export interface CreatePostReplacementResponse extends GetResponse<CreatePostReplacementResponses, 200> {}
+export interface PostReplacementsCreateResponse extends GetResponse<PostReplacementsCreateResponses, 200> {}
 
 /** @category Modules */
 export default class PostReplacements extends Base {
-    @OperationID("approvePostReplacement")
+    @OperationID("post_replacements#approve")
     async approve(id: number): Promise<null> {
-        return approvePostReplacement({
+        return postReplacements_approve({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("createPostReplacement")
-    async create(options: CreatePostReplacementOptions): Promise<CreatePostReplacementResponse> {
-        return createPostReplacement({
+    @OperationID("post_replacements#create")
+    async create(options: CreatePostReplacementOptions): Promise<PostReplacementsCreateResponse> {
+        return postReplacements_create({
             client: this.client,
             body: prefixKeys(options, "post_replacement"),
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("deletePostReplacement")
+    @OperationID("post_replacements#destroy")
     async delete(id: number): Promise<null> {
-        return deletePostReplacement({
+        return postReplacements_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("promotePostReplacement")
+    @OperationID("post_replacements#promote")
     async promote(id: number): Promise<Post> {
-        return promotePostReplacement({
+        return postReplacements_promote({
             client: this.client,
             path: { id },
-        }).then(res => new Post(this.e621, this._handleResponse(res, 201, true).post));
+        }).then((res) => {
+            const data = this._handleResponse(res, 201, true);
+            // NOTE: the spec still references the "Post" (v2 base) schema here, but this endpoint has no v2 param - the response is actually legacy-shaped.
+            return new Post(this.e621, data.post as unknown as LegacyPostData);
+        });
     }
 
-    @OperationID("rejectPostReplacement")
+    @OperationID("post_replacements#reject")
     async reject(id: number): Promise<null> {
-        return rejectPostReplacement({
+        return postReplacements_reject({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("searchPostReplacements")
+    @OperationID("post_replacements#index")
     async search(options?: SearchPostReplacementsOptions): Promise<Array<PostReplacement>> {
-        return searchPostReplacements({
+        return postReplacements_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, PostReplacement));
     }
 
-    @OperationID("togglePostReplacementPenalty")
+    @OperationID("post_replacements#toggle_penalize")
     async togglePenalize(id: number): Promise<null> {
-        return togglePostReplacementPenalty({
+        return postReplacements_togglePenalize({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));

@@ -8,7 +8,7 @@ interface UserNameChangeRequest extends UserNameChangeRequestData {}
 /** @category Models */
 @Schema("UserNameChangeRequest")
 class UserNameChangeRequest extends Base<UserNameChangeRequestData> {
-    @OperationID("deleteUserNameChangeRequest")
+    @OperationID("user_name_change_requests#destroy")
     async delete(): Promise<unknown> {
         return this.e621.userNameChangeRequests.delete(this.id);
     }

@@ -1,74 +1,74 @@
 import {
-    createNote,
-    deleteNote,
-    editNote,
-    getNote,
-    revertNote,
-    searchNotes,
+    notes_create,
+    notes_destroy,
+    notes_update,
+    notes_show,
+    notes_revert,
+    notes_index,
 } from "../generated/sdk.js";
 import Note from "../models/Note.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { CreateNoteData, EditNoteData, SearchNotesData } from "../generated/types.js";
+import type { NotesCreateData, NotesUpdateData, NotesIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreateNoteOptions extends TransformDataBodyToOptions<CreateNoteData> {}
+export interface CreateNoteOptions extends TransformDataBodyToOptions<NotesCreateData> {}
 /** @category Modules/Types */
-export interface EditNoteOptions extends TransformDataBodyToOptions<EditNoteData> {}
+export interface UpdateNoteOptions extends TransformDataBodyToOptions<NotesUpdateData> {}
 /** @category Modules/Types */
-export interface SearchNotesOptions extends TransformDataQueryToOptions<SearchNotesData> {}
+export interface SearchNotesOptions extends TransformDataQueryToOptions<NotesIndexData> {}
 
 /** @category Modules */
 export default class Notes extends Base {
-    @OperationID("createNote")
+    @OperationID("notes#create")
     async create(options: CreateNoteOptions): Promise<Note> {
-        return createNote({
+        return notes_create({
             client: this.client,
-            body: prefixKeys(options, "note"),
+            body: options,
         }).then(res => this._handleResponse(res, 201, true, Note));
     }
 
-    @OperationID("deleteNote")
+    @OperationID("notes#destroy")
     async delete(id: number): Promise<null> {
-        return deleteNote({
+        return notes_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("editNote")
-    async edit(id: number, options: EditNoteOptions): Promise<null> {
-        return editNote({
-            client: this.client,
-            path: { id },
-            body: prefixKeys(options, "note"),
-        }).then(res => this._handleResponse(res, 204, true));
-    }
-
-    @OperationID("getNote")
+    @OperationID("notes#show")
     async get(id: number): Promise<Note | null> {
-        return getNote({
+        return notes_show({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, Note));
     }
 
-    @OperationID("revertNote")
+    @OperationID("notes#revert")
     async revert(id: number, version_id: number): Promise<null> {
-        return revertNote({
+        return notes_revert({
             client: this.client,
             path: { id },
             query: { version_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("searchNotes")
+    @OperationID("notes#index")
     async search(options?: SearchNotesOptions): Promise<Array<Note>> {
-        return searchNotes({
+        return notes_index({
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then(res => this._handleResponse(res, 200, true, Note));
+    }
+
+    @OperationID("notes#update")
+    async update(id: number, options: UpdateNoteOptions): Promise<null> {
+        return notes_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
     }
 }

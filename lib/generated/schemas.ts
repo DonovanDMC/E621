@@ -59,6 +59,7 @@ export const WarningRecordTypeSchema = {
 export const ModActionActionsSchema = {
     type: 'string',
     enum: [
+        'admin_user_delete',
         'artist_page_rename',
         'artist_page_lock',
         'artist_page_unlock',
@@ -69,6 +70,10 @@ export const ModActionActionsSchema = {
         'avoid_posting_delete',
         'avoid_posting_undelete',
         'avoid_posting_destroy',
+        'staff_note_create',
+        'staff_note_update',
+        'staff_note_delete',
+        'staff_note_undelete',
         'blip_destroy',
         'blip_delete',
         'blip_undelete',
@@ -97,9 +102,16 @@ export const ModActionActionsSchema = {
         'help_update',
         'ip_ban_create',
         'ip_ban_delete',
+        'search_trend_blacklist_create',
+        'search_trend_blacklist_update',
+        'search_trend_blacklist_delete',
+        'search_trend_blacklist_purge',
         'mascot_create',
         'mascot_update',
         'mascot_delete',
+        'staff_file_create',
+        'staff_file_update',
+        'staff_file_delete',
         'pool_delete',
         'report_reason_create',
         'report_reason_delete',
@@ -107,6 +119,7 @@ export const ModActionActionsSchema = {
         'set_update',
         'set_delete',
         'set_change_visibility',
+        'tag_destroy',
         'tag_alias_create',
         'tag_alias_update',
         'tag_implication_create',
@@ -114,12 +127,22 @@ export const ModActionActionsSchema = {
         'ticket_claim',
         'ticket_unclaim',
         'ticket_update',
+        'appeal_claim',
+        'appeal_unclaim',
+        'appeal_update',
         'upload_whitelist_create',
         'upload_whitelist_update',
         'upload_whitelist_delete',
+        'user_avatar_clear',
+        'user_profile_clear',
+        'user_comments_hide',
+        'user_forum_posts_hide',
+        'user_blips_delete',
         'user_blacklist_changed',
         'user_text_change',
+        'user_custom_title_change',
         'user_upload_limit_change',
+        'user_uploads_toggle',
         'user_flags_change',
         'user_level_change',
         'user_name_change',
@@ -132,6 +155,7 @@ export const ModActionActionsSchema = {
         'user_feedback_delete',
         'user_feedback_undelete',
         'user_feedback_destroy',
+        'user_flush_favorites',
         'wiki_page_rename',
         'wiki_page_delete',
         'wiki_page_lock',
@@ -140,15 +164,8 @@ export const ModActionActionsSchema = {
         'nuke_tag',
         'takedown_delete',
         'takedown_process',
-        'user_flush_favorites',
         'post_version_hide',
         'post_version_unhide',
-        'user_uploads_toggle',
-        'staff_note_create',
-        'staff_note_update',
-        'staff_note_delete',
-        'staff_note_undelete',
-        'search_trend_blacklist_purge',
         'created_positive_record',
         'created_neutral_record',
         'created_negative_record',
@@ -192,7 +209,8 @@ export const PostEventActionsSchema = {
         'replacement_deleted',
         'expunged',
         'changed_bg_color',
-        'replacement_penalty_changed'
+        'replacement_penalty_changed',
+        'owner_changed'
     ]
 } as const;
 
@@ -210,6 +228,7 @@ export const TagCategoriesSchema = {
     enum: [
         0,
         1,
+        2,
         3,
         4,
         5,
@@ -467,7 +486,7 @@ export const AvoidPostingSchema = {
         },
         staff_notes: {
             type: 'string',
-            description: 'Only visible to Janitor+'
+            description: 'Only visible to Staff+'
         },
         details: {
             type: 'string'
@@ -511,7 +530,7 @@ export const AvoidPostingVersionSchema = {
         },
         staff_notes: {
             type: 'string',
-            description: 'Only visible to Janitor+'
+            description: 'Only visible to Staff+'
         },
         is_active: {
             type: 'boolean'
@@ -713,7 +732,8 @@ export const CommentSchema = {
         'warning_type',
         'warning_user_id',
         'creator_name',
-        'updater_name'
+        'updater_name',
+        'vote'
     ],
     properties: {
         id: {
@@ -764,6 +784,14 @@ export const CommentSchema = {
         },
         updater_name: {
             type: 'string'
+        },
+        vote: {
+            type: 'integer',
+            enum: [
+                -1,
+                0,
+                1
+            ]
         }
     }
 } as const;
@@ -878,10 +906,12 @@ export const CurrentUserSchema = {
                     type: 'string'
                 },
                 last_logged_in_at: {
-                    type: 'string'
+                    type: 'string',
+                    format: 'date-time'
                 },
                 last_forum_read_at: {
-                    type: 'string'
+                    type: 'string',
+                    format: 'date-time'
                 },
                 recent_tags: {
                     type: 'string'
@@ -1372,7 +1402,7 @@ export const FullUserSchema = {
     ]
 } as const;
 
-export const HelpSchema = {
+export const HelpPageSchema = {
     type: 'object',
     required: [
         'id',
@@ -1442,6 +1472,261 @@ export const IpBanSchema = {
 } as const;
 
 export const IqdbPostSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'created_at',
+        'updated_at',
+        'up_score',
+        'down_score',
+        'score',
+        'source',
+        'md5',
+        'rating',
+        'is_note_locked',
+        'is_rating_locked',
+        'is_status_locked',
+        'is_pending',
+        'is_flagged',
+        'is_deleted',
+        'uploader_id',
+        'approver_id',
+        'last_noted_at',
+        'last_comment_bumped_at',
+        'fav_count',
+        'tag_string',
+        'tag_count',
+        'tag_count_general',
+        'tag_count_artist',
+        'tag_count_character',
+        'tag_count_copyright',
+        'file_ext',
+        'file_size',
+        'image_width',
+        'image_height',
+        'parent_id',
+        'has_children',
+        'last_commented_at',
+        'has_active_children',
+        'bit_flags',
+        'tag_count_meta',
+        'locked_tags',
+        'tag_count_species',
+        'tag_count_invalid',
+        'description',
+        'comment_count',
+        'change_seq',
+        'tag_count_lore',
+        'bg_color',
+        'generated_samples',
+        'duration',
+        'is_comment_disabled',
+        'is_comment_locked',
+        'has_large',
+        'has_visible_children',
+        'children_ids',
+        'pool_ids',
+        'is_favorited'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        up_score: {
+            type: 'integer'
+        },
+        down_score: {
+            type: 'integer'
+        },
+        score: {
+            type: 'integer'
+        },
+        source: {
+            type: 'string'
+        },
+        md5: {
+            type: 'string'
+        },
+        rating: {
+            $ref: '#/components/schemas/Ratings'
+        },
+        is_note_locked: {
+            type: 'boolean'
+        },
+        is_rating_locked: {
+            type: 'boolean'
+        },
+        is_status_locked: {
+            type: 'boolean'
+        },
+        is_pending: {
+            type: 'boolean'
+        },
+        is_flagged: {
+            type: 'boolean'
+        },
+        is_deleted: {
+            type: 'boolean'
+        },
+        uploader_id: {
+            type: 'integer'
+        },
+        approver_id: {
+            type: 'integer'
+        },
+        last_noted_at: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        last_comment_bumped_at: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        fav_count: {
+            type: 'integer'
+        },
+        tag_string: {
+            type: 'string'
+        },
+        tag_count: {
+            type: 'integer'
+        },
+        tag_count_general: {
+            type: 'integer'
+        },
+        tag_count_artist: {
+            type: 'integer'
+        },
+        tag_count_character: {
+            type: 'integer'
+        },
+        tag_count_copyright: {
+            type: 'integer'
+        },
+        file_ext: {
+            type: 'string'
+        },
+        file_size: {
+            type: 'integer',
+            format: 'int64'
+        },
+        image_width: {
+            type: 'integer'
+        },
+        image_height: {
+            type: 'integer'
+        },
+        parent_id: {
+            type: 'integer',
+            nullable: true
+        },
+        has_children: {
+            type: 'boolean'
+        },
+        last_commented_at: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        has_active_children: {
+            type: 'boolean'
+        },
+        bit_flags: {
+            type: 'integer'
+        },
+        tag_count_meta: {
+            type: 'integer'
+        },
+        locked_tags: {
+            type: 'string',
+            nullable: true
+        },
+        tag_count_species: {
+            type: 'integer'
+        },
+        tag_count_invalid: {
+            type: 'integer'
+        },
+        description: {
+            type: 'string'
+        },
+        comment_count: {
+            type: 'integer'
+        },
+        change_seq: {
+            type: 'integer'
+        },
+        tag_count_lore: {
+            type: 'integer'
+        },
+        bg_color: {
+            type: 'string',
+            nullable: true
+        },
+        generated_samples: {
+            type: 'array',
+            nullable: true,
+            items: {
+                type: 'string',
+                enum: [
+                    '720p',
+                    '480p',
+                    'original'
+                ]
+            }
+        },
+        duration: {
+            type: 'string',
+            nullable: true
+        },
+        is_comment_disabled: {
+            type: 'boolean'
+        },
+        is_comment_locked: {
+            type: 'boolean'
+        },
+        has_large: {
+            type: 'boolean'
+        },
+        has_visible_children: {
+            type: 'boolean'
+        },
+        children_ids: {
+            type: 'string',
+            nullable: true
+        },
+        pool_ids: {
+            type: 'array',
+            items: {
+                type: 'integer'
+            }
+        },
+        is_favorited: {
+            type: 'boolean'
+        },
+        file_url: {
+            type: 'string'
+        },
+        large_file_url: {
+            type: 'string'
+        },
+        preview_file_url: {
+            type: 'string'
+        }
+    }
+} as const;
+
+export const RawPostSchema = {
     type: 'object',
     required: [
         'id',
@@ -2132,27 +2417,21 @@ export const PostSchema = {
         'id',
         'created_at',
         'updated_at',
-        'file',
-        'preview',
-        'sample',
-        'score',
-        'tags',
-        'locked_tags',
         'change_seq',
-        'flags',
-        'rating',
-        'fav_count',
-        'sources',
-        'pools',
-        'relationships',
-        'approver_id',
+        'files',
         'uploader_id',
+        'uploader_name',
+        'approver_id',
+        'stats',
+        'flags',
+        'has',
+        'relationships',
+        'pools',
+        'rating',
+        'locked_tags',
+        'sources',
         'description',
-        'comment_count',
-        'is_favorited',
-        'has_notes',
-        'duration',
-        'uploader_name'
+        'tags'
     ],
     properties: {
         id: {
@@ -2166,217 +2445,177 @@ export const PostSchema = {
             type: 'string',
             format: 'date-time'
         },
-        file: {
-            type: 'object',
-            required: [
-                'width',
-                'height',
-                'ext',
-                'size',
-                'md5',
-                'url'
-            ],
-            properties: {
-                width: {
-                    type: 'integer'
-                },
-                height: {
-                    type: 'integer'
-                },
-                ext: {
-                    type: 'string'
-                },
-                size: {
-                    type: 'integer',
-                    format: 'int64'
-                },
-                md5: {
-                    type: 'string'
-                },
-                url: {
-                    type: 'string',
-                    nullable: true
-                }
-            }
+        change_seq: {
+            type: 'integer'
         },
-        preview: {
+        files: {
             type: 'object',
             required: [
-                'width',
-                'height',
-                'url'
+                'meta',
+                'original',
+                'preview',
+                'sample'
             ],
             properties: {
-                width: {
-                    type: 'integer'
-                },
-                height: {
-                    type: 'integer'
-                },
-                url: {
-                    type: 'string',
-                    nullable: true
-                }
-            }
-        },
-        sample: {
-            type: 'object',
-            required: [
-                'has',
-                'height',
-                'width',
-                'url',
-                'alternates'
-            ],
-            properties: {
-                has: {
-                    type: 'boolean'
-                },
-                height: {
-                    type: 'integer',
-                    nullable: true
-                },
-                width: {
-                    type: 'integer',
-                    nullable: true
-                },
-                url: {
-                    type: 'string',
-                    nullable: true
-                },
-                alternates: {
+                meta: {
                     type: 'object',
+                    required: [
+                        'md5',
+                        'ext',
+                        'size',
+                        'duration',
+                        'has_sample'
+                    ],
                     properties: {
-                        has: {
+                        md5: {
+                            type: 'string'
+                        },
+                        ext: {
+                            type: 'string'
+                        },
+                        size: {
+                            type: 'integer',
+                            format: 'int64'
+                        },
+                        duration: {
+                            type: 'number',
+                            format: 'float',
+                            nullable: true
+                        },
+                        has_sample: {
                             type: 'boolean'
+                        }
+                    }
+                },
+                original: {
+                    type: 'object',
+                    required: [
+                        'width',
+                        'height',
+                        'url'
+                    ],
+                    properties: {
+                        width: {
+                            type: 'integer'
                         },
-                        original: {
-                            $ref: '#/components/schemas/PostSampleAlternate'
+                        height: {
+                            type: 'integer'
                         },
-                        variants: {
-                            type: 'object',
-                            properties: {
-                                webm: {
-                                    $ref: '#/components/schemas/PostSampleAlternate'
-                                },
-                                mp4: {
-                                    $ref: '#/components/schemas/PostSampleAlternate'
-                                }
-                            }
+                        url: {
+                            type: 'string',
+                            format: 'uri',
+                            nullable: true
+                        }
+                    }
+                },
+                preview: {
+                    type: 'object',
+                    required: [
+                        'width',
+                        'height',
+                        'jpg',
+                        'webp'
+                    ],
+                    properties: {
+                        width: {
+                            type: 'integer'
                         },
-                        samples: {
-                            type: 'object',
-                            properties: {
-                                '480p': {
-                                    $ref: '#/components/schemas/PostSampleAlternate'
-                                },
-                                '720p': {
-                                    $ref: '#/components/schemas/PostSampleAlternate'
-                                }
-                            }
+                        height: {
+                            type: 'integer'
+                        },
+                        jpg: {
+                            type: 'string',
+                            format: 'uri',
+                            nullable: true
+                        },
+                        webp: {
+                            type: 'string',
+                            format: 'uri',
+                            nullable: true
+                        }
+                    }
+                },
+                sample: {
+                    type: 'object',
+                    required: [
+                        'width',
+                        'height',
+                        'jpg',
+                        'webp'
+                    ],
+                    properties: {
+                        width: {
+                            type: 'integer'
+                        },
+                        height: {
+                            type: 'integer'
+                        },
+                        jpg: {
+                            type: 'string',
+                            format: 'uri',
+                            nullable: true
+                        },
+                        webp: {
+                            type: 'string',
+                            format: 'uri',
+                            nullable: true
                         }
                     }
                 }
             }
         },
-        score: {
-            type: 'object',
-            required: [
-                'up',
-                'down',
-                'total'
-            ],
-            properties: {
-                up: {
-                    type: 'integer'
-                },
-                down: {
-                    type: 'integer'
-                },
-                total: {
-                    type: 'integer'
-                }
-            }
-        },
-        tags: {
-            type: 'object',
-            required: [
-                'general',
-                'artist',
-                'copyright',
-                'character',
-                'species',
-                'invalid',
-                'meta',
-                'lore',
-                'contributor'
-            ],
-            properties: {
-                general: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                artist: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                copyright: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                character: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                species: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                invalid: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                meta: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                lore: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                },
-                contributor: {
-                    type: 'array',
-                    items: {
-                        type: 'string'
-                    }
-                }
-            }
-        },
-        locked_tags: {
-            type: 'array',
-            nullable: true,
-            items: {
-                type: 'string'
-            }
-        },
-        change_seq: {
+        uploader_id: {
             type: 'integer'
+        },
+        uploader_name: {
+            type: 'string'
+        },
+        approver_id: {
+            type: 'integer',
+            nullable: true
+        },
+        stats: {
+            type: 'object',
+            required: [
+                'score',
+                'fav_count',
+                'is_favorited',
+                'vote',
+                'comment_count'
+            ],
+            properties: {
+                score: {
+                    type: 'object',
+                    required: [
+                        'up',
+                        'down',
+                        'total'
+                    ],
+                    properties: {
+                        up: {
+                            type: 'integer'
+                        },
+                        down: {
+                            type: 'integer'
+                        },
+                        total: {
+                            type: 'integer'
+                        }
+                    }
+                },
+                fav_count: {
+                    type: 'integer'
+                },
+                is_favorited: {
+                    type: 'boolean'
+                },
+                vote: {
+                    $ref: '#/components/schemas/Comment/properties/vote'
+                },
+                comment_count: {
+                    type: 'integer'
+                }
+            }
         },
         flags: {
             type: 'object',
@@ -2409,42 +2648,43 @@ export const PostSchema = {
                 }
             }
         },
-        rating: {
-            $ref: '#/components/schemas/Ratings'
-        },
-        fav_count: {
-            type: 'integer'
-        },
-        sources: {
-            type: 'array',
-            items: {
-                type: 'string'
-            }
-        },
-        pools: {
-            type: 'array',
-            items: {
-                type: 'integer'
+        has: {
+            type: 'object',
+            required: [
+                'parent',
+                'children',
+                'active_children',
+                'notes',
+                'sample'
+            ],
+            properties: {
+                parent: {
+                    type: 'boolean'
+                },
+                children: {
+                    type: 'boolean'
+                },
+                active_children: {
+                    type: 'boolean'
+                },
+                notes: {
+                    type: 'boolean'
+                },
+                sample: {
+                    type: 'boolean'
+                }
             }
         },
         relationships: {
             type: 'object',
             required: [
                 'parent_id',
-                'has_children',
-                'has_active_children',
                 'children'
             ],
             properties: {
                 parent_id: {
                     type: 'integer',
                     nullable: true
-                },
-                has_children: {
-                    type: 'boolean'
-                },
-                has_active_children: {
-                    type: 'boolean'
                 },
                 children: {
                     type: 'array',
@@ -2454,31 +2694,28 @@ export const PostSchema = {
                 }
             }
         },
-        approver_id: {
-            type: 'integer',
-            nullable: true
+        pools: {
+            type: 'array',
+            items: {
+                type: 'integer'
+            }
         },
-        uploader_id: {
-            type: 'integer'
+        rating: {
+            $ref: '#/components/schemas/Ratings'
+        },
+        locked_tags: {
+            type: 'array',
+            items: {
+                type: 'string'
+            }
+        },
+        sources: {
+            type: 'array',
+            items: {
+                type: 'string'
+            }
         },
         description: {
-            type: 'string'
-        },
-        comment_count: {
-            type: 'integer'
-        },
-        is_favorited: {
-            type: 'boolean'
-        },
-        has_notes: {
-            type: 'boolean'
-        },
-        duration: {
-            type: 'number',
-            format: 'float',
-            nullable: true
-        },
-        uploader_name: {
             type: 'string'
         }
     }
@@ -3021,10 +3258,7 @@ export const TagSchema = {
             type: 'integer'
         },
         related_tags: {
-            type: 'array',
-            items: {
-                type: 'string'
-            }
+            type: 'string'
         },
         related_tags_updated_at: {
             type: 'string',
@@ -3530,7 +3764,8 @@ export const UserSchema = {
         'can_approve_posts',
         'can_upload_free',
         'level_string',
-        'avatar_id'
+        'avatar_id',
+        'has_cropped_avatar'
     ],
     properties: {
         id: {
@@ -3544,7 +3779,7 @@ export const UserSchema = {
             type: 'string'
         },
         level: {
-            type: 'integer'
+            $ref: '#/components/schemas/UserLevels'
         },
         base_upload_limit: {
             type: 'integer'
@@ -3568,7 +3803,7 @@ export const UserSchema = {
             type: 'boolean'
         },
         level_string: {
-            type: 'string'
+            $ref: '#/components/schemas/UserLevelsNames'
         },
         avatar_id: {
             type: 'integer',
@@ -3576,6 +3811,14 @@ export const UserSchema = {
         },
         is_verified: {
             type: 'boolean'
+        },
+        has_cropped_avatar: {
+            type: 'boolean'
+        },
+        last_logged_in_at: {
+            type: 'string',
+            format: 'date-time',
+            description: 'Only visible to Admin+.'
         }
     }
 } as const;
@@ -3736,6 +3979,12 @@ export const WikiPageSchema = {
         },
         category_id: {
             $ref: '#/components/schemas/TagCategories'
+        },
+        featured_posts: {
+            type: 'array',
+            items: {
+                type: 'integer'
+            }
         }
     }
 } as const;
@@ -3799,6 +4048,12 @@ export const WikiPageVersionSchema = {
         parent: {
             type: 'string',
             nullable: true
+        },
+        featured_posts: {
+            type: 'array',
+            items: {
+                type: 'integer'
+            }
         }
     }
 } as const;
@@ -4113,12 +4368,10 @@ export const PostRecommendationSchema = {
             type: 'integer'
         },
         score: {
-            description: 'Currently hardcoded as 1, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L177\n',
             type: 'number',
             format: 'float'
         },
         explanation: {
-            description: 'Currently hardcoded as null, https://github.com/e621ng/e621ng/blob/5f83e77329d4074c5462c7516c3850f33125f441/app/controllers/posts_controller.rb#L178\n',
             type: 'string',
             nullable: true
         }
@@ -4130,17 +4383,15 @@ export const RecommendedPostsSchema = {
     required: [
         'post_id',
         'model_version',
-        'results'
+        'results',
+        'post_data'
     ],
     properties: {
         post_id: {
             type: 'integer'
         },
         model_version: {
-            type: 'string',
-            enum: [
-                'opensearch'
-            ]
+            type: 'string'
         },
         results: {
             type: 'array',
@@ -4200,4 +4451,1070 @@ export const UpDownMehVoteSchema = {
         0,
         -1
     ]
+} as const;
+
+export const MinimalUserSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'name',
+        'level_string',
+        'favorite_count'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        name: {
+            type: 'string'
+        },
+        level_string: {
+            $ref: '#/components/schemas/UserLevelsNames'
+        },
+        favorite_count: {
+            type: 'integer'
+        }
+    }
+} as const;
+
+export const ThumbnailPostSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'created_at',
+        'md5',
+        'file_ext',
+        'width',
+        'height',
+        'size',
+        'preview_url',
+        'preview_webp',
+        'sample_url',
+        'file_url',
+        'preview_width',
+        'preview_height',
+        'uploader_id',
+        'uploader',
+        'score',
+        'fav_count',
+        'is_favorited',
+        'vote',
+        'comment_count',
+        'flags',
+        'pools',
+        'rating',
+        'tags'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        md5: {
+            type: 'string'
+        },
+        file_ext: {
+            type: 'string'
+        },
+        width: {
+            type: 'integer'
+        },
+        height: {
+            type: 'integer'
+        },
+        size: {
+            type: 'integer',
+            format: 'int64'
+        },
+        preview_url: {
+            type: 'string',
+            format: 'uri',
+            nullable: true
+        },
+        preview_webp: {
+            type: 'string',
+            format: 'uri',
+            nullable: true
+        },
+        sample_url: {
+            type: 'string',
+            format: 'uri',
+            nullable: true
+        },
+        file_url: {
+            type: 'string',
+            format: 'uri',
+            nullable: true
+        },
+        preview_width: {
+            type: 'integer'
+        },
+        preview_height: {
+            type: 'integer'
+        },
+        uploader_id: {
+            type: 'integer'
+        },
+        uploader: {
+            type: 'string'
+        },
+        score: {
+            type: 'integer'
+        },
+        fav_count: {
+            type: 'integer'
+        },
+        is_favorited: {
+            type: 'boolean'
+        },
+        vote: {
+            $ref: '#/components/schemas/Comment/properties/vote'
+        },
+        comment_count: {
+            type: 'integer'
+        },
+        flags: {
+            type: 'string',
+            description: 'space separated list of flags:\n- pending\n- flagged\n- deleted\n'
+        },
+        pools: {
+            type: 'string',
+            description: 'space separated list of ids'
+        },
+        rating: {
+            $ref: '#/components/schemas/Ratings'
+        },
+        tags: {
+            type: 'string'
+        }
+    }
+} as const;
+
+export const PostDataSchema = {
+    type: 'object',
+    required: [
+        'post_data'
+    ],
+    properties: {
+        post_data: {
+            type: 'array',
+            items: {
+                $ref: '#/components/schemas/ThumbnailPost'
+            }
+        }
+    }
+} as const;
+
+export const CommentVoteSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'comment_id',
+        'user_id',
+        'score',
+        'created_at',
+        'updated_at'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        comment_id: {
+            type: 'integer'
+        },
+        user_id: {
+            type: 'integer'
+        },
+        score: {
+            $ref: '#/components/schemas/UpDownVote'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        }
+    }
+} as const;
+
+export const LegacyPostSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'created_at',
+        'updated_at',
+        'file',
+        'preview',
+        'sample',
+        'score',
+        'tags',
+        'locked_tags',
+        'change_seq',
+        'flags',
+        'rating',
+        'fav_count',
+        'sources',
+        'pools',
+        'relationships',
+        'approver_id',
+        'uploader_id',
+        'description',
+        'comment_count',
+        'is_favorited',
+        'has_notes',
+        'duration',
+        'uploader_name',
+        'vote'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        file: {
+            type: 'object',
+            required: [
+                'width',
+                'height',
+                'ext',
+                'size',
+                'md5',
+                'url'
+            ],
+            properties: {
+                width: {
+                    type: 'integer'
+                },
+                height: {
+                    type: 'integer'
+                },
+                ext: {
+                    type: 'string'
+                },
+                size: {
+                    type: 'integer',
+                    format: 'int64'
+                },
+                md5: {
+                    type: 'string'
+                },
+                url: {
+                    type: 'string',
+                    nullable: true
+                }
+            }
+        },
+        preview: {
+            type: 'object',
+            required: [
+                'width',
+                'height',
+                'url'
+            ],
+            properties: {
+                width: {
+                    type: 'integer'
+                },
+                height: {
+                    type: 'integer'
+                },
+                url: {
+                    type: 'string',
+                    nullable: true
+                }
+            }
+        },
+        sample: {
+            type: 'object',
+            required: [
+                'has',
+                'height',
+                'width',
+                'url',
+                'alternates'
+            ],
+            properties: {
+                has: {
+                    type: 'boolean'
+                },
+                height: {
+                    type: 'integer',
+                    nullable: true
+                },
+                width: {
+                    type: 'integer',
+                    nullable: true
+                },
+                url: {
+                    type: 'string',
+                    nullable: true
+                },
+                alternates: {
+                    type: 'object',
+                    properties: {
+                        has: {
+                            type: 'boolean'
+                        },
+                        original: {
+                            $ref: '#/components/schemas/PostSampleAlternate'
+                        },
+                        variants: {
+                            type: 'object',
+                            properties: {
+                                webm: {
+                                    $ref: '#/components/schemas/PostSampleAlternate'
+                                },
+                                mp4: {
+                                    $ref: '#/components/schemas/PostSampleAlternate'
+                                }
+                            }
+                        },
+                        samples: {
+                            type: 'object',
+                            properties: {
+                                '480p': {
+                                    $ref: '#/components/schemas/PostSampleAlternate'
+                                },
+                                '720p': {
+                                    $ref: '#/components/schemas/PostSampleAlternate'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        score: {
+            type: 'object',
+            required: [
+                'up',
+                'down',
+                'total'
+            ],
+            properties: {
+                up: {
+                    type: 'integer'
+                },
+                down: {
+                    type: 'integer'
+                },
+                total: {
+                    type: 'integer'
+                }
+            }
+        },
+        tags: {
+            type: 'object',
+            required: [
+                'general',
+                'artist',
+                'copyright',
+                'character',
+                'species',
+                'invalid',
+                'meta',
+                'lore',
+                'contributor'
+            ],
+            properties: {
+                general: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                artist: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                copyright: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                character: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                species: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                invalid: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                meta: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                lore: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                },
+                contributor: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                }
+            }
+        },
+        locked_tags: {
+            type: 'array',
+            nullable: true,
+            items: {
+                type: 'string'
+            }
+        },
+        change_seq: {
+            type: 'integer'
+        },
+        flags: {
+            type: 'object',
+            required: [
+                'pending',
+                'flagged',
+                'note_locked',
+                'status_locked',
+                'rating_locked',
+                'deleted'
+            ],
+            properties: {
+                pending: {
+                    type: 'boolean'
+                },
+                flagged: {
+                    type: 'boolean'
+                },
+                note_locked: {
+                    type: 'boolean'
+                },
+                status_locked: {
+                    type: 'boolean'
+                },
+                rating_locked: {
+                    type: 'boolean'
+                },
+                deleted: {
+                    type: 'boolean'
+                }
+            }
+        },
+        rating: {
+            $ref: '#/components/schemas/Ratings'
+        },
+        fav_count: {
+            type: 'integer'
+        },
+        sources: {
+            type: 'array',
+            items: {
+                type: 'string'
+            }
+        },
+        pools: {
+            type: 'array',
+            items: {
+                type: 'integer'
+            }
+        },
+        relationships: {
+            type: 'object',
+            required: [
+                'parent_id',
+                'has_children',
+                'has_active_children',
+                'children'
+            ],
+            properties: {
+                parent_id: {
+                    type: 'integer',
+                    nullable: true
+                },
+                has_children: {
+                    type: 'boolean'
+                },
+                has_active_children: {
+                    type: 'boolean'
+                },
+                children: {
+                    type: 'array',
+                    items: {
+                        type: 'integer'
+                    }
+                }
+            }
+        },
+        approver_id: {
+            type: 'integer',
+            nullable: true
+        },
+        uploader_id: {
+            type: 'integer'
+        },
+        description: {
+            type: 'string'
+        },
+        comment_count: {
+            type: 'integer'
+        },
+        is_favorited: {
+            type: 'boolean'
+        },
+        has_notes: {
+            type: 'boolean'
+        },
+        duration: {
+            type: 'number',
+            format: 'float',
+            nullable: true
+        },
+        uploader_name: {
+            type: 'string'
+        },
+        vote: {
+            $ref: '#/components/schemas/Comment/properties/vote'
+        }
+    }
+} as const;
+
+export const BasicPostSchema = {
+    allOf: [
+        {
+            $ref: '#/components/schemas/Post'
+        },
+        {
+            type: 'object',
+            required: [
+                'tags'
+            ],
+            properties: {
+                tags: {
+                    type: 'array',
+                    items: {
+                        type: 'string'
+                    }
+                }
+            }
+        }
+    ]
+} as const;
+
+export const ExtendedPostSchema = {
+    allOf: [
+        {
+            $ref: '#/components/schemas/Post'
+        },
+        {
+            type: 'object',
+            required: [
+                'tags'
+            ],
+            properties: {
+                tags: {
+                    type: 'object',
+                    required: [
+                        'general',
+                        'artist',
+                        'contributor',
+                        'copyright',
+                        'character',
+                        'species',
+                        'invalid',
+                        'meta',
+                        'lore'
+                    ],
+                    properties: {
+                        general: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        artist: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        contributor: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        copyright: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        character: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        species: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        invalid: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        meta: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        },
+                        lore: {
+                            type: 'array',
+                            items: {
+                                type: 'string'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+} as const;
+
+export const ExceptionLogSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'created_at',
+        'updated_at',
+        'class_name',
+        'version',
+        'extra_params',
+        'message',
+        'trace',
+        'code',
+        'user_id'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        class_name: {
+            type: 'string'
+        },
+        version: {
+            type: 'string'
+        },
+        extra_params: {
+            type: 'object'
+        },
+        message: {
+            type: 'string'
+        },
+        trace: {
+            type: 'string'
+        },
+        code: {
+            type: 'string',
+            format: 'uuid'
+        },
+        user_id: {
+            type: 'integer'
+        }
+    }
+} as const;
+
+export const AppealSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'disp_id',
+        'qtype',
+        'status',
+        'handler_id',
+        'created_at',
+        'updated_at'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        creator_id: {
+            type: 'integer'
+        },
+        disp_id: {
+            type: 'string'
+        },
+        qtype: {
+            type: 'string',
+            enum: [
+                'flag'
+            ]
+        },
+        status: {
+            type: 'string',
+            enum: [
+                'pending',
+                'partial',
+                'approved',
+                'rejected'
+            ]
+        },
+        reason: {
+            type: 'string'
+        },
+        response: {
+            type: 'string'
+        },
+        claimant_id: {
+            type: 'integer',
+            nullable: true
+        },
+        handler_id: {
+            type: 'integer',
+            nullable: true
+        },
+        accused_id: {
+            type: 'integer'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        }
+    }
+} as const;
+
+export const DBExportSchema = {
+    type: 'object',
+    required: [
+        'name',
+        'file_name',
+        'file_size',
+        'updated_at',
+        'url',
+        'checksum'
+    ],
+    properties: {
+        name: {
+            $ref: '#/components/schemas/DBExportNames'
+        },
+        file_name: {
+            type: 'string'
+        },
+        file_size: {
+            type: 'integer'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        url: {
+            type: 'string',
+            format: 'uri'
+        },
+        checksum: {
+            type: 'string',
+            description: 'SHA-256'
+        }
+    }
+} as const;
+
+export const DBExportNamesSchema = {
+    type: 'string',
+    enum: [
+        'artists',
+        'bulk_update_requests',
+        'pools',
+        'post_replacements',
+        'posts',
+        'post_versions',
+        'tag_aliases',
+        'tag_implications',
+        'tags',
+        'wiki_pages'
+    ]
+} as const;
+
+export const UserLevelsSchema = {
+    type: 'integer',
+    enum: [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80
+    ]
+} as const;
+
+export const UserLevelsNamesSchema = {
+    type: 'string',
+    enum: [
+        'Anonymous',
+        'Blocked',
+        'Member',
+        'Privileged',
+        'Former Staff',
+        'Staff',
+        'Janitor',
+        'Moderator',
+        'Admin'
+    ]
+} as const;
+
+export const StaffFileSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'creator_id',
+        'storage_id',
+        'md5',
+        'file_ext',
+        'file_size',
+        'original_filename',
+        'title',
+        'description',
+        'created_at',
+        'updated_at'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        creator_id: {
+            type: 'integer'
+        },
+        storage_id: {
+            type: 'string'
+        },
+        md5: {
+            type: 'string'
+        },
+        file_ext: {
+            type: 'string'
+        },
+        file_size: {
+            type: 'integer'
+        },
+        original_filename: {
+            type: 'string'
+        },
+        title: {
+            type: 'string'
+        },
+        description: {
+            type: 'string',
+            nullable: true
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        }
+    }
+} as const;
+
+export const StaffWikiSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'creator_id',
+        'updater_id',
+        'claimant_id',
+        'title',
+        'body',
+        'created_at',
+        'updated_at'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        creator_id: {
+            type: 'integer'
+        },
+        updater_id: {
+            type: 'integer'
+        },
+        claimant_id: {
+            type: 'integer',
+            nullable: true
+        },
+        title: {
+            type: 'string'
+        },
+        body: {
+            type: 'string'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        }
+    }
+} as const;
+
+export const StaffWikiVersionSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'staff_wiki_id',
+        'updater_id',
+        'claimant_id',
+        'title',
+        'body',
+        'created_at',
+        'updated_at'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        staff_wiki_id: {
+            type: 'integer'
+        },
+        updater_id: {
+            type: 'integer'
+        },
+        claimant_id: {
+            type: 'integer',
+            nullable: true
+        },
+        title: {
+            type: 'string'
+        },
+        body: {
+            type: 'string'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        }
+    }
+} as const;
+
+export const VoteTrendSchema = {
+    oneOf: [
+        {
+            $ref: '#/components/schemas/Tag'
+        },
+        {
+            $ref: '#/components/schemas/VoteTrendMetatag'
+        },
+        {
+            $ref: '#/components/schemas/VoteTrendUploader'
+        }
+    ]
+} as const;
+
+export const VoteTrendMetatagSchema = {
+    type: 'object',
+    required: [
+        'name',
+        'post_count',
+        'uploader_id',
+        'uploader'
+    ],
+    properties: {
+        name: {
+            type: 'string'
+        },
+        post_count: {
+            type: 'integer'
+        },
+        uploader_id: {
+            type: 'integer',
+            nullable: true,
+            enum: [
+                null
+            ]
+        },
+        uploader: {
+            type: 'object',
+            nullable: true,
+            enum: [
+                null
+            ]
+        }
+    }
+} as const;
+
+export const VoteTrendUploaderSchema = {
+    type: 'object',
+    required: [
+        'name',
+        'post_count',
+        'uploader_id',
+        'uploader'
+    ],
+    properties: {
+        name: {
+            type: 'string'
+        },
+        post_count: {
+            type: 'integer'
+        },
+        uploader_id: {
+            type: 'integer'
+        },
+        uploader: {
+            $ref: '#/components/schemas/User'
+        }
+    }
 } as const;

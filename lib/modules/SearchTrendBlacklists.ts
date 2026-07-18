@@ -1,47 +1,37 @@
-import { createSearchTrendBlacklist, deleteSearchTrendBlacklist, purgeSearchTrendBlacklist, searchSearchTrendBlacklists } from "../generated/sdk.js";
+import { searchTrendBlacklists_create, searchTrendBlacklists_destroy, searchTrendBlacklists_index } from "../generated/sdk.js";
 import SearchTrendBlacklist from "../models/SearchTrendBlacklist.js";
-import { GetResponse, OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
+import { OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { CreateSearchTrendBlacklistData, PurgeSearchTrendBlacklistResponses, SearchSearchTrendBlacklistsData } from "../generated/types.js";
+import type { SearchTrendBlacklistsCreateData, SearchTrendBlacklistsIndexData } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface CreateSearchTrendBlacklistsOptions extends TransformDataBodyToOptions<CreateSearchTrendBlacklistData> {}
+export interface CreateSearchTrendBlacklistsOptions extends TransformDataBodyToOptions<SearchTrendBlacklistsCreateData> {}
 /** @category Modules/Types */
-export interface SearchSearchTrendBlacklistsOptions extends TransformDataQueryToOptions<SearchSearchTrendBlacklistsData> {}
-/** @category Modules/Types */
-export interface PurgeSearchTrendBlacklistResponse extends GetResponse<PurgeSearchTrendBlacklistResponses, 200> {}
+export interface SearchSearchTrendBlacklistsOptions extends TransformDataQueryToOptions<SearchTrendBlacklistsIndexData> {}
 
 /** @category Modules */
 export default class SearchTrendBlacklists extends Base {
-    @OperationID("createSearchTrendBlacklist")
+    @OperationID("search_trend_blacklists#create")
     async create(options: CreateSearchTrendBlacklistsOptions): Promise<SearchTrendBlacklist> {
-        return createSearchTrendBlacklist({
+        return searchTrendBlacklists_create({
             client: this.client,
             body: options,
         }).then(res => this._handleResponse(res, 200, true, SearchTrendBlacklist));
     }
 
-    @OperationID("deleteSearchTrendBlacklist")
+    @OperationID("search_trend_blacklists#destroy")
     async delete(id: number): Promise<null> {
-        return deleteSearchTrendBlacklist({
+        return searchTrendBlacklists_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 
-    @OperationID("purgeSearchTrendBlacklist")
-    async purge(id: number): Promise<PurgeSearchTrendBlacklistResponse> {
-        return purgeSearchTrendBlacklist({
-            client: this.client,
-            path: { id },
-        }).then(res => this._handleResponse(res, 200, true));
-    }
-
-    @OperationID("searchSearchTrendBlacklists")
+    @OperationID("search_trend_blacklists#index")
     async search(options?: SearchSearchTrendBlacklistsOptions): Promise<Array<SearchTrendBlacklist>> {
-        return searchSearchTrendBlacklists({
+        return searchTrendBlacklists_index({
             client: this.client,
             query: options,
         }).then(res => this._handleResponse(res, 200, true, SearchTrendBlacklist));

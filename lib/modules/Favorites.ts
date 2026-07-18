@@ -1,44 +1,45 @@
-import { addFavorite, listFavorites, removeFavorite } from "../generated/sdk.js";
-import Post from "../models/Post.js";
+import { favorites_create, favorites_index, favorites_destroy } from "../generated/sdk.js";
 import { GetResponse, OperationID, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
+import { type AnyPostData, type NoV2Options, type PostFormat, wrapPosts } from "./posts/Format.js";
 
-import type { AddFavoriteResponses, ListFavoritesData, RemoveFavoriteResponses } from "../generated/types.js";
+import type { FavoritesCreateResponses, LegacyPost as LegacyPostData, FavoritesIndexData, FavoritesDestroyResponses } from "../generated/types.js";
 
 /** @category Modules/Types */
-export interface SearchFavoritesOptions extends TransformDataQueryToOptions<ListFavoritesData> {}
+export interface SearchFavoritesOptions extends TransformDataQueryToOptions<FavoritesIndexData> {}
 /** @category Modules/Types */
-export interface AddFavoriteResponse extends GetResponse<AddFavoriteResponses, 201> {}
+export interface FavoritesCreateResponse extends GetResponse<FavoritesCreateResponses, 201> {}
 /** @category Modules/Types */
-export interface RemoveFavoriteResponse extends GetResponse<RemoveFavoriteResponses, 200> {}
+export interface FavoritesDestroyResponse extends GetResponse<FavoritesDestroyResponses, 200> {}
 
 /** @category Modules */
 export default class Favorites extends Base {
-    @OperationID("addFavorite")
-    async create(post_id: number): Promise<AddFavoriteResponse> {
-        return addFavorite({
+    @OperationID("favorites#create")
+    async create(post_id: number): Promise<FavoritesCreateResponse> {
+        return favorites_create({
             client: this.client,
             body: { post_id },
         }).then(res => this._handleResponse(res, 201, true));
     }
 
-    @OperationID("removeFavorite")
-    async delete(id: number): Promise<RemoveFavoriteResponse> {
-        return removeFavorite({
+    @OperationID("favorites#destroy")
+    async delete(id: number): Promise<FavoritesDestroyResponse> {
+        return favorites_destroy({
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, true));
     }
 
-    @OperationID("listFavorites")
-    async search(options?: SearchFavoritesOptions): Promise<Array<Post>> {
-        return listFavorites({
+    @OperationID("favorites#index")
+    async search<const O extends SearchFavoritesOptions = NoV2Options>(options?: O): Promise<Array<PostFormat<O["v2"], O["mode"]>>> {
+        return favorites_index({
             client: this.client,
             query: options,
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            return data.posts.map(post => new Post(this.e621, post));
+            const raw = (options?.v2 ? data : (data as { posts: Array<LegacyPostData> }).posts) as Array<AnyPostData>;
+            return wrapPosts(this.e621, raw, options?.v2, options?.mode) as Array<PostFormat<O["v2"], O["mode"]>>;
         });
     }
 }
