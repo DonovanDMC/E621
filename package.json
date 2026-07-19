@@ -18,6 +18,10 @@
       "types": "./dist/lib/generated.d.ts",
       "import": "./dist/lib/generated.js"
     },
+    "./generated/*": {
+      "types": "./dist/lib/generated/*.d.ts",
+      "import": "./dist/lib/generated/*.js"
+    },
     "./standalone": {
       "types": "./dist/lib/standalone.d.ts",
       "import": "./dist/lib/standalone.js"
