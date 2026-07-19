@@ -6,7 +6,8 @@ import { withBuiltLib } from "./buildSwap.js";
 process.chdir(fileURLToPath(new URL("..", import.meta.url)));
 
 execSync("pnpm run generate", { stdio: "inherit" });
-await import("./replace-openapi.js");
+// Run as a subprocess, not `await import(...)` - see the comment in build.ts for why.
+execSync("tsx scripts/replace-openapi.ts", { stdio: "inherit" });
 
 await withBuiltLib(async () => {
     execSync("typedoc --options typedoc/typedoc.json", { stdio: "inherit" });
