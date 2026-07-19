@@ -137,9 +137,10 @@ import StaffWikiVersions from "./StaffWikiVersions.js";
 export type * from "./StaffWikiVersions.js";
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
+import type { NoV2Options, PostFormatOptions } from "./posts/Format.js";
 
 /** @category Main */
-export interface Modules {
+export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     appeals: Appeals;
     artists: Artists;
     artistUrls: ArtistUrls;
@@ -156,14 +157,14 @@ export interface Modules {
     dtext: DText;
     editHistories: EditHistories;
     emailBlacklists: EmailBlacklists;
-    favorites: Favorites;
+    favorites: Favorites<PF>;
     forumPosts: ForumPosts;
     forumPostVotes: ForumPostVotes;
     forumTopics: ForumTopics;
     health: Health;
     helpPages: HelpPages;
     ipBans: IpBans;
-    iqdb: IqdbQueries;
+    iqdb: IqdbQueries<PF>;
     mascots: Mascots;
     modActions: ModActions;
     newsUpdates: NewsUpdates;
@@ -171,13 +172,13 @@ export interface Modules {
     noteVersions: NoteVersions;
     pools: Pools;
     poolVersions: PoolVersions;
-    popular: Popular;
+    popular: Popular<PF>;
     postApprovals: PostApprovals;
     postDisapprovals: PostDisapprovals;
     postEvents: PostEvents;
     postFlags: PostFlags;
     postReplacements: PostReplacements;
-    posts: Posts;
+    posts: Posts<PF>;
     postSets: PostSets;
     postVersions: PostVersions;
     postVotes: PostVotes;
@@ -201,7 +202,7 @@ export interface Modules {
     tagTypeVersions: TagTypeVersions;
     takedowns: Takedowns;
     tickets: Tickets;
-    uploads: Uploads;
+    uploads: Uploads<PF>;
     uploadWhitelists: UploadWhitelists;
     userFeedbacks: UserFeedbacks;
     userNameChangeRequests: UserNameChangeRequests;
@@ -210,76 +211,79 @@ export interface Modules {
     wikiPageVersions: WikiPageVersions;
 }
 
-export function apply(e621: E621, client: Client): void {
-    const modules: Modules = {
-        appeals: new Appeals(e621, client),
-        artistUrls: new ArtistUrls(e621, client),
-        artistVersions: new ArtistVersions(e621, client),
-        artists: new Artists(e621, client),
-        avoidPostingVersions: new AvoidPostingVersions(e621, client),
-        avoidPostings: new AvoidPostings(e621, client),
-        bans: new Bans(e621, client),
-        blips: new Blips(e621, client),
-        bulkUpdateRequests: new BulkUpdateRequests(e621, client),
-        commentVotes: new CommentVotes(e621, client),
-        comments: new Comments(e621, client),
-        dbExports: new DBExports(e621, client),
-        dmails: new DMails(e621, client),
-        dtext: new DText(e621, client),
-        editHistories: new EditHistories(e621, client),
-        emailBlacklists: new EmailBlacklists(e621, client),
-        favorites: new Favorites(e621, client),
-        forumPosts: new ForumPosts(e621, client),
-        forumPostVotes: new ForumPostVotes(e621, client),
-        forumTopics: new ForumTopics(e621, client),
-        health: new Health(e621, client),
-        helpPages: new HelpPages(e621, client),
-        ipBans: new IpBans(e621, client),
-        iqdb: new IqdbQueries(e621, client),
-        mascots: new Mascots(e621, client),
-        modActions: new ModActions(e621, client),
-        newsUpdates: new NewsUpdates(e621, client),
-        notes: new Notes(e621, client),
-        noteVersions: new NoteVersions(e621, client),
-        pools: new Pools(e621, client),
-        popular: new Popular(e621, client),
-        postApprovals: new PostApprovals(e621, client),
-        postDisapprovals: new PostDisapprovals(e621, client),
-        postEvents: new PostEvents(e621, client),
-        postFlags: new PostFlags(e621, client),
-        postReplacements: new PostReplacements(e621, client),
-        poolVersions: new PoolVersions(e621, client),
-        postSets: new PostSets(e621, client),
-        postVersions: new PostVersions(e621, client),
-        postVotes: new PostVotes(e621, client),
-        posts: new Posts(e621, client),
-        relatedTags: new RelatedTags(e621, client),
-        searchTrendBlacklists: new SearchTrendBlacklists(e621, client),
-        searchTrends: new SearchTrends(e621, client),
-        staffAutomodDMails: new StaffAutomodDMails(e621, client),
-        staffDmails: new StaffDMails(e621, client),
-        staffExceptionLogs: new StaffExceptionLogs(e621, client),
-        staffFiles: new StaffFiles(e621, client),
-        staffNotes: new StaffNotes(e621, client),
-        staffUserCleanups: new StaffUserCleanups(e621, client),
-        staffUsers: new StaffUsers(e621, client),
-        staffVoteTrends: new StaffVoteTrends(e621, client),
-        staffWikis: new StaffWikis(e621, client),
-        staffWikiVersions: new StaffWikiVersions(e621, client),
-        tagAliases: new TagAliases(e621, client),
-        tagCorrections: new TagCorrections(e621, client),
-        tagImplications: new TagImplications(e621, client),
-        tagTypeVersions: new TagTypeVersions(e621, client),
-        tags: new Tags(e621, client),
-        takedowns: new Takedowns(e621, client),
-        tickets: new Tickets(e621, client),
+export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>, client: Client, defaultPostFormat: PF = {} as PF): void {
+    // Every module below except the post-format-aware ones (favorites/iqdb/popular/posts/uploads) is
+    // generic over PF only via Base's default type param - cast down to the bare E621 type to satisfy them.
+    const baseE621 = e621 as unknown as E621;
+    const modules: Modules<PF> = {
+        appeals: new Appeals(baseE621, client),
+        artistUrls: new ArtistUrls(baseE621, client),
+        artistVersions: new ArtistVersions(baseE621, client),
+        artists: new Artists(baseE621, client),
+        avoidPostingVersions: new AvoidPostingVersions(baseE621, client),
+        avoidPostings: new AvoidPostings(baseE621, client),
+        bans: new Bans(baseE621, client),
+        blips: new Blips(baseE621, client),
+        bulkUpdateRequests: new BulkUpdateRequests(baseE621, client),
+        commentVotes: new CommentVotes(baseE621, client),
+        comments: new Comments(baseE621, client),
+        dbExports: new DBExports(baseE621, client),
+        dmails: new DMails(baseE621, client),
+        dtext: new DText(baseE621, client),
+        editHistories: new EditHistories(baseE621, client),
+        emailBlacklists: new EmailBlacklists(baseE621, client),
+        favorites: new Favorites(e621, client, defaultPostFormat),
+        forumPosts: new ForumPosts(baseE621, client),
+        forumPostVotes: new ForumPostVotes(baseE621, client),
+        forumTopics: new ForumTopics(baseE621, client),
+        health: new Health(baseE621, client),
+        helpPages: new HelpPages(baseE621, client),
+        ipBans: new IpBans(baseE621, client),
+        iqdb: new IqdbQueries(e621, client, defaultPostFormat),
+        mascots: new Mascots(baseE621, client),
+        modActions: new ModActions(baseE621, client),
+        newsUpdates: new NewsUpdates(baseE621, client),
+        notes: new Notes(baseE621, client),
+        noteVersions: new NoteVersions(baseE621, client),
+        pools: new Pools(baseE621, client),
+        popular: new Popular(e621, client, defaultPostFormat),
+        postApprovals: new PostApprovals(baseE621, client),
+        postDisapprovals: new PostDisapprovals(baseE621, client),
+        postEvents: new PostEvents(baseE621, client),
+        postFlags: new PostFlags(baseE621, client),
+        postReplacements: new PostReplacements(baseE621, client),
+        poolVersions: new PoolVersions(baseE621, client),
+        postSets: new PostSets(baseE621, client),
+        postVersions: new PostVersions(baseE621, client),
+        postVotes: new PostVotes(baseE621, client),
+        posts: new Posts(e621, client, defaultPostFormat),
+        relatedTags: new RelatedTags(baseE621, client),
+        searchTrendBlacklists: new SearchTrendBlacklists(baseE621, client),
+        searchTrends: new SearchTrends(baseE621, client),
+        staffAutomodDMails: new StaffAutomodDMails(baseE621, client),
+        staffDmails: new StaffDMails(baseE621, client),
+        staffExceptionLogs: new StaffExceptionLogs(baseE621, client),
+        staffFiles: new StaffFiles(baseE621, client),
+        staffNotes: new StaffNotes(baseE621, client),
+        staffUserCleanups: new StaffUserCleanups(baseE621, client),
+        staffUsers: new StaffUsers(baseE621, client),
+        staffVoteTrends: new StaffVoteTrends(baseE621, client),
+        staffWikis: new StaffWikis(baseE621, client),
+        staffWikiVersions: new StaffWikiVersions(baseE621, client),
+        tagAliases: new TagAliases(baseE621, client),
+        tagCorrections: new TagCorrections(baseE621, client),
+        tagImplications: new TagImplications(baseE621, client),
+        tagTypeVersions: new TagTypeVersions(baseE621, client),
+        tags: new Tags(baseE621, client),
+        takedowns: new Takedowns(baseE621, client),
+        tickets: new Tickets(baseE621, client),
         uploads: new Uploads(e621, client),
-        uploadWhitelists: new UploadWhitelists(e621, client),
-        users: new Users(e621, client),
-        userFeedbacks: new UserFeedbacks(e621, client),
-        userNameChangeRequests: new UserNameChangeRequests(e621, client),
-        wikiPages: new WikiPages(e621, client),
-        wikiPageVersions: new WikiPageVersions(e621, client),
+        uploadWhitelists: new UploadWhitelists(baseE621, client),
+        users: new Users(baseE621, client),
+        userFeedbacks: new UserFeedbacks(baseE621, client),
+        userNameChangeRequests: new UserNameChangeRequests(baseE621, client),
+        wikiPages: new WikiPages(baseE621, client),
+        wikiPageVersions: new WikiPageVersions(baseE621, client),
     };
 
     Object.assign(e621, modules);

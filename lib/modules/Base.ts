@@ -2,6 +2,7 @@ import { UnexpectedResponseError } from "../errors.js";
 
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
+import type { NoV2Options, PostFormatOptions } from "./posts/Format.js";
 
 interface AnyResponse<D = unknown> {
     data?: D;
@@ -20,15 +21,15 @@ type UnwrapData<R extends AnyResponse> = DataType<R> extends Array<infer U> ? U 
  * under on {@link E621} (e.g. `"posts"`) - used by `createStandalone`. TypeScript can't enforce abstract
  * static members, so this is a convention rather than a compiler-checked contract.
  */
-export default abstract class Base {
+export default abstract class Base<PF extends PostFormatOptions = NoV2Options> {
     protected client!: Client;
-    protected e621!: E621;
+    protected e621!: E621<PF>;
     /**
      * `e621` may be omitted (pass `undefined`) when constructing a module standalone, without the main
      * {@link E621} client, to keep bundles tree-shakable. Convenience methods on models returned by this
      * module that call back into other modules via `this.e621` will throw in that case.
      */
-    constructor(e621: E621 | undefined, client: Client) {
+    constructor(e621: E621<PF> | undefined, client: Client) {
         Object.defineProperties(this, {
             client: { value: client, enumerable: false },
             e621: { value: e621, enumerable: false },
@@ -51,8 +52,11 @@ export default abstract class Base {
                 throw new UnexpectedResponseError(res.request, res.response, res.error);
             } else {
                 if (klass) {
-                    if (Array.isArray(res.data)) return res.data.map(item => new klass(this.e621, item as UnwrapData<R>)) as never;
-                    else return new klass(this.e621, res.data as UnwrapData<R>) as never;
+                    // klass here is always a plain (non-post-format) model, unrelated to PF - the cast just
+                    // satisfies its constructor's bare E621 parameter type.
+                    const e621 = this.e621 as unknown as E621;
+                    if (Array.isArray(res.data)) return res.data.map(item => new klass(e621, item as UnwrapData<R>)) as never;
+                    else return new klass(e621, res.data as UnwrapData<R>) as never;
                 } else return res.data as never;
             }
         } else if (res.response?.status === 404 && !throwOnNotFound) return null as never;

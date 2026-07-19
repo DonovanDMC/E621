@@ -1,6 +1,7 @@
-node_modules/
-dist/
-build/
-local/
-old-local/
-docs/
+/node_modules
+/dist
+/build
+/local
+/docs
+/.env
+/lib-bck

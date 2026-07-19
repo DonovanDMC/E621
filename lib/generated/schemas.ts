@@ -248,15 +248,22 @@ export const FeedbackCategoriesSchema = {
 } as const;
 
 export const TagRequestStatusesSchema = {
-    type: 'string',
-    enum: [
-        'active',
-        'deleted',
-        'processing',
-        'queued',
-        'retired',
-        'error',
-        'pending'
+    oneOf: [
+        {
+            type: 'string',
+            enum: [
+                'active',
+                'deleted',
+                'processing',
+                'queued',
+                'retired',
+                'pending'
+            ]
+        },
+        {
+            type: 'string',
+            pattern: '^error: .*$'
+        }
     ]
 } as const;
 

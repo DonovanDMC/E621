@@ -1,4 +1,4 @@
-import { rename, rm } from "node:fs/promises";
+import { access, rename, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -21,6 +21,10 @@ export interface WithBuiltLibOptions {
  * bash `mv`/`trap` dance.
  */
 export async function withBuiltLib(fn: () => Promise<void>, options: WithBuiltLibOptions = {}): Promise<void> {
+    if (!await access(buildDir).then(() => true, () => false)) {
+        console.error(`Build dir "${buildDir}" does not exist (build failed?)`);
+        process.exit(1);
+    }
     await rename(libDir, libBckDir);
     await rename(buildDir, libDir);
 

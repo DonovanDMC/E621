@@ -16,18 +16,29 @@ export type PostV2Mode = "basic" | "extended" | "thumbnail";
 /** @category Modules/Types */
 export type AnyPostData = BasicPostData | ExtendedPostData | LegacyPostData | ThumbnailPostData;
 /** @category Modules/Types */
-export type AnyPost = BasicPost | ExtendedPost | Post | ThumbnailPost;
+export type AnyPost<PF extends PostFormatOptions = NoV2Options> = BasicPost<PF> | ExtendedPost<PF> | Post<PF> | ThumbnailPost<PF>;
+
+/**
+ * The shape of a v2/mode default - bounds the `defaultPostFormat` {@link Options} and every generic
+ * method/model that resolves its return type from it.
+ *
+ * @category Modules/Types
+ */
+export interface PostFormatOptions {
+    mode?: PostV2Mode;
+    v2?: boolean;
+}
 
 /** @category Modules/Types */
-export type PostFormat<V2 extends boolean | undefined, Mode extends PostV2Mode | undefined>
+export type PostFormat<V2 extends boolean | undefined, Mode extends PostV2Mode | undefined, PF extends PostFormatOptions = NoV2Options>
     = V2 extends true
-        ? Mode extends "extended" ? ExtendedPost
-            : Mode extends "thumbnail" ? ThumbnailPost
-                : BasicPost
-        : Post;
+        ? Mode extends "extended" ? ExtendedPost<PF>
+            : Mode extends "thumbnail" ? ThumbnailPost<PF>
+                : BasicPost<PF>
+        : Post<PF>;
 
 /** @category Modules/Types */
-export type PostFormatV2Only<V2 extends boolean | undefined> = PostFormat<V2, undefined>;
+export type PostFormatV2Only<V2 extends boolean | undefined, PF extends PostFormatOptions = NoV2Options> = PostFormat<V2, undefined, PF>;
 
 /**
  * Default type argument for generic methods accepting v2/mode options, resolving {@link PostFormat} to the legacy `Post` model when no options are provided.
@@ -39,13 +50,13 @@ export interface NoV2Options {
     v2?: undefined;
 }
 
-export function wrapPost<V2 extends boolean | undefined, Mode extends PostV2Mode | undefined>(e621: E621, data: AnyPostData, v2: V2, mode: Mode): PostFormat<V2, Mode> {
-    if (v2 !== true) return new Post(e621, data as LegacyPostData) as PostFormat<V2, Mode>;
-    if (mode === "extended") return new ExtendedPost(e621, data as ExtendedPostData) as PostFormat<V2, Mode>;
-    if (mode === "thumbnail") return new ThumbnailPost(e621, data as ThumbnailPostData) as PostFormat<V2, Mode>;
-    return new BasicPost(e621, data as BasicPostData) as PostFormat<V2, Mode>;
+export function wrapPost<V2 extends boolean | undefined, Mode extends PostV2Mode | undefined, PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>, data: AnyPostData, v2: V2, mode: Mode): PostFormat<V2, Mode, PF> {
+    if (v2 !== true) return new Post(e621, data as LegacyPostData) as PostFormat<V2, Mode, PF>;
+    if (mode === "extended") return new ExtendedPost(e621, data as ExtendedPostData) as PostFormat<V2, Mode, PF>;
+    if (mode === "thumbnail") return new ThumbnailPost(e621, data as ThumbnailPostData) as PostFormat<V2, Mode, PF>;
+    return new BasicPost(e621, data as BasicPostData) as PostFormat<V2, Mode, PF>;
 }
 
-export function wrapPosts<V2 extends boolean | undefined, Mode extends PostV2Mode | undefined>(e621: E621, data: Array<AnyPostData>, v2: V2, mode: Mode): Array<PostFormat<V2, Mode>> {
+export function wrapPosts<V2 extends boolean | undefined, Mode extends PostV2Mode | undefined, PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>, data: Array<AnyPostData>, v2: V2, mode: Mode): Array<PostFormat<V2, Mode, PF>> {
     return data.map(item => wrapPost(e621, item, v2, mode));
 }

@@ -4,9 +4,10 @@ import { createConfig } from "./generated/client/utils.js";
 import { VERSION } from "./version.js";
 
 import type { Client, Config } from "./generated/client/types.js";
+import type { NoV2Options, PostFormatOptions } from "./modules/posts/Format.js";
 
 /** @category Main */
-export interface Options {
+export interface Options<PF extends PostFormatOptions = NoV2Options> {
     /**
      * The api key you want to authenticate with (Account -> Manage API Access)
      * @default none
@@ -22,6 +23,14 @@ export interface Options {
      * @default https://e621.net
      */
     baseURL?: string;
+    /**
+     * The v2/mode format every post-returning method across the lib falls back to when called without
+     * explicit `v2`/`mode` options (e.g. `posts.get()`, `posts.search()`, `favorites.search()`,
+     * `popular.get()`, `iqdbQueries.get()`/`.post()`, and convenience methods on returned post models like
+     * `post.update()`). Per-call options still take priority over this.
+     * @default legacy (v2: false)
+     */
+    defaultPostFormat?: PF;
     /**
      * The number of seconds before a request times out
      * @default 30
@@ -65,7 +74,7 @@ export interface E621ClientResult {
  *
  * @category Main
  */
-export function createE621Client(options?: Options): E621ClientResult {
+export function createE621Client<const PF extends PostFormatOptions = NoV2Options>(options?: Options<PF>): E621ClientResult {
     const resolved: InstanceOptions = {
         authKey: options?.authKey ?? null,
         authUser: options?.authUser ?? null,

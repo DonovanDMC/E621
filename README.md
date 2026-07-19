@@ -37,6 +37,21 @@ const e621 = new E621({
 // e.g. use e621.posts.METHOD(), e621.users.METHOD()
 ```
 
+### Default Post Format
+
+Post-returning methods (`posts.get()`, `posts.search()`, `favorites.search()`, `popular.get()`, `iqdbQueries.get()`/`.post()`, and convenience methods on returned post models like `post.update()`) accept per-call `v2`/`mode` options and default to the legacy format when omitted. Set `defaultPostFormat` once to change that default everywhere instead of repeating the same options on every call:
+```typescript
+const e621 = new E621({
+	defaultPostFormat: { v2: true, mode: "extended" }
+});
+
+const post = await e621.posts.get(123); // ExtendedPost, typed accurately - no cast needed
+await post?.update({ tags: "foo" }); // also resolves to ExtendedPost
+
+// a per-call option still overrides the default for that one call
+const legacy = await e621.posts.get(123, { v2: false });
+```
+
 ## Browser Usage
 
 A pre-bundled, browser-only build (no Node built-ins) is published at `e621/browser`, for use with a plain `<script type="module">` or a CDN like jsDelivr/unpkg:
@@ -62,7 +77,7 @@ import Favorites from "e621/modules/Favorites";
 import { createE621Client, createStandalone } from "e621/standalone";
 
 // same Options as `new E621()`, handles auth headers/user agent/etc. for you
-const client = createE621Client({ authUser: "", authKey: "" }).client;
+const client  = createE621Client({ authUser: "", authKey: "" });
 
 // only the modules listed here (and their own dependencies) end up in your bundle;
 // property names are each module's own `moduleKey` (matching `new E621()`'s naming, e.g. `posts`, `favorites`)
@@ -83,7 +98,8 @@ npm test
 - `test/treeshaking.test.ts` - bundles a standalone client with esbuild and asserts unrelated modules are excluded and the result is meaningfully smaller than `new E621()`.
 - `test/standalone.test.ts` / `test/client.test.ts` - verify `createE621Client`/`createStandalone` wiring and the full `E621` client's module surface (no network calls).
 - `test/browser.test.ts` - loads the browser bundle in a real headless Chromium (via [Playwright](https://playwright.dev)) and checks it works with no Node built-ins.
-- `test/operationIds.test.ts` - scans `lib/` for every `@OperationID(...)`/`@Schema(...)` and asserts the value actually exists in the OpenAPI spec (these aren't validated at runtime anymore - see the note in `lib/util.ts` - so this plus the build-time check in `scripts/replace-openapi.ts` are what catch a typo'd one).
+- `test/openapi.test.ts` - scans `lib/` for every `@OperationID(...)`/`@Schema(...)` and asserts the value actually exists in the OpenAPI spec (these aren't validated at runtime anymore - see the note in `lib/util.ts` - so this plus the build-time check in `scripts/replace-openapi.ts` are what catch a typo'd one).
+- `test/defaultPostFormat.test.ts` - mocks `fetch` to verify `defaultPostFormat` actually reaches the outgoing request's query params, that the returned model matches, that a per-call option overrides it, and that it's picked up by model convenience methods too.
 
 CI (`.github/workflows/test.yml`) runs the same on every push/PR, and gates releases (`publish.yml`) on it passing.
 

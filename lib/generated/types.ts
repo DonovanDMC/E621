@@ -28,7 +28,7 @@ export type TagCategories = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type FeedbackCategories = 'negative' | 'neutral' | 'positive';
 
-export type TagRequestStatuses = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'error' | 'pending';
+export type TagRequestStatuses = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | `error: ${string}`;
 
 export type WarningTypes = 'warning' | 'record' | 'ban';
 
@@ -1336,7 +1336,7 @@ export type VoteTrendUploader = {
 /**
  * Search for a specific id. Multiple can be separated by commas, up to 320.
  */
-export type IdQuery = number | string;
+export type IdQuery = string | number;
 
 /**
  * The maximum number of results to return. Between 0 and 320.
@@ -1395,7 +1395,7 @@ export type ApiKeysIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id' | 'id_asc' | 'id_desc' | 'name' | 'name_asc' | 'name_desc' | 'created_at' | 'created_at_asc' | 'created_at_desc' | 'updated_at' | 'updated_at_asc' | 'updated_at_desc' | 'expires_at' | 'expires_at_asc' | 'expires_at_desc' | 'last_used_at' | 'last_used_at_asc' | 'last_used_at_desc';
         'search[name_matches]'?: string;
         'search[is_expired]'?: boolean;
@@ -1554,7 +1554,7 @@ export type AppealsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -1769,7 +1769,7 @@ export type ArtistsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'updated_at' | 'name' | 'post_count';
         'search[name]'?: string;
         'search[group_name]'?: string;
@@ -2027,7 +2027,7 @@ export type ArtistVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -2080,7 +2080,7 @@ export type ArtistUrlsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -2155,7 +2155,7 @@ export type AvoidPostingsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -2453,7 +2453,7 @@ export type AvoidPostingVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -2522,7 +2522,7 @@ export type BansIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -2609,7 +2609,7 @@ export type BlipsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -2879,7 +2879,7 @@ export type BulkUpdateRequestsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'status_desc' | 'updated_at_desc' | 'updated_at_asc';
         'search[user_id]'?: number;
         'search[user_name]'?: string;
@@ -3112,7 +3112,7 @@ export type CommentsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -3512,7 +3512,7 @@ export type CommentVotesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results. You must be Admin+.
          */
@@ -3670,7 +3670,7 @@ export type DmailsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[title_matches]'?: string;
         'search[message_matches]'?: string;
         'search[to_name]'?: string;
@@ -3893,7 +3893,7 @@ export type EditHistoriesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -3980,7 +3980,7 @@ export type EmailBlacklistsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'reason' | 'domain';
         'search[domain]'?: string;
         'search[reason]'?: string;
@@ -4209,7 +4209,7 @@ export type ForumPostsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -4617,7 +4617,7 @@ export type ForumTopicsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'sticky';
         'search[title]'?: string;
         'search[title_matches]'?: string;
@@ -5193,7 +5193,7 @@ export type IpBansIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -5380,7 +5380,7 @@ export type MascotsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
     };
     url: '/mascots.json';
 };
@@ -5538,7 +5538,7 @@ export type ModActionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -5739,7 +5739,7 @@ export type NotesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -5982,7 +5982,7 @@ export type NoteVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -6025,7 +6025,7 @@ export type PoolsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'created_at' | 'post_count';
         'search[name_matches]'?: string;
         'search[description_matches]'?: string;
@@ -6366,7 +6366,7 @@ export type PoolVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -6395,10 +6395,6 @@ export type PopularIndexData = {
     body?: never;
     path?: never;
     query?: {
-        /**
-         * The maximum number of results to return. Between 0 and 320.
-         */
-        limit?: number;
         /**
          * Use the new V2 format. See the `v2=true` responses.
          */
@@ -7202,7 +7198,7 @@ export type PostSetsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'shortname' | 'post_count' | 'postcount' | 'created_at' | 'updated_at' | 'update';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -7559,7 +7555,7 @@ export type PostApprovalsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -7596,7 +7592,7 @@ export type PostEventsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -7639,7 +7635,7 @@ export type PostFlagsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -7783,7 +7779,7 @@ export type PostReplacementsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[file_ext]'?: string;
         'search[md5]'?: string;
         'search[status]'?: string;
@@ -8079,7 +8075,7 @@ export type PostVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[updater_name]'?: string;
         'search[updater_id]'?: number;
         'search[post_id]'?: number;
@@ -8211,7 +8207,7 @@ export type PostVotesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results. You must be Admin+.
          */
@@ -8337,7 +8333,7 @@ export type TagsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'date' | 'count' | 'similarity';
         'search[fuzzy_name_matches]'?: string;
         'search[name_matches]'?: string;
@@ -8574,7 +8570,7 @@ export type TagTypeVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[tag]'?: string;
         'search[user_id]'?: string;
         'search[user_name]'?: string;
@@ -8606,7 +8602,7 @@ export type TagAliasesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count';
         'search[name_matches]'?: string;
         'search[antecedent_name]'?: string;
@@ -8822,7 +8818,7 @@ export type TagImplicationsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count';
         'search[name_matches]'?: string;
         'search[antecedent_name]'?: string;
@@ -9343,7 +9339,7 @@ export type StaffNotesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -9566,7 +9562,7 @@ export type TakedownsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -9968,7 +9964,7 @@ export type TicketsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * You must be Staff+.
          */
@@ -10184,7 +10180,7 @@ export type UploadsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -10326,7 +10322,7 @@ export type UploadWhitelistsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'domain' | 'path' | 'updated_at' | 'created_at';
         'search[domain]'?: string;
         'search[path]'?: string;
@@ -10520,7 +10516,7 @@ export type UsersIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -10917,7 +10913,7 @@ export type UserFeedbacksIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -11175,7 +11171,7 @@ export type UserNameChangeRequestsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * The order of the results.
          */
@@ -11292,7 +11288,7 @@ export type WikiPagesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'title' | 'post_count';
         'search[title]'?: string;
         'search[title_matches]'?: string;
@@ -11568,7 +11564,7 @@ export type WikiPageVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         /**
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
@@ -11827,7 +11823,7 @@ export type StaffAutomodDmailsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[title_matches]'?: string;
         'search[message_matches]'?: string;
         'search[to_name]'?: string;
@@ -11971,7 +11967,7 @@ export type StaffExceptionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[user_name]'?: string;
         'search[code]'?: string;
         'search[commit]'?: string;
@@ -12615,7 +12611,7 @@ export type StaffPostDisapprovalsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'post_id' | 'post_id_desc';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -12687,7 +12683,7 @@ export type StaffFilesIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'original_filename' | 'time';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -12876,7 +12872,7 @@ export type StaffWikisIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'title';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
@@ -13139,7 +13135,7 @@ export type StaffWikiVersionsIndexData = {
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
-        'search[id]'?: number | string;
+        'search[id]'?: string | number;
         'search[order]'?: 'id_asc' | 'id_desc' | 'title';
         'search[updater_id]'?: number;
         'search[updater_name]'?: string;

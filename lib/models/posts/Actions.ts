@@ -6,7 +6,7 @@ import type { PostVotesCreateData } from "../../generated/types.js";
 import type { FavoritesCreateResponse, FavoritesDestroyResponse } from "../../modules/Favorites.js";
 import type { DisapprovePostOptions } from "../../modules/PostDisapprovals.js";
 import type { FlagPostOptions } from "../../modules/PostFlags.js";
-import type { NoV2Options, PostFormat } from "../../modules/posts/Format.js";
+import type { NoV2Options, PostFormat, PostFormatOptions } from "../../modules/posts/Format.js";
 import type {
     DeletePostOptions,
     GetPostInSequenceOptions,
@@ -26,7 +26,7 @@ import type PostDisapproval from "../PostDisapproval.js";
 import type PostFlag from "../PostFlag.js";
 
 /** @category Models */
-export default abstract class PostActions<T extends { id: number }> extends Base<T> {
+export default abstract class PostActions<T extends { id: number }, PF extends PostFormatOptions = NoV2Options> extends Base<T, PF> {
     declare id: number;
 
     @OperationID("staff/post/posts#ai_check")
@@ -60,7 +60,7 @@ export default abstract class PostActions<T extends { id: number }> extends Base
     }
 
     @OperationID("staff/post/posts#expunge")
-    async expunge(reason: string): Promise<Post> {
+    async expunge(reason: string): Promise<Post<PF>> {
         return this.e621.posts.expunge(this.id, reason);
     }
 
@@ -80,7 +80,7 @@ export default abstract class PostActions<T extends { id: number }> extends Base
     }
 
     @OperationID("posts#mark_as_translated")
-    async markTranslated<const O extends MarkPostAsTranslatedOptions = NoV2Options>(options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+    async markTranslated<const O extends MarkPostAsTranslatedOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
         return this.e621.posts.markTranslated(this.id, options);
     }
 
@@ -95,17 +95,17 @@ export default abstract class PostActions<T extends { id: number }> extends Base
     }
 
     @OperationID("post_recommendations#artist")
-    async recommendedByArtist(options?: RecommendedPostsOptions): Promise<RecommendedPostsResult> {
+    async recommendedByArtist(options?: RecommendedPostsOptions): Promise<RecommendedPostsResult<PF>> {
         return this.e621.posts.recommendedByArtist(this.id, options);
     }
 
     @OperationID("post_recommendations#tags")
-    async recommendedByTags(options?: RecommendedPostsOptions): Promise<RecommendedPostsResult> {
+    async recommendedByTags(options?: RecommendedPostsOptions): Promise<RecommendedPostsResult<PF>> {
         return this.e621.posts.recommendedByTags(this.id, options);
     }
 
     @OperationID("staff/post/posts#regenerate_thumbnails")
-    async regenerateThumbnails(): Promise<Post> {
+    async regenerateThumbnails(): Promise<Post<PF>> {
         return this.e621.posts.regenerateThumbnails(this.id);
     }
 
@@ -125,7 +125,7 @@ export default abstract class PostActions<T extends { id: number }> extends Base
     }
 
     @OperationID("posts#show_seq")
-    async sequence<const O extends GetPostInSequenceOptions = NoV2Options>(options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+    async sequence<const O extends GetPostInSequenceOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
         return this.e621.posts.sequence(this.id, options);
     }
 
@@ -135,7 +135,7 @@ export default abstract class PostActions<T extends { id: number }> extends Base
     }
 
     @OperationID("staff/post/posts#undelete")
-    async undelete(): Promise<Post> {
+    async undelete(): Promise<Post<PF>> {
         return this.e621.posts.undelete(this.id);
     }
 
@@ -150,12 +150,12 @@ export default abstract class PostActions<T extends { id: number }> extends Base
     }
 
     @OperationID("posts#update")
-    async update<const O extends UpdatePostOptions = NoV2Options>(options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+    async update<const O extends UpdatePostOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
         return this.e621.posts.update(this.id, options);
     }
 
     @OperationID("posts#update_iqdb")
-    async updateIqdb<const O extends UpdatePostIqdbOptions = NoV2Options>(options?: O): Promise<PostFormat<O["v2"], O["mode"]>> {
+    async updateIqdb<const O extends UpdatePostIqdbOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
         return this.e621.posts.updateIqdb(this.id, options);
     }
 }

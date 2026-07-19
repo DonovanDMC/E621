@@ -1,13 +1,14 @@
 import { inspect, type InspectOptions } from "node:util";
 
 import type E621 from "../index.js";
+import type { NoV2Options, PostFormatOptions } from "../modules/posts/Format.js";
 
 /** @category Models */
-export default abstract class Base<D = unknown> {
+export default abstract class Base<D = unknown, PF extends PostFormatOptions = NoV2Options> {
     protected data!: D;
-    protected e621!: E621;
+    protected e621!: E621<PF>;
     protected includeInInspect: Array<string> = [];
-    constructor(e621: E621, data: D) {
+    constructor(e621: E621<PF>, data: D) {
         Object.defineProperties(this, {
             e621: { value: e621, enumerable: false },
             data: { value: data, enumerable: false },

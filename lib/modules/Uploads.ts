@@ -3,9 +3,9 @@ import Upload from "../models/Upload.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
+import { type NoV2Options, type PostFormat, type PostFormatOptions } from "./posts/Format.js";
 
 import type { UploadsIndexData, UploadsCreateData } from "../generated/types.js";
-import type Post from "../models/Post.js";
 
 /** @category Modules/Types */
 export interface SearchUploadsOptions extends TransformDataQueryToOptions<UploadsIndexData> {}
@@ -13,10 +13,10 @@ export interface SearchUploadsOptions extends TransformDataQueryToOptions<Upload
 export interface UploadPostOptions extends TransformDataBodyToOptions<UploadsCreateData> {}
 
 /** @category Modules */
-export default class Uploads extends Base {
+export default class Uploads<PF extends PostFormatOptions = NoV2Options> extends Base<PF> {
     static readonly moduleKey = "uploads" as const;
     @OperationID("uploads#create")
-    async create(options: UploadPostOptions): Promise<Post> {
+    async create(options: UploadPostOptions): Promise<PostFormat<PF["v2"], PF["mode"]>> {
         return uploads_create({
             client: this.client,
             body: prefixKeys(options, "upload"),
@@ -25,7 +25,7 @@ export default class Uploads extends Base {
             return this.e621.posts.get(data.post_id)
                 .then((post) => {
                     if (post === null) throw new Error(`Post not found after upload: ${data.post_id}`);
-                    return post;
+                    return post as PostFormat<PF["v2"], PF["mode"]>;
                 });
         });
     }
