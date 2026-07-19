@@ -49,6 +49,8 @@ A pre-bundled, browser-only build (no Node built-ins) is published at `e621/brow
 
 If you're importing `e621` through your own bundler (webpack/esbuild/rollup) instead, no special import is needed — resolving `node:util` and the optional `debug`/`persistent-debug` dependencies to no-op browser stubs is handled automatically via `package.json`'s `browser` field.
 
+`import ... from "e621/browser"` is fully typed too — `e621/browser`'s `types` condition points at declarations re-exporting the same surface as the main entrypoint.
+
 ## Tree-Shakable / Standalone Modules
 
 `new E621()` wires up every module (`posts`, `users`, `pools`, etc.) at construction time, so bundling it pulls in the whole library even if you only use a couple of methods. This is unavoidable for `new E621()` itself — bundlers tree-shake based on the static import graph, not on which properties you happen to access at runtime, so there's no way for a bundler to know only `.posts` will ever be touched (the same reason e.g. lodash requires `import debounce from "lodash/debounce"` instead of `import _ from "lodash"` for tree-shaking).

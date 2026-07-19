@@ -10,7 +10,10 @@
       "types": "./dist/lib/index.d.ts",
       "import": "./dist/lib/index.js"
     },
-    "./browser": "./dist/browser/e621.js",
+    "./browser": {
+      "types": "./dist/browser/e621.d.ts",
+      "import": "./dist/browser/e621.js"
+    },
     "./generated": {
       "types": "./dist/lib/generated.d.ts",
       "import": "./dist/lib/generated.js"
