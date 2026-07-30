@@ -47,6 +47,12 @@ export interface Options<PF extends PostFormatOptions = NoV2Options> {
      * @defaultWithAuthentication E621/\{version\} (+https://github.com/DonovanDMC/E621; \{authUser\})
      */
     userAgent?: string;
+    /**
+     * Whether to send the user agent in the `_client` query parameter instead of the User-Agent header.
+     * This is useful in browsers, where setting the User-Agent header is not allowed.
+     * @default false in Node.js, true in browsers
+     */
+    userAgentInQuery?: boolean;
 }
 
 /** @category Main */
@@ -57,6 +63,7 @@ export interface InstanceOptions {
     requestTimeout: number;
     statusCheckURL: string;
     userAgent: string;
+    userAgentInQuery: boolean;
 }
 
 /** @category Main */
@@ -82,11 +89,12 @@ export function createE621Client<const PF extends PostFormatOptions = NoV2Option
         requestTimeout: options?.requestTimeout ?? 30,
         statusCheckURL: options?.statusCheckURL ?? "https://status.e621.church/json",
         userAgent: options?.userAgent ?? `E621/${VERSION} (https://github.com/DonovanDMC/E621${options?.authUser ? `; "${options.authUser}"` : ""})`,
+        userAgentInQuery: options?.userAgentInQuery ?? "window" in globalThis,
     };
     let config: Config;
     const commonConfig: Partial<Parameters<typeof createConfig>[0]> = {
         baseUrl: resolved.baseURL,
-        headers: {
+        headers: resolved.userAgentInQuery ? undefined : {
             "User-Agent": resolved.userAgent,
         },
         fetch: async (input, init): Promise<Response> => {
@@ -108,6 +116,12 @@ export function createE621Client<const PF extends PostFormatOptions = NoV2Option
                     }
                     init.headers = headers;
                 }
+            }
+            if (resolved.userAgentInQuery && input instanceof Request) {
+                const requestURL = new URL(input.url);
+                requestURL.searchParams.set("_client", resolved.userAgent);
+                input = new Request(requestURL, input);
+                url = requestURL.toString();
             }
             Debug(`request:${method}`, `-> ${url}`);
             const res = await fetch(input, init);

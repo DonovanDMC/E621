@@ -82,6 +82,7 @@ describe("browser bundle", () => {
                 hasFavorites: typeof e621.favorites === "object",
                 hasStaffWikis: typeof e621.staffWikis === "object",
                 hasNestedStaff: e621.staff !== undefined,
+                userAgentInQuery: (e621.options as { userAgentInQuery: boolean }).userAgentInQuery,
             };
         });
 
@@ -91,6 +92,7 @@ describe("browser bundle", () => {
             hasFavorites: true,
             hasStaffWikis: true,
             hasNestedStaff: false,
+            userAgentInQuery: true,
         });
     });
 });

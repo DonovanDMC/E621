@@ -12,6 +12,7 @@ describe("createE621Client", () => {
         assert.equal(options.authKey, null);
         assert.equal(options.authUser, null);
         assert.equal(options.requestTimeout, 30);
+        assert.equal(options.userAgentInQuery, false);
         assert.match(options.userAgent, /^E621\/\d+\.\d+\.\d+ \(https:\/\/github\.com\/DonovanDMC\/E621\)$/);
     });
 
@@ -23,6 +24,30 @@ describe("createE621Client", () => {
     it("respects an explicit user agent override", () => {
         const { options } = createE621Client({ userAgent: "custom-agent/1.0" });
         assert.equal(options.userAgent, "custom-agent/1.0");
+    });
+
+    it("can send the user agent in the _client query parameter", async () => {
+        const requests: Array<Request> = [];
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = async (input): Promise<Response> => {
+            requests.push(input as Request);
+            return new Response("{}", { headers: { "Content-Type": "application/json" } });
+        };
+
+        try {
+            const { client, options } = createE621Client({
+                userAgent: "custom-agent/1.0",
+                userAgentInQuery: true,
+            });
+            await client.get({ url: "/posts.json" });
+
+            assert.equal(options.userAgentInQuery, true);
+            assert.equal(requests.length, 1);
+            assert.equal(new URL(requests[0].url).searchParams.get("_client"), "custom-agent/1.0");
+            assert.equal(requests[0].headers.has("User-Agent"), false);
+        } finally {
+            globalThis.fetch = originalFetch;
+        }
     });
 });
 
