@@ -70,7 +70,7 @@
     "@hey-api/openapi-ts": "^0.97.0",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/debug": "^4.1.13",
-    "@types/node": "^25.5.2",
+    "@types/node": "^25.9.5",
     "@uwu-codes/eslint-config": "^2.0.9",
     "debug": "^4.4.3",
     "dotenv": "^17.4.2",
