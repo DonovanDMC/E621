@@ -74,7 +74,7 @@
     "@uwu-codes/eslint-config": "^2.0.9",
     "debug": "^4.4.3",
     "dotenv": "^17.4.2",
-    "esbuild": "^0.27.7",
+    "esbuild": "^0.28.1",
     "eslint": "^9.39.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-unicorn": "^59.0.1",
