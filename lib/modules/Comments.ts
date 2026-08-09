@@ -85,7 +85,7 @@ export default class Comments extends Base {
     async search(options?: SearchCommentsOptions): Promise<Array<Comment>> {
         return comments_index({
             client: this.client,
-            query: prefixKeys(options, "search", ["limit", "page"]),
+            query: prefixKeys(options, "search", ["limit", "page", "group_by"]),
         }).then(res => this._handleResponse(res, 200, true, Comment));
     }
 
