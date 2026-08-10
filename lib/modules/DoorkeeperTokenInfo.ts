@@ -8,7 +8,12 @@ import type { DoorkeeperTokenInfoShowResponses } from "../generated/types.js";
 /** @category Modules/Types */
 export interface DoorkeeperTokenInfoShowResponse extends GetResponse<DoorkeeperTokenInfoShowResponses, 200> {}
 
-/** @category Modules */
+/**
+ * @category Modules
+ *
+ * OAuth 2.0 / OpenID Connect support is present in the spec but has not been publicly released on e621
+ * yet - these endpoints are not yet available for use.
+ */
 export default class DoorkeeperTokenInfo extends Base {
     static readonly moduleKey = "doorkeeperTokenInfo" as const;
     @OperationID("doorkeeper/token_info#show")

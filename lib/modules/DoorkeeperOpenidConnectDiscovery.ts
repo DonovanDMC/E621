@@ -10,7 +10,12 @@ export interface DoorkeeperOpenidConnectDiscoveryKeysResponse extends GetRespons
 /** @category Modules/Types */
 export interface DoorkeeperOpenidConnectDiscoveryProviderResponse extends GetResponse<DoorkeeperOpenidConnectDiscoveryProviderResponses, 200> {}
 
-/** @category Modules */
+/**
+ * @category Modules
+ *
+ * OAuth 2.0 / OpenID Connect support is present in the spec but has not been publicly released on e621
+ * yet - these endpoints are not yet available for use.
+ */
 export default class DoorkeeperOpenidConnectDiscovery extends Base {
     static readonly moduleKey = "doorkeeperOpenidConnectDiscovery" as const;
     @OperationID("doorkeeper/openid_connect/discovery#keys")

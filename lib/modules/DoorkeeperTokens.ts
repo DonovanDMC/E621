@@ -25,7 +25,12 @@ export interface DoorkeeperTokensIntrospectResponse extends GetResponse<Doorkeep
 /** @category Modules/Types */
 export interface DoorkeeperTokensRevokeResponse extends GetResponse<DoorkeeperTokensRevokeResponses, 200> {}
 
-/** @category Modules */
+/**
+ * @category Modules
+ *
+ * OAuth 2.0 / OpenID Connect support is present in the spec but has not been publicly released on e621
+ * yet - these endpoints are not yet available for use.
+ */
 export default class DoorkeeperTokens extends Base {
     static readonly moduleKey = "doorkeeperTokens" as const;
     @OperationID("doorkeeper/tokens#create")
