@@ -8,6 +8,7 @@ import {
     postSets_removePosts,
     postSets_index,
     postSets_updatePosts,
+    postSets_postList,
 } from "../generated/sdk.js";
 import PostSet from "../models/PostSet.js";
 import {
@@ -72,6 +73,14 @@ export default class PostSets extends Base {
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, false, PostSet));
+    }
+
+    @OperationID("post_sets#post_list")
+    async postList(id: number): Promise<PostSet> {
+        return postSets_postList({
+            client: this.client,
+            path: { id },
+        }).then(res => this._handleResponse(res, 200, true, PostSet));
     }
 
     @OperationID("post_sets#remove_posts")

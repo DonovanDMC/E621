@@ -9,7 +9,7 @@ const dir = `${root}/lib/generated`;
 
 const REPLACEMENTS = {
     "BodyInit": "RequestInit['body']",
-    "export type TagRequestStatuses = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | string": "export type TagRequestStatuses = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | `error: ${string}`",
+    "export type TagRequestStatus = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | string": "export type TagRequestStatus = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | `error: ${string}`",
 };
 
 const noMatches = new Set(Object.keys(REPLACEMENTS));

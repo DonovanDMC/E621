@@ -1,6 +1,7 @@
 import {
     staffPostPosts_aiCheck,
     posts_copyNotes,
+    posts_count,
     staffPostPosts_delete,
     staffPostPosts_expunge,
     posts_show,
@@ -24,7 +25,7 @@ import {
 import MinimalUser from "../models/MinimalUser.js";
 import Post from "../models/Post.js";
 import ThumbnailPost from "../models/ThumbnailPost.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import { GetResponse, OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 import { type AnyPostData, type NoV2Options, type PostFormat, type PostFormatOptions, wrapPost, wrapPosts } from "./posts/Format.js";
@@ -45,9 +46,12 @@ import type {
     PostsIndexData,
     PostsUpdateData,
     PostsUpdateIqdbData,
+    PostsCountResponses,
 } from "../generated/types.js";
 import type E621 from "../index.js";
 
+/** @category Modules/Types */
+export interface PostsCountResponse extends GetResponse<PostsCountResponses, 200> {}
 /** @category Modules/Types */
 export interface DeletePostOptions extends TransformDataBodyToOptions<StaffPostPostsDeleteData> {}
 /** @category Modules/Types */
@@ -121,6 +125,14 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
             path: { id },
             body: { other_post_id },
         }).then(res => this._handleResponse(res, 204, true));
+    }
+
+    @OperationID("posts#count")
+    async count(tags: string): Promise<PostsCountResponse> {
+        return posts_count({
+            client: this.client,
+            query: { tags },
+        }).then(res => this._handleResponse(res, 200, true));
     }
 
     @OperationID("staff/post/posts#delete")

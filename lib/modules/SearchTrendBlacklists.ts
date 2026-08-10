@@ -1,15 +1,17 @@
-import { searchTrendBlacklists_create, searchTrendBlacklists_destroy, searchTrendBlacklists_index } from "../generated/sdk.js";
+import { searchTrendBlacklists_create, searchTrendBlacklists_destroy, searchTrendBlacklists_index, searchTrendBlacklists_update } from "../generated/sdk.js";
 import SearchTrendBlacklist from "../models/SearchTrendBlacklist.js";
 import { OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { SearchTrendBlacklistsCreateData, SearchTrendBlacklistsIndexData } from "../generated/types.js";
+import type { SearchTrendBlacklistsCreateData, SearchTrendBlacklistsIndexData, SearchTrendBlacklistsUpdateData } from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface CreateSearchTrendBlacklistsOptions extends TransformDataBodyToOptions<SearchTrendBlacklistsCreateData> {}
 /** @category Modules/Types */
 export interface SearchSearchTrendBlacklistsOptions extends TransformDataQueryToOptions<SearchTrendBlacklistsIndexData> {}
+/** @category Modules/Types */
+export interface UpdateSearchTrendBlacklistOptions extends TransformDataBodyToOptions<SearchTrendBlacklistsUpdateData> {}
 
 /** @category Modules */
 export default class SearchTrendBlacklists extends Base {
@@ -36,5 +38,14 @@ export default class SearchTrendBlacklists extends Base {
             client: this.client,
             query: options,
         }).then(res => this._handleResponse(res, 200, true, SearchTrendBlacklist));
+    }
+
+    @OperationID("search_trend_blacklists#update")
+    async update(id: number, options: UpdateSearchTrendBlacklistOptions): Promise<null> {
+        return searchTrendBlacklists_update({
+            client: this.client,
+            path: { id },
+            body: options,
+        }).then(res => this._handleResponse(res, 204, true));
     }
 }

@@ -12,6 +12,9 @@ import {
     maintenanceUserAvatars_update,
     maintenanceUserDmailFilters_update,
     users_update,
+    users_customStyle,
+    users_disableKarmaFree,
+    users_toggleKarmaFree,
 } from "../generated/sdk.js";
 import FullCurrentUser from "../models/FullCurrentUser.js";
 import FullUser from "../models/FullUser.js";
@@ -20,7 +23,14 @@ import { GetResponse, OperationID, prefixKeys, type TransformDataBodyToOptions, 
 
 import Base from "./Base.js";
 
-import type { UsersAvatarMenuResponses, UsersIndexData, MaintenanceUserAvatarsUpdateData, UsersUpdateData } from "../generated/types.js";
+import type {
+    UsersAvatarMenuResponses,
+    UsersIndexData,
+    MaintenanceUserAvatarsUpdateData,
+    UsersUpdateData,
+    UsersDisableUploadsData,
+    UsersDisableKarmaFreeData,
+} from "../generated/types.js";
 
 /** @category Modules/Types */
 export interface SearchUsersOptions extends TransformDataQueryToOptions<UsersIndexData> {}
@@ -28,6 +38,10 @@ export interface SearchUsersOptions extends TransformDataQueryToOptions<UsersInd
 export interface UsersAvatarMenuResponse extends GetResponse<UsersAvatarMenuResponses, 200> {}
 /** @category Modules/Types */
 export interface UpdateAvatarCropOptions extends TransformDataBodyToOptions<MaintenanceUserAvatarsUpdateData> {}
+/** @category Modules/Types */
+export interface DisableUserUploadsOptions extends TransformDataBodyToOptions<UsersDisableUploadsData> {}
+/** @category Modules/Types */
+export interface DisableUserKarmaFreeOptions extends TransformDataBodyToOptions<UsersDisableKarmaFreeData> {}
 /**
  * The spec's `dmail_filter_attributes` keys are malformed (missing an opening bracket) - use {@link Users.updateDmailFilter} or {@link DMail.updateFilter} instead.
  *
@@ -53,12 +67,28 @@ export default class Users extends Base {
         }).then(res => this._handleResponse(res, 302, true));
     }
 
+    @OperationID("users#custom_style")
+    async customStyle(): Promise<string> {
+        return users_customStyle({
+            client: this.client,
+        }).then(res => this._handleResponse(res, 200, true) as string);
+    }
+
+    @OperationID("users#disable_karma_free")
+    async disableKarmaFree(idOrName: string | number, options?: DisableUserKarmaFreeOptions): Promise<string> {
+        return users_disableKarmaFree({
+            client: this.client,
+            path: { idOrName },
+            body: prefixKeys(options, "staff_note"),
+        }).then(res => this._handleResponse(res, 302, true));
+    }
+
     @OperationID("users#disable_uploads")
-    async disableUploads(idOrName: string | number, body?: string): Promise<string> {
+    async disableUploads(idOrName: string | number, options?: DisableUserUploadsOptions): Promise<string> {
         return users_disableUploads({
             client: this.client,
             path: { idOrName },
-            body: body === undefined ? undefined : { body },
+            body: prefixKeys(options, "staff_note"),
         }).then(res => this._handleResponse(res, 302, true));
     }
 
@@ -102,6 +132,14 @@ export default class Users extends Base {
     @OperationID("users#fix_counts")
     async staffFixCounts(idOrName: string | number): Promise<string> {
         return users_fixCounts({
+            client: this.client,
+            path: { idOrName },
+        }).then(res => this._handleResponse(res, 302, true));
+    }
+
+    @OperationID("users#toggle_karma_free")
+    async toggleKarmaFree(idOrName: string | number): Promise<string> {
+        return users_toggleKarmaFree({
             client: this.client,
             path: { idOrName },
         }).then(res => this._handleResponse(res, 302, true));

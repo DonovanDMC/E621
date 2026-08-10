@@ -1,4 +1,4 @@
-import { staffWikis_claim, staffWikis_create, staffWikis_destroy, staffWikis_update, staffWikis_show, staffWikis_index, staffWikis_unclaim } from "../generated/sdk.js";
+import { staffWikis_claim, staffWikis_create, staffWikis_destroy, staffWikis_update, staffWikis_show, staffWikis_index, staffWikis_unclaim, staffWikis_revert } from "../generated/sdk.js";
 import StaffWiki from "../models/StaffWiki.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
@@ -46,6 +46,15 @@ export default class StaffWikis extends Base {
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 200, true, StaffWiki));
+    }
+
+    @OperationID("staff/wikis#revert")
+    async revert(id: number, version_id: number): Promise<null> {
+        return staffWikis_revert({
+            client: this.client,
+            path: { id },
+            query: { version_id },
+        }).then(res => this._handleResponse(res, 204, true));
     }
 
     @OperationID("staff/wikis#index")

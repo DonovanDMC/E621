@@ -1,4 +1,4 @@
-import { searchTrends_clearCache, searchTrends_purge, searchTrends_rising, searchTrends_index, searchTrends_updateSettings } from "../generated/sdk.js";
+import { searchTrends_clearCache, searchTrends_purge, searchTrends_rising, searchTrends_index, searchTrends_updateSettings, searchTrends_track } from "../generated/sdk.js";
 import RisingSearchTrend from "../models/RisingSearchTrend.js";
 import SearchTrend from "../models/SearchTrend.js";
 import { GetResponse, OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
@@ -11,6 +11,7 @@ import type {
     SearchTrendsPurgeResponses,
     SearchTrendsUpdateSettingsData,
     SearchTrendsUpdateSettingsResponses,
+    SearchTrendsTrackResponses,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
@@ -23,6 +24,8 @@ export interface SearchTrendsClearCacheResponse extends GetResponse<SearchTrends
 export interface SearchTrendsUpdateSettingsResponse extends GetResponse<SearchTrendsUpdateSettingsResponses, 200> {}
 /** @category Modules/Types */
 export interface SearchTrendsPurgeResponse extends GetResponse<SearchTrendsPurgeResponses, 200> {}
+/** @category Modules/Types */
+export interface SearchTrendsTrackResponse extends GetResponse<SearchTrendsTrackResponses, 200> {}
 
 /** @category Modules */
 export default class SearchTrends extends Base {
@@ -54,6 +57,14 @@ export default class SearchTrends extends Base {
         return searchTrends_purge({
             client: this.client,
             path: { id },
+        }).then(res => this._handleResponse(res, 200, true));
+    }
+
+    @OperationID("search_trends#track")
+    async track(tag?: string): Promise<SearchTrendsTrackResponse> {
+        return searchTrends_track({
+            client: this.client,
+            query: tag === undefined ? undefined : { tag },
         }).then(res => this._handleResponse(res, 200, true));
     }
 

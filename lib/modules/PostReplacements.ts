@@ -6,6 +6,7 @@ import {
     postReplacements_reject,
     postReplacements_index,
     postReplacements_togglePenalize,
+    postReplacements_transfer,
 } from "../generated/sdk.js";
 import {
     type PostReplacementsCreateResponses,
@@ -92,6 +93,15 @@ export default class PostReplacements extends Base {
         return postReplacements_togglePenalize({
             client: this.client,
             path: { id },
+        }).then(res => this._handleResponse(res, 204, true));
+    }
+
+    @OperationID("post_replacements#transfer")
+    async transfer(id: number, new_post_id: number): Promise<null> {
+        return postReplacements_transfer({
+            client: this.client,
+            path: { id },
+            body: { new_post_id },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

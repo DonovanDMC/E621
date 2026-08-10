@@ -4,39 +4,102 @@ export type ClientOptions = {
     baseUrl: 'https://e621.net' | 'https://e926.net' | 'http://localhost:3000' | (string & {});
 };
 
-export type AccessDeniedResponse = {
-    success: boolean;
-    reason: 'Access Denied';
+export type AppealStatus = 'pending' | 'partial' | 'approved' | 'rejected';
+
+export type AppealType = 'flag';
+
+export type DBExportName = 'artists' | 'bulk_update_requests' | 'pools' | 'post_replacements' | 'posts' | 'post_versions' | 'tag_aliases' | 'tag_implications' | 'tags' | 'wiki_pages';
+
+export type EditHistoryVersionableType = 'Blip' | 'Comment' | 'ForumPost';
+
+export type JWKSAlgorithm = 'RS256';
+
+export type ModActionAction = 'admin_user_delete' | 'artist_delete' | 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'blip_destroy' | 'blip_delete' | 'blip_undelete' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'search_trend_blacklist_create' | 'search_trend_blacklist_update' | 'search_trend_blacklist_delete' | 'search_trend_blacklist_purge' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'staff_file_create' | 'staff_file_update' | 'staff_file_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_destroy' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'appeal_claim' | 'appeal_unclaim' | 'appeal_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_avatar_clear' | 'user_profile_clear' | 'user_comments_hide' | 'user_forum_posts_hide' | 'user_blips_delete' | 'user_blacklist_changed' | 'totp_reset' | 'password_reset' | 'user_text_change' | 'user_custom_title_change' | 'user_upload_limit_change' | 'user_karma_change' | 'user_karma_free_toggle' | 'user_uploads_toggle' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'user_flush_favorites' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'post_version_hide' | 'post_version_unhide' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
+
+export type OAuthClaim = 'iss' | 'sub' | 'aud' | 'exp' | 'iat' | 'preferred_username' | 'name' | 'picture' | 'updated_at' | 'e621_level' | 'e621_level_string' | 'e621_avatar_id' | 'e621_permissions' | 'email' | 'email_verified';
+
+export type OAuthClaimType = 'normal';
+
+export type OAuthCodeChallengeMethod = 'S256';
+
+export type OAuthGrantType = 'authorization_code' | 'refresh_token';
+
+export type OAuthIDTokenSigningAlgValue = 'RS256';
+
+export type OAuthPermission = 'can_approve_posts' | 'can_upload_free' | 'is_bd_staff' | 'is_bd_auditor' | 'can_view_staff_notes' | 'can_handle_takedowns' | 'can_edit_avoid_posting_entries' | 'is_blocked' | 'is_member' | 'is_privileged' | 'is_former_staff' | 'is_staff' | 'is_janitor' | 'is_moderator' | 'is_admin';
+
+export type OAuthResponseMode = 'query' | 'fragment' | 'form_post';
+
+export type OAuthResponseType = 'code';
+
+export type OAuthScope = 'openid' | 'profile' | 'email' | 'full';
+
+export type OAuthSubjectType = 'public';
+
+export type OAuthTokenEndpointAuthMethod = 'client_secret_basic' | 'client_secret_post';
+
+export type PoolCategory = 'collection' | 'series';
+
+export type PostEventAction = 'deleted' | 'undeleted' | 'approved' | 'unapproved' | 'flag_created' | 'flag_removed' | 'favorites_moved' | 'favorites_received' | 'rating_locked' | 'rating_unlocked' | 'status_locked' | 'status_unlocked' | 'note_locked' | 'note_unlocked' | 'comment_locked' | 'comment_unlocked' | 'replacement_accepted' | 'replacement_rejected' | 'replacement_promoted' | 'replacement_deleted' | 'expunged' | 'changed_bg_color' | 'replacement_penalty_changed' | 'owner_changed' | 'replacement_moved';
+
+export type PostReplacementStatus = 'promoted' | 'approved' | 'rejected' | 'pending' | 'original';
+
+export type Rating = 's' | 'q' | 'e';
+
+export type StaffWikiRefRelatedType = 'User' | 'Artist' | 'StaffWiki';
+
+export type TagCategory = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export type TagCategoryNames = 'general' | 'artist' | 'contributor' | 'copyright' | 'character' | 'species' | 'invalid' | 'meta' | 'lore';
+
+export type TagRequestStatus = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | `error: ${string}`;
+
+export type TicketStatus = 'pending' | 'partial' | 'approved';
+
+export type TicketType = 'blip' | 'comment' | 'dmail' | 'forum' | 'pool' | 'post' | 'set' | 'user' | 'wiki' | 'replacement';
+
+export type UpDownMehFlipVote = 2 | 1 | 0 | -1;
+
+export type UpDownMehVote = 1 | 0 | -1;
+
+export type UpDownVote = 1 | -1;
+
+export type UserFeedbackCategory = 'negative' | 'neutral' | 'positive';
+
+export type UserLevel = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80;
+
+export type UserLevelName = 'Anonymous' | 'Blocked' | 'Member' | 'Privileged' | 'Former Staff' | 'Staff' | 'Janitor' | 'Moderator' | 'Admin';
+
+export type WarningType = 'warning' | 'record' | 'ban';
+
+export type APIKey = {
+    id: number;
+    updated_at: string;
+    created_at: string;
+    user_id: number;
+    key: string;
+    name: string;
+    last_used_at: string | null;
+    last_used_ip_address: string | null | string;
+    last_user_agent: string | null;
+    expires_at: string | null;
+    notified_at: string | null;
 };
 
-export type NotFoundResponse = {
-    success: boolean;
-    reason: 'not found';
+export type Appeal = {
+    id: number;
+    creator_id?: number;
+    disp_id: string;
+    qtype: AppealType;
+    status: AppealStatus;
+    reason?: string;
+    response?: string;
+    claimant_id?: number | null;
+    handler_id: number | null;
+    accused_id?: number;
+    created_at: string;
+    updated_at: string;
 };
-
-export type WarningRecordType = {
-    record_type: 'unmark' | 'ban' | 'record' | 'warning';
-};
-
-export type ModActionActions = 'admin_user_delete' | 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'blip_destroy' | 'blip_delete' | 'blip_undelete' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'search_trend_blacklist_create' | 'search_trend_blacklist_update' | 'search_trend_blacklist_delete' | 'search_trend_blacklist_purge' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'staff_file_create' | 'staff_file_update' | 'staff_file_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_destroy' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'appeal_claim' | 'appeal_unclaim' | 'appeal_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_avatar_clear' | 'user_profile_clear' | 'user_comments_hide' | 'user_forum_posts_hide' | 'user_blips_delete' | 'user_blacklist_changed' | 'user_text_change' | 'user_custom_title_change' | 'user_upload_limit_change' | 'user_uploads_toggle' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'user_flush_favorites' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'post_version_hide' | 'post_version_unhide' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
-
-export type PostEventActions = 'deleted' | 'undeleted' | 'approved' | 'unapproved' | 'flag_created' | 'flag_removed' | 'favorites_moved' | 'favorites_received' | 'rating_locked' | 'rating_unlocked' | 'status_locked' | 'status_unlocked' | 'note_locked' | 'note_unlocked' | 'comment_locked' | 'comment_unlocked' | 'replacement_accepted' | 'replacement_rejected' | 'replacement_promoted' | 'replacement_deleted' | 'expunged' | 'changed_bg_color' | 'replacement_penalty_changed' | 'owner_changed';
-
-export type Ratings = 's' | 'q' | 'e';
-
-export type TagCategories = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-
-export type FeedbackCategories = 'negative' | 'neutral' | 'positive';
-
-export type TagRequestStatuses = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | `error: ${string}`;
-
-export type WarningTypes = 'warning' | 'record' | 'ban';
-
-export type PoolCategories = 'collection' | 'series';
-
-export type TicketTypes = 'blip' | 'comment' | 'dmail' | 'forum' | 'pool' | 'post' | 'set' | 'user' | 'wiki' | 'replacement';
-
-export type TicketStatuses = 'pending' | 'partial' | 'approved';
 
 export type Artist = {
     id: number;
@@ -52,7 +115,7 @@ export type Artist = {
     notes: string | null;
 };
 
-export type ArtistUrl = {
+export type ArtistURL = {
     id: number;
     artist_id: number;
     url: string;
@@ -107,10 +170,14 @@ export type Ban = {
     id: number;
     user_id: number;
     reason: string;
-    expires_at: string | null;
     banner_id: number;
+    expires_at: string | null;
     created_at: string;
     updated_at: string;
+};
+
+export type BasicPost = Post & {
+    tags: Array<string>;
 };
 
 export type Blip = {
@@ -121,7 +188,7 @@ export type Blip = {
     created_at: string;
     updated_at: string;
     is_deleted: boolean;
-    warning_type: WarningTypes;
+    warning_type: WarningType;
     warning_user_id: number;
     updater_id: number;
     creator_name: string;
@@ -159,11 +226,20 @@ export type Comment = {
     do_not_bump_post: boolean;
     is_hidden: boolean;
     is_sticky: boolean;
-    warning_type: WarningTypes;
+    warning_type: WarningType;
     warning_user_id: number | null;
     creator_name: string;
     updater_name: string;
-    vote: -1 | 0 | 1;
+    vote: UpDownMehVote;
+};
+
+export type CommentVote = {
+    id: number;
+    comment_id: number;
+    user_id: number;
+    score: UpDownVote;
+    created_at: string;
+    updated_at: string;
 };
 
 export type CurrentUser = User & {
@@ -208,6 +284,18 @@ export type CurrentUser = User & {
     forum_notification_dot: boolean;
 };
 
+export type DBExport = {
+    name: DBExportName;
+    file_name: string;
+    file_size: number;
+    updated_at: string;
+    url: string;
+    /**
+     * SHA-256
+     */
+    checksum: string;
+};
+
 export type DMail = {
     id: number;
     owner_id: number;
@@ -227,7 +315,7 @@ export type DeferredPost = {
     id: number;
     flags: string;
     tags: string;
-    rating: Ratings;
+    rating: Rating;
     file_ext: string;
     width: number;
     height: number;
@@ -247,9 +335,16 @@ export type DeferredPost = {
     preview_height: number;
 };
 
-export type DTextResponse = {
-    html: string;
-    posts: DeferredPost;
+export type EditHistory = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    body: string;
+    subject: string | null;
+    versionable_type: EditHistoryVersionableType;
+    versionable_id: number;
+    version: number;
+    user_id: number;
 };
 
 export type EmailBlacklist = {
@@ -261,6 +356,35 @@ export type EmailBlacklist = {
     reason: string;
 };
 
+export type ExceptionLog = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    class_name: string;
+    version: string;
+    extra_params: {
+        [key: string]: unknown;
+    };
+    message: string;
+    trace: string;
+    code: string;
+    user_id: number;
+};
+
+export type ExtendedPost = Post & {
+    tags: {
+        general: Array<string>;
+        artist: Array<string>;
+        contributor: Array<string>;
+        copyright: Array<string>;
+        character: Array<string>;
+        species: Array<string>;
+        invalid: Array<string>;
+        meta: Array<string>;
+        lore: Array<string>;
+    };
+};
+
 export type ForumPost = {
     id: number;
     topic_id: number;
@@ -270,7 +394,7 @@ export type ForumPost = {
     is_hidden: boolean;
     created_at: string;
     updated_at: string;
-    warning_type: WarningTypes;
+    warning_type: WarningType;
     warning_user_id: number | null;
 };
 
@@ -278,7 +402,7 @@ export type ForumPostVote = {
     id: number;
     forum_post_id: number;
     creator_id: number;
-    score: number;
+    score: UpDownMehFlipVote;
     created_at: string;
     updated_at: string;
     creator_name: string;
@@ -311,7 +435,7 @@ export type FullUser = User & {
     positive_feedback_count: number;
     neutral_feedback_count: number;
     negative_feedback_count: number;
-    upload_limit: number;
+    upload_slots: number;
     profile_about: string;
     profile_artinfo: string;
 };
@@ -329,7 +453,7 @@ export type HelpPage = {
 /**
  * Due to a global filter, the ip_addr is not present no matter your user level.
  */
-export type IpBan = {
+export type IPBan = {
     id: number;
     creator_id: number;
     reason: string;
@@ -337,7 +461,7 @@ export type IpBan = {
     updated_at: string;
 };
 
-export type IqdbPost = {
+export type IQDBPost = {
     id: number;
     created_at: string;
     updated_at: string;
@@ -346,7 +470,7 @@ export type IqdbPost = {
     score: number;
     source: string;
     md5: string;
-    rating: Ratings;
+    rating: Rating;
     is_note_locked: boolean;
     is_rating_locked: boolean;
     is_status_locked: boolean;
@@ -396,741 +520,26 @@ export type IqdbPost = {
     preview_file_url?: string;
 };
 
-export type RawPost = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    up_score: number;
-    down_score: number;
-    score: number;
-    source: string;
-    md5: string;
-    rating: Ratings;
-    is_note_locked: boolean;
-    is_rating_locked: boolean;
-    is_status_locked: boolean;
-    is_pending: boolean;
-    is_flagged: boolean;
-    is_deleted: boolean;
-    uploader_id: number;
-    approver_id: number;
-    last_noted_at: string | null;
-    last_comment_bumped_at: string | null;
-    fav_count: number;
-    tag_string: string;
-    tag_count: number;
-    tag_count_general: number;
-    tag_count_artist: number;
-    tag_count_character: number;
-    tag_count_copyright: number;
-    file_ext: string;
-    file_size: number;
-    image_width: number;
-    image_height: number;
-    parent_id: number | null;
-    has_children: boolean;
-    last_commented_at: string | null;
-    has_active_children: boolean;
-    bit_flags: number;
-    tag_count_meta: number;
-    locked_tags: string | null;
-    tag_count_species: number;
-    tag_count_invalid: number;
-    description: string;
-    comment_count: number;
-    change_seq: number;
-    tag_count_lore: number;
-    bg_color: string | null;
-    generated_samples: Array<'720p' | '480p' | 'original'> | null;
-    duration: string | null;
-    is_comment_disabled: boolean;
-    is_comment_locked: boolean;
-    has_large: boolean;
-    has_visible_children: boolean;
-    children_ids: string | null;
-    pool_ids: Array<number>;
-    is_favorited: boolean;
-    file_url?: string;
-    large_file_url?: string;
-    preview_file_url?: string;
+export type JWKS = {
+    keys: Array<JWKSKey>;
 };
 
-export type IqdbResponse = {
-    hash: string;
-    post_id: number;
-    score: number;
-    post: {
-        posts: IqdbPost;
-    };
-};
-
-export type Mascot = {
-    id: number;
-    creator_id: number;
-    display_name: string;
-    md5: string;
-    file_ext: string;
-    background_color: string;
-    artist_url: string;
-    artist_name: string;
-    active: boolean;
-    created_at: string;
-    updated_at: string;
-    available_on: Array<string>;
-    url_path: string;
-};
-
-export type ModAction = {
-    id: number;
-    creator_id: number;
-    created_at: string;
-    updated_at: string;
-    action: ModActionActions;
-};
-
-export type NewsUpdate = {
-    id: number;
-    message: string;
-    creator_id: number;
-    updater_id: number;
-    created_at: string;
-    updated_at: string;
-};
-
-export type Note = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    creator_id: number;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    version: number;
-    is_active: boolean;
-    post_id: number;
-    body: string;
-    creator_name: string;
-};
-
-export type NoteVersion = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    body: string;
-    version: number;
-    is_active: boolean;
-    note_id: number;
-    post_id: number;
-    updater_id: number;
-};
-
-export type Pool = {
-    id: number;
-    name: string;
-    updated_at: string;
-    creator_id: number;
-    description: string;
-    is_active: boolean;
-    category: PoolCategories;
-    post_ids: Array<number>;
-    created_at: string;
-    creator_name: string;
-    post_count: number;
-};
-
-export type PoolVersion = {
-    id: number;
-    pool_id: number;
-    post_ids: Array<number>;
-    created_at: string;
-    updated_at: string;
-    updater_id: number;
-    name: string;
-    name_changed: boolean;
-    description: string;
-    description_changed: boolean;
-    is_active: boolean;
-    is_locked: boolean;
-    category: PoolCategories;
-    version: number;
-    added_post_ids: Array<number>;
-    removed_post_ids: Array<number>;
-};
-
-export type Post = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    change_seq: number;
-    files: {
-        meta: {
-            md5: string;
-            ext: string;
-            size: number;
-            duration: number | null;
-            has_sample: boolean;
-        };
-        original: {
-            width: number;
-            height: number;
-            url: string | null;
-        };
-        preview: {
-            width: number;
-            height: number;
-            jpg: string | null;
-            webp: string | null;
-        };
-        sample: {
-            width: number;
-            height: number;
-            jpg: string | null;
-            webp: string | null;
-        };
-    };
-    uploader_id: number;
-    uploader_name: string;
-    approver_id: number | null;
-    stats: {
-        score: {
-            up: number;
-            down: number;
-            total: number;
-        };
-        fav_count: number;
-        is_favorited: boolean;
-        vote: -1 | 0 | 1;
-        comment_count: number;
-    };
-    flags: {
-        pending: boolean;
-        flagged: boolean;
-        note_locked: boolean;
-        status_locked: boolean;
-        rating_locked: boolean;
-        deleted: boolean;
-    };
-    has: {
-        parent: boolean;
-        children: boolean;
-        active_children: boolean;
-        notes: boolean;
-        sample: boolean;
-    };
-    relationships: {
-        parent_id: number | null;
-        children: Array<number>;
-    };
-    pools: Array<number>;
-    rating: Ratings;
-    locked_tags: Array<string>;
-    sources: Array<string>;
-    description: string;
-};
-
-export type PostApproval = {
-    id: number;
-    user_id: number;
-    post_id: number;
-    created_at: string;
-    updated_at: string;
-};
-
-export type PostDisapproval = {
-    id: number;
-    user_id: number;
-    post_id: number;
-    reason: 'borderline_quality' | 'borderline_relevancy' | 'other';
-    message: string | null;
-    created_at: string;
-    updated_at: string;
-};
-
-export type PostEvent = {
-    id: number;
-    creator_id: number | null;
-    post_id: number;
-    action: PostEventActions;
-    created_at: string;
-};
-
-export type PostFlag = {
-    id: number;
-    created_at: string;
-    post_id: number;
-    reason: string;
+export type JWKSKey = {
+    kty: 'RSA';
+    use: 'sig';
+    alg: JWKSAlgorithm;
     /**
-     * Only visible to creator and Janitor+
+     * Key ID, matched against the `kid` header of a signed JWT to select the key that verifies it.
      */
-    creator_id?: number | null;
-    is_resolved: boolean;
-    updated_at: string;
-    is_deletion: boolean;
-    type: 'flag' | 'deletion';
+    kid: string;
     /**
-     * Only visible to creator and Janitor+
+     * RSA modulus, base64url-encoded.
      */
-    note?: string | null;
-};
-
-export type PostReplacement = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    post_id: number;
-    creator_id: number;
-    approver_id: number | null;
-    file_ext: string;
-    file_size: number;
-    image_height: number;
-    image_width: number;
-    md5: string;
-    source: string;
-    file_name: string;
-    status: 'prompted' | 'approved' | 'rejected' | 'pending' | 'original';
-    reason: string;
-};
-
-export type PostSampleAlternate = {
-    fps: number;
-    codec: string;
-    size: number;
-    width: number;
-    height: number;
-    url: string;
-};
-
-export type PostSet = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    creator_id: number;
-    is_public: boolean;
-    name: string;
-    shortname: string;
-    description: string;
-    post_count: number;
-    transfer_on_delete: boolean;
-    post_ids: Array<number>;
-};
-
-export type PostVersion = {
-    id: number;
-    post_id: number;
-    tags: string;
-    updater_id: number;
-    updated_at: string;
-    rating: Ratings;
-    parent_id: number | null;
-    source: string;
-    description: string;
-    reason: string | null;
-    locked_tags: string | null;
-    added_tags: Array<string>;
-    removed_tags: Array<string>;
-    added_locked_tags: Array<string>;
-    removed_locked_tags: Array<string>;
-    rating_changed: boolean;
-    parent_changed: boolean;
-    source_changed: boolean;
-    description_changed: boolean;
-    version: number;
-    obsolete_added_tags: string;
-    obsolete_removed_tags: string;
-    unchanged_tags: string;
-    updater_name: string;
-    is_hidden: boolean;
-};
-
-export type RelatedTag = {
-    name: string;
-    category_id: TagCategories;
-};
-
-export type StaffNote = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    user_id: number;
-    creator_id: number;
-    body: string;
-    is_deleted: boolean;
-    updater_id: number;
-};
-
-export type Tag = {
-    id: number;
-    name: string;
-    post_count: number;
-    related_tags: string;
-    related_tags_updated_at: string | null;
-    category: TagCategories;
-    is_locked: boolean;
-    created_at: string;
-    updated_at: string;
-};
-
-export type TagAlias = {
-    id: number;
-    antecedent_name: string;
-    reason: string;
-    creator_id: number;
-    created_at: string | null;
-    forum_post_id: number | null;
-    updated_at: string | null;
-    forum_topic_id: number | null;
-    consequent_name: string;
-    status: TagRequestStatuses;
-    post_count: number;
-    approver_id: number | null;
-};
-
-export type TagImplication = {
-    id: number;
-    reason: string;
-    creator_id: number;
-    created_at: string;
-    forum_post_id: number | null;
-    antecedent_name: string;
-    consequent_name: string;
-    status: TagRequestStatuses;
-    forum_topic_id: number | null;
-    updated_at: string;
-    descendant_names: Array<string>;
-    approver_id: number | null;
-};
-
-export type TagPreview = {
-    id?: number;
-    name: string;
-    resolved?: string;
-    category?: TagCategories;
-    post_count?: number;
-    alias?: string;
-    implies?: Array<string>;
-};
-
-export type TagTypeVersion = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    old_type: TagCategories;
-    new_type: TagCategories;
-    is_locked: boolean;
-    tag_id: number;
-    creator_id: number;
-};
-
-export type Takedown = {
-    id: number;
-    status: 'approved' | 'denied' | 'partial' | 'pending';
-    approver_id: number | null;
-    reason_hidden: boolean;
-    created_at: string;
-    updated_at: string;
-    post_count: number;
-};
-
-export type Ticket = {
-    id: number;
-    creator_id: number;
-    reason: string;
-    disp_id: number;
-    qtype: TicketTypes;
-    status: TicketStatuses;
-    created_at: string;
-    updated_at: string;
-    response: string;
-    handler_id: number | null;
+    n: string;
     /**
-     * Only visible to Moderator+.
+     * RSA public exponent, base64url-encoded.
      */
-    claimant_id?: number | null;
-    report_reason: string | null;
-    accused_id: number | null;
-};
-
-export type UploadWhitelist = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    pattern: string;
-    note: string;
-    hidden: boolean;
-    allowed: boolean;
-    reason: string;
-    domain: string;
-    path: string;
-};
-
-export type Upload = {
-    id: number;
-    source: string;
-    rating: Ratings;
-    uploader_id: number;
-    tag_string: string;
-    /**
-     * Note: The "error" status will be proceeded by an error, ex: "error: RuntimeError - No file or source URL provided"
-     *
-     */
-    status: 'completed' | 'duplicate' | 'error' | 'processing' | 'pending';
-    backtrace: string | null;
-    post_id: number | null;
-    /**
-     * @deprecated
-     */
-    md5_confirmation: string | null;
-    created_at: string;
-    updated_at: string;
-    parent_id: number | null;
-    md5: string | null;
-    file_ext: string | null;
-    file_size: number | null;
-    image_width: number | null;
-    image_height: number | null;
-    description: string;
-    uploader_name: string;
-};
-
-export type User = {
-    id: number;
-    created_at: string;
-    name: string;
-    level: UserLevels;
-    base_upload_limit: number;
-    post_upload_count: number;
-    post_update_count: number;
-    note_update_count: number;
-    is_banned: boolean;
-    can_approve_posts: boolean;
-    can_upload_free: boolean;
-    level_string: UserLevelsNames;
-    avatar_id: number | null;
-    is_verified?: boolean;
-    has_cropped_avatar: boolean;
-    /**
-     * Only visible to Admin+.
-     */
-    last_logged_in_at?: string;
-};
-
-export type UserFeedback = {
-    id: number;
-    user_id: number;
-    creator_id: number;
-    category: FeedbackCategories;
-    body: string;
-    created_at: string;
-    updated_at: string;
-    updater_id: number;
-    is_deleted: boolean;
-};
-
-export type UserNameChangeRequest = {
-    id: number;
-    approver_id: number;
-    user_id: number;
-    original_name: string;
-    desired_name: string;
-    change_reason?: string;
-    created_at: string;
-    updated_at: string;
-    status: 'approved';
-};
-
-export type WikiPage = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    title: string;
-    body: string;
-    creator_id: number;
-    is_locked: boolean;
-    updater_id: number;
-    is_deleted: boolean;
-    other_names: Array<string>;
-    parent: string | null;
-    creator_name: string;
-    category_id: TagCategories;
-    featured_posts?: Array<number>;
-};
-
-export type WikiPageVersion = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    title: string;
-    body: string;
-    updater_id: number;
-    wiki_page_id: number;
-    is_locked: boolean;
-    other_names: Array<string>;
-    is_deleted: boolean;
-    reason: string | null;
-    parent: string | null;
-    featured_posts?: Array<number>;
-};
-
-export type ApiKey = {
-    id: number;
-    updated_at: string;
-    created_at: string;
-    user_id: number;
-    key: string;
-    name: string;
-    last_used_at: string | null;
-    last_used_ip_address: string | null | string;
-    last_user_agent: string | null;
-    expires_at: string | null;
-    notified_at: string | null;
-};
-
-export type EditHistory = {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    body: string;
-    subject: string | null;
-    versionable_type: 'Blip' | 'Comment' | 'ForumPost';
-    versionable_id: number;
-    version: number;
-    user_id: number;
-};
-
-export type UserAvatarMenu = {
-    has_uploads: boolean;
-    has_favorites: boolean;
-    has_sets: boolean;
-    has_comments: boolean;
-    has_forums: boolean;
-};
-
-export type TagCorrection = {
-    post_count: number;
-    real_post_count: number;
-    category: TagCategories;
-    category_cache: TagCategories;
-    tag: Tag;
-};
-
-export type SearchTrend = {
-    tag: string;
-    count: number;
-    day: string;
-};
-
-export type RisingSearchTrend = {
-    name: string;
-    pretty_name: string;
-    post_count: number;
-    category: TagCategories;
-};
-
-export type SearchTrendBlacklist = {
-    id: number;
-    tag: string;
-    reason: string;
-    creator_id: number;
-    created_at: string;
-    updated_at: string;
-};
-
-export type MessageErrorResponse = {
-    success: boolean;
-    message: string;
-    code?: string | null;
-};
-
-export type MessageSuccessResponse = {
-    success: true;
-    message: string;
-};
-
-export type PostRecommendation = {
-    post_id: number;
-    score: number;
-    explanation: string | null;
-};
-
-export type RecommendedPosts = {
-    post_id: number;
-    model_version: string;
-    results: Array<PostRecommendation>;
-};
-
-export type PostVote = {
-    id: number;
-    post_id: number;
-    user_id: number;
-    score: UpDownVote;
-    created_at: string;
-    updated_at: string;
-};
-
-export type UpDownVote = 1 | -1;
-
-export type UpDownMehVote = 1 | 0 | -1;
-
-export type MinimalUser = {
-    id: number;
-    name: string;
-    level_string: UserLevelsNames;
-    favorite_count: number;
-};
-
-export type ThumbnailPost = {
-    id: number;
-    created_at: string;
-    md5: string;
-    file_ext: string;
-    width: number;
-    height: number;
-    size: number;
-    preview_url: string | null;
-    preview_webp: string | null;
-    sample_url: string | null;
-    file_url: string | null;
-    preview_width: number;
-    preview_height: number;
-    uploader_id: number;
-    uploader: string;
-    score: number;
-    fav_count: number;
-    is_favorited: boolean;
-    vote: -1 | 0 | 1;
-    comment_count: number;
-    /**
-     * space separated list of flags:
-     * - pending
-     * - flagged
-     * - deleted
-     *
-     */
-    flags: string;
-    /**
-     * space separated list of ids
-     */
-    pools: string;
-    rating: Ratings;
-    tags: string;
-};
-
-export type PostData = {
-    post_data: Array<ThumbnailPost>;
-};
-
-export type CommentVote = {
-    id: number;
-    comment_id: number;
-    user_id: number;
-    score: UpDownVote;
-    created_at: string;
-    updated_at: string;
+    e: string;
 };
 
 export type LegacyPost = {
@@ -1194,7 +603,7 @@ export type LegacyPost = {
         rating_locked: boolean;
         deleted: boolean;
     };
-    rating: Ratings;
+    rating: Rating;
     fav_count: number;
     sources: Array<string>;
     pools: Array<number>;
@@ -1212,74 +621,536 @@ export type LegacyPost = {
     has_notes: boolean;
     duration: number | null;
     uploader_name: string;
-    vote: -1 | 0 | 1;
+    vote: UpDownMehVote;
 };
 
-export type BasicPost = Post & {
-    tags: Array<string>;
-};
-
-export type ExtendedPost = Post & {
-    tags: {
-        general: Array<string>;
-        artist: Array<string>;
-        contributor: Array<string>;
-        copyright: Array<string>;
-        character: Array<string>;
-        species: Array<string>;
-        invalid: Array<string>;
-        meta: Array<string>;
-        lore: Array<string>;
-    };
-};
-
-export type ExceptionLog = {
+export type Mascot = {
     id: number;
+    creator_id: number;
+    display_name: string;
+    md5: string;
+    file_ext: string;
+    background_color: string;
+    artist_url: string;
+    artist_name: string;
+    active: boolean;
     created_at: string;
     updated_at: string;
-    class_name: string;
-    version: string;
-    extra_params: {
-        [key: string]: unknown;
-    };
+    available_on: Array<string>;
+    url_path: string;
+};
+
+export type MinimalUser = {
+    id: number;
+    name: string;
+    level_string: UserLevelName;
+    favorite_count: number;
+};
+
+export type ModAction = {
+    id: number;
+    creator_id: number;
+    created_at: string;
+    updated_at: string;
+    action: ModActionAction;
+};
+
+export type NewsUpdate = {
+    id: number;
     message: string;
-    trace: string;
-    code: string;
-    user_id: number;
-};
-
-export type Appeal = {
-    id: number;
-    creator_id?: number;
-    disp_id: string;
-    qtype: 'flag';
-    status: 'pending' | 'partial' | 'approved' | 'rejected';
-    reason?: string;
-    response?: string;
-    claimant_id?: number | null;
-    handler_id: number | null;
-    accused_id?: number;
+    creator_id: number;
+    updater_id: number;
     created_at: string;
     updated_at: string;
 };
 
-export type DbExport = {
-    name: DbExportNames;
-    file_name: string;
-    file_size: number;
+export type Note = {
+    id: number;
+    created_at: string;
     updated_at: string;
-    url: string;
-    /**
-     * SHA-256
-     */
-    checksum: string;
+    creator_id: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    version: number;
+    is_active: boolean;
+    post_id: number;
+    body: string;
+    creator_name: string;
 };
 
-export type DbExportNames = 'artists' | 'bulk_update_requests' | 'pools' | 'post_replacements' | 'posts' | 'post_versions' | 'tag_aliases' | 'tag_implications' | 'tags' | 'wiki_pages';
+export type NoteVersion = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    body: string;
+    version: number;
+    is_active: boolean;
+    note_id: number;
+    post_id: number;
+    updater_id: number;
+};
 
-export type UserLevels = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80;
+/**
+ * Only `active` is present when the token is inactive/unknown - the other fields are omitted entirely.
+ */
+export type OAuthIntrospection = {
+    active: boolean;
+    /**
+     * Space-separated list of the token's granted scopes.
+     */
+    scope?: string;
+    /**
+     * The `uid` of the OAuth application the token was issued to.
+     */
+    client_id?: string;
+    token_type?: 'Bearer';
+    /**
+     * Unix timestamp of when the token was issued.
+     */
+    iat?: number;
+    /**
+     * Unix timestamp of when the token expires. Omitted for tokens that don't expire.
+     */
+    exp?: number;
+};
 
-export type UserLevelsNames = 'Anonymous' | 'Blocked' | 'Member' | 'Privileged' | 'Former Staff' | 'Staff' | 'Janitor' | 'Moderator' | 'Admin';
+export type OAuthToken = {
+    access_token: string;
+    token_type: 'Bearer';
+    /**
+     * Seconds until `access_token` expires.
+     */
+    expires_in: number;
+    refresh_token: string;
+    /**
+     * Space-separated list of granted scopes.
+     */
+    scope: string;
+    /**
+     * Unix timestamp of when the token was issued.
+     */
+    created_at: number;
+    /**
+     * A signed JWT containing the user's ID token claims. Present only when the `openid` scope was granted.
+     */
+    id_token?: string;
+};
+
+export type OAuthTokenInfo = {
+    resource_owner_id: number;
+    scope: Array<OAuthScope>;
+    expires_in: number;
+    application: {
+        uid: string;
+    };
+    created_at: number;
+};
+
+/**
+ * null properties are entriely absent
+ */
+export type OAuthUserInfo = {
+    preferred_username: string;
+    name: string;
+    picture?: string;
+    updated_at: number;
+    e621_level: UserLevel;
+    e621_level_string: UserLevelName;
+    e621_avatar_id?: number;
+    e621_permissions: OAuthPermission;
+    /**
+     * Requires `email` scope.
+     */
+    email?: string;
+    /**
+     * Requires `email` scope.
+     */
+    email_verified?: boolean;
+    sub: string;
+};
+
+export type OpenIDConfiguration = {
+    issuer: string;
+    authorization_endpoint: string;
+    token_endpoint: string;
+    revocation_endpoint: string;
+    introspection_endpoint: string;
+    userinfo_endpoint: string;
+    jwks_uri: string;
+    scopes_supported: Array<OAuthScope>;
+    response_types_supported: Array<OAuthResponseType>;
+    response_modes_supported: Array<OAuthResponseMode>;
+    grant_types_supported: Array<OAuthGrantType>;
+    token_endpoint_auth_methods_supported: Array<OAuthTokenEndpointAuthMethod>;
+    subject_types_supported: Array<OAuthSubjectType>;
+    id_token_signing_alg_values_supported: Array<OAuthIDTokenSigningAlgValue>;
+    claim_types_supported: Array<OAuthClaimType>;
+    claims_supported: Array<OAuthClaim>;
+    code_challenge_methods_supported: Array<OAuthCodeChallengeMethod>;
+};
+
+export type Pool = {
+    id: number;
+    name: string;
+    updated_at: string;
+    creator_id: number;
+    description: string;
+    is_active: boolean;
+    category: PoolCategory;
+    post_ids: Array<number>;
+    created_at: string;
+    creator_name: string;
+    post_count: number;
+};
+
+export type PoolVersion = {
+    id: number;
+    pool_id: number;
+    post_ids: Array<number>;
+    created_at: string;
+    updated_at: string;
+    updater_id: number;
+    name: string;
+    name_changed: boolean;
+    description: string;
+    description_changed: boolean;
+    is_active: boolean;
+    is_locked: boolean;
+    category: PoolCategory;
+    version: number;
+    added_post_ids: Array<number>;
+    removed_post_ids: Array<number>;
+};
+
+export type Post = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    change_seq: number;
+    files: PostFiles;
+    uploader_id: number;
+    uploader_name: string;
+    approver_id: number | null;
+    stats: PostStats;
+    flags: PostFlags;
+    has: PostHas;
+    relationships: PostRelationships;
+    pools: Array<number>;
+    rating: Rating;
+    locked_tags: Array<string>;
+    sources: Array<string>;
+    description: string;
+};
+
+export type PostApproval = {
+    id: number;
+    user_id: number;
+    post_id: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type PostData = {
+    post_data: Array<ThumbnailPost>;
+};
+
+export type PostDisapproval = {
+    id: number;
+    user_id: number;
+    post_id: number;
+    reason: 'borderline_quality' | 'borderline_relevancy' | 'other';
+    message: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type PostEvent = {
+    id: number;
+    creator_id: number | null;
+    post_id: number;
+    action: PostEventAction;
+    created_at: string;
+};
+
+export type PostFiles = {
+    meta: PostFilesMeta;
+    original: PostFilesOriginal;
+    preview: PostFilesPreview;
+    sample: PostFilesSample;
+};
+
+export type PostFilesMeta = {
+    md5: string;
+    ext: string;
+    size: number;
+    duration: number | null;
+    has_sample: boolean;
+};
+
+export type PostFilesOriginal = {
+    width: number;
+    height: number;
+    url: string | null;
+};
+
+export type PostFilesPreview = {
+    width: number;
+    height: number;
+    jpg: string | null;
+    webp: string | null;
+};
+
+export type PostFilesSample = {
+    width: number;
+    height: number;
+    jpg: string | null;
+    webp: string | null;
+};
+
+export type PostFlag = {
+    id: number;
+    created_at: string;
+    post_id: number;
+    reason: string;
+    /**
+     * Only visible to creator and Janitor+
+     */
+    creator_id?: number | null;
+    is_resolved: boolean;
+    updated_at: string;
+    is_deletion: boolean;
+    type: 'flag' | 'deletion';
+    /**
+     * Only visible to creator and Janitor+
+     */
+    note?: string | null;
+};
+
+export type PostFlags = {
+    pending: boolean;
+    flagged: boolean;
+    note_locked: boolean;
+    status_locked: boolean;
+    rating_locked: boolean;
+    deleted: boolean;
+};
+
+export type PostHas = {
+    parent: boolean;
+    children: boolean;
+    active_children: boolean;
+    notes: boolean;
+    sample: boolean;
+};
+
+export type PostRecommendation = {
+    post_id: number;
+    score: number;
+    explanation: string | null;
+};
+
+export type PostRelationships = {
+    parent_id: number | null;
+    children: Array<number>;
+};
+
+export type PostReplacement = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    post_id: number;
+    creator_id: number;
+    approver_id: number | null;
+    file_ext: string;
+    file_size: number;
+    image_height: number;
+    image_width: number;
+    md5: string;
+    source: string;
+    file_name: string;
+    status: PostReplacementStatus;
+    reason: string;
+    sequence_number: number;
+};
+
+export type PostSampleAlternate = {
+    fps: number;
+    codec: string;
+    size: number;
+    width: number;
+    height: number;
+    url: string;
+};
+
+export type PostSet = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    creator_id: number;
+    is_public: boolean;
+    name: string;
+    shortname: string;
+    description: string;
+    post_count: number;
+    transfer_on_delete: boolean;
+    post_ids: Array<number>;
+};
+
+export type PostStats = {
+    score: PostStatsScore;
+    fav_count: number;
+    is_favorited: boolean;
+    vote: UpDownMehVote;
+    comment_count: number;
+};
+
+export type PostStatsScore = {
+    up: number;
+    down: number;
+    total: number;
+};
+
+export type PostVersion = {
+    id: number;
+    post_id: number;
+    tags: string;
+    updater_id: number;
+    updated_at: string;
+    rating: Rating;
+    parent_id: number | null;
+    source: string;
+    description: string;
+    reason: string | null;
+    locked_tags: string | null;
+    added_tags: Array<string>;
+    removed_tags: Array<string>;
+    added_locked_tags: Array<string>;
+    removed_locked_tags: Array<string>;
+    rating_changed: boolean;
+    parent_changed: boolean;
+    source_changed: boolean;
+    description_changed: boolean;
+    version: number;
+    obsolete_added_tags: string;
+    obsolete_removed_tags: string;
+    unchanged_tags: string;
+    updater_name: string;
+    is_hidden: boolean;
+};
+
+export type PostVote = {
+    id: number;
+    post_id: number;
+    user_id: number;
+    score: UpDownVote;
+    created_at: string;
+    updated_at: string;
+};
+
+export type RawPost = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    up_score: number;
+    down_score: number;
+    score: number;
+    source: string;
+    md5: string;
+    rating: Rating;
+    is_note_locked: boolean;
+    is_rating_locked: boolean;
+    is_status_locked: boolean;
+    is_pending: boolean;
+    is_flagged: boolean;
+    is_deleted: boolean;
+    uploader_id: number;
+    approver_id: number;
+    last_noted_at: string | null;
+    last_comment_bumped_at: string | null;
+    fav_count: number;
+    tag_string: string;
+    tag_count: number;
+    tag_count_general: number;
+    tag_count_artist: number;
+    tag_count_character: number;
+    tag_count_copyright: number;
+    file_ext: string;
+    file_size: number;
+    image_width: number;
+    image_height: number;
+    parent_id: number | null;
+    has_children: boolean;
+    last_commented_at: string | null;
+    has_active_children: boolean;
+    bit_flags: number;
+    tag_count_meta: number;
+    locked_tags: string | null;
+    tag_count_species: number;
+    tag_count_invalid: number;
+    description: string;
+    comment_count: number;
+    change_seq: number;
+    tag_count_lore: number;
+    bg_color: string | null;
+    generated_samples: Array<'720p' | '480p' | 'original'> | null;
+    duration: string | null;
+    is_comment_disabled: boolean;
+    is_comment_locked: boolean;
+    has_large: boolean;
+    has_visible_children: boolean;
+    children_ids: string | null;
+    pool_ids: Array<number>;
+    is_favorited: boolean;
+    file_url?: string;
+    large_file_url?: string;
+    preview_file_url?: string;
+};
+
+export type RecommendedPosts = {
+    post_id: number;
+    model_version: string;
+    results: Array<PostRecommendation>;
+};
+
+export type RelatedTag = {
+    name: string;
+    category_id: TagCategory;
+};
+
+export type RisingSearchTrend = {
+    name: string;
+    pretty_name: string;
+    post_count: number;
+    category: TagCategory;
+};
+
+export type SearchTrend = {
+    tag: string;
+    count: number;
+    day: string;
+};
+
+export type SearchTrendBlacklist = {
+    id: number;
+    tag: string;
+    reason: string;
+    creator_id: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type SearchTrendHourly = {
+    tag: string;
+    count: number;
+    hour: string;
+    processed: boolean;
+};
 
 export type StaffFile = {
     id: number;
@@ -1293,6 +1164,47 @@ export type StaffFile = {
     description: string | null;
     created_at: string;
     updated_at: string;
+};
+
+export type StaffIPAddrIPListing = StaffIPAddrSums & {
+    last_login: unknown;
+};
+
+/**
+ * Dictionary of ip address to count.
+ */
+export type StaffIPAddrSum = {
+    [key: string]: number;
+};
+
+export type StaffIPAddrSums = {
+    comment: StaffIPAddrSum;
+    blip: StaffIPAddrSum;
+    dmail: StaffIPAddrSum;
+    post_flag: StaffIPAddrSum;
+    posts: StaffIPAddrSum;
+    users: StaffIPAddrSum;
+    artist_version?: StaffIPAddrSum;
+    note_version?: StaffIPAddrSum;
+    pool_version?: StaffIPAddrSum;
+    post_version?: StaffIPAddrSum;
+    wiki_page_version?: StaffIPAddrSum;
+};
+
+export type StaffIPAddrUserListing = {
+    sums: StaffIPAddrSums;
+    ip_addrs: Array<string>;
+};
+
+export type StaffNote = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    user_id: number;
+    creator_id: number;
+    body: string;
+    is_deleted: boolean;
+    updater_id: number;
 };
 
 export type StaffWiki = {
@@ -1317,6 +1229,350 @@ export type StaffWikiVersion = {
     updated_at: string;
 };
 
+export type Stats = {
+    /**
+     * When the first post was created.
+     */
+    started: string;
+    total_posts: number;
+    active_posts: number;
+    deleted_posts: number;
+    /**
+     * `active_posts + deleted_posts`
+     */
+    existing_posts: number;
+    destroyed_posts: number;
+    total_votes: number;
+    total_notes: number;
+    total_favorites: number;
+    total_pools: number;
+    public_sets: number;
+    private_sets: number;
+    total_sets: number;
+    average_posts_per_pool: number;
+    average_posts_per_set: number;
+    safe_posts: number;
+    questionable_posts: number;
+    explicit_posts: number;
+    jpg_posts: number;
+    png_posts: number;
+    webp_posts: number;
+    gif_posts: number;
+    swf_posts: number;
+    webm_posts: number;
+    mp4_posts: number;
+    average_file_size: number;
+    total_file_size: number;
+    average_posts_per_day: number;
+    total_users: number;
+    anonymous_users: number;
+    blocked_users: number;
+    member_users: number;
+    privileged_users: number;
+    'former staff_users': number;
+    staff_users: number;
+    janitor_users: number;
+    moderator_users: number;
+    admin_users: number;
+    unactivated_users: number;
+    total_dmails: number;
+    average_registrations_per_day: number;
+    /**
+     * Users who have logged in within the last 3 months.
+     */
+    active_users: number;
+    total_comments: number;
+    active_comments: number;
+    hidden_comments: number;
+    deleted_comments: number;
+    average_comments_per_day: number;
+    total_forum_threads: number;
+    total_forum_posts: number;
+    average_posts_per_thread: number;
+    average_forum_posts_per_day: number;
+    total_blips: number;
+    active_blips: number;
+    deleted_blips: number;
+    destroyed_blips: number;
+    average_blips_per_day: number;
+    total_tags: number;
+    general_tags: number;
+    species_tags: number;
+    character_tags: number;
+    copyright_tags: number;
+    artist_tags: number;
+    contributor_tags: number;
+    invalid_tags: number;
+    lore_tags: number;
+    meta_tags: number;
+    updated_at: string;
+};
+
+export type Tag = {
+    id: number;
+    name: string;
+    post_count: number;
+    related_tags: string;
+    related_tags_updated_at: string | null;
+    category: TagCategory;
+    is_locked: boolean;
+    created_at: string;
+    updated_at: string;
+};
+
+export type TagAlias = {
+    id: number;
+    antecedent_name: string;
+    reason: string;
+    creator_id: number;
+    created_at: string | null;
+    forum_post_id: number | null;
+    updated_at: string | null;
+    forum_topic_id: number | null;
+    consequent_name: string;
+    status: TagRequestStatus;
+    post_count: number;
+    approver_id: number | null;
+};
+
+export type TagCorrection = {
+    post_count: number;
+    real_post_count: number;
+    category: TagCategory;
+    category_cache: TagCategory;
+    tag: Tag;
+};
+
+export type TagImplication = {
+    id: number;
+    reason: string;
+    creator_id: number;
+    created_at: string;
+    forum_post_id: number | null;
+    antecedent_name: string;
+    consequent_name: string;
+    status: TagRequestStatus;
+    forum_topic_id: number | null;
+    updated_at: string;
+    descendant_names: Array<string>;
+    approver_id: number | null;
+};
+
+export type TagPreview = {
+    id?: number;
+    name: string;
+    resolved?: string;
+    category?: TagCategory;
+    post_count?: number;
+    alias?: string;
+    implies?: Array<string>;
+};
+
+export type TagTypeVersion = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    old_type: TagCategory;
+    new_type: TagCategory;
+    is_locked: boolean;
+    tag_id: number;
+    creator_id: number;
+};
+
+export type Takedown = {
+    id: number;
+    status: 'approved' | 'denied' | 'partial' | 'pending';
+    approver_id: number | null;
+    reason_hidden: boolean;
+    created_at: string;
+    updated_at: string;
+    post_count: number;
+};
+
+export type ThumbnailPost = {
+    id: number;
+    created_at: string;
+    md5: string;
+    file_ext: string;
+    width: number;
+    height: number;
+    size: number;
+    preview_url: string | null;
+    preview_webp: string | null;
+    sample_url: string | null;
+    file_url: string | null;
+    preview_width: number;
+    preview_height: number;
+    uploader_id: number;
+    uploader: string;
+    score: number;
+    fav_count: number;
+    is_favorited: boolean;
+    vote: UpDownMehVote;
+    comment_count: number;
+    /**
+     * space separated list of flags:
+     * - pending
+     * - flagged
+     * - deleted
+     *
+     */
+    flags: string;
+    /**
+     * space separated list of ids
+     */
+    pools: string;
+    rating: Rating;
+    tags: string;
+};
+
+export type Ticket = {
+    id: number;
+    creator_id: number;
+    reason: string;
+    disp_id: number;
+    qtype: TicketType;
+    status: TicketStatus;
+    created_at: string;
+    updated_at: string;
+    response: string;
+    handler_id: number | null;
+    /**
+     * Only visible to Moderator+.
+     */
+    claimant_id?: number | null;
+    report_reason: string | null;
+    accused_id: number | null;
+};
+
+export type TrackedSearchTrend = {
+    count: number;
+    day: string;
+};
+
+export type Upload = {
+    id: number;
+    source: string;
+    rating: Rating;
+    uploader_id: number;
+    tag_string: string;
+    /**
+     * Note: The "error" status will be proceeded by an error, ex: "error: RuntimeError - No file or source URL provided"
+     *
+     */
+    status: 'completed' | 'duplicate' | 'error' | 'processing' | 'pending';
+    backtrace: string | null;
+    post_id: number | null;
+    /**
+     * @deprecated
+     */
+    md5_confirmation: string | null;
+    created_at: string;
+    updated_at: string;
+    parent_id: number | null;
+    md5: string | null;
+    file_ext: string | null;
+    file_size: number | null;
+    image_width: number | null;
+    image_height: number | null;
+    description: string;
+    uploader_name: string;
+};
+
+export type UploadWhitelist = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    pattern: string;
+    note: string;
+    hidden: boolean;
+    allowed: boolean;
+    reason: string;
+    domain: string;
+    path: string;
+};
+
+export type User = {
+    id: number;
+    created_at: string;
+    name: string;
+    level: UserLevel;
+    base_upload_limit: number;
+    upload_karma: number;
+    upload_karma_free: boolean;
+    post_upload_count: number;
+    post_update_count: number;
+    note_update_count: number;
+    is_banned: boolean;
+    can_approve_posts: boolean;
+    can_upload_free: boolean;
+    level_string: UserLevelName;
+    avatar_id: number | null;
+    is_verified?: boolean;
+    has_cropped_avatar: boolean;
+    /**
+     * Only visible to Admin+.
+     */
+    last_logged_in_at?: string;
+};
+
+export type UserAlt = {
+    user_id: number;
+    score: number;
+    handoff: boolean;
+    handoff_users: number | null;
+    shared_exact: number;
+    shared_subnet: number;
+    total_ips: number;
+    ratio: number;
+    rarest_users: number;
+    overlap_first: string;
+    overlap_last: string;
+    last_co_seen: string;
+    concurrent: boolean;
+    deleted: boolean;
+    user: UserAltUser;
+};
+
+export type UserAltUser = {
+    id: number;
+    name: string;
+    level_string: string;
+    created_at: string;
+};
+
+export type UserAvatarMenu = {
+    has_uploads: boolean;
+    has_favorites: boolean;
+    has_sets: boolean;
+    has_comments: boolean;
+    has_forums: boolean;
+};
+
+export type UserFeedback = {
+    id: number;
+    user_id: number;
+    creator_id: number;
+    category: UserFeedbackCategory;
+    body: string;
+    created_at: string;
+    updated_at: string;
+    updater_id: number;
+    is_deleted: boolean;
+};
+
+export type UserNameChangeRequest = {
+    id: number;
+    approver_id: number;
+    user_id: number;
+    original_name: string;
+    desired_name: string;
+    change_reason?: string;
+    created_at: string;
+    updated_at: string;
+    status: 'approved';
+};
+
 export type VoteTrend = Tag | VoteTrendMetatag | VoteTrendUploader;
 
 export type VoteTrendMetatag = {
@@ -1333,52 +1589,140 @@ export type VoteTrendUploader = {
     uploader: User;
 };
 
+export type WarningRecordType = {
+    record_type: 'unmark' | 'ban' | 'record' | 'warning';
+};
+
+export type WikiPage = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    title: string;
+    body: string;
+    creator_id: number;
+    is_locked: boolean;
+    updater_id: number;
+    is_deleted: boolean;
+    other_names: Array<string>;
+    parent: string | null;
+    creator_name: string;
+    category_id: TagCategory;
+    featured_posts?: Array<number>;
+};
+
+export type WikiPageVersion = {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    title: string;
+    body: string;
+    updater_id: number;
+    wiki_page_id: number;
+    is_locked: boolean;
+    other_names: Array<string>;
+    is_deleted: boolean;
+    reason: string | null;
+    parent: string | null;
+    featured_posts?: Array<number>;
+};
+
+export type AccessDeniedResponse = {
+    success: boolean;
+    reason: 'Access Denied';
+};
+
+export type DTextResponse = {
+    html: string;
+    posts: DeferredPost;
+};
+
+export type IQDBResponse = {
+    hash: string;
+    post_id: number;
+    score: number;
+    post: {
+        posts: IQDBPost;
+    };
+};
+
+export type IQDBResponseV2 = {
+    hash: string;
+    post_id: number;
+    score: number;
+    post: BasicPost;
+};
+
+export type MessageErrorResponse = {
+    success: boolean;
+    message: string;
+    code?: string | null;
+};
+
+export type MessageSuccessResponse = {
+    success: true;
+    message: string;
+};
+
+export type NotFoundResponse = {
+    success: boolean;
+    reason: 'not found';
+};
+
+export type OAuthError = {
+    /**
+     * OAuth 2.0 error code (RFC 6749 §5.2 / RFC 6750 §3), e.g. `invalid_token`.
+     */
+    error: string;
+    error_description?: string;
+    state?: string;
+};
+
 /**
  * Search for a specific id. Multiple can be separated by commas, up to 320.
  */
-export type IdQuery = string | number;
+export type idQuery = string | number;
 
 /**
  * The maximum number of results to return. Between 0 and 320.
  */
-export type LimitQuery = number;
+export type limitQuery = number;
 
 /**
  * The page number of results to get. Between 1 and 750.
  */
-export type PageQuery = number;
+export type pageQuery = number;
 
 /**
  * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
  */
-export type IpAddrQuery = string;
+export type ipAddrQuery = string;
 
 /**
  * The order of the results.
  */
-export type OrderQuery = 'id_asc' | 'id_desc';
+export type orderQuery = 'id_asc' | 'id_desc';
 
 /**
  * Use the new V2 format. See the `v2=true` responses.
  */
-export type V2Query = boolean;
+export type v2Query = boolean;
 
 /**
  * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
  */
-export type ModeQuery = 'basic' | 'extended' | 'thumbnail';
+export type modeQuery = 'basic' | 'extended' | 'thumbnail';
 
 /**
  * The ID of the item.
  */
-export type IdPath = number;
+export type idPath = number;
 
 /**
  * An ID that can be either an integer or a name.
  */
-export type IdOrNamePath = number | string;
+export type idOrNamePath = number | string;
 
-export type Warning = WarningRecordType;
+export type warning = WarningRecordType;
 
 export type ApiKeysIndexData = {
     body?: never;
@@ -1420,7 +1764,7 @@ export type ApiKeysIndexResponses = {
     /**
      * Success
      */
-    200: Array<ApiKey>;
+    200: Array<APIKey>;
 };
 
 export type ApiKeysIndexResponse = ApiKeysIndexResponses[keyof ApiKeysIndexResponses];
@@ -1459,7 +1803,7 @@ export type ApiKeysCreateResponses = {
     /**
      * Success
      */
-    201: ApiKey;
+    201: APIKey;
 };
 
 export type ApiKeysCreateResponse = ApiKeysCreateResponses[keyof ApiKeysCreateResponses];
@@ -1534,7 +1878,7 @@ export type ApiKeysRegenerateResponses = {
     /**
      * Success
      */
-    201: ApiKey;
+    201: APIKey;
 };
 
 export type ApiKeysRegenerateResponse = ApiKeysRegenerateResponses[keyof ApiKeysRegenerateResponses];
@@ -1583,8 +1927,8 @@ export type AppealsIndexData = {
          * Must be Janitor+.
          */
         'search[accused_name]'?: string;
-        'search[qtype]'?: 'flag';
-        'search[status]'?: ('pending' | 'partial' | 'approved' | 'rejected') & ('pending_claimed' | 'pending_unclaimed');
+        'search[qtype]'?: AppealType;
+        'search[status]'?: AppealStatus & ('pending_claimed' | 'pending_unclaimed');
     };
     url: '/appeals.json';
 };
@@ -1606,7 +1950,7 @@ export type AppealsIndexResponses = {
     /**
      * Success
      */
-    200: Array<ApiKey>;
+    200: Array<APIKey>;
 };
 
 export type AppealsIndexResponse = AppealsIndexResponses[keyof AppealsIndexResponses];
@@ -1792,7 +2136,7 @@ export type ArtistsIndexResponses = {
      * Success
      */
     200: Array<Artist & {
-        urls: Array<ArtistUrl>;
+        urls: Array<ArtistURL>;
     }>;
 };
 
@@ -1905,7 +2249,7 @@ export type ArtistsShowResponses = {
      */
     200: Artist & {
         domains: Array<Array<string | number>>;
-        urls: Array<ArtistUrl>;
+        urls: Array<ArtistURL>;
     };
 };
 
@@ -2133,7 +2477,7 @@ export type ArtistUrlsIndexResponses = {
     /**
      * Success
      */
-    200: Array<ArtistUrl & {
+    200: Array<ArtistURL & {
         artist: Artist;
     }>;
 };
@@ -2831,7 +3175,7 @@ export type BlipsUndeleteErrors = {
 export type BlipsUndeleteError = BlipsUndeleteErrors[keyof BlipsUndeleteErrors];
 
 export type BlipsWarningData = {
-    body?: Warning;
+    body?: warning;
     path: {
         /**
          * The ID of the item.
@@ -3124,6 +3468,9 @@ export type CommentsIndexData = {
          * Accepts a comma separated list.
          */
         'search[post_id]'?: string;
+        /**
+         * Only usable by Member+
+         */
         'search[post_tags_match]'?: string;
         'search[post_note_updater_name]'?: string;
         'search[post_note_updater_id]'?: number;
@@ -3309,6 +3656,36 @@ export type CommentsUpdateResponses = {
 
 export type CommentsUpdateResponse = CommentsUpdateResponses[keyof CommentsUpdateResponses];
 
+export type CommentsForPostData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/comments/{id}/for_post.json';
+};
+
+export type CommentsForPostErrors = {
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type CommentsForPostError = CommentsForPostErrors[keyof CommentsForPostErrors];
+
+export type CommentsForPostResponses = {
+    /**
+     * Success
+     */
+    200: DTextResponse;
+};
+
+export type CommentsForPostResponse = CommentsForPostResponses[keyof CommentsForPostResponses];
+
 export type CommentsHideData = {
     body?: never;
     path: {
@@ -3378,7 +3755,7 @@ export type CommentsUnhideResponses = {
 export type CommentsUnhideResponse = CommentsUnhideResponses[keyof CommentsUnhideResponses];
 
 export type CommentsWarningData = {
-    body?: Warning;
+    body?: warning;
     path: {
         /**
          * The ID of the item.
@@ -3634,7 +4011,7 @@ export type DbExportsIndexResponses = {
     /**
      * Success
      */
-    200: Array<DbExport>;
+    200: Array<DBExport>;
 };
 
 export type DbExportsIndexResponse = DbExportsIndexResponses[keyof DbExportsIndexResponses];
@@ -3654,6 +4031,240 @@ export type HealthIndexResponses = {
 };
 
 export type HealthIndexResponse = HealthIndexResponses[keyof HealthIndexResponses];
+
+export type RailsHealthShowData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/status.json';
+};
+
+export type RailsHealthShowResponses = {
+    /**
+     * Success
+     */
+    200: {
+        status: 'up';
+        timestamp: string;
+    };
+};
+
+export type RailsHealthShowResponse = RailsHealthShowResponses[keyof RailsHealthShowResponses];
+
+export type DoorkeeperOpenidConnectDiscoveryProviderData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/.well-known/openid-configuration';
+};
+
+export type DoorkeeperOpenidConnectDiscoveryProviderResponses = {
+    /**
+     * Success
+     */
+    200: OpenIDConfiguration;
+};
+
+export type DoorkeeperOpenidConnectDiscoveryProviderResponse = DoorkeeperOpenidConnectDiscoveryProviderResponses[keyof DoorkeeperOpenidConnectDiscoveryProviderResponses];
+
+export type DoorkeeperOpenidConnectDiscoveryKeysData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/oauth/discovery/keys';
+};
+
+export type DoorkeeperOpenidConnectDiscoveryKeysResponses = {
+    /**
+     * Success
+     */
+    200: JWKS;
+};
+
+export type DoorkeeperOpenidConnectDiscoveryKeysResponse = DoorkeeperOpenidConnectDiscoveryKeysResponses[keyof DoorkeeperOpenidConnectDiscoveryKeysResponses];
+
+export type DoorkeeperOpenidConnectUserinfoShowData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/oauth/userinfo';
+};
+
+export type DoorkeeperOpenidConnectUserinfoShowErrors = {
+    /**
+     * The access token is missing, expired, or revoked.
+     */
+    401: OAuthError;
+};
+
+export type DoorkeeperOpenidConnectUserinfoShowError = DoorkeeperOpenidConnectUserinfoShowErrors[keyof DoorkeeperOpenidConnectUserinfoShowErrors];
+
+export type DoorkeeperOpenidConnectUserinfoShowResponses = {
+    /**
+     * Success
+     */
+    200: OAuthUserInfo;
+};
+
+export type DoorkeeperOpenidConnectUserinfoShowResponse = DoorkeeperOpenidConnectUserinfoShowResponses[keyof DoorkeeperOpenidConnectUserinfoShowResponses];
+
+export type DoorkeeperTokensCreateData = {
+    body?: {
+        grant_type: 'authorization_code' | 'refresh_token';
+        /**
+         * Required for the `authorization_code` grant type.
+         */
+        code?: string;
+        /**
+         * Required for the `authorization_code` grant type. Must match the `redirect_uri` used to obtain `code`.
+         */
+        redirect_uri?: string;
+        /**
+         * Required for the `authorization_code` grant type (PKCE is enforced).
+         */
+        code_verifier?: string;
+        /**
+         * Required for the `refresh_token` grant type.
+         */
+        refresh_token?: string;
+        /**
+         * Space-separated list of scopes to narrow the token to. Only used by the `refresh_token` grant type.
+         */
+        scope?: string;
+        /**
+         * Required unless authenticating via HTTP Basic Auth instead.
+         */
+        client_id?: string;
+        /**
+         * Required unless authenticating via HTTP Basic Auth instead, or the client is public.
+         */
+        client_secret?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/oauth/token';
+};
+
+export type DoorkeeperTokensCreateErrors = {
+    /**
+     * Invalid request, client, grant, or scope.
+     */
+    400: OAuthError;
+    /**
+     * Client authentication failed.
+     */
+    401: OAuthError;
+};
+
+export type DoorkeeperTokensCreateError = DoorkeeperTokensCreateErrors[keyof DoorkeeperTokensCreateErrors];
+
+export type DoorkeeperTokensCreateResponses = {
+    /**
+     * Success
+     */
+    200: OAuthToken;
+};
+
+export type DoorkeeperTokensCreateResponse = DoorkeeperTokensCreateResponses[keyof DoorkeeperTokensCreateResponses];
+
+export type DoorkeeperTokensRevokeData = {
+    body?: {
+        /**
+         * The access or refresh token to revoke.
+         */
+        token: string;
+        token_type_hint?: 'access_token' | 'refresh_token';
+        /**
+         * Required unless authenticating via HTTP Basic Auth instead, or the token was issued without a client.
+         */
+        client_id?: string;
+        /**
+         * Required unless authenticating via HTTP Basic Auth instead, or the token was issued without a client.
+         */
+        client_secret?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/oauth/revoke';
+};
+
+export type DoorkeeperTokensRevokeErrors = {
+    /**
+     * The token was issued to a different client than the one making this request.
+     */
+    403: OAuthError;
+};
+
+export type DoorkeeperTokensRevokeError = DoorkeeperTokensRevokeErrors[keyof DoorkeeperTokensRevokeErrors];
+
+export type DoorkeeperTokensRevokeResponses = {
+    /**
+     * Success
+     */
+    200: {
+        [key: string]: unknown;
+    };
+};
+
+export type DoorkeeperTokensRevokeResponse = DoorkeeperTokensRevokeResponses[keyof DoorkeeperTokensRevokeResponses];
+
+export type DoorkeeperTokensIntrospectData = {
+    body?: {
+        /**
+         * The access or refresh token to introspect.
+         */
+        token: string;
+        token_type_hint?: 'access_token' | 'refresh_token';
+        client_id?: string;
+        client_secret?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/oauth/introspect';
+};
+
+export type DoorkeeperTokensIntrospectErrors = {
+    /**
+     * Client or bearer token authentication failed.
+     */
+    401: OAuthError;
+};
+
+export type DoorkeeperTokensIntrospectError = DoorkeeperTokensIntrospectErrors[keyof DoorkeeperTokensIntrospectErrors];
+
+export type DoorkeeperTokensIntrospectResponses = {
+    /**
+     * Success. Note that an unrecognized, expired, or revoked token is reported as `{"active": false}`, not an error.
+     */
+    200: OAuthIntrospection;
+};
+
+export type DoorkeeperTokensIntrospectResponse = DoorkeeperTokensIntrospectResponses[keyof DoorkeeperTokensIntrospectResponses];
+
+export type DoorkeeperTokenInfoShowData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/oauth/token/info';
+};
+
+export type DoorkeeperTokenInfoShowErrors = {
+    /**
+     * The access token is missing, expired, or revoked.
+     */
+    401: OAuthError;
+};
+
+export type DoorkeeperTokenInfoShowError = DoorkeeperTokenInfoShowErrors[keyof DoorkeeperTokenInfoShowErrors];
+
+export type DoorkeeperTokenInfoShowResponses = {
+    /**
+     * Success
+     */
+    200: OAuthTokenInfo;
+};
+
+export type DoorkeeperTokenInfoShowResponse = DoorkeeperTokenInfoShowResponses[keyof DoorkeeperTokenInfoShowResponses];
 
 export type DmailsIndexData = {
     body?: never;
@@ -4447,7 +5058,7 @@ export type ForumPostsUnhideResponses = {
 export type ForumPostsUnhideResponse = ForumPostsUnhideResponses[keyof ForumPostsUnhideResponses];
 
 export type ForumPostsWarningData = {
-    body?: Warning;
+    body?: warning;
     path: {
         /**
          * The ID of the item.
@@ -4562,7 +5173,7 @@ export type ForumPostVotesShowResponse = ForumPostVotesShowResponses[keyof Forum
 
 export type ForumPostVotesCreateData = {
     body?: {
-        score: UpDownMehVote;
+        score: UpDownMehFlipVote;
     };
     path: {
         /**
@@ -5213,7 +5824,7 @@ export type IpBansIndexResponses = {
     /**
      * Success
      */
-    200: Array<IpBan>;
+    200: Array<IPBan>;
 };
 
 export type IpBansIndexResponse = IpBansIndexResponses[keyof IpBansIndexResponses];
@@ -5247,7 +5858,7 @@ export type IpBansCreateResponses = {
     /**
      * Success
      */
-    201: IpBan;
+    201: IPBan;
 };
 
 export type IpBansCreateResponse = IpBansCreateResponses[keyof IpBansCreateResponses];
@@ -5315,12 +5926,7 @@ export type IqdbQueriesShowResponses = {
     /**
      * Success
      */
-    200: Array<IqdbResponse> | Array<{
-        hash: string;
-        post_id: number;
-        score: number;
-        post: BasicPost;
-    }>;
+    200: Array<IQDBResponse> | Array<IQDBResponseV2>;
 };
 
 export type IqdbQueriesShowResponse = IqdbQueriesShowResponses[keyof IqdbQueriesShowResponses];
@@ -5355,12 +5961,7 @@ export type IqdbQueriesShowPostResponses = {
     /**
      * Success
      */
-    200: Array<IqdbResponse> | Array<{
-        hash: string;
-        post_id: number;
-        score: number;
-        post: BasicPost;
-    }>;
+    200: Array<IQDBResponse> | Array<IQDBResponseV2>;
 };
 
 export type IqdbQueriesShowPostResponse = IqdbQueriesShowPostResponses[keyof IqdbQueriesShowPostResponses];
@@ -5542,7 +6143,7 @@ export type ModActionsIndexData = {
         'search[order]'?: 'id_asc' | 'id_desc';
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
-        'search[action]'?: ModActionActions;
+        'search[action]'?: ModActionAction;
     };
     url: '/mod_actions.json';
 };
@@ -5747,6 +6348,9 @@ export type NotesIndexData = {
         'search[body_matches]'?: string;
         'search[is_active]'?: boolean;
         'search[post_id]'?: number;
+        /**
+         * Only usable by Member+
+         */
         'search[post_tags_match]'?: string;
         'search[post_note_updater_id]'?: number;
         'search[post_note_updater_name]'?: string;
@@ -6031,7 +6635,7 @@ export type PoolsIndexData = {
         'search[description_matches]'?: string;
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
-        'search[category]'?: PoolCategories;
+        'search[category]'?: PoolCategory;
         'search[is_active]'?: boolean;
     };
     url: '/pools.json';
@@ -6050,7 +6654,7 @@ export type PoolsCreateData = {
     body?: {
         name: string;
         description?: string;
-        category?: PoolCategories;
+        category?: PoolCategory;
         is_active?: boolean;
         /**
          * Space separated list of post IDs. Mutually exclusive with post_ids.
@@ -6159,7 +6763,7 @@ export type PoolsUpdateData = {
         name?: string;
         description?: string;
         is_active?: boolean;
-        category?: PoolCategories;
+        category?: PoolCategory;
         /**
          * Space separated list of post IDs. Mutually exclusive with post_ids.
          */
@@ -6520,6 +7124,36 @@ export type PostsRandomResponses = {
 
 export type PostsRandomResponse = PostsRandomResponses[keyof PostsRandomResponses];
 
+export type PostsCountData = {
+    body?: never;
+    path?: never;
+    query?: {
+        tags?: string;
+    };
+    url: '/posts/count.json';
+};
+
+export type PostsCountErrors = {
+    /**
+     * Error
+     */
+    400: MessageErrorResponse;
+};
+
+export type PostsCountError = PostsCountErrors[keyof PostsCountErrors];
+
+export type PostsCountResponses = {
+    /**
+     * Success
+     */
+    200: {
+        count: number;
+        capped: boolean;
+    };
+};
+
+export type PostsCountResponse = PostsCountResponses[keyof PostsCountResponses];
+
 export type PostsShowData = {
     body?: never;
     path: {
@@ -6593,8 +7227,8 @@ export type PostsUpdateData = {
         old_parent_id?: number;
         description?: string;
         old_description?: string;
-        rating?: Ratings;
-        old_rating?: Ratings;
+        rating?: Rating;
+        old_rating?: Rating;
         edit_reason?: string;
         /**
          * You must be Privileged+.
@@ -7374,6 +8008,40 @@ export type PostSetsUpdateResponses = {
 
 export type PostSetsUpdateResponse = PostSetsUpdateResponses[keyof PostSetsUpdateResponses];
 
+export type PostSetsPostListData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/post_sets/{id}/post_list.json';
+};
+
+export type PostSetsPostListErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type PostSetsPostListError = PostSetsPostListErrors[keyof PostSetsPostListErrors];
+
+export type PostSetsPostListResponses = {
+    /**
+     * Success
+     */
+    200: PostSet;
+};
+
+export type PostSetsPostListResponse = PostSetsPostListResponses[keyof PostSetsPostListResponses];
+
 export type PostSetsUpdatePostsData = {
     body?: {
         post_ids_string: string;
@@ -7560,6 +8228,9 @@ export type PostApprovalsIndexData = {
          * The order of the results.
          */
         'search[order]'?: 'id_asc' | 'id_desc';
+        /**
+         * Only usable by Member+
+         */
         'search[post_tags_match]'?: string;
         'search[user_id]'?: number;
         'search[user_name]'?: string;
@@ -7604,7 +8275,7 @@ export type PostEventsIndexData = {
         'search[post_id]'?: number;
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
-        'search[action]'?: PostEventActions;
+        'search[action]'?: PostEventAction;
     };
     url: '/post_events.json';
 };
@@ -7648,6 +8319,9 @@ export type PostFlagsIndexData = {
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
         'search[post_id]'?: number;
+        /**
+         * Only usable by Member+
+         */
         'search[post_tags_match]'?: string;
         'search[type]'?: string;
         'search[is_resolved]'?: boolean;
@@ -8060,6 +8734,46 @@ export type PostReplacementsTogglePenalizeResponses = {
 
 export type PostReplacementsTogglePenalizeResponse = PostReplacementsTogglePenalizeResponses[keyof PostReplacementsTogglePenalizeResponses];
 
+export type PostReplacementsTransferData = {
+    body?: {
+        new_post_id: number;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/post_replacements/{id}/transfer.json';
+};
+
+export type PostReplacementsTransferErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Error
+     */
+    412: MessageErrorResponse;
+};
+
+export type PostReplacementsTransferError = PostReplacementsTransferErrors[keyof PostReplacementsTransferErrors];
+
+export type PostReplacementsTransferResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type PostReplacementsTransferResponse = PostReplacementsTransferResponses[keyof PostReplacementsTransferResponses];
+
 export type PostVersionsIndexData = {
     body?: never;
     path?: never;
@@ -8080,7 +8794,7 @@ export type PostVersionsIndexData = {
         'search[updater_id]'?: number;
         'search[post_id]'?: number;
         'search[start_id]'?: number;
-        'search[rating]'?: Ratings;
+        'search[rating]'?: Rating;
         'search[rating_changed]'?: 'e' | 'q' | 's' | 'any';
         'search[parent_id]'?: number;
         'search[parent_id_changed]'?: boolean;
@@ -8338,7 +9052,7 @@ export type TagsIndexData = {
         'search[fuzzy_name_matches]'?: string;
         'search[name_matches]'?: string;
         'search[name]'?: string;
-        'search[category]'?: TagCategories;
+        'search[category]'?: TagCategory;
         'search[hide_empty]'?: boolean;
         'search[has_wiki]'?: boolean;
         'search[has_artist]'?: boolean;
@@ -8421,7 +9135,7 @@ export type TagsShowResponse = TagsShowResponses[keyof TagsShowResponses];
 
 export type TagsUpdateData = {
     body?: {
-        category?: TagCategories;
+        category?: TagCategory;
         /**
          * Must be Admin+.
          */
@@ -8607,9 +9321,9 @@ export type TagAliasesIndexData = {
         'search[name_matches]'?: string;
         'search[antecedent_name]'?: string;
         'search[consequent_name]'?: string;
-        'search[status]'?: TagRequestStatuses;
-        'search[antecedent_tag_category]'?: TagCategories;
-        'search[consequent_tag_category]'?: TagCategories;
+        'search[status]'?: TagRequestStatus;
+        'search[antecedent_tag_category]'?: TagCategory;
+        'search[consequent_tag_category]'?: TagCategory;
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
         'search[approver_id]'?: number;
@@ -8823,9 +9537,9 @@ export type TagImplicationsIndexData = {
         'search[name_matches]'?: string;
         'search[antecedent_name]'?: string;
         'search[consequent_name]'?: string;
-        'search[status]'?: TagRequestStatuses;
-        'search[antecedent_tag_category]'?: TagCategories;
-        'search[consequent_tag_category]'?: TagCategories;
+        'search[status]'?: TagRequestStatus;
+        'search[antecedent_tag_category]'?: TagCategory;
+        'search[consequent_tag_category]'?: TagCategory;
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
         'search[approver_id]'?: number;
@@ -9022,7 +9736,7 @@ export type TagImplicationRequestsCreateError = TagImplicationRequestsCreateErro
 export type RelatedTagsBulkData = {
     body?: {
         query?: string;
-        category_id?: TagCategories;
+        category_id?: TagCategory;
     };
     path?: never;
     query?: never;
@@ -9088,6 +9802,29 @@ export type SearchTrendsRisingResponses = {
 };
 
 export type SearchTrendsRisingResponse = SearchTrendsRisingResponses[keyof SearchTrendsRisingResponses];
+
+export type SearchTrendsTrackData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Up to 10 comma separated values.
+         */
+        tag?: string;
+    };
+    url: '/search_trends/track.json';
+};
+
+export type SearchTrendsTrackResponses = {
+    /**
+     * Dictionary of tag to trends.
+     */
+    200: {
+        [key: string]: Array<TrackedSearchTrend>;
+    };
+};
+
+export type SearchTrendsTrackResponse = SearchTrendsTrackResponses[keyof SearchTrendsTrackResponses];
 
 export type SearchTrendsClearCacheData = {
     body?: never;
@@ -9293,6 +10030,106 @@ export type SearchTrendBlacklistsDestroyResponses = {
 
 export type SearchTrendBlacklistsDestroyResponse = SearchTrendBlacklistsDestroyResponses[keyof SearchTrendBlacklistsDestroyResponses];
 
+export type SearchTrendBlacklistsUpdateData = {
+    body?: {
+        tag?: string;
+        reason?: string;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/search_trend_blacklists/{id}.json';
+};
+
+export type SearchTrendBlacklistsUpdateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type SearchTrendBlacklistsUpdateError = SearchTrendBlacklistsUpdateErrors[keyof SearchTrendBlacklistsUpdateErrors];
+
+export type SearchTrendBlacklistsUpdateResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type SearchTrendBlacklistsUpdateResponse = SearchTrendBlacklistsUpdateResponses[keyof SearchTrendBlacklistsUpdateResponses];
+
+export type SearchTrendHourliesIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        'search[name_matches]'?: string;
+        hour?: string;
+    };
+    url: '/search_trend_hourlies.json';
+};
+
+export type SearchTrendHourliesIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type SearchTrendHourliesIndexError = SearchTrendHourliesIndexErrors[keyof SearchTrendHourliesIndexErrors];
+
+export type SearchTrendHourliesIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<SearchTrendHourly>;
+};
+
+export type SearchTrendHourliesIndexResponse = SearchTrendHourliesIndexResponses[keyof SearchTrendHourliesIndexResponses];
+
+export type SessionsDestroyData = {
+    body?: {
+        /**
+         * CSRF Token
+         */
+        authenticity_token: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/session.json';
+};
+
+export type SessionsDestroyErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Failure
+     */
+    406: unknown;
+};
+
+export type SessionsDestroyError = SessionsDestroyErrors[keyof SessionsDestroyErrors];
+
 export type SessionsCreateData = {
     body?: {
         /**
@@ -9313,6 +10150,14 @@ export type SessionsCreateData = {
 
 export type SessionsCreateErrors = {
     /**
+     * Two-factor authentication required - verification required within 5 minutes
+     */
+    401: {
+        error: string;
+        code: 'totp_required';
+        url: string;
+    };
+    /**
      * Access Denied
      */
     403: AccessDeniedResponse;
@@ -9323,6 +10168,68 @@ export type SessionsCreateErrors = {
 };
 
 export type SessionsCreateError = SessionsCreateErrors[keyof SessionsCreateErrors];
+
+export type SessionsCreateResponses = {
+    /**
+     * Success
+     */
+    200: {
+        error: string;
+        code: 'totp_required';
+        url: string;
+    };
+};
+
+export type SessionsCreateResponse = SessionsCreateResponses[keyof SessionsCreateResponses];
+
+export type SessionsVerifyTotpData = {
+    body?: {
+        /**
+         * CSRF Token
+         */
+        authenticity_token: string;
+        /**
+         * Code or backup code
+         */
+        'totp[code]': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/session/verify_totp.json';
+};
+
+export type SessionsVerifyTotpErrors = {
+    /**
+     * Challenge expired or code incorrect
+     */
+    401: {
+        error: string;
+        code?: 'challenge_expired';
+    };
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Ratelimited
+     */
+    429: {
+        error: string;
+    };
+};
+
+export type SessionsVerifyTotpError = SessionsVerifyTotpErrors[keyof SessionsVerifyTotpErrors];
+
+export type SessionsVerifyTotpResponses = {
+    /**
+     * Success
+     */
+    200: {
+        url: string;
+    };
+};
+
+export type SessionsVerifyTotpResponse = SessionsVerifyTotpResponses[keyof SessionsVerifyTotpResponses];
 
 export type StaffNotesIndexData = {
     body?: never;
@@ -9993,7 +10900,7 @@ export type TicketsIndexData = {
          * You must be Staff+.
          */
         'search[disp_id]'?: number;
-        'search[qtype]'?: TicketTypes;
+        'search[qtype]'?: TicketType;
         /**
          * You must be Staff+.
          */
@@ -10059,7 +10966,7 @@ export type TicketsUpdateData = {
     body?: {
         status?: 'partial' | 'approved';
         response: string;
-        record_type?: WarningTypes;
+        record_type?: WarningType;
         /**
          * An update dmail will always be sent when the status is changed.
          */
@@ -10189,7 +11096,7 @@ export type UploadsIndexData = {
         'search[uploader_name]'?: string;
         'search[source]'?: string;
         'search[source_matches]'?: string;
-        'search[rating]'?: Ratings;
+        'search[rating]'?: Rating;
         'search[parent_id]'?: number;
         'search[post_id]'?: number;
         'search[has_post]'?: boolean;
@@ -10226,7 +11133,7 @@ export type UploadsCreateData = {
         'upload[direct_url]'?: string;
         'upload[source]'?: string;
         'upload[tag_string]': string;
-        'upload[rating]': Ratings;
+        'upload[rating]': Rating;
         'upload[parent_id]'?: number;
         'upload[description]'?: string;
         /**
@@ -10521,14 +11428,20 @@ export type UsersIndexData = {
          * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[ip_addr]'?: string;
-        'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'post_upload_count' | 'note_count' | 'post_update_count';
+        'search[order]'?: 'id_asc' | 'id_desc' | 'name' | 'post_upload_count' | 'note_count' | 'post_update_count' | 'upload_karma';
         'search[name_matches]'?: string;
         'search[about_me]'?: string;
         'search[avatar_id]'?: number;
-        'search[level]'?: UserLevels;
-        'search[min_level]'?: UserLevels;
-        'search[max_level]'?: UserLevels;
+        'search[level]'?: UserLevel;
+        'search[min_level]'?: UserLevel;
+        'search[max_level]'?: UserLevel;
         'search[can_upload_free]'?: boolean;
+        /**
+         * Only permitted if `upload_karma_free_threshold` != nil
+         * Always true in prod.
+         *
+         */
+        'search[can_karma_free]'?: boolean;
         'search[can_approve_posts]'?: boolean;
         /**
          * You must be Admin+.
@@ -10587,6 +11500,27 @@ export type UsersAvatarMenuResponses = {
 };
 
 export type UsersAvatarMenuResponse = UsersAvatarMenuResponses[keyof UsersAvatarMenuResponses];
+
+export type UsersCustomStyleData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/users/custom_style.css';
+};
+
+export type UsersCustomStyleErrors = {
+    /**
+     * Not Logged In
+     */
+    406: unknown;
+};
+
+export type UsersCustomStyleResponses = {
+    /**
+     * Success
+     */
+    200: unknown;
+};
 
 export type UsersShowData = {
     body?: never;
@@ -10778,7 +11712,7 @@ export type UsersToggleUploadsData = {
         idOrName: number | string;
     };
     query?: never;
-    url: '/users/{idOrName}/toggle_uploads.json';
+    url: '/users/{idOrName}/toggle_uploads';
 };
 
 export type UsersToggleUploadsErrors = {
@@ -10794,9 +11728,34 @@ export type UsersToggleUploadsErrors = {
 
 export type UsersToggleUploadsError = UsersToggleUploadsErrors[keyof UsersToggleUploadsErrors];
 
+export type UsersToggleKarmaFreeData = {
+    body?: never;
+    path: {
+        /**
+         * An ID that can be either an integer or a name.
+         */
+        idOrName: number | string;
+    };
+    query?: never;
+    url: '/users/{idOrName}/toggle_karma_free';
+};
+
+export type UsersToggleKarmaFreeErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type UsersToggleKarmaFreeError = UsersToggleKarmaFreeErrors[keyof UsersToggleKarmaFreeErrors];
+
 export type UsersDisableUploadsData = {
     body?: {
-        body: string;
+        'staff_note[body]': string;
     };
     path: {
         /**
@@ -10805,7 +11764,7 @@ export type UsersDisableUploadsData = {
         idOrName: number | string;
     };
     query?: never;
-    url: '/users/{idOrName}/disable_uploads.json';
+    url: '/users/{idOrName}/disable_uploads';
 };
 
 export type UsersDisableUploadsErrors = {
@@ -10820,6 +11779,55 @@ export type UsersDisableUploadsErrors = {
 };
 
 export type UsersDisableUploadsError = UsersDisableUploadsErrors[keyof UsersDisableUploadsErrors];
+
+export type UsersDisableKarmaFreeData = {
+    body?: {
+        'staff_note[body]': string;
+    };
+    path: {
+        /**
+         * An ID that can be either an integer or a name.
+         */
+        idOrName: number | string;
+    };
+    query?: never;
+    url: '/users/{idOrName}/disable_karma_free';
+};
+
+export type UsersDisableKarmaFreeErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type UsersDisableKarmaFreeError = UsersDisableKarmaFreeErrors[keyof UsersDisableKarmaFreeErrors];
+
+export type UserRevertsCreateData = {
+    body?: {
+        user_id: number;
+    };
+    path?: never;
+    query?: never;
+    url: '/user_reverts';
+};
+
+export type UserRevertsCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type UserRevertsCreateError = UserRevertsCreateErrors[keyof UserRevertsCreateErrors];
 
 export type MaintenanceUserCountFixesCreateData = {
     body?: never;
@@ -10927,7 +11935,7 @@ export type UserFeedbacksIndexData = {
         'search[user_name]'?: string;
         'search[creator_id]'?: number;
         'search[creator_name]'?: string;
-        'search[category]'?: FeedbackCategories;
+        'search[category]'?: UserFeedbackCategory;
     };
     url: '/user_feedbacks.json';
 };
@@ -10946,7 +11954,7 @@ export type UserFeedbacksCreateData = {
         user_id?: number;
         user_name?: string;
         body: string;
-        category: FeedbackCategories;
+        category: UserFeedbackCategory;
     };
     path?: never;
     query?: never;
@@ -11048,7 +12056,7 @@ export type UserFeedbacksShowResponse = UserFeedbacksShowResponses[keyof UserFee
 export type UserFeedbacksUpdateData = {
     body?: {
         body?: string;
-        category?: FeedbackCategories;
+        category?: UserFeedbackCategory;
     };
     path: {
         /**
@@ -11456,7 +12464,7 @@ export type WikiPagesUpdateData = {
          * Must be Staff+ to use.
          */
         skip_secondary_validations?: boolean;
-        category_id?: TagCategories;
+        category_id?: TagCategory;
         /**
          * Must be Admin+ to use.
          */
@@ -11650,7 +12658,7 @@ export type StaffUsersUpdateData = {
          * Must have the bd staff user flag to use.
          */
         verified?: boolean;
-        level?: UserLevels;
+        level?: UserLevel;
         name?: string;
         profile_about?: string;
         profile_artinfo?: string;
@@ -11665,6 +12673,8 @@ export type StaffUsersUpdateData = {
         no_flagging?: boolean;
         replacements_beta?: boolean;
         custom_title?: string;
+        tag_warden?: boolean;
+        raised_favorite_limit?: boolean;
     };
     path: {
         /**
@@ -11715,7 +12725,7 @@ export type StaffUsersAnonymizeConfirmData = {
         id: number;
     };
     query?: never;
-    url: '/staff/users/{id}/anonymize.json';
+    url: '/staff/users/{id}/anonymize_confirm';
 };
 
 export type StaffUsersAnonymizeConfirmErrors = {
@@ -11726,6 +12736,56 @@ export type StaffUsersAnonymizeConfirmErrors = {
 };
 
 export type StaffUsersAnonymizeConfirmError = StaffUsersAnonymizeConfirmErrors[keyof StaffUsersAnonymizeConfirmErrors];
+
+export type StaffUsersTotpResetData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/users/{id}/totp_reset';
+};
+
+export type StaffUsersTotpResetErrors = {
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUsersTotpResetError = StaffUsersTotpResetErrors[keyof StaffUsersTotpResetErrors];
+
+export type StaffUsersUpdateBlacklistData = {
+    body?: {
+        user: {
+            blacklisted_tags: string;
+        };
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/users/{id}/update_blacklist';
+};
+
+export type StaffUsersUpdateBlacklistErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUsersUpdateBlacklistError = StaffUsersUpdateBlacklistErrors[keyof StaffUsersUpdateBlacklistErrors];
 
 export type StaffDmailsIndexData = {
     body?: never;
@@ -12374,7 +13434,7 @@ export type StaffPostPostsReownerData = {
         id: number;
     };
     query?: never;
-    url: '/staff/post/posts/{id}/reowner.json';
+    url: '/staff/post/posts/{id}/reowner';
 };
 
 export type StaffPostPostsReownerErrors = {
@@ -12470,6 +13530,37 @@ export type StaffPostApprovalsCreateResponses = {
 };
 
 export type StaffPostApprovalsCreateResponse = StaffPostApprovalsCreateResponses[keyof StaffPostApprovalsCreateResponses];
+
+export type StaffUserAltsShowData = {
+    body?: never;
+    path?: never;
+    query: {
+        user_id: number;
+    };
+    url: '/staff/user_alts.json';
+};
+
+export type StaffUserAltsShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffUserAltsShowError = StaffUserAltsShowErrors[keyof StaffUserAltsShowErrors];
+
+export type StaffUserAltsShowResponses = {
+    /**
+     * Success
+     */
+    200: Array<UserAlt>;
+};
+
+export type StaffUserAltsShowResponse = StaffUserAltsShowResponses[keyof StaffUserAltsShowResponses];
 
 export type StaffUserCleanupsClearAvatarData = {
     body?: never;
@@ -13120,6 +14211,138 @@ export type StaffWikisUnclaimResponses = {
 
 export type StaffWikisUnclaimResponse = StaffWikisUnclaimResponses[keyof StaffWikisUnclaimResponses];
 
+export type StaffWikisRevertData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query: {
+        /**
+         * The version ID to revert to.
+         */
+        version_id: number;
+    };
+    url: '/staff/wikis/{id}/revert.json';
+};
+
+export type StaffWikisRevertErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffWikisRevertError = StaffWikisRevertErrors[keyof StaffWikisRevertErrors];
+
+export type StaffWikisRevertResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type StaffWikisRevertResponse = StaffWikisRevertResponses[keyof StaffWikisRevertResponses];
+
+export type StaffWikiRefsCreateData = {
+    body?: {
+        'staff_wiki_ref[related_type]': StaffWikiRefRelatedType;
+        'staff_wiki_ref[related_id]': number;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{id}/references';
+};
+
+export type StaffWikiRefsCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffWikiRefsCreateError = StaffWikiRefsCreateErrors[keyof StaffWikiRefsCreateErrors];
+
+export type StaffWikiRefsDestroyData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+        /**
+         * The ID of the item.
+         */
+        wiki_id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{wiki_id}/references/{id}';
+};
+
+export type StaffWikiRefsDestroyErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffWikiRefsDestroyError = StaffWikiRefsDestroyErrors[keyof StaffWikiRefsDestroyErrors];
+
+export type StaffWikiRefsBulkCreateData = {
+    body?: {
+        /**
+         * Space separated, parses `users/<id>`, `artists/<id>`, `staff/wiki/<id>`
+         */
+        urls: string;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/staff/wikis/{id}/references/bulk_create';
+};
+
+export type StaffWikiRefsBulkCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type StaffWikiRefsBulkCreateError = StaffWikiRefsBulkCreateErrors[keyof StaffWikiRefsBulkCreateErrors];
+
 export type StaffWikiVersionsIndexData = {
     body?: never;
     path?: never;
@@ -13231,3 +14454,161 @@ export type StaffVoteTrendsIndexResponses = {
 };
 
 export type StaffVoteTrendsIndexResponse = StaffVoteTrendsIndexResponses[keyof StaffVoteTrendsIndexResponses];
+
+export type StaffIpAddrsIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        'search[with_history]'?: boolean;
+        /**
+         * Accepts multiple comma separated values.
+         */
+        'search[user_id]'?: string;
+        /**
+         * Accepts multiple comma separated values.
+         */
+        'search[user_name]'?: string;
+        /**
+         * Accepts multiple comma separated values.
+         */
+        'search[ip_addr]'?: string;
+        'search[add_ip_mask]'?: boolean;
+    };
+    url: '/staff/ip_addrs.json';
+};
+
+export type StaffIpAddrsIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffIpAddrsIndexError = StaffIpAddrsIndexErrors[keyof StaffIpAddrsIndexErrors];
+
+export type StaffIpAddrsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<StaffIPAddrUserListing | StaffIPAddrIPListing>;
+};
+
+export type StaffIpAddrsIndexResponse = StaffIpAddrsIndexResponses[keyof StaffIpAddrsIndexResponses];
+
+export type StaffIpAddrsExportData = {
+    body?: never;
+    path?: never;
+    query?: {
+        'search[with_history]'?: boolean;
+        /**
+         * Accepts multiple comma separated values.
+         */
+        'search[user_id]'?: string;
+        /**
+         * Accepts multiple comma separated values.
+         */
+        'search[user_name]'?: string;
+        /**
+         * Accepts multiple comma separated values.
+         */
+        'search[ip_addr]'?: string;
+        'search[add_ip_mask]'?: boolean;
+    };
+    url: '/staff/ip_addrs/export.json';
+};
+
+export type StaffIpAddrsExportErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type StaffIpAddrsExportError = StaffIpAddrsExportErrors[keyof StaffIpAddrsExportErrors];
+
+export type StaffIpAddrsExportResponses = {
+    /**
+     * Success
+     */
+    200: Array<string>;
+};
+
+export type StaffIpAddrsExportResponse = StaffIpAddrsExportResponses[keyof StaffIpAddrsExportResponses];
+
+export type StaffReownerCreateData = {
+    body?: {
+        /**
+         * Must be a string
+         * Name: `name`
+         * ID: `!1234`
+         *
+         */
+        'reowner[new_owner]': string;
+        /**
+         * Also reown post versions. (default false)
+         */
+        'reowner[reowner_versions]'?: boolean;
+        /**
+         * Also reown post events. (default true)
+         */
+        'reowner[post_events]'?: boolean;
+    };
+    path?: never;
+    query?: never;
+    url: '/staff/reowner.json';
+};
+
+export type StaffReownerCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type StaffReownerCreateError = StaffReownerCreateErrors[keyof StaffReownerCreateErrors];
+
+export type StaffStuckDnpCreateData = {
+    body?: {
+        'stuck_dnp[query]': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/staff/stuck_dnp.json';
+};
+
+export type StaffStuckDnpCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type StaffStuckDnpCreateError = StaffStuckDnpCreateErrors[keyof StaffStuckDnpCreateErrors];
+
+export type StatsIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/stats.json';
+};
+
+export type StatsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Stats;
+};
+
+export type StatsIndexResponse = StatsIndexResponses[keyof StatsIndexResponses];

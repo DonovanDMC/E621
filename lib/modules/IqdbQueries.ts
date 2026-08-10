@@ -1,13 +1,13 @@
 import { iqdbQueries_showPost, iqdbQueries_show } from "../generated/sdk.js";
 import BasicPost from "../models/BasicPost.js";
-import IqdbPost from "../models/IqdbPost.js";
+import IQDBPost from "../models/IQDBPost.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 import { type NoV2Options, type PostFormatOptions, type PostFormatV2Only } from "./posts/Format.js";
 
 import type { Client } from "../generated/client/types.js";
-import type { BasicPost as BasicPostData, IqdbPost as IqdbPostData, IqdbQueriesShowPostData, IqdbQueriesShowData } from "../generated/types.js";
+import type { BasicPost as BasicPostData, IQDBPost as IqdbPostData, IqdbQueriesShowPostData, IqdbQueriesShowData } from "../generated/types.js";
 import type E621 from "../index.js";
 
 /** @category Modules/Types */
@@ -39,14 +39,14 @@ export default class IqdbQueries<PF extends PostFormatOptions = NoV2Options> ext
         const v2 = options?.v2 ?? this.defaultFormat.v2;
         return iqdbQueries_show({
             client: this.client,
-            query: { ...(prefixKeys(options, "search", ["v2"]) ?? {}), v2 },
+            query: { ...(prefixKeys(options as QueryIqdbGetOptions | undefined, "search", ["v2"]) ?? {}), v2 },
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             return data.map(d => ({
                 hash: d.hash,
                 post: (v2
                     ? new BasicPost(this.e621, (d as { post: BasicPostData }).post)
-                    : new IqdbPost(this.e621 as unknown as E621, (d as { post: { posts: IqdbPostData } }).post.posts)) as PostFormatV2Only<O["v2"], PF>,
+                    : new IQDBPost(this.e621 as unknown as E621, (d as { post: { posts: IqdbPostData } }).post.posts)) as PostFormatV2Only<O["v2"], PF>,
                 post_id: d.post_id,
                 score: d.score,
             }));
@@ -67,7 +67,7 @@ export default class IqdbQueries<PF extends PostFormatOptions = NoV2Options> ext
                 hash: d.hash,
                 post: (v2
                     ? new BasicPost(this.e621, (d as { post: BasicPostData }).post)
-                    : new IqdbPost(this.e621 as unknown as E621, (d as { post: { posts: IqdbPostData } }).post.posts)) as PostFormatV2Only<O["v2"], PF>,
+                    : new IQDBPost(this.e621 as unknown as E621, (d as { post: { posts: IqdbPostData } }).post.posts)) as PostFormatV2Only<O["v2"], PF>,
                 post_id: d.post_id,
                 score: d.score,
             }));

@@ -19,6 +19,15 @@ type RequiredKeys<T extends object> = Exclude<keyof T, OptionalKeys<T>>;
 /** @category Types */
 export type GetResponse<T extends Record<number, unknown>, S extends keyof T> = T[S] extends undefined ? never : T[S];
 
+// Phantom (never assigned a real value, `?:` so nothing at runtime needs to satisfy it) markers that let
+// `prefixKeys` recover the *pre-transform* key names (still carrying their "search[...]"/"foo[...]" brackets,
+// or lack thereof) from an already-flattened `TransformDataQueryToOptions`/`TransformDataBodyToOptions`
+// result, so it can require - at the type level - that every key which *wasn't* bracketed in the spec is
+// passed in `exclude`. Two distinct symbols (rather than one shared key) so a type extending both transforms
+// (e.g. a combined query+body options interface) doesn't hit "types of property '[X]' are not identical".
+declare const RawQueryShape: unique symbol;
+declare const RawBodyShape: unique symbol;
+
 /** @category Types */
 export type TransformDataQueryToOptions<T extends Record<string, unknown>>
     = T extends { query?: infer Query }
@@ -28,6 +37,8 @@ export type TransformDataQueryToOptions<T extends Record<string, unknown>>
                 [K in RequiredKeys<Query> as TransformNestedKey<K>]: Query[K];
             } & {
                 [K in OptionalKeys<Query> as TransformNestedKey<K>]?: Query[K];
+            } & {
+                readonly [RawQueryShape]?: Query;
             }
             : never
         : never;
@@ -41,9 +52,31 @@ export type TransformDataBodyToOptions<T extends Record<string, unknown>>
                 [K in RequiredKeys<Body> as TransformNestedKey<K>]: Body[K];
             } & {
                 [K in OptionalKeys<Body> as TransformNestedKey<K>]?: Body[K];
+            } & {
+                readonly [RawBodyShape]?: Body;
             }
             : never
         : never;
+
+/**
+ * The pre-transform query/body shape stashed by {@link TransformDataQueryToOptions}/{@link TransformDataBodyToOptions}, if any.
+ * Wrapped in `[T]` so this resolves against `T`'s constraint instead of staying deferred when `T` is itself
+ * a still-generic type parameter (e.g. a `<const O extends SearchXOptions>` method type param) - see the
+ * `IqdbQueries.get` call site, which has to pass a concrete cast for exactly this reason.
+ */
+type RawShapeOf<T> = [T] extends [{ readonly [RawQueryShape]?: infer Query }]
+    ? Query
+    : [T] extends [{ readonly [RawBodyShape]?: infer Body }]
+            ? Body
+            : never;
+
+/** Every key of `Raw` that ISN'T namespaced under `${Root}[...]` - these must be passed to `exclude` untouched, or `prefixKeys` would wrongly nest them too. */
+type UnprefixedKeysOf<Raw, Root extends string> = [Raw] extends [Record<string, unknown>]
+
+    ? {
+            [K in keyof Raw]-?: K extends `${Root}[${string}]` ? never : TransformNestedKey<K>;
+        }[keyof Raw]
+    : never;
 
 /** @category Types */
 export type PrefixKeys<
@@ -51,21 +84,41 @@ export type PrefixKeys<
     Root extends string,
     Excluded extends keyof T = never,
 > = {
-    [K in keyof T as K extends Excluded
+    [K in keyof Omit<T, typeof RawQueryShape | typeof RawBodyShape> as K extends Excluded
         ? K
         : `${Root}[${Extract<K, string>}]`]: T[K];
 };
 
+/**
+ * `Excluded` as-is if it covers every key {@link UnprefixedKeysOf} says it must (order/extras don't matter -
+ * e.g. a synthetic client-side-only option can still be excluded even though it isn't in the spec at all);
+ * otherwise `never`, which makes the `exclude` argument itself unsatisfiable and fails the call at compile time.
+ */
+type ValidatedExclude<Required extends PropertyKey, Excluded extends ReadonlyArray<PropertyKey>>
+    = [Required] extends [Excluded[number]] ? Excluded : never;
+
 export function prefixKeys<
     Root extends string,
     T extends Record<string, unknown>,
-    Excluded extends ReadonlyArray<keyof T> = [],
->(obj: T, root: Root, exclude?: Excluded): PrefixKeys<T, Root, Excluded[number]>;
+    const Excluded extends ReadonlyArray<keyof T> = [],
+>(
+    obj: T,
+    root: Root,
+    ...rest: UnprefixedKeysOf<RawShapeOf<T>, Root> extends never
+        ? [exclude?: Excluded]
+        : [exclude: ValidatedExclude<UnprefixedKeysOf<RawShapeOf<T>, Root>, Excluded>]
+): PrefixKeys<T, Root, Excluded[number]>;
 export function prefixKeys<
     Root extends string,
     T extends Record<string, unknown>,
-    Excluded extends ReadonlyArray<keyof T> = [],
->(obj: T | undefined, root: Root, exclude?: Excluded): PrefixKeys<T, Root, Excluded[number]> | undefined;
+    const Excluded extends ReadonlyArray<keyof T> = [],
+>(
+    obj: T | undefined,
+    root: Root,
+    ...rest: UnprefixedKeysOf<RawShapeOf<T>, Root> extends never
+        ? [exclude?: Excluded]
+        : [exclude: ValidatedExclude<UnprefixedKeysOf<RawShapeOf<T>, Root>, Excluded>]
+): PrefixKeys<T, Root, Excluded[number]> | undefined;
 export function prefixKeys<
     Root extends string,
     T extends Record<string, unknown>,

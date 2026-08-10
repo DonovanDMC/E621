@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type ArtistUrl from "./ArtistUrl.js";
+import type ArtistURL from "./ArtistURL.js";
 import type { Artist as ArtistData } from "../generated/types.js";
 import type { UpdateArtistOptions } from "../modules/Artists.js";
 
@@ -10,7 +10,7 @@ interface Artist extends ArtistData {}
 /** @category Models */
 @Schema("Artist")
 class Artist extends Base<ArtistData> {
-    domains: Array<[string, number]> | undefined; urls: Array<ArtistUrl> | undefined;
+    domains: Array<[string, number]> | undefined; urls: Array<ArtistURL> | undefined;
     @OperationID("artists#destroy")
     async delete(): Promise<null> {
         return this.e621.artists.delete(this.id);

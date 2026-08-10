@@ -7,6 +7,7 @@ import {
     comments_warning,
     comments_index,
     comments_unhide,
+    comments_forPost,
 } from "../generated/sdk.js";
 import Comment from "../models/Comment.js";
 import {
@@ -26,6 +27,7 @@ import type {
     CommentsWarningData,
     CommentsWarningResponses,
     CommentsIndexData,
+    CommentsForPostResponses,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
@@ -36,6 +38,8 @@ export interface CreateCommentOptions extends TransformDataBodyToOptions<Comment
 export interface UpdateCommentOptions extends TransformDataBodyToOptions<CommentsUpdateData> {}
 /** @category Modules/Types */
 export interface CommentsWarningResponse extends GetResponse<CommentsWarningResponses, 200> {}
+/** @category Modules/Types */
+export interface CommentsForPostResponse extends GetResponse<CommentsForPostResponses, 200> {}
 
 /** @category Modules */
 export default class Comments extends Base {
@@ -54,6 +58,14 @@ export default class Comments extends Base {
             client: this.client,
             path: { id },
         }).then(res => this._handleResponse(res, 204, true));
+    }
+
+    @OperationID("comments#for_post")
+    async forPost(id: number): Promise<CommentsForPostResponse> {
+        return comments_forPost({
+            client: this.client,
+            path: { id },
+        }).then(res => this._handleResponse(res, 200, true));
     }
 
     @OperationID("comments#show")

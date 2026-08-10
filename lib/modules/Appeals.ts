@@ -36,7 +36,7 @@ export default class Appeals extends Base {
             client: this.client,
             query: prefixKeys(options, "search", ["limit", "page"]),
         }).then((res) => {
-            // NOTE: the spec incorrectly references the "ApiKey" schema for this response - it is actually an array of Appeal.
+            // NOTE: the spec incorrectly references the "APIKey" schema for this response - it is actually an array of Appeal.
             const data = this._handleResponse(res, 200, true) as unknown as Array<ConstructorParameters<typeof Appeal>[1]>;
             return data.map(appeal => new Appeal(this.e621, appeal));
         });

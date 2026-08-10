@@ -1,5 +1,5 @@
 import { dbExports_index } from "../generated/sdk.js";
-import DBExport from "../models/DbExport.js";
+import DBExport from "../models/DBExport.js";
 import { OperationID } from "../util.js";
 
 import Base from "./Base.js";

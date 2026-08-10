@@ -26,7 +26,7 @@ class User<D extends UserData = UserData> extends Base<D> {
 
     @OperationID("users#disable_uploads")
     async disableUploads(reason?: string): Promise<string> {
-        return this.e621.users.disableUploads(this.id, reason);
+        return this.e621.users.disableUploads(this.id, reason === undefined ? undefined : { body: reason });
     }
 
     @OperationID("maintenance/user/count_fixes#create")

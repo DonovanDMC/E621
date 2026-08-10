@@ -135,6 +135,34 @@ import StaffWikis from "./StaffWikis.js";
 export type * from "./StaffWikis.js";
 import StaffWikiVersions from "./StaffWikiVersions.js";
 export type * from "./StaffWikiVersions.js";
+import DoorkeeperOpenidConnectDiscovery from "./DoorkeeperOpenidConnectDiscovery.js";
+export type * from "./DoorkeeperOpenidConnectDiscovery.js";
+import DoorkeeperOpenidConnectUserinfo from "./DoorkeeperOpenidConnectUserinfo.js";
+export type * from "./DoorkeeperOpenidConnectUserinfo.js";
+import DoorkeeperTokenInfo from "./DoorkeeperTokenInfo.js";
+export type * from "./DoorkeeperTokenInfo.js";
+import DoorkeeperTokens from "./DoorkeeperTokens.js";
+export type * from "./DoorkeeperTokens.js";
+import RailsHealth from "./RailsHealth.js";
+export type * from "./RailsHealth.js";
+import SearchTrendHourlies from "./SearchTrendHourlies.js";
+export type * from "./SearchTrendHourlies.js";
+import Sessions from "./Sessions.js";
+export type * from "./Sessions.js";
+import StaffIpAddrs from "./StaffIpAddrs.js";
+export type * from "./StaffIpAddrs.js";
+import StaffReowner from "./StaffReowner.js";
+export type * from "./StaffReowner.js";
+import StaffStuckDnp from "./StaffStuckDnp.js";
+export type * from "./StaffStuckDnp.js";
+import StaffUserAlts from "./StaffUserAlts.js";
+export type * from "./StaffUserAlts.js";
+import StaffWikiRefs from "./StaffWikiRefs.js";
+export type * from "./StaffWikiRefs.js";
+import Stats from "./Stats.js";
+export type * from "./Stats.js";
+import UserReverts from "./UserReverts.js";
+export type * from "./UserReverts.js";
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
 import type { NoV2Options, PostFormatOptions } from "./posts/Format.js";
@@ -154,6 +182,10 @@ export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     commentVotes: CommentVotes;
     dbExports: DBExports;
     dmails: DMails;
+    doorkeeperOpenidConnectDiscovery: DoorkeeperOpenidConnectDiscovery;
+    doorkeeperOpenidConnectUserinfo: DoorkeeperOpenidConnectUserinfo;
+    doorkeeperTokenInfo: DoorkeeperTokenInfo;
+    doorkeeperTokens: DoorkeeperTokens;
     dtext: DText;
     editHistories: EditHistories;
     emailBlacklists: EmailBlacklists;
@@ -182,19 +214,28 @@ export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     postSets: PostSets;
     postVersions: PostVersions;
     postVotes: PostVotes;
+    railsHealth: RailsHealth;
     relatedTags: RelatedTags;
     searchTrendBlacklists: SearchTrendBlacklists;
+    searchTrendHourlies: SearchTrendHourlies;
     searchTrends: SearchTrends;
+    sessions: Sessions;
     staffAutomodDMails: StaffAutomodDMails;
     staffDmails: StaffDMails;
     staffExceptionLogs: StaffExceptionLogs;
     staffFiles: StaffFiles;
+    staffIpAddrs: StaffIpAddrs;
     staffNotes: StaffNotes;
+    staffReowner: StaffReowner;
+    staffStuckDnp: StaffStuckDnp;
+    staffUserAlts: StaffUserAlts;
     staffUserCleanups: StaffUserCleanups;
     staffUsers: StaffUsers;
     staffVoteTrends: StaffVoteTrends;
+    staffWikiRefs: StaffWikiRefs;
     staffWikis: StaffWikis;
     staffWikiVersions: StaffWikiVersions;
+    stats: Stats;
     tagAliases: TagAliases;
     tagCorrections: TagCorrections;
     tagImplications: TagImplications;
@@ -206,6 +247,7 @@ export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     uploadWhitelists: UploadWhitelists;
     userFeedbacks: UserFeedbacks;
     userNameChangeRequests: UserNameChangeRequests;
+    userReverts: UserReverts;
     users: Users;
     wikiPages: WikiPages;
     wikiPageVersions: WikiPageVersions;
@@ -229,6 +271,10 @@ export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>
         comments: new Comments(baseE621, client),
         dbExports: new DBExports(baseE621, client),
         dmails: new DMails(baseE621, client),
+        doorkeeperOpenidConnectDiscovery: new DoorkeeperOpenidConnectDiscovery(baseE621, client),
+        doorkeeperOpenidConnectUserinfo: new DoorkeeperOpenidConnectUserinfo(baseE621, client),
+        doorkeeperTokenInfo: new DoorkeeperTokenInfo(baseE621, client),
+        doorkeeperTokens: new DoorkeeperTokens(baseE621, client),
         dtext: new DText(baseE621, client),
         editHistories: new EditHistories(baseE621, client),
         emailBlacklists: new EmailBlacklists(baseE621, client),
@@ -257,19 +303,28 @@ export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>
         postVersions: new PostVersions(baseE621, client),
         postVotes: new PostVotes(baseE621, client),
         posts: new Posts(e621, client, defaultPostFormat),
+        railsHealth: new RailsHealth(baseE621, client),
         relatedTags: new RelatedTags(baseE621, client),
         searchTrendBlacklists: new SearchTrendBlacklists(baseE621, client),
+        searchTrendHourlies: new SearchTrendHourlies(baseE621, client),
         searchTrends: new SearchTrends(baseE621, client),
+        sessions: new Sessions(baseE621, client),
         staffAutomodDMails: new StaffAutomodDMails(baseE621, client),
         staffDmails: new StaffDMails(baseE621, client),
         staffExceptionLogs: new StaffExceptionLogs(baseE621, client),
         staffFiles: new StaffFiles(baseE621, client),
+        staffIpAddrs: new StaffIpAddrs(baseE621, client),
         staffNotes: new StaffNotes(baseE621, client),
+        staffReowner: new StaffReowner(baseE621, client),
+        staffStuckDnp: new StaffStuckDnp(baseE621, client),
+        staffUserAlts: new StaffUserAlts(baseE621, client),
         staffUserCleanups: new StaffUserCleanups(baseE621, client),
         staffUsers: new StaffUsers(baseE621, client),
         staffVoteTrends: new StaffVoteTrends(baseE621, client),
+        staffWikiRefs: new StaffWikiRefs(baseE621, client),
         staffWikis: new StaffWikis(baseE621, client),
         staffWikiVersions: new StaffWikiVersions(baseE621, client),
+        stats: new Stats(baseE621, client),
         tagAliases: new TagAliases(baseE621, client),
         tagCorrections: new TagCorrections(baseE621, client),
         tagImplications: new TagImplications(baseE621, client),
@@ -282,6 +337,7 @@ export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>
         users: new Users(baseE621, client),
         userFeedbacks: new UserFeedbacks(baseE621, client),
         userNameChangeRequests: new UserNameChangeRequests(baseE621, client),
+        userReverts: new UserReverts(baseE621, client),
         wikiPages: new WikiPages(baseE621, client),
         wikiPageVersions: new WikiPageVersions(baseE621, client),
     };
