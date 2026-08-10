@@ -7127,8 +7127,8 @@ export type PostsRandomResponse = PostsRandomResponses[keyof PostsRandomResponse
 export type PostsCountData = {
     body?: never;
     path?: never;
-    query?: {
-        tags?: string;
+    query: {
+        tags: string;
     };
     url: '/posts/count.json';
 };

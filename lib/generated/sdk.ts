@@ -1526,7 +1526,7 @@ export const posts_random = <ThrowOnError extends boolean = false>(options?: Opt
 /**
  * Count Posts
  */
-export const posts_count = <ThrowOnError extends boolean = false>(options?: Options<PostsCountData, ThrowOnError>) => (options?.client ?? client).get<PostsCountResponses, PostsCountErrors, ThrowOnError>({ url: '/posts/count.json', ...options });
+export const posts_count = <ThrowOnError extends boolean = false>(options: Options<PostsCountData, ThrowOnError>) => (options.client ?? client).get<PostsCountResponses, PostsCountErrors, ThrowOnError>({ url: '/posts/count.json', ...options });
 
 /**
  * Get Post

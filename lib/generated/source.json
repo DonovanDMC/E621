@@ -12,10 +12,10 @@
       "name": "Donovan_DMC",
       "url": "https://e621.net/forum_topics/46279"
     },
-    "version": "14ac6bc",
-    "x-e621ng-commit": "893a8dc59af2433534cbfa0794ddd00e8a724e7f",
-    "x-e621ng-master-behind-by": "unknown",
-    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/commits/master"
+    "version": "cc7581c",
+    "x-e621ng-commit": "60c8ebfe42fc647c4e0897dc1c2c814e92dfcb32",
+    "x-e621ng-master-behind-by": 0,
+    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/60c8ebfe42fc647c4e0897dc1c2c814e92dfcb32...master"
   },
   "servers": [
     {
@@ -14456,6 +14456,7 @@
           {
             "in": "query",
             "name": "tags",
+            "required": true,
             "schema": {
               "type": "string"
             }
