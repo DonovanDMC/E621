@@ -39,7 +39,7 @@ await cp(libDir, buildDir, { recursive: true });
 
 await writeFile(join(fileURLToPath(buildDir), "version.ts"), `/** @category Constants */\nexport const VERSION = "${pkg.version}";\n`, "utf8");
 
-for await (const file of walk(buildDir.pathname)) {
+for await (const file of walk(fileURLToPath(buildDir))) {
     const content = await readFile(file, "utf8");
     const lines = content.split("\n");
     const removeLines: Array<[number, number]> = [];

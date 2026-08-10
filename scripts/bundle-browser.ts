@@ -1,10 +1,11 @@
 import { writeFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
 import { build } from "esbuild";
 
-const entryPoint = new URL("../dist/lib/index.js", import.meta.url).pathname;
-const outfile = new URL("../dist/browser/e621.js", import.meta.url).pathname;
-const dtsFile = new URL("../dist/browser/e621.d.ts", import.meta.url).pathname;
+const entryPoint = fileURLToPath(new URL("../dist/lib/index.js", import.meta.url));
+const outfile = fileURLToPath(new URL("../dist/browser/e621.js", import.meta.url));
+const dtsFile = fileURLToPath(new URL("../dist/browser/e621.d.ts", import.meta.url));
 
 await build({
     entryPoints: [entryPoint],
