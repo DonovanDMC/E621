@@ -73,6 +73,8 @@ import Takedowns from "./Takedowns.js";
 export type * from "./Takedowns.js";
 import Tickets from "./Tickets.js";
 export type * from "./Tickets.js";
+import UploadKarmaEvents from "./UploadKarmaEvents.js";
+export type * from "./UploadKarmaEvents.js";
 import Uploads from "./Uploads.js";
 export type * from "./Uploads.js";
 import UploadWhitelists from "./UploadWhitelists.js";
@@ -243,6 +245,7 @@ export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     tagTypeVersions: TagTypeVersions;
     takedowns: Takedowns;
     tickets: Tickets;
+    uploadKarmaEvents: UploadKarmaEvents;
     uploads: Uploads<PF>;
     uploadWhitelists: UploadWhitelists;
     userFeedbacks: UserFeedbacks;
@@ -332,6 +335,7 @@ export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>
         tags: new Tags(baseE621, client),
         takedowns: new Takedowns(baseE621, client),
         tickets: new Tickets(baseE621, client),
+        uploadKarmaEvents: new UploadKarmaEvents(baseE621, client),
         uploads: new Uploads(e621, client),
         uploadWhitelists: new UploadWhitelists(baseE621, client),
         users: new Users(baseE621, client),

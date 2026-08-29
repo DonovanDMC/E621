@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "E621",
-    "description": "OpenAPI definition for E621's API. You can find the source [here](https://github.com/DonovanDMC/E621OpenAPI)<br>\nThis document is intended to compliment E621's existing [API Documentation](https://e621.net/help/api).<br>\nIf the api is not working, you can check this [Unofficial Status Page](https://status.e621.church).\n",
+    "description": "OpenAPI definition for E621's API. You can find the source [here](https://github.com/DonovanDMC/E621OpenAPI)<br>\nThis document is intended to compliment E621's existing [API Documentation](https://e621.net/help/api).<br>\nIf the api is not working, you can check this [Unofficial Status Page](https://status.e621.church).<br>\nAn MCP server exposing this API to Claude and other MCP clients is available at [mcp.e621.wiki](https://mcp.e621.wiki) (also reachable at [e621.wiki/mcp](https://e621.wiki/mcp)); see its [README](https://github.com/DonovanDMC/E621OpenAPI/tree/master/mcp) for details.\n",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -12,10 +12,11 @@
       "name": "Donovan_DMC",
       "url": "https://e621.net/forum_topics/46279"
     },
-    "version": "cc7581c",
-    "x-e621ng-commit": "60c8ebfe42fc647c4e0897dc1c2c814e92dfcb32",
+    "version": "56cac5e",
+    "x-e621ng-commit": "a460a25ed0e2ebec16a2f17b83722661b8001751",
     "x-e621ng-master-behind-by": 0,
-    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/60c8ebfe42fc647c4e0897dc1c2c814e92dfcb32...master"
+    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/a460a25ed0e2ebec16a2f17b83722661b8001751...master",
+    "x-mcp-server": "https://mcp.e621.wiki"
   },
   "servers": [
     {
@@ -268,8 +269,10 @@
           "tag_destroy",
           "tag_alias_create",
           "tag_alias_update",
+          "tag_alias_undo",
           "tag_implication_create",
           "tag_implication_update",
+          "tag_implication_undo",
           "ticket_claim",
           "ticket_unclaim",
           "ticket_update",
@@ -625,6 +628,15 @@
           "Janitor",
           "Moderator",
           "Admin"
+        ]
+      },
+      "WarningRecordType": {
+        "type": "string",
+        "enum": [
+          "warning",
+          "record",
+          "ban",
+          "unmark"
         ]
       },
       "WarningType": {
@@ -1107,24 +1119,6 @@
           }
         }
       },
-      "BulkRelatedTag": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/RelatedTag"
-          },
-          {
-            "type": "object",
-            "required": [
-              "count"
-            ],
-            "properties": {
-              "count": {
-                "type": "integer"
-              }
-            }
-          }
-        ]
-      },
       "BulkUpdateRequest": {
         "type": "object",
         "required": [
@@ -1309,7 +1303,6 @@
               "receive_email_notifications",
               "enable_keyboard_navigation",
               "enable_privacy_mode",
-              "style_usernames",
               "enable_auto_complete",
               "disable_cropped_thumbnails",
               "enable_safe_mode",
@@ -1363,9 +1356,6 @@
                 "type": "boolean"
               },
               "enable_privacy_mode": {
-                "type": "boolean"
-              },
-              "style_usernames": {
                 "type": "boolean"
               },
               "enable_auto_complete": {
@@ -4639,21 +4629,6 @@
           }
         }
       },
-      "RelatedTag": {
-        "type": "object",
-        "required": [
-          "name",
-          "category_id"
-        ],
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "category_id": {
-            "$ref": "#/components/schemas/TagCategory"
-          }
-        }
-      },
       "RisingSearchTrend": {
         "type": "object",
         "required": [
@@ -5065,7 +5040,7 @@
           "blocked_users",
           "member_users",
           "privileged_users",
-          "former staff_users",
+          "former_staff_users",
           "staff_users",
           "janitor_users",
           "moderator_users",
@@ -5207,7 +5182,7 @@
           "privileged_users": {
             "type": "integer"
           },
-          "former staff_users": {
+          "former_staff_users": {
             "type": "integer"
           },
           "staff_users": {
@@ -5581,6 +5556,25 @@
             "type": "integer"
           },
           "creator_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "TagWithCount": {
+        "type": "object",
+        "required": [
+          "name",
+          "category_id",
+          "count"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category_id": {
+            "$ref": "#/components/schemas/TagCategory"
+          },
+          "count": {
             "type": "integer"
           }
         }
@@ -6342,23 +6336,6 @@
           }
         }
       },
-      "WarningRecordType": {
-        "type": "object",
-        "required": [
-          "record_type"
-        ],
-        "properties": {
-          "record_type": {
-            "type": "string",
-            "enum": [
-              "unmark",
-              "ban",
-              "record",
-              "warning"
-            ]
-          }
-        }
-      },
       "WikiPage": {
         "type": "object",
         "required": [
@@ -6867,9 +6844,17 @@
     "requestBodies": {
       "warning": {
         "content": {
-          "application/json": {
+          "application/x-www-form-urlencoded": {
             "schema": {
-              "$ref": "#/components/schemas/WarningRecordType"
+              "type": "object",
+              "required": [
+                "record_type"
+              ],
+              "properties": {
+                "record_type": {
+                  "$ref": "#/components/schemas/WarningRecordType"
+                }
+              }
             }
           }
         }
@@ -7305,21 +7290,21 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "status": {
+                  "appeal[status]": {
                     "type": "string",
                     "enum": [
                       "partial",
                       "approved"
                     ]
                   },
-                  "response": {
+                  "appeal[response]": {
                     "type": "string"
                   },
-                  "send_update_dmail": {
+                  "appeal[send_update_dmail]": {
                     "type": "boolean",
                     "description": "An update dmail will always be sent when the status is changed."
                   }
@@ -7581,40 +7566,40 @@
         "description": "`other_names` & `urls` are silently truncated to 25 entries.\n`notes` is silently truncated to the wiki page limit (250,000).\nIndividual `other_names` are silently truncated to 100 characters.\n",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "name"
+                  "artist[name]"
                 ],
                 "properties": {
-                  "name": {
+                  "artist[name]": {
                     "type": "string"
                   },
-                  "other_names": {
+                  "artist[other_names][]": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "other_names_string": {
+                  "artist[other_names_string]": {
                     "type": "string"
                   },
-                  "url_string": {
+                  "artist[url_string]": {
                     "type": "string"
                   },
-                  "notes": {
+                  "artist[notes]": {
                     "type": "string"
                   },
-                  "group_name": {
+                  "artist[group_name]": {
                     "type": "string"
                   },
-                  "linked_user_id": {
+                  "artist[linked_user_id]": {
                     "type": "integer",
                     "nullable": true,
                     "description": "Only usable for Staff+"
                   },
-                  "is_locked": {
+                  "artist[is_locked]": {
                     "type": "boolean",
                     "description": "Only usable for Staff+"
                   }
@@ -7731,38 +7716,38 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
+                  "artist[name]": {
                     "type": "string",
                     "description": "Only usable for Staff+"
                   },
-                  "other_names": {
+                  "artist[other_names][]": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "other_names_string": {
+                  "artist[other_names_string]": {
                     "type": "string"
                   },
-                  "url_string": {
+                  "artist[url_string]": {
                     "type": "string"
                   },
-                  "notes": {
+                  "artist[notes]": {
                     "type": "string"
                   },
-                  "group_name": {
+                  "artist[group_name]": {
                     "type": "string"
                   },
-                  "linked_user_id": {
+                  "artist[linked_user_id]": {
                     "type": "integer",
                     "nullable": true,
                     "description": "Only usable for Staff+"
                   },
-                  "is_locked": {
+                  "artist[is_locked]": {
                     "type": "boolean",
                     "description": "Only usable for Staff+"
                   }
@@ -8211,48 +8196,40 @@
         "description": "Must have the bd staff user flag.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "artist_attributes"
+                  "avoid_posting[artist_attributes][name]"
                 ],
                 "properties": {
-                  "details": {
+                  "avoid_posting[details]": {
                     "type": "string"
                   },
-                  "staff_notes": {
+                  "avoid_posting[staff_notes]": {
                     "type": "string"
                   },
-                  "is_active": {
+                  "avoid_posting[is_active]": {
                     "type": "boolean"
                   },
-                  "artist_attributes": {
-                    "type": "object",
-                    "required": [
-                      "name"
-                    ],
-                    "properties": {
-                      "name": {
-                        "type": "string",
-                        "description": "If provided and the artist does not exist, an artist will be created."
-                      },
-                      "other_names_string": {
-                        "type": "string"
-                      },
-                      "other_names": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "group_name": {
-                        "type": "string"
-                      },
-                      "linked_user_id": {
-                        "type": "integer"
-                      }
+                  "avoid_posting[artist_attributes][name]": {
+                    "type": "string",
+                    "description": "If provided and the artist does not exist, an artist will be created."
+                  },
+                  "avoid_posting[artist_attributes][other_names_string]": {
+                    "type": "string"
+                  },
+                  "avoid_posting[artist_attributes][other_names][]": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
                     }
+                  },
+                  "avoid_posting[artist_attributes][group_name]": {
+                    "type": "string"
+                  },
+                  "avoid_posting[artist_attributes][linked_user_id]": {
+                    "type": "integer"
                   }
                 }
               }
@@ -8326,42 +8303,37 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "details": {
+                  "avoid_posting[details]": {
                     "type": "string"
                   },
-                  "staff_notes": {
+                  "avoid_posting[staff_notes]": {
                     "type": "string"
                   },
-                  "is_active": {
+                  "avoid_posting[is_active]": {
                     "type": "boolean"
                   },
-                  "artist_attributes": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string",
-                        "description": "If provided and the artist does not exist, an artist will be created."
-                      },
-                      "other_names_string": {
-                        "type": "string"
-                      },
-                      "other_names": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "group_name": {
-                        "type": "string"
-                      },
-                      "linked_user_id": {
-                        "type": "integer"
-                      }
+                  "avoid_posting[artist_attributes][name]": {
+                    "type": "string",
+                    "description": "If provided and the artist does not exist, an artist will be created."
+                  },
+                  "avoid_posting[artist_attributes][other_names_string]": {
+                    "type": "string"
+                  },
+                  "avoid_posting[artist_attributes][other_names][]": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
                     }
+                  },
+                  "avoid_posting[artist_attributes][group_name]": {
+                    "type": "string"
+                  },
+                  "avoid_posting[artist_attributes][linked_user_id]": {
+                    "type": "integer"
                   }
                 }
               }
@@ -8796,17 +8768,17 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "body"
+                  "blip[body]"
                 ],
                 "properties": {
-                  "body": {
+                  "blip[body]": {
                     "type": "string"
                   },
-                  "response_to": {
+                  "blip[response_to]": {
                     "type": "integer"
                   }
                 }
@@ -8887,11 +8859,11 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "body": {
+                  "blip[body]": {
                     "type": "string"
                   }
                 }
@@ -9177,29 +9149,29 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "script",
-                  "title",
-                  "reason"
+                  "bulk_update_request[script]",
+                  "bulk_update_request[title]",
+                  "bulk_update_request[reason]"
                 ],
                 "properties": {
-                  "script": {
+                  "bulk_update_request[script]": {
                     "type": "string"
                   },
-                  "title": {
+                  "bulk_update_request[title]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "bulk_update_request[reason]": {
                     "type": "string"
                   },
-                  "forum_topic_id": {
+                  "bulk_update_request[forum_topic_id]": {
                     "type": "integer",
                     "description": "You must be able to reply to the topic."
                   },
-                  "skip_forum": {
+                  "bulk_update_request[skip_forum]": {
                     "type": "boolean",
                     "description": "Only usable for Admin+"
                   }
@@ -9275,18 +9247,18 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "script": {
+                  "bulk_update_request[script]": {
                     "type": "string"
                   },
-                  "forum_topic_id": {
+                  "bulk_update_request[forum_topic_id]": {
                     "description": "You must be Admin+.",
                     "type": "string"
                   },
-                  "forum_post_id": {
+                  "bulk_update_request[forum_post_id]": {
                     "description": "You must be Admin+.",
                     "type": "string"
                   }
@@ -9515,28 +9487,28 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "body",
-                  "post_id"
+                  "comment[body]",
+                  "comment[post_id]"
                 ],
                 "properties": {
-                  "body": {
+                  "comment[body]": {
                     "type": "string"
                   },
-                  "post_id": {
+                  "comment[post_id]": {
                     "type": "integer"
                   },
-                  "do_not_bump_post": {
+                  "comment[do_not_bump_post]": {
                     "type": "boolean"
                   },
-                  "is_sticky": {
+                  "comment[is_sticky]": {
                     "type": "boolean",
                     "description": "Only usable for Staff+"
                   },
-                  "is_hidden": {
+                  "comment[is_hidden]": {
                     "type": "boolean",
                     "description": "Only usable for Moderator+"
                   }
@@ -9616,18 +9588,18 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "body": {
+                  "comment[body]": {
                     "type": "string"
                   },
-                  "is_sticky": {
+                  "comment[is_sticky]": {
                     "type": "boolean",
                     "description": "Only usable for Staff+"
                   },
-                  "is_hidden": {
+                  "comment[is_hidden]": {
                     "type": "boolean",
                     "description": "Only usable for Moderator+"
                   }
@@ -9674,35 +9646,6 @@
           },
           "403": {
             "$ref": "#/components/responses/AccessDenied"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          }
-        }
-      }
-    },
-    "/comments/{id}/for_post.json": {
-      "get": {
-        "summary": "Comments For Post",
-        "operationId": "comments#for_post",
-        "tags": [
-          "Comments"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/idPath"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DTextResponse"
-                }
-              }
-            }
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
@@ -10801,7 +10744,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -11054,18 +10997,18 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "domain",
-                  "reason"
+                  "email_blacklist[domain]",
+                  "email_blacklist[reason]"
                 ],
                 "properties": {
-                  "domain": {
+                  "email_blacklist[domain]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "email_blacklist[reason]": {
                     "type": "string"
                   }
                 }
@@ -11167,7 +11110,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -11368,18 +11311,18 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "body",
-                  "topic_id"
+                  "forum_post[body]",
+                  "forum_post[topic_id]"
                 ],
                 "properties": {
-                  "body": {
+                  "forum_post[body]": {
                     "type": "string"
                   },
-                  "topic_id": {
+                  "forum_post[topic_id]": {
                     "type": "integer"
                   }
                 }
@@ -11458,11 +11401,11 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "body": {
+                  "forum_post[body]": {
                     "type": "string"
                   }
                 }
@@ -11692,14 +11635,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "score"
+                  "forum_post_vote[score]"
                 ],
                 "properties": {
-                  "score": {
+                  "forum_post_vote[score]": {
                     "$ref": "#/components/schemas/UpDownMehFlipVote"
                   }
                 }
@@ -11862,41 +11805,47 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "title",
-                  "category_id",
-                  "original_post_attributes"
+                  "forum_topic[title]",
+                  "forum_topic[category_id]"
+                ],
+                "oneOf": [
+                  {
+                    "required": [
+                      "forum_topic[original_post_attributes][id]"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "forum_topic[original_post_attributes][body]"
+                    ]
+                  }
                 ],
                 "properties": {
-                  "title": {
+                  "forum_topic[title]": {
                     "type": "string"
                   },
-                  "category_id": {
+                  "forum_topic[category_id]": {
                     "type": "integer"
                   },
-                  "is_sticky": {
+                  "forum_topic[is_sticky]": {
                     "type": "boolean",
                     "description": "You must be Moderator+."
                   },
-                  "is_locked": {
+                  "forum_topic[is_locked]": {
                     "type": "boolean",
                     "description": "You must be Moderator+."
                   },
-                  "original_post_attributes": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "description": "Forum post ID. Mutually exclusive with body, one must be provided."
-                      },
-                      "body": {
-                        "type": "string",
-                        "description": "First forum post body. Mutually exclusive with id, one must be provided."
-                      }
-                    }
+                  "forum_topic[original_post_attributes][id]": {
+                    "type": "integer",
+                    "description": "Forum post ID. Mutually exclusive with body, one must be provided."
+                  },
+                  "forum_topic[original_post_attributes][body]": {
+                    "type": "string",
+                    "description": "First forum post body. Mutually exclusive with id, one must be provided."
                   }
                 }
               }
@@ -11973,36 +11922,31 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": {
+                  "forum_topic[title]": {
                     "type": "string"
                   },
-                  "category_id": {
+                  "forum_topic[category_id]": {
                     "type": "integer"
                   },
-                  "is_sticky": {
+                  "forum_topic[is_sticky]": {
                     "type": "boolean",
                     "description": "You must be Moderator+."
                   },
-                  "is_locked": {
+                  "forum_topic[is_locked]": {
                     "type": "boolean",
                     "description": "You must be Moderator+."
                   },
-                  "original_post_attributes": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "description": "Forum post ID. Silently ignored"
-                      },
-                      "body": {
-                        "type": "string",
-                        "description": "First forum post body."
-                      }
-                    }
+                  "forum_topic[original_post_attributes][id]": {
+                    "type": "integer",
+                    "description": "Forum post ID. Silently ignored"
+                  },
+                  "forum_topic[original_post_attributes][body]": {
+                    "type": "string",
+                    "description": "First forum post body."
                   }
                 }
               }
@@ -12218,7 +12162,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -12280,25 +12224,25 @@
         "description": "You must be Admin+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "name",
-                  "wiki_page"
+                  "help_page[name]",
+                  "help_page[wiki_page]"
                 ],
                 "properties": {
-                  "name": {
+                  "help_page[name]": {
                     "type": "string"
                   },
-                  "wiki_page": {
+                  "help_page[wiki_page]": {
                     "type": "string"
                   },
-                  "related": {
+                  "help_page[related]": {
                     "type": "string",
                     "description": "Separate with a comma followed by a space."
                   },
-                  "title": {
+                  "help_page[title]": {
                     "type": "string"
                   }
                 }
@@ -12413,21 +12357,21 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
+                  "help_page[name]": {
                     "type": "string"
                   },
-                  "wiki_page": {
+                  "help_page[wiki_page]": {
                     "type": "string"
                   },
-                  "related": {
+                  "help_page[related]": {
                     "type": "string",
                     "description": "Separate with a comma followed by a space."
                   },
-                  "title": {
+                  "help_page[title]": {
                     "type": "string"
                   }
                 }
@@ -12560,18 +12504,18 @@
         "description": "You must be Admin+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "ip_addr",
-                  "reason"
+                  "ip_ban[ip_addr]",
+                  "ip_ban[reason]"
                 ],
                 "properties": {
-                  "ip_addr": {
+                  "ip_ban[ip_addr]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "ip_ban[reason]": {
                     "type": "string"
                   }
                 }
@@ -12859,6 +12803,12 @@
                   "mascot[background_color]": {
                     "type": "string"
                   },
+                  "mascot[foreground_color]": {
+                    "type": "string"
+                  },
+                  "mascot[is_layered]": {
+                    "type": "boolean"
+                  },
                   "mascot[artist_url]": {
                     "type": "string"
                   },
@@ -12870,9 +12820,6 @@
                     "description": "Comma separated site names."
                   },
                   "mascot[active]": {
-                    "type": "boolean"
-                  },
-                  "mascot[hide_anonymous]": {
                     "type": "boolean"
                   }
                 }
@@ -12934,6 +12881,12 @@
                   "mascot[background_color]": {
                     "type": "string"
                   },
+                  "mascot[foreground_color]": {
+                    "type": "string"
+                  },
+                  "mascot[is_layered]": {
+                    "type": "boolean"
+                  },
                   "mascot[artist_url]": {
                     "type": "string"
                   },
@@ -12945,9 +12898,6 @@
                     "description": "Comma separated site names."
                   },
                   "mascot[active]": {
-                    "type": "boolean"
-                  },
-                  "mascot[hide_anonymous]": {
                     "type": "boolean"
                   }
                 }
@@ -13145,14 +13095,14 @@
         "description": "You must be Admin+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "message"
+                  "news_update[message]"
                 ],
                 "properties": {
-                  "message": {
+                  "news_update[message]": {
                     "type": "string"
                   }
                 }
@@ -13200,14 +13150,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "message"
+                  "news_update[message]"
                 ],
                 "properties": {
-                  "message": {
+                  "news_update[message]": {
                     "type": "string"
                   }
                 }
@@ -13367,37 +13317,37 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "post_id",
-                  "x",
-                  "y",
-                  "width",
-                  "height",
-                  "body"
+                  "note[post_id]",
+                  "note[x]",
+                  "note[y]",
+                  "note[width]",
+                  "note[height]",
+                  "note[body]"
                 ],
                 "properties": {
-                  "post_id": {
+                  "note[post_id]": {
                     "type": "integer"
                   },
-                  "x": {
+                  "note[x]": {
                     "type": "integer"
                   },
-                  "y": {
+                  "note[y]": {
                     "type": "integer"
                   },
-                  "width": {
+                  "note[width]": {
                     "type": "integer"
                   },
-                  "height": {
+                  "note[height]": {
                     "type": "integer"
                   },
-                  "body": {
+                  "note[body]": {
                     "type": "string"
                   },
-                  "html_id": {
+                  "note[html_id]": {
                     "type": "string",
                     "description": "Passthrough, used in frontend."
                   }
@@ -13488,23 +13438,23 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "x": {
+                  "note[x]": {
                     "type": "integer"
                   },
-                  "y": {
+                  "note[y]": {
                     "type": "integer"
                   },
-                  "width": {
+                  "note[width]": {
                     "type": "integer"
                   },
-                  "height": {
+                  "note[height]": {
                     "type": "integer"
                   },
-                  "body": {
+                  "note[body]": {
                     "type": "string"
                   }
                 }
@@ -13784,30 +13734,30 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "name"
+                  "pool[name]"
                 ],
                 "properties": {
-                  "name": {
+                  "pool[name]": {
                     "type": "string"
                   },
-                  "description": {
+                  "pool[description]": {
                     "type": "string"
                   },
-                  "category": {
+                  "pool[category]": {
                     "$ref": "#/components/schemas/PoolCategory"
                   },
-                  "is_active": {
+                  "pool[is_active]": {
                     "type": "boolean"
                   },
-                  "post_ids_string": {
+                  "pool[post_ids_string]": {
                     "type": "string",
                     "description": "Space separated list of post IDs. Mutually exclusive with post_ids."
                   },
-                  "post_ids": {
+                  "pool[post_ids][]": {
                     "type": "array",
                     "description": "Array of post IDs. Mutually exclusive with post_ids_string.",
                     "items": {
@@ -13885,27 +13835,27 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
+                  "pool[name]": {
                     "type": "string"
                   },
-                  "description": {
+                  "pool[description]": {
                     "type": "string"
                   },
-                  "is_active": {
+                  "pool[is_active]": {
                     "type": "boolean"
                   },
-                  "category": {
+                  "pool[category]": {
                     "$ref": "#/components/schemas/PoolCategory"
                   },
-                  "post_ids_string": {
+                  "pool[post_ids_string]": {
                     "type": "string",
                     "description": "Space separated list of post IDs. Mutually exclusive with post_ids."
                   },
-                  "post_ids": {
+                  "pool[post_ids][]": {
                     "type": "array",
                     "description": "Array of post IDs. Mutually exclusive with post_ids_string.",
                     "items": {
@@ -14018,7 +13968,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -14070,7 +14020,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -14117,7 +14067,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -14543,88 +14493,92 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "tag_string": {
+                  "post[tag_string]": {
                     "type": "string",
                     "description": "Replaces all tags on the post."
                   },
-                  "old_tag_string": {
+                  "post[old_tag_string]": {
                     "type": "string",
                     "description": "The tag string before your edits, used to reconcile conflicts."
                   },
-                  "tag_string_diff": {
+                  "post[tag_string_diff]": {
                     "type": "string",
                     "description": "Tags with a minus are removed, else they are added. Mutually exclusive with tag_string."
                   },
-                  "source_diff": {
+                  "post[source_diff]": {
                     "type": "string",
                     "description": "Sources with a minus are removed, else they are added. It is not possible to add inactive sources through this. Mutually exclusive with source."
                   },
-                  "source": {
+                  "post[source]": {
                     "type": "string",
                     "description": "Replaces all sources on the post."
                   },
-                  "old_source": {
+                  "post[old_source]": {
                     "type": "string",
                     "description": "The sources before your edits, used to reconcile conflicts."
                   },
-                  "parent_id": {
+                  "post[parent_id]": {
                     "type": "integer"
                   },
-                  "old_parent_id": {
+                  "post[old_parent_id]": {
                     "type": "integer"
                   },
-                  "description": {
+                  "post[description]": {
                     "type": "string"
                   },
-                  "old_description": {
+                  "post[old_description]": {
                     "type": "string"
                   },
-                  "rating": {
+                  "post[rating]": {
                     "$ref": "#/components/schemas/Rating"
                   },
-                  "old_rating": {
+                  "post[old_rating]": {
                     "$ref": "#/components/schemas/Rating"
                   },
-                  "edit_reason": {
+                  "post[edit_reason]": {
                     "type": "string"
                   },
-                  "is_rating_locked": {
+                  "post[is_rating_locked]": {
                     "type": "boolean",
                     "description": "You must be Privileged+."
                   },
-                  "is_note_locked": {
+                  "post[is_note_locked]": {
                     "type": "boolean",
                     "description": "You must be Staff+."
                   },
-                  "bg_color": {
+                  "post[bg_color]": {
                     "type": "string",
                     "description": "You must be Staff+."
                   },
-                  "is_comment_locked": {
+                  "post[is_comment_locked]": {
                     "type": "boolean",
                     "description": "You must be Moderator+."
                   },
-                  "is_comment_disabled": {
+                  "post[is_comment_disabled]": {
                     "type": "boolean",
                     "description": "You must be Admin+."
                   },
-                  "is_status_locked": {
+                  "post[is_status_locked]": {
                     "type": "boolean",
                     "description": "You must be Admin+."
                   },
-                  "locked_tags": {
+                  "post[locked_tags]": {
                     "type": "string",
                     "description": "You must be Admin+."
                   },
-                  "hide_from_anonymous": {
+                  "post[hide_from_anonymous]": {
                     "type": "boolean",
                     "description": "You must be Admin+."
                   },
-                  "hide_from_search_engines": {
+                  "post[hide_from_search_engines]": {
+                    "type": "boolean",
+                    "description": "You must be Admin+."
+                  },
+                  "post[hide_favorites_list]": {
                     "type": "boolean",
                     "description": "You must be Admin+."
                   }
@@ -14715,14 +14669,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "translation_check": {
+                  "post[translation_check]": {
                     "type": "boolean"
                   },
-                  "partially_translated": {
+                  "post[partially_translated]": {
                     "type": "boolean"
                   }
                 }
@@ -14765,7 +14719,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -14904,7 +14858,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -15081,6 +15035,35 @@
           },
           "422": {
             "$ref": "#/components/responses/ExpectedError"
+          }
+        }
+      }
+    },
+    "/posts/{id}/comments.json": {
+      "get": {
+        "summary": "Comments For Post",
+        "operationId": "comments#for_post",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DTextResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
           }
         }
       }
@@ -15284,27 +15267,27 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "name",
-                  "shortname"
+                  "post_set[name]",
+                  "post_set[shortname]"
                 ],
                 "properties": {
-                  "name": {
+                  "post_set[name]": {
                     "type": "string"
                   },
-                  "shortname": {
+                  "post_set[shortname]": {
                     "type": "string"
                   },
-                  "description": {
+                  "post_set[description]": {
                     "type": "string"
                   },
-                  "is_public": {
+                  "post_set[is_public]": {
                     "type": "boolean"
                   },
-                  "ransfer_on_delete": {
+                  "post_set[transfer_on_delete]": {
                     "type": "boolean"
                   }
                 }
@@ -15383,23 +15366,23 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
+                  "post_set[name]": {
                     "type": "string"
                   },
-                  "shortname": {
+                  "post_set[shortname]": {
                     "type": "string"
                   },
-                  "description": {
+                  "post_set[description]": {
                     "type": "string"
                   },
-                  "is_public": {
+                  "post_set[is_public]": {
                     "type": "boolean"
                   },
-                  "transfer_on_delete": {
+                  "post_set[transfer_on_delete]": {
                     "type": "boolean"
                   }
                 }
@@ -15505,14 +15488,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "post_ids_string"
+                  "post_set[post_ids_string]"
                 ],
                 "properties": {
-                  "post_ids_string": {
+                  "post_set[post_ids_string]": {
                     "type": "string"
                   }
                 }
@@ -15563,14 +15546,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "post_ids"
+                  "post_ids[]"
                 ],
                 "properties": {
-                  "post_ids": {
+                  "post_ids[]": {
                     "type": "array",
                     "description": "post_ids[]=1&post_ids[]=2",
                     "items": {
@@ -15625,14 +15608,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "post_ids"
+                  "post_ids[]"
                 ],
                 "properties": {
-                  "post_ids": {
+                  "post_ids[]": {
                     "type": "array",
                     "description": "post_ids[]=1&post_ids[]=2",
                     "items": {
@@ -16005,18 +15988,18 @@
         "description": "Will error if post_id is not provided.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "post_id",
-                  "reason_name"
+                  "post_flag[post_id]",
+                  "post_flag[reason_name]"
                 ],
                 "properties": {
-                  "post_id": {
+                  "post_flag[post_id]": {
                     "type": "integer"
                   },
-                  "reason_name": {
+                  "post_flag[reason_name]": {
                     "type": "string",
                     "enum": [
                       "uploading_guidelines",
@@ -16030,10 +16013,10 @@
                       "inferior"
                     ]
                   },
-                  "parent_id": {
+                  "post_flag[parent_id]": {
                     "type": "integer"
                   },
-                  "note": {
+                  "post_flag[note]": {
                     "type": "string"
                   }
                 }
@@ -16546,7 +16529,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -17209,14 +17192,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "category": {
+                  "tag[category]": {
                     "$ref": "#/components/schemas/TagCategory"
                   },
-                  "is_locked": {
+                  "tag[is_locked]": {
                     "description": "Must be Admin+.",
                     "type": "boolean"
                   }
@@ -17320,7 +17303,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -17366,7 +17349,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -17625,17 +17608,17 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "antecedent_name": {
+                  "tag_alias[antecedent_name]": {
                     "type": "string"
                   },
-                  "consequent_name": {
+                  "tag_alias[consequent_name]": {
                     "type": "string"
                   },
-                  "forum_topic_id": {
+                  "tag_alias[forum_topic_id]": {
                     "type": "string"
                   }
                 }
@@ -17722,6 +17705,40 @@
         }
       }
     },
+    "/tag_aliases/{id}/undo.json": {
+      "post": {
+        "summary": "Undo Tag Alias",
+        "operationId": "tag_aliases#undo",
+        "tags": [
+          "Tag Aliases"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ExpectedError"
+          }
+        }
+      }
+    },
     "/tag_alias_requests.json": {
       "post": {
         "summary": "Create Tag Alias",
@@ -17737,25 +17754,25 @@
         "description": "Errors will result in a 406 with no information.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "antecedent_name",
-                  "consequent_name",
-                  "reason"
+                  "tag_alias_request[antecedent_name]",
+                  "tag_alias_request[consequent_name]",
+                  "tag_alias_request[reason]"
                 ],
                 "properties": {
-                  "antecedent_name": {
+                  "tag_alias_request[antecedent_name]": {
                     "type": "string"
                   },
-                  "consequent_name": {
+                  "tag_alias_request[consequent_name]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "tag_alias_request[reason]": {
                     "type": "string"
                   },
-                  "skip_forum": {
+                  "tag_alias_request[skip_forum]": {
                     "type": "boolean",
                     "description": "Must be Admin+."
                   }
@@ -17944,17 +17961,17 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "antecedent_name": {
+                  "tag_implication[antecedent_name]": {
                     "type": "string"
                   },
-                  "consequent_name": {
+                  "tag_implication[consequent_name]": {
                     "type": "string"
                   },
-                  "forum_topic_id": {
+                  "tag_implication[forum_topic_id]": {
                     "type": "string"
                   }
                 }
@@ -18041,6 +18058,40 @@
         }
       }
     },
+    "/tag_implications/{id}/undo.json": {
+      "post": {
+        "summary": "Undo Tag Implication",
+        "operationId": "tag_implications#undo",
+        "tags": [
+          "Tag Implications"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be Admin+.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ExpectedError"
+          }
+        }
+      }
+    },
     "/tag_implication_requests.json": {
       "post": {
         "summary": "Create Tag Implication",
@@ -18056,25 +18107,25 @@
         "description": "Errors will result in a 406 with no information.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "antecedent_name",
-                  "consequent_name",
-                  "reason"
+                  "tag_implication_request[antecedent_name]",
+                  "tag_implication_request[consequent_name]",
+                  "tag_implication_request[reason]"
                 ],
                 "properties": {
-                  "antecedent_name": {
+                  "tag_implication_request[antecedent_name]": {
                     "type": "string"
                   },
-                  "consequent_name": {
+                  "tag_implication_request[consequent_name]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "tag_implication_request[reason]": {
                     "type": "string"
                   },
-                  "skip_forum": {
+                  "tag_implication_request[skip_forum]": {
                     "type": "boolean",
                     "description": "Must be Admin+."
                   }
@@ -18110,7 +18161,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -18131,7 +18182,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BulkRelatedTag",
+                  "$ref": "#/components/schemas/TagWithCount",
                   "example": [
                     {
                       "male": [
@@ -18293,36 +18344,36 @@
         "description": "You must be Admin+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "trends_enabled": {
+                  "search_trend_settings[trends_enabled]": {
                     "type": "boolean"
                   },
-                  "trends_displayed": {
+                  "search_trend_settings[trends_displayed]": {
                     "type": "boolean"
                   },
-                  "trends_min_today": {
+                  "search_trend_settings[trends_min_today]": {
                     "type": "integer"
                   },
-                  "trends_min_dleta": {
+                  "search_trend_settings[trends_min_delta]": {
                     "type": "integer"
                   },
-                  "trends_min_ratio": {
+                  "search_trend_settings[trends_min_ratio]": {
                     "type": "number",
                     "format": "float"
                   },
-                  "trends_ip_limit": {
+                  "search_trend_settings[trends_ip_limit]": {
                     "type": "integer"
                   },
-                  "trends_ip_window": {
+                  "search_trend_settings[trends_ip_window]": {
                     "type": "integer"
                   },
-                  "trends_tag_limit": {
+                  "search_trend_settings[trends_tag_limit]": {
                     "type": "integer"
                   },
-                  "trends_tag_window": {
+                  "search_trend_settings[trends_tag_window]": {
                     "type": "integer"
                   }
                 }
@@ -18457,18 +18508,18 @@
         "description": "You must be Admin+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "tag",
-                  "reason"
+                  "search_trend_blacklist[tag]",
+                  "search_trend_blacklist[reason]"
                 ],
                 "properties": {
-                  "tag": {
+                  "search_trend_blacklist[tag]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "search_trend_blacklist[reason]": {
                     "type": "string"
                   }
                 }
@@ -18516,14 +18567,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "tag": {
+                  "search_trend_blacklist[tag]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "search_trend_blacklist[reason]": {
                     "type": "string"
                   }
                 }
@@ -19013,14 +19064,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "body"
+                  "staff_note[body]"
                 ],
                 "properties": {
-                  "body": {
+                  "staff_note[body]": {
                     "type": "string"
                   }
                 }
@@ -19101,11 +19152,11 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "body": {
+                  "staff_note[body]": {
                     "type": "string"
                   }
                 }
@@ -19371,48 +19422,48 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "email",
-                  "reason"
+                  "takedown[email]",
+                  "takedown[reason]"
                 ],
                 "properties": {
-                  "email": {
+                  "takedown[email]": {
                     "type": "string"
                   },
-                  "source": {
+                  "takedown[source]": {
                     "type": "string"
                   },
-                  "instructions": {
+                  "takedown[instructions]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "takedown[reason]": {
                     "type": "string"
                   },
-                  "post_ids": {
+                  "takedown[post_ids][]": {
                     "type": "array",
-                    "description": "post_ids][]=1&takedown[post_ids][=2",
+                    "description": "takedown[post_ids][]=1&takedown[post_ids][]=2",
                     "items": {
                       "type": "integer"
                     }
                   },
-                  "reason_hidden": {
+                  "takedown[reason_hidden]": {
                     "type": "boolean"
                   },
-                  "notes": {
+                  "takedown[notes]": {
                     "type": "string",
                     "description": "Must have the bd staff user flag to use."
                   },
-                  "del_post_ids": {
+                  "takedown[del_post_ids][]": {
                     "type": "array",
-                    "description": "Must have the bd staff user flag to use.\ndel_post_ids][]=1&takedown[del_post_ids][=2\n",
+                    "description": "Must have the bd staff user flag to use.\ntakedown[del_post_ids][]=1&takedown[del_post_ids][]=2\n",
                     "items": {
                       "type": "integer"
                     }
                   },
-                  "status": {
+                  "takedown[status]": {
                     "type": "string",
                     "description": "Must have the bd staff user flag to use."
                   }
@@ -19488,14 +19539,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "notes": {
+                  "takedown[notes]": {
                     "type": "string"
                   },
-                  "reason_hidden": {
+                  "takedown[reason_hidden]": {
                     "type": "boolean"
                   },
                   "takedown_posts": {
@@ -19578,7 +19629,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -19648,7 +19699,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -19718,7 +19769,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -19781,7 +19832,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -19989,27 +20040,27 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "response"
+                  "ticket[response]"
                 ],
                 "properties": {
-                  "status": {
+                  "ticket[status]": {
                     "type": "string",
                     "enum": [
                       "partial",
                       "approved"
                     ]
                   },
-                  "response": {
+                  "ticket[response]": {
                     "type": "string"
                   },
-                  "record_type": {
-                    "$ref": "#/components/schemas/WarningType"
+                  "ticket[record_type]": {
+                    "$ref": "#/components/schemas/WarningRecordType"
                   },
-                  "send_update_dmail": {
+                  "ticket[send_update_dmail]": {
                     "type": "boolean",
                     "description": "An update dmail will always be sent when the status is changed."
                   }
@@ -20103,6 +20154,141 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/upload_karma_events.json": {
+      "get": {
+        "summary": "Upload Karma Events Index",
+        "operationId": "upload_karma_events#index",
+        "tags": [
+          "Upload Karma Events"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitQuery"
+          },
+          {
+            "$ref": "#/components/parameters/pageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/idQuery"
+          },
+          {
+            "$ref": "#/components/parameters/orderQuery"
+          },
+          {
+            "in": "query",
+            "name": "search[user_id]",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[user_name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[creator_id]",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[creator_name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[post_id]",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[reason]",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "approved",
+                "unapproved",
+                "deleted",
+                "undeleted",
+                "replacement_penalty",
+                "replacement_penalty_reversed",
+                "replacement_transfer",
+                "owner_change",
+                "staff_override",
+                "queue_bypass"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "user_id",
+                      "creator_id",
+                      "post_id",
+                      "reason",
+                      "delta",
+                      "balance",
+                      "extra_data",
+                      "created_at"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "user_id": {
+                        "type": "integer"
+                      },
+                      "creator_id": {
+                        "type": "integer"
+                      },
+                      "post_id": {
+                        "type": "integer",
+                        "nullable": true
+                      },
+                      "reason": {
+                        "$ref": "#/paths/~1upload_karma_events.json/get/parameters/9/schema"
+                      },
+                      "delta": {
+                        "type": "integer"
+                      },
+                      "balance": {
+                        "type": "integer"
+                      },
+                      "extra_data": {
+                        "type": "object",
+                        "additionalProperties": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -20461,31 +20647,31 @@
         "description": "You must be Admin+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "allowed",
-                  "domain",
-                  "path"
+                  "upload_whitelist[allowed]",
+                  "upload_whitelist[domain]",
+                  "upload_whitelist[path]"
                 ],
                 "properties": {
-                  "allowed": {
+                  "upload_whitelist[allowed]": {
                     "type": "string"
                   },
-                  "domain": {
+                  "upload_whitelist[domain]": {
                     "type": "string"
                   },
-                  "path": {
+                  "upload_whitelist[path]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "upload_whitelist[reason]": {
                     "type": "string"
                   },
-                  "note": {
+                  "upload_whitelist[note]": {
                     "type": "string"
                   },
-                  "hidden": {
+                  "upload_whitelist[hidden]": {
                     "type": "boolean"
                   }
                 }
@@ -20532,23 +20718,23 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "allowed": {
+                  "upload_whitelist[allowed]": {
                     "type": "string"
                   },
-                  "pattern": {
+                  "upload_whitelist[pattern]": {
                     "type": "string"
                   },
-                  "reason": {
+                  "upload_whitelist[reason]": {
                     "type": "string"
                   },
-                  "note": {
+                  "upload_whitelist[note]": {
                     "type": "string"
                   },
-                  "hidden": {
+                  "upload_whitelist[hidden]": {
                     "type": "boolean"
                   }
                 }
@@ -20849,6 +21035,54 @@
         }
       }
     },
+    "/users/upload_tags.json": {
+      "get": {
+        "summary": "Get Upload Tags",
+        "operationId": "users#upload_tags",
+        "description": "Returns the current user's favorite tags and recently used tags, for use in the upload tag editor.\n",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "upload_tags",
+                    "recent_tags"
+                  ],
+                  "properties": {
+                    "upload_tags": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TagWithCount"
+                      }
+                    },
+                    "recent_tags": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TagWithCount"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      }
+    },
     "/users/custom_style.css": {
       "get": {
         "summary": "Get Custom Style",
@@ -20913,14 +21147,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "comment_threshold": {
+                  "user[comment_threshold]": {
                     "type": "integer"
                   },
-                  "default_image_size": {
+                  "user[default_image_size]": {
                     "type": "string",
                     "enum": [
                       "large",
@@ -20929,84 +21163,81 @@
                       "original"
                     ]
                   },
-                  "favorite_tags": {
+                  "user[favorite_tags]": {
                     "type": "string"
                   },
-                  "blacklisted_tags": {
+                  "user[blacklisted_tags]": {
                     "type": "string"
                   },
-                  "time_zone": {
+                  "user[time_zone]": {
                     "type": "string",
                     "description": "https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
                   },
-                  "per_page": {
+                  "user[per_page]": {
                     "type": "integer"
                   },
-                  "custom_style": {
+                  "user[custom_style]": {
                     "type": "string"
                   },
-                  "description_collapsed_initially": {
+                  "user[description_collapsed_initially]": {
                     "type": "boolean"
                   },
-                  "hide_comments": {
+                  "user[hide_comments]": {
                     "type": "boolean"
                   },
-                  "receive_email_notifications": {
+                  "user[receive_email_notifications]": {
                     "type": "boolean"
                   },
-                  "enable_keyboard_navigation": {
+                  "user[enable_keyboard_navigation]": {
                     "type": "boolean"
                   },
-                  "enable_privacy_mode": {
+                  "user[enable_privacy_mode]": {
                     "type": "boolean"
                   },
-                  "disable_user_dmails": {
+                  "user[disable_user_dmails]": {
                     "type": "boolean"
                   },
-                  "blacklist_users": {
+                  "user[blacklist_users]": {
                     "type": "boolean"
                   },
-                  "show_post_statistics": {
+                  "user[show_post_statistics]": {
                     "type": "boolean"
                   },
-                  "style_usernames": {
+                  "user[show_hidden_comments]": {
                     "type": "boolean"
                   },
-                  "show_hidden_comments": {
+                  "user[enable_autocomplete]": {
                     "type": "boolean"
                   },
-                  "enable_autocomplete": {
+                  "user[disable_cropped_thumbnails]": {
                     "type": "boolean"
                   },
-                  "disable_cropped_thumbnails": {
+                  "user[enable_safe_mode]": {
                     "type": "boolean"
                   },
-                  "enable_safe_mode": {
+                  "user[disable_responsive_mode]": {
                     "type": "boolean"
                   },
-                  "disable_responsive_mode": {
-                    "type": "boolean"
-                  },
-                  "dmail_filter_attributes][id": {
+                  "user[dmail_filter_attributes][id]": {
                     "type": "integer"
                   },
-                  "dmail_filter_attributes][words": {
+                  "user[dmail_filter_attributes][words]": {
                     "type": "string"
                   },
-                  "profile_about": {
+                  "user[profile_about]": {
                     "type": "string"
                   },
-                  "profile_artinfo": {
+                  "user[profile_artinfo]": {
                     "type": "string"
                   },
-                  "avatar_id": {
+                  "user[avatar_id]": {
                     "type": "integer"
                   },
-                  "enable_compact_uploader": {
+                  "user[enable_compact_uploader]": {
                     "type": "boolean",
                     "description": "You must have uploaded at least 10 posts."
                   },
-                  "forum_notification_dot": {
+                  "user[forum_notification_dot]": {
                     "type": "boolean"
                   }
                 }
@@ -21289,7 +21520,7 @@
         "description": "You must be Moderator+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -21364,14 +21595,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "words"
+                  "dmail_filter[words]"
                 ],
                 "properties": {
-                  "words": {
+                  "dmail_filter[words]": {
                     "type": "string"
                   }
                 }
@@ -21403,7 +21634,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -21545,24 +21776,24 @@
         "description": "You must be Moderator+.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "body",
-                  "category"
+                  "user_feedback[body]",
+                  "user_feedback[category]"
                 ],
                 "properties": {
-                  "user_id": {
+                  "user_feedback[user_id]": {
                     "type": "integer"
                   },
-                  "user_name": {
+                  "user_feedback[user_name]": {
                     "type": "string"
                   },
-                  "body": {
+                  "user_feedback[body]": {
                     "type": "string"
                   },
-                  "category": {
+                  "user_feedback[category]": {
                     "$ref": "#/components/schemas/UserFeedbackCategory"
                   }
                 }
@@ -21641,14 +21872,14 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "body": {
+                  "user_feedback[body]": {
                     "type": "string"
                   },
-                  "category": {
+                  "user_feedback[category]": {
                     "$ref": "#/components/schemas/UserFeedbackCategory"
                   }
                 }
@@ -21847,17 +22078,17 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "desired_name"
+                  "user_name_change_request[desired_name]"
                 ],
                 "properties": {
-                  "desired_name": {
+                  "user_name_change_request[desired_name]": {
                     "type": "string"
                   },
-                  "change_reason": {
+                  "user_name_change_request[change_reason]": {
                     "type": "string"
                   }
                 }
@@ -22072,40 +22303,40 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "title",
-                  "body"
+                  "wiki_page[title]",
+                  "wiki_page[body]"
                 ],
                 "properties": {
-                  "title": {
+                  "wiki_page[title]": {
                     "type": "string"
                   },
-                  "body": {
+                  "wiki_page[body]": {
                     "type": "string"
                   },
-                  "edit_reason": {
+                  "wiki_page[edit_reason]": {
                     "type": "string"
                   },
-                  "parent": {
+                  "wiki_page[parent]": {
                     "type": "string",
                     "description": "Must be Privileged+ to use."
                   },
-                  "is_locked": {
+                  "wiki_page[is_locked]": {
                     "type": "boolean",
                     "description": "Must be Staff+ to use."
                   },
-                  "is_deleted": {
+                  "wiki_page[is_deleted]": {
                     "type": "boolean",
                     "description": "Must be Staff+ to use."
                   },
-                  "skip_secondary_validations": {
+                  "wiki_page[skip_secondary_validations]": {
                     "type": "boolean",
                     "description": "Must be Staff+ to use."
                   },
-                  "featured_posts_string": {
+                  "wiki_page[featured_posts_string]": {
                     "type": "string",
                     "description": "Space separated"
                   }
@@ -22199,44 +22430,37 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "body": {
+                  "wiki_page[body]": {
                     "type": "string"
                   },
-                  "edit_reason": {
+                  "wiki_page[edit_reason]": {
                     "type": "string"
                   },
-                  "parent": {
+                  "wiki_page[parent]": {
                     "type": "string",
                     "description": "Must be Privileged+ to use."
                   },
-                  "title": {
+                  "wiki_page[title]": {
                     "type": "string",
                     "description": "Must be Staff+ to use."
                   },
-                  "is_locked": {
+                  "wiki_page[is_locked]": {
                     "type": "boolean",
                     "description": "Must be Staff+ to use."
                   },
-                  "is_deleted": {
+                  "wiki_page[is_deleted]": {
                     "type": "boolean",
                     "description": "Must be Staff+ to use."
                   },
-                  "skip_secondary_validations": {
+                  "wiki_page[skip_secondary_validations]": {
                     "type": "boolean",
                     "description": "Must be Staff+ to use."
                   },
-                  "category_id": {
-                    "$ref": "#/components/schemas/TagCategory"
-                  },
-                  "category_is_locked": {
-                    "type": "boolean",
-                    "description": "Must be Admin+ to use."
-                  },
-                  "featured_posts_string": {
+                  "wiki_page[featured_posts_string]": {
                     "type": "string",
                     "description": "Space separated"
                   }
@@ -22543,56 +22767,56 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "verified": {
+                  "user[verified]": {
                     "type": "boolean",
                     "description": "Must have the bd staff user flag to use."
                   },
-                  "level": {
+                  "user[level]": {
                     "$ref": "#/components/schemas/UserLevel",
                     "description": "Must have the bd staff user flag to promote to Admin+."
                   },
-                  "name": {
+                  "user[name]": {
                     "type": "string"
                   },
-                  "profile_about": {
+                  "user[profile_about]": {
                     "type": "string"
                   },
-                  "profile_artinfo": {
+                  "user[profile_artinfo]": {
                     "type": "string"
                   },
-                  "base_upload_limit": {
+                  "user[base_upload_limit]": {
                     "type": "integer"
                   },
-                  "enable_privacy_mode": {
+                  "user[enable_privacy_mode]": {
                     "type": "boolean"
                   },
-                  "email": {
+                  "user[email]": {
                     "type": "string",
                     "description": "Must have the bd staff user flag to use."
                   },
-                  "can_approve_posts": {
+                  "user[can_approve_posts]": {
                     "type": "boolean"
                   },
-                  "can_upload_free": {
+                  "user[can_upload_free]": {
                     "type": "boolean"
                   },
-                  "no_flagging": {
+                  "user[no_flagging]": {
                     "type": "boolean"
                   },
-                  "replacements_beta": {
+                  "user[replacements_beta]": {
                     "type": "boolean"
                   },
-                  "custom_title": {
+                  "user[custom_title]": {
                     "type": "string"
                   },
-                  "tag_warden": {
+                  "user[tag_warden]": {
                     "type": "boolean"
                   },
-                  "raised_favorite_limit": {
+                  "user[raised_favorite_limit]": {
                     "type": "boolean"
                   }
                 }
@@ -22694,23 +22918,15 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "user"
+                  "user[blacklisted_tags]"
                 ],
                 "properties": {
-                  "user": {
-                    "type": "object",
-                    "required": [
-                      "blacklisted_tags"
-                    ],
-                    "properties": {
-                      "blacklisted_tags": {
-                        "type": "string"
-                      }
-                    }
+                  "user[blacklisted_tags]": {
+                    "type": "string"
                   }
                 }
               }
@@ -23165,7 +23381,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -23373,7 +23589,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -23436,7 +23652,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -23638,7 +23854,7 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -23693,7 +23909,7 @@
         "description": "You must have the \"Approve Posts\" permission. The response does not differ for success or failure.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -24038,18 +24254,18 @@
         "description": "You must have the \"Approve Posts\" permission.",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "post_id",
-                  "reason"
+                  "post_disapproval[post_id]",
+                  "post_disapproval[reason]"
                 ],
                 "properties": {
-                  "post_id": {
+                  "post_disapproval[post_id]": {
                     "type": "integer"
                   },
-                  "reason": {
+                  "post_disapproval[reason]": {
                     "type": "string",
                     "enum": [
                       "borderline_quality",
@@ -24057,7 +24273,7 @@
                       "other"
                     ]
                   },
-                  "message": {
+                  "post_disapproval[message]": {
                     "type": "string"
                   }
                 }
@@ -24281,7 +24497,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -24445,7 +24661,7 @@
         "description": "You must be Staff+",
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -24550,7 +24766,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {

@@ -18,7 +18,7 @@ export default class EmailBlacklists extends Base {
     async create(options: CreateEmailBlacklistOptions): Promise<EmailBlacklist> {
         return emailBlacklists_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "email_blacklist"),
         }).then(res => this._handleResponse(res, 201, true, EmailBlacklist));
     }
 

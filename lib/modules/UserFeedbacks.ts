@@ -28,7 +28,7 @@ export default class UserFeedbacks extends Base {
     async create(options: CreateUserFeedbackOptions): Promise<UserFeedback> {
         return userFeedbacks_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "user_feedback"),
         }).then(res => this._handleResponse(res, 201, true, UserFeedback));
     }
 
@@ -77,7 +77,7 @@ export default class UserFeedbacks extends Base {
         return userFeedbacks_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "user_feedback"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

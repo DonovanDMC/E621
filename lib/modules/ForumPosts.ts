@@ -11,7 +11,6 @@ import {
 import ForumPost from "../models/ForumPost.js";
 import {
     OperationID,
-    type ExtractValue,
     prefixKeys,
     type TransformDataBodyToOptions,
     type TransformDataQueryToOptions,
@@ -23,9 +22,9 @@ import Base from "./Base.js";
 import type {
     ForumPostsCreateData,
     ForumPostsUpdateData,
-    ForumPostsWarningData,
     ForumPostsWarningResponses,
     ForumPostsIndexData,
+    WarningRecordType,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
@@ -44,7 +43,7 @@ export default class ForumPosts extends Base {
     async create(options: CreateForumPostOptions): Promise<ForumPost> {
         return forumPosts_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "forum_post"),
         }).then(res => this._handleResponse(res, 201, true, ForumPost));
     }
 
@@ -73,7 +72,7 @@ export default class ForumPosts extends Base {
     }
 
     @OperationID("forum_posts#warning")
-    async mark(id: number, type: ExtractValue<"record_type", ForumPostsWarningData>): Promise<ForumPostsWarningResponse> {
+    async mark(id: number, type: WarningRecordType): Promise<ForumPostsWarningResponse> {
         return forumPosts_warning({
             client: this.client,
             path: { id },
@@ -102,7 +101,7 @@ export default class ForumPosts extends Base {
         return forumPosts_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "forum_post"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

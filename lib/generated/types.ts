@@ -14,7 +14,7 @@ export type EditHistoryVersionableType = 'Blip' | 'Comment' | 'ForumPost';
 
 export type JWKSAlgorithm = 'RS256';
 
-export type ModActionAction = 'admin_user_delete' | 'artist_delete' | 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'blip_destroy' | 'blip_delete' | 'blip_undelete' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'search_trend_blacklist_create' | 'search_trend_blacklist_update' | 'search_trend_blacklist_delete' | 'search_trend_blacklist_purge' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'staff_file_create' | 'staff_file_update' | 'staff_file_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_destroy' | 'tag_alias_create' | 'tag_alias_update' | 'tag_implication_create' | 'tag_implication_update' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'appeal_claim' | 'appeal_unclaim' | 'appeal_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_avatar_clear' | 'user_profile_clear' | 'user_comments_hide' | 'user_forum_posts_hide' | 'user_blips_delete' | 'user_blacklist_changed' | 'totp_reset' | 'password_reset' | 'user_text_change' | 'user_custom_title_change' | 'user_upload_limit_change' | 'user_karma_change' | 'user_karma_free_toggle' | 'user_uploads_toggle' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'user_flush_favorites' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'post_version_hide' | 'post_version_unhide' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
+export type ModActionAction = 'admin_user_delete' | 'artist_delete' | 'artist_page_rename' | 'artist_page_lock' | 'artist_page_unlock' | 'artist_user_linked' | 'artist_user_unlinked' | 'avoid_posting_create' | 'avoid_posting_update' | 'avoid_posting_delete' | 'avoid_posting_undelete' | 'avoid_posting_destroy' | 'staff_note_create' | 'staff_note_update' | 'staff_note_delete' | 'staff_note_undelete' | 'blip_destroy' | 'blip_delete' | 'blip_undelete' | 'blip_update' | 'comment_delete' | 'comment_hide' | 'comment_unhide' | 'comment_update' | 'forum_category_create' | 'forum_category_delete' | 'forum_category_update' | 'forum_post_delete' | 'forum_post_hide' | 'forum_post_unhide' | 'forum_post_update' | 'forum_topic_delete' | 'forum_topic_hide' | 'forum_topic_unhide' | 'forum_topic_lock' | 'forum_topic_unlock' | 'forum_topic_stick' | 'forum_topic_unstick' | 'forum_topic_update' | 'help_create' | 'help_delete' | 'help_update' | 'ip_ban_create' | 'ip_ban_delete' | 'search_trend_blacklist_create' | 'search_trend_blacklist_update' | 'search_trend_blacklist_delete' | 'search_trend_blacklist_purge' | 'mascot_create' | 'mascot_update' | 'mascot_delete' | 'staff_file_create' | 'staff_file_update' | 'staff_file_delete' | 'pool_delete' | 'report_reason_create' | 'report_reason_delete' | 'report_reason_update' | 'set_update' | 'set_delete' | 'set_change_visibility' | 'tag_destroy' | 'tag_alias_create' | 'tag_alias_update' | 'tag_alias_undo' | 'tag_implication_create' | 'tag_implication_update' | 'tag_implication_undo' | 'ticket_claim' | 'ticket_unclaim' | 'ticket_update' | 'appeal_claim' | 'appeal_unclaim' | 'appeal_update' | 'upload_whitelist_create' | 'upload_whitelist_update' | 'upload_whitelist_delete' | 'user_avatar_clear' | 'user_profile_clear' | 'user_comments_hide' | 'user_forum_posts_hide' | 'user_blips_delete' | 'user_blacklist_changed' | 'totp_reset' | 'password_reset' | 'user_text_change' | 'user_custom_title_change' | 'user_upload_limit_change' | 'user_karma_change' | 'user_karma_free_toggle' | 'user_uploads_toggle' | 'user_flags_change' | 'user_level_change' | 'user_name_change' | 'user_delete' | 'user_ban' | 'user_ban_update' | 'user_unban' | 'user_feedback_create' | 'user_feedback_update' | 'user_feedback_delete' | 'user_feedback_undelete' | 'user_feedback_destroy' | 'user_flush_favorites' | 'wiki_page_rename' | 'wiki_page_delete' | 'wiki_page_lock' | 'wiki_page_unlock' | 'mass_update' | 'nuke_tag' | 'takedown_delete' | 'takedown_process' | 'post_version_hide' | 'post_version_unhide' | 'created_positive_record' | 'created_neutral_record' | 'created_negative_record' | 'created_flag_reason' | 'edited_flag_reason' | 'deleted_flag_reason' | 'post_move_favorites' | 'post_delete' | 'post_undelete' | 'post_destroy' | 'post_rating_lock' | 'post_unapprove' | 'post_replacement_accept' | 'post_replacement_reject' | 'post_replacement_delete';
 
 export type OAuthClaim = 'iss' | 'sub' | 'aud' | 'exp' | 'iat' | 'preferred_username' | 'name' | 'picture' | 'updated_at' | 'e621_level' | 'e621_level_string' | 'e621_avatar_id' | 'e621_permissions' | 'email' | 'email_verified';
 
@@ -69,6 +69,8 @@ export type UserFeedbackCategory = 'negative' | 'neutral' | 'positive';
 export type UserLevel = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80;
 
 export type UserLevelName = 'Anonymous' | 'Blocked' | 'Member' | 'Privileged' | 'Former Staff' | 'Staff' | 'Janitor' | 'Moderator' | 'Admin';
+
+export type WarningRecordType = 'warning' | 'record' | 'ban' | 'unmark';
 
 export type WarningType = 'warning' | 'record' | 'ban';
 
@@ -194,10 +196,6 @@ export type Blip = {
     creator_name: string;
 };
 
-export type BulkRelatedTag = RelatedTag & {
-    count: number;
-};
-
 export type BulkUpdateRequest = {
     id: number;
     creator_id: number;
@@ -251,7 +249,6 @@ export type CurrentUser = User & {
     receive_email_notifications: boolean;
     enable_keyboard_navigation: boolean;
     enable_privacy_mode: boolean;
-    style_usernames: boolean;
     enable_auto_complete: boolean;
     can_approve_posts?: boolean;
     disable_cropped_thumbnails: boolean;
@@ -1118,11 +1115,6 @@ export type RecommendedPosts = {
     results: Array<PostRecommendation>;
 };
 
-export type RelatedTag = {
-    name: string;
-    category_id: TagCategory;
-};
-
 export type RisingSearchTrend = {
     name: string;
     pretty_name: string;
@@ -1269,7 +1261,7 @@ export type Stats = {
     blocked_users: number;
     member_users: number;
     privileged_users: number;
-    'former staff_users': number;
+    former_staff_users: number;
     staff_users: number;
     janitor_users: number;
     moderator_users: number;
@@ -1377,6 +1369,12 @@ export type TagTypeVersion = {
     is_locked: boolean;
     tag_id: number;
     creator_id: number;
+};
+
+export type TagWithCount = {
+    name: string;
+    category_id: TagCategory;
+    count: number;
 };
 
 export type Takedown = {
@@ -1589,10 +1587,6 @@ export type VoteTrendUploader = {
     uploader: User;
 };
 
-export type WarningRecordType = {
-    record_type: 'unmark' | 'ban' | 'record' | 'warning';
-};
-
 export type WikiPage = {
     id: number;
     created_at: string;
@@ -1722,7 +1716,9 @@ export type idPath = number;
  */
 export type idOrNamePath = number | string;
 
-export type warning = WarningRecordType;
+export type warning = {
+    record_type: WarningRecordType;
+};
 
 export type ApiKeysIndexData = {
     body?: never;
@@ -1991,12 +1987,12 @@ export type AppealsShowResponse = AppealsShowResponses[keyof AppealsShowResponse
 
 export type AppealsUpdateData = {
     body?: {
-        status?: 'partial' | 'approved';
-        response?: string;
+        'appeal[status]'?: 'partial' | 'approved';
+        'appeal[response]'?: string;
         /**
          * An update dmail will always be sent when the status is changed.
          */
-        send_update_dmail?: boolean;
+        'appeal[send_update_dmail]'?: boolean;
     };
     path: {
         /**
@@ -2144,20 +2140,20 @@ export type ArtistsIndexResponse = ArtistsIndexResponses[keyof ArtistsIndexRespo
 
 export type ArtistsCreateData = {
     body?: {
-        name: string;
-        other_names?: Array<string>;
-        other_names_string?: string;
-        url_string?: string;
-        notes?: string;
-        group_name?: string;
+        'artist[name]': string;
+        'artist[other_names][]'?: Array<string>;
+        'artist[other_names_string]'?: string;
+        'artist[url_string]'?: string;
+        'artist[notes]'?: string;
+        'artist[group_name]'?: string;
         /**
          * Only usable for Staff+
          */
-        linked_user_id?: number | null;
+        'artist[linked_user_id]'?: number | null;
         /**
          * Only usable for Staff+
          */
-        is_locked?: boolean;
+        'artist[is_locked]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -2260,20 +2256,20 @@ export type ArtistsUpdateData = {
         /**
          * Only usable for Staff+
          */
-        name?: string;
-        other_names?: Array<string>;
-        other_names_string?: string;
-        url_string?: string;
-        notes?: string;
-        group_name?: string;
+        'artist[name]'?: string;
+        'artist[other_names][]'?: Array<string>;
+        'artist[other_names_string]'?: string;
+        'artist[url_string]'?: string;
+        'artist[notes]'?: string;
+        'artist[group_name]'?: string;
         /**
          * Only usable for Staff+
          */
-        linked_user_id?: number | null;
+        'artist[linked_user_id]'?: number | null;
         /**
          * Only usable for Staff+
          */
-        is_locked?: boolean;
+        'artist[is_locked]'?: boolean;
     };
     path: {
         /**
@@ -2553,19 +2549,17 @@ export type AvoidPostingsIndexResponse = AvoidPostingsIndexResponses[keyof Avoid
 
 export type AvoidPostingsCreateData = {
     body?: {
-        details?: string;
-        staff_notes?: string;
-        is_active?: boolean;
-        artist_attributes: {
-            /**
-             * If provided and the artist does not exist, an artist will be created.
-             */
-            name: string;
-            other_names_string?: string;
-            other_names?: Array<string>;
-            group_name?: string;
-            linked_user_id?: number;
-        };
+        'avoid_posting[details]'?: string;
+        'avoid_posting[staff_notes]'?: string;
+        'avoid_posting[is_active]'?: boolean;
+        /**
+         * If provided and the artist does not exist, an artist will be created.
+         */
+        'avoid_posting[artist_attributes][name]': string;
+        'avoid_posting[artist_attributes][other_names_string]'?: string;
+        'avoid_posting[artist_attributes][other_names][]'?: Array<string>;
+        'avoid_posting[artist_attributes][group_name]'?: string;
+        'avoid_posting[artist_attributes][linked_user_id]'?: number;
     };
     path?: never;
     query?: never;
@@ -2662,19 +2656,17 @@ export type AvoidPostingsShowResponse = AvoidPostingsShowResponses[keyof AvoidPo
 
 export type AvoidPostingsUpdateData = {
     body?: {
-        details?: string;
-        staff_notes?: string;
-        is_active?: boolean;
-        artist_attributes?: {
-            /**
-             * If provided and the artist does not exist, an artist will be created.
-             */
-            name?: string;
-            other_names_string?: string;
-            other_names?: Array<string>;
-            group_name?: string;
-            linked_user_id?: number;
-        };
+        'avoid_posting[details]'?: string;
+        'avoid_posting[staff_notes]'?: string;
+        'avoid_posting[is_active]'?: boolean;
+        /**
+         * If provided and the artist does not exist, an artist will be created.
+         */
+        'avoid_posting[artist_attributes][name]'?: string;
+        'avoid_posting[artist_attributes][other_names_string]'?: string;
+        'avoid_posting[artist_attributes][other_names][]'?: Array<string>;
+        'avoid_posting[artist_attributes][group_name]'?: string;
+        'avoid_posting[artist_attributes][linked_user_id]'?: number;
     };
     path: {
         /**
@@ -2978,8 +2970,8 @@ export type BlipsIndexResponse = BlipsIndexResponses[keyof BlipsIndexResponses];
 
 export type BlipsCreateData = {
     body?: {
-        body: string;
-        response_to?: number;
+        'blip[body]': string;
+        'blip[response_to]'?: number;
     };
     path?: never;
     query?: never;
@@ -3084,7 +3076,7 @@ export type BlipsShowResponse = BlipsShowResponses[keyof BlipsShowResponses];
 
 export type BlipsUpdateData = {
     body?: {
-        body?: string;
+        'blip[body]'?: string;
     };
     path: {
         /**
@@ -3252,17 +3244,17 @@ export type BulkUpdateRequestsIndexResponse = BulkUpdateRequestsIndexResponses[k
 
 export type BulkUpdateRequestsCreateData = {
     body?: {
-        script: string;
-        title: string;
-        reason: string;
+        'bulk_update_request[script]': string;
+        'bulk_update_request[title]': string;
+        'bulk_update_request[reason]': string;
         /**
          * You must be able to reply to the topic.
          */
-        forum_topic_id?: number;
+        'bulk_update_request[forum_topic_id]'?: number;
         /**
          * Only usable for Admin+
          */
-        skip_forum?: boolean;
+        'bulk_update_request[skip_forum]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -3359,15 +3351,15 @@ export type BulkUpdateRequestsShowResponse = BulkUpdateRequestsShowResponses[key
 
 export type BulkUpdateRequestsUpdateData = {
     body?: {
-        script?: string;
+        'bulk_update_request[script]'?: string;
         /**
          * You must be Admin+.
          */
-        forum_topic_id?: string;
+        'bulk_update_request[forum_topic_id]'?: string;
         /**
          * You must be Admin+.
          */
-        forum_post_id?: string;
+        'bulk_update_request[forum_post_id]'?: string;
     };
     path: {
         /**
@@ -3497,17 +3489,17 @@ export type CommentsIndexResponse = CommentsIndexResponses[keyof CommentsIndexRe
 
 export type CommentsCreateData = {
     body?: {
-        body: string;
-        post_id: number;
-        do_not_bump_post?: boolean;
+        'comment[body]': string;
+        'comment[post_id]': number;
+        'comment[do_not_bump_post]'?: boolean;
         /**
          * Only usable for Staff+
          */
-        is_sticky?: boolean;
+        'comment[is_sticky]'?: boolean;
         /**
          * Only usable for Moderator+
          */
-        is_hidden?: boolean;
+        'comment[is_hidden]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -3608,15 +3600,15 @@ export type CommentsShowResponse = CommentsShowResponses[keyof CommentsShowRespo
 
 export type CommentsUpdateData = {
     body?: {
-        body?: string;
+        'comment[body]'?: string;
         /**
          * Only usable for Staff+
          */
-        is_sticky?: boolean;
+        'comment[is_sticky]'?: boolean;
         /**
          * Only usable for Moderator+
          */
-        is_hidden?: boolean;
+        'comment[is_hidden]'?: boolean;
     };
     path: {
         /**
@@ -3655,36 +3647,6 @@ export type CommentsUpdateResponses = {
 };
 
 export type CommentsUpdateResponse = CommentsUpdateResponses[keyof CommentsUpdateResponses];
-
-export type CommentsForPostData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of the item.
-         */
-        id: number;
-    };
-    query?: never;
-    url: '/comments/{id}/for_post.json';
-};
-
-export type CommentsForPostErrors = {
-    /**
-     * Not Found
-     */
-    404: NotFoundResponse;
-};
-
-export type CommentsForPostError = CommentsForPostErrors[keyof CommentsForPostErrors];
-
-export type CommentsForPostResponses = {
-    /**
-     * Success
-     */
-    200: DTextResponse;
-};
-
-export type CommentsForPostResponse = CommentsForPostResponses[keyof CommentsForPostResponses];
 
 export type CommentsHideData = {
     body?: never;
@@ -4610,8 +4572,8 @@ export type EmailBlacklistsIndexResponse = EmailBlacklistsIndexResponses[keyof E
 
 export type EmailBlacklistsCreateData = {
     body?: {
-        domain: string;
-        reason: string;
+        'email_blacklist[domain]': string;
+        'email_blacklist[reason]': string;
     };
     path?: never;
     query?: never;
@@ -4847,8 +4809,8 @@ export type ForumPostsIndexResponse = ForumPostsIndexResponses[keyof ForumPostsI
 
 export type ForumPostsCreateData = {
     body?: {
-        body: string;
-        topic_id: number;
+        'forum_post[body]': string;
+        'forum_post[topic_id]': number;
     };
     path?: never;
     query?: never;
@@ -4949,7 +4911,7 @@ export type ForumPostsShowResponse = ForumPostsShowResponses[keyof ForumPostsSho
 
 export type ForumPostsUpdateData = {
     body?: {
-        body?: string;
+        'forum_post[body]'?: string;
     };
     path: {
         /**
@@ -5173,7 +5135,7 @@ export type ForumPostVotesShowResponse = ForumPostVotesShowResponses[keyof Forum
 
 export type ForumPostVotesCreateData = {
     body?: {
-        score: UpDownMehFlipVote;
+        'forum_post_vote[score]': UpDownMehFlipVote;
     };
     path: {
         /**
@@ -5250,27 +5212,25 @@ export type ForumTopicsIndexResponses = {
 export type ForumTopicsIndexResponse = ForumTopicsIndexResponses[keyof ForumTopicsIndexResponses];
 
 export type ForumTopicsCreateData = {
-    body?: {
-        title: string;
-        category_id: number;
+    body?: unknown & {
+        'forum_topic[title]': string;
+        'forum_topic[category_id]': number;
         /**
          * You must be Moderator+.
          */
-        is_sticky?: boolean;
+        'forum_topic[is_sticky]'?: boolean;
         /**
          * You must be Moderator+.
          */
-        is_locked?: boolean;
-        original_post_attributes: {
-            /**
-             * Forum post ID. Mutually exclusive with body, one must be provided.
-             */
-            id?: number;
-            /**
-             * First forum post body. Mutually exclusive with id, one must be provided.
-             */
-            body?: string;
-        };
+        'forum_topic[is_locked]'?: boolean;
+        /**
+         * Forum post ID. Mutually exclusive with body, one must be provided.
+         */
+        'forum_topic[original_post_attributes][id]'?: number;
+        /**
+         * First forum post body. Mutually exclusive with id, one must be provided.
+         */
+        'forum_topic[original_post_attributes][body]'?: string;
     };
     path?: never;
     query?: never;
@@ -5371,26 +5331,24 @@ export type ForumTopicsShowResponse = ForumTopicsShowResponses[keyof ForumTopics
 
 export type ForumTopicsUpdateData = {
     body?: {
-        title?: string;
-        category_id?: number;
+        'forum_topic[title]'?: string;
+        'forum_topic[category_id]'?: number;
         /**
          * You must be Moderator+.
          */
-        is_sticky?: boolean;
+        'forum_topic[is_sticky]'?: boolean;
         /**
          * You must be Moderator+.
          */
-        is_locked?: boolean;
-        original_post_attributes?: {
-            /**
-             * Forum post ID. Silently ignored
-             */
-            id?: number;
-            /**
-             * First forum post body.
-             */
-            body?: string;
-        };
+        'forum_topic[is_locked]'?: boolean;
+        /**
+         * Forum post ID. Silently ignored
+         */
+        'forum_topic[original_post_attributes][id]'?: number;
+        /**
+         * First forum post body.
+         */
+        'forum_topic[original_post_attributes][body]'?: string;
     };
     path: {
         /**
@@ -5620,13 +5578,13 @@ export type HelpIndexResponse = HelpIndexResponses[keyof HelpIndexResponses];
 
 export type HelpCreateData = {
     body?: {
-        name: string;
-        wiki_page: string;
+        'help_page[name]': string;
+        'help_page[wiki_page]': string;
         /**
          * Separate with a comma followed by a space.
          */
-        related?: string;
-        title?: string;
+        'help_page[related]'?: string;
+        'help_page[title]'?: string;
     };
     path?: never;
     query?: never;
@@ -5743,13 +5701,13 @@ export type HelpShowResponse = HelpShowResponses[keyof HelpShowResponses];
 
 export type HelpUpdateData = {
     body?: {
-        name?: string;
-        wiki_page?: string;
+        'help_page[name]'?: string;
+        'help_page[wiki_page]'?: string;
         /**
          * Separate with a comma followed by a space.
          */
-        related?: string;
-        title?: string;
+        'help_page[related]'?: string;
+        'help_page[title]'?: string;
     };
     path: {
         /**
@@ -5831,8 +5789,8 @@ export type IpBansIndexResponse = IpBansIndexResponses[keyof IpBansIndexResponse
 
 export type IpBansCreateData = {
     body?: {
-        ip_addr: string;
-        reason: string;
+        'ip_ban[ip_addr]': string;
+        'ip_ban[reason]': string;
     };
     path?: never;
     query?: never;
@@ -6000,6 +5958,8 @@ export type MascotsCreateData = {
         'mascot[mascot_file]': Blob | File;
         'mascot[display_name]': string;
         'mascot[background_color]': string;
+        'mascot[foreground_color]'?: string;
+        'mascot[is_layered]'?: boolean;
         'mascot[artist_url]': string;
         'mascot[artist_name]': string;
         /**
@@ -6007,7 +5967,6 @@ export type MascotsCreateData = {
          */
         'mascot[available_on_string]'?: string;
         'mascot[active]'?: boolean;
-        'mascot[hide_anonymous]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -6077,6 +6036,8 @@ export type MascotsUpdateData = {
         'mascot[mascot_file]'?: Blob | File;
         'mascot[display_name]'?: string;
         'mascot[background_color]'?: string;
+        'mascot[foreground_color]'?: string;
+        'mascot[is_layered]'?: boolean;
         'mascot[artist_url]'?: string;
         'mascot[artist_name]'?: string;
         /**
@@ -6084,7 +6045,6 @@ export type MascotsUpdateData = {
          */
         'mascot[available_on_string]'?: string;
         'mascot[active]'?: boolean;
-        'mascot[hide_anonymous]'?: boolean;
     };
     path: {
         /**
@@ -6218,7 +6178,7 @@ export type NewsUpdatesIndexResponse = NewsUpdatesIndexResponses[keyof NewsUpdat
 
 export type NewsUpdatesCreateData = {
     body?: {
-        message: string;
+        'news_update[message]': string;
     };
     path?: never;
     query?: never;
@@ -6285,7 +6245,7 @@ export type NewsUpdatesDestroyResponse = NewsUpdatesDestroyResponses[keyof NewsU
 
 export type NewsUpdatesUpdateData = {
     body?: {
-        message: string;
+        'news_update[message]': string;
     };
     path: {
         /**
@@ -6371,16 +6331,16 @@ export type NotesIndexResponse = NotesIndexResponses[keyof NotesIndexResponses];
 
 export type NotesCreateData = {
     body?: {
-        post_id: number;
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-        body: string;
+        'note[post_id]': number;
+        'note[x]': number;
+        'note[y]': number;
+        'note[width]': number;
+        'note[height]': number;
+        'note[body]': string;
         /**
          * Passthrough, used in frontend.
          */
-        html_id?: string;
+        'note[html_id]'?: string;
     };
     path?: never;
     query?: never;
@@ -6482,11 +6442,11 @@ export type NotesShowResponse = NotesShowResponses[keyof NotesShowResponses];
 
 export type NotesUpdateData = {
     body?: {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        body?: string;
+        'note[x]'?: number;
+        'note[y]'?: number;
+        'note[width]'?: number;
+        'note[height]'?: number;
+        'note[body]'?: string;
     };
     path: {
         /**
@@ -6652,18 +6612,18 @@ export type PoolsIndexResponse = PoolsIndexResponses[keyof PoolsIndexResponses];
 
 export type PoolsCreateData = {
     body?: {
-        name: string;
-        description?: string;
-        category?: PoolCategory;
-        is_active?: boolean;
+        'pool[name]': string;
+        'pool[description]'?: string;
+        'pool[category]'?: PoolCategory;
+        'pool[is_active]'?: boolean;
         /**
          * Space separated list of post IDs. Mutually exclusive with post_ids.
          */
-        post_ids_string?: string;
+        'pool[post_ids_string]'?: string;
         /**
          * Array of post IDs. Mutually exclusive with post_ids_string.
          */
-        post_ids?: Array<number>;
+        'pool[post_ids][]'?: Array<number>;
     };
     path?: never;
     query?: never;
@@ -6760,18 +6720,18 @@ export type PoolsShowResponse = PoolsShowResponses[keyof PoolsShowResponses];
 
 export type PoolsUpdateData = {
     body?: {
-        name?: string;
-        description?: string;
-        is_active?: boolean;
-        category?: PoolCategory;
+        'pool[name]'?: string;
+        'pool[description]'?: string;
+        'pool[is_active]'?: boolean;
+        'pool[category]'?: PoolCategory;
         /**
          * Space separated list of post IDs. Mutually exclusive with post_ids.
          */
-        post_ids_string?: string;
+        'pool[post_ids_string]'?: string;
         /**
          * Array of post IDs. Mutually exclusive with post_ids_string.
          */
-        post_ids?: Array<number>;
+        'pool[post_ids][]'?: Array<number>;
     };
     path: {
         /**
@@ -7202,70 +7162,74 @@ export type PostsUpdateData = {
         /**
          * Replaces all tags on the post.
          */
-        tag_string?: string;
+        'post[tag_string]'?: string;
         /**
          * The tag string before your edits, used to reconcile conflicts.
          */
-        old_tag_string?: string;
+        'post[old_tag_string]'?: string;
         /**
          * Tags with a minus are removed, else they are added. Mutually exclusive with tag_string.
          */
-        tag_string_diff?: string;
+        'post[tag_string_diff]'?: string;
         /**
          * Sources with a minus are removed, else they are added. It is not possible to add inactive sources through this. Mutually exclusive with source.
          */
-        source_diff?: string;
+        'post[source_diff]'?: string;
         /**
          * Replaces all sources on the post.
          */
-        source?: string;
+        'post[source]'?: string;
         /**
          * The sources before your edits, used to reconcile conflicts.
          */
-        old_source?: string;
-        parent_id?: number;
-        old_parent_id?: number;
-        description?: string;
-        old_description?: string;
-        rating?: Rating;
-        old_rating?: Rating;
-        edit_reason?: string;
+        'post[old_source]'?: string;
+        'post[parent_id]'?: number;
+        'post[old_parent_id]'?: number;
+        'post[description]'?: string;
+        'post[old_description]'?: string;
+        'post[rating]'?: Rating;
+        'post[old_rating]'?: Rating;
+        'post[edit_reason]'?: string;
         /**
          * You must be Privileged+.
          */
-        is_rating_locked?: boolean;
+        'post[is_rating_locked]'?: boolean;
         /**
          * You must be Staff+.
          */
-        is_note_locked?: boolean;
+        'post[is_note_locked]'?: boolean;
         /**
          * You must be Staff+.
          */
-        bg_color?: string;
+        'post[bg_color]'?: string;
         /**
          * You must be Moderator+.
          */
-        is_comment_locked?: boolean;
+        'post[is_comment_locked]'?: boolean;
         /**
          * You must be Admin+.
          */
-        is_comment_disabled?: boolean;
+        'post[is_comment_disabled]'?: boolean;
         /**
          * You must be Admin+.
          */
-        is_status_locked?: boolean;
+        'post[is_status_locked]'?: boolean;
         /**
          * You must be Admin+.
          */
-        locked_tags?: string;
+        'post[locked_tags]'?: string;
         /**
          * You must be Admin+.
          */
-        hide_from_anonymous?: boolean;
+        'post[hide_from_anonymous]'?: boolean;
         /**
          * You must be Admin+.
          */
-        hide_from_search_engines?: boolean;
+        'post[hide_from_search_engines]'?: boolean;
+        /**
+         * You must be Admin+.
+         */
+        'post[hide_favorites_list]'?: boolean;
     };
     path: {
         /**
@@ -7373,8 +7337,8 @@ export type PostsUpdateIqdbResponse = PostsUpdateIqdbResponses[keyof PostsUpdate
 
 export type PostsMarkAsTranslatedData = {
     body?: {
-        translation_check?: boolean;
-        partially_translated?: boolean;
+        'post[translation_check]'?: boolean;
+        'post[partially_translated]'?: boolean;
     };
     path: {
         /**
@@ -7739,6 +7703,36 @@ export type PostVotesCreateResponses = {
 
 export type PostVotesCreateResponse = PostVotesCreateResponses[keyof PostVotesCreateResponses];
 
+export type CommentsForPostData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/posts/{id}/comments.json';
+};
+
+export type CommentsForPostErrors = {
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type CommentsForPostError = CommentsForPostErrors[keyof CommentsForPostErrors];
+
+export type CommentsForPostResponses = {
+    /**
+     * Success
+     */
+    200: DTextResponse;
+};
+
+export type CommentsForPostResponse = CommentsForPostResponses[keyof CommentsForPostResponses];
+
 export type PostRecommendationsArtistData = {
     body?: never;
     path: {
@@ -7859,11 +7853,11 @@ export type PostSetsIndexResponse = PostSetsIndexResponses[keyof PostSetsIndexRe
 
 export type PostSetsCreateData = {
     body?: {
-        name: string;
-        shortname: string;
-        description?: string;
-        is_public?: boolean;
-        ransfer_on_delete?: boolean;
+        'post_set[name]': string;
+        'post_set[shortname]': string;
+        'post_set[description]'?: string;
+        'post_set[is_public]'?: boolean;
+        'post_set[transfer_on_delete]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -7964,11 +7958,11 @@ export type PostSetsShowResponse = PostSetsShowResponses[keyof PostSetsShowRespo
 
 export type PostSetsUpdateData = {
     body?: {
-        name?: string;
-        shortname?: string;
-        description?: string;
-        is_public?: boolean;
-        transfer_on_delete?: boolean;
+        'post_set[name]'?: string;
+        'post_set[shortname]'?: string;
+        'post_set[description]'?: string;
+        'post_set[is_public]'?: boolean;
+        'post_set[transfer_on_delete]'?: boolean;
     };
     path: {
         /**
@@ -8044,7 +8038,7 @@ export type PostSetsPostListResponse = PostSetsPostListResponses[keyof PostSetsP
 
 export type PostSetsUpdatePostsData = {
     body?: {
-        post_ids_string: string;
+        'post_set[post_ids_string]': string;
     };
     path: {
         /**
@@ -8089,7 +8083,7 @@ export type PostSetsAddPostsData = {
         /**
          * post_ids[]=1&post_ids[]=2
          */
-        post_ids: Array<number>;
+        'post_ids[]': Array<number>;
     };
     path: {
         /**
@@ -8134,7 +8128,7 @@ export type PostSetsRemovePostsData = {
         /**
          * post_ids[]=1&post_ids[]=2
          */
-        post_ids: Array<number>;
+        'post_ids[]': Array<number>;
     };
     path: {
         /**
@@ -8340,10 +8334,10 @@ export type PostFlagsIndexResponse = PostFlagsIndexResponses[keyof PostFlagsInde
 
 export type PostFlagsCreateData = {
     body?: {
-        post_id: number;
-        reason_name: 'uploading_guidelines' | 'young_human' | 'dnp_artist' | 'pay_content' | 'trace' | 'previously_deleted' | 'real_porn' | 'corrupt' | 'inferior';
-        parent_id?: number;
-        note?: string;
+        'post_flag[post_id]': number;
+        'post_flag[reason_name]': 'uploading_guidelines' | 'young_human' | 'dnp_artist' | 'pay_content' | 'trace' | 'previously_deleted' | 'real_porn' | 'corrupt' | 'inferior';
+        'post_flag[parent_id]'?: number;
+        'post_flag[note]'?: string;
     };
     path?: never;
     query?: never;
@@ -9135,11 +9129,11 @@ export type TagsShowResponse = TagsShowResponses[keyof TagsShowResponses];
 
 export type TagsUpdateData = {
     body?: {
-        category?: TagCategory;
+        'tag[category]'?: TagCategory;
         /**
          * Must be Admin+.
          */
-        is_locked?: boolean;
+        'tag[is_locked]'?: boolean;
     };
     path: {
         /**
@@ -9407,9 +9401,9 @@ export type TagAliasesShowResponse = TagAliasesShowResponses[keyof TagAliasesSho
 
 export type TagAliasesUpdateData = {
     body?: {
-        antecedent_name?: string;
-        consequent_name?: string;
-        forum_topic_id?: string;
+        'tag_alias[antecedent_name]'?: string;
+        'tag_alias[consequent_name]'?: string;
+        'tag_alias[forum_topic_id]'?: string;
     };
     path: {
         /**
@@ -9489,15 +9483,55 @@ export type TagAliasesApproveResponses = {
 
 export type TagAliasesApproveResponse = TagAliasesApproveResponses[keyof TagAliasesApproveResponses];
 
+export type TagAliasesUndoData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/tag_aliases/{id}/undo.json';
+};
+
+export type TagAliasesUndoErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type TagAliasesUndoError = TagAliasesUndoErrors[keyof TagAliasesUndoErrors];
+
+export type TagAliasesUndoResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type TagAliasesUndoResponse = TagAliasesUndoResponses[keyof TagAliasesUndoResponses];
+
 export type TagAliasRequestsCreateData = {
     body?: {
-        antecedent_name: string;
-        consequent_name: string;
-        reason: string;
+        'tag_alias_request[antecedent_name]': string;
+        'tag_alias_request[consequent_name]': string;
+        'tag_alias_request[reason]': string;
         /**
          * Must be Admin+.
          */
-        skip_forum?: boolean;
+        'tag_alias_request[skip_forum]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -9623,9 +9657,9 @@ export type TagImplicationsShowResponse = TagImplicationsShowResponses[keyof Tag
 
 export type TagImplicationsUpdateData = {
     body?: {
-        antecedent_name?: string;
-        consequent_name?: string;
-        forum_topic_id?: string;
+        'tag_implication[antecedent_name]'?: string;
+        'tag_implication[consequent_name]'?: string;
+        'tag_implication[forum_topic_id]'?: string;
     };
     path: {
         /**
@@ -9705,15 +9739,55 @@ export type TagImplicationsApproveResponses = {
 
 export type TagImplicationsApproveResponse = TagImplicationsApproveResponses[keyof TagImplicationsApproveResponses];
 
+export type TagImplicationsUndoData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/tag_implications/{id}/undo.json';
+};
+
+export type TagImplicationsUndoErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Invalid Input Data
+     */
+    422: {
+        errors: Array<string>;
+    };
+};
+
+export type TagImplicationsUndoError = TagImplicationsUndoErrors[keyof TagImplicationsUndoErrors];
+
+export type TagImplicationsUndoResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type TagImplicationsUndoResponse = TagImplicationsUndoResponses[keyof TagImplicationsUndoResponses];
+
 export type TagImplicationRequestsCreateData = {
     body?: {
-        antecedent_name: string;
-        consequent_name: string;
-        reason: string;
+        'tag_implication_request[antecedent_name]': string;
+        'tag_implication_request[consequent_name]': string;
+        'tag_implication_request[reason]': string;
         /**
          * Must be Admin+.
          */
-        skip_forum?: boolean;
+        'tag_implication_request[skip_forum]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -9756,7 +9830,7 @@ export type RelatedTagsBulkResponses = {
     /**
      * Success
      */
-    200: BulkRelatedTag;
+    200: TagWithCount;
 };
 
 export type RelatedTagsBulkResponse = RelatedTagsBulkResponses[keyof RelatedTagsBulkResponses];
@@ -9853,15 +9927,15 @@ export type SearchTrendsClearCacheResponse = SearchTrendsClearCacheResponses[key
 
 export type SearchTrendsUpdateSettingsData = {
     body?: {
-        trends_enabled?: boolean;
-        trends_displayed?: boolean;
-        trends_min_today?: number;
-        trends_min_dleta?: number;
-        trends_min_ratio?: number;
-        trends_ip_limit?: number;
-        trends_ip_window?: number;
-        trends_tag_limit?: number;
-        trends_tag_window?: number;
+        'search_trend_settings[trends_enabled]'?: boolean;
+        'search_trend_settings[trends_displayed]'?: boolean;
+        'search_trend_settings[trends_min_today]'?: number;
+        'search_trend_settings[trends_min_delta]'?: number;
+        'search_trend_settings[trends_min_ratio]'?: number;
+        'search_trend_settings[trends_ip_limit]'?: number;
+        'search_trend_settings[trends_ip_window]'?: number;
+        'search_trend_settings[trends_tag_limit]'?: number;
+        'search_trend_settings[trends_tag_window]'?: number;
     };
     path?: never;
     query?: never;
@@ -9964,8 +10038,8 @@ export type SearchTrendBlacklistsIndexResponse = SearchTrendBlacklistsIndexRespo
 
 export type SearchTrendBlacklistsCreateData = {
     body?: {
-        tag: string;
-        reason: string;
+        'search_trend_blacklist[tag]': string;
+        'search_trend_blacklist[reason]': string;
     };
     path?: never;
     query?: never;
@@ -10032,8 +10106,8 @@ export type SearchTrendBlacklistsDestroyResponse = SearchTrendBlacklistsDestroyR
 
 export type SearchTrendBlacklistsUpdateData = {
     body?: {
-        tag?: string;
-        reason?: string;
+        'search_trend_blacklist[tag]'?: string;
+        'search_trend_blacklist[reason]'?: string;
     };
     path: {
         /**
@@ -10275,7 +10349,7 @@ export type StaffNotesIndexResponse = StaffNotesIndexResponses[keyof StaffNotesI
 
 export type StaffNotesCreateData = {
     body?: {
-        body: string;
+        'staff_note[body]': string;
     };
     path?: never;
     query?: never;
@@ -10346,7 +10420,7 @@ export type StaffNotesShowResponse = StaffNotesShowResponses[keyof StaffNotesSho
 
 export type StaffNotesUpdateData = {
     body?: {
-        body?: string;
+        'staff_note[body]'?: string;
     };
     path: {
         /**
@@ -10538,29 +10612,29 @@ export type TakedownsIndexResponse = TakedownsIndexResponses[keyof TakedownsInde
 
 export type TakedownsCreateData = {
     body?: {
-        email: string;
-        source?: string;
-        instructions?: string;
-        reason: string;
+        'takedown[email]': string;
+        'takedown[source]'?: string;
+        'takedown[instructions]'?: string;
+        'takedown[reason]': string;
         /**
-         * post_ids][]=1&takedown[post_ids][=2
+         * takedown[post_ids][]=1&takedown[post_ids][]=2
          */
-        post_ids?: Array<number>;
-        reason_hidden?: boolean;
+        'takedown[post_ids][]'?: Array<number>;
+        'takedown[reason_hidden]'?: boolean;
         /**
          * Must have the bd staff user flag to use.
          */
-        notes?: string;
+        'takedown[notes]'?: string;
         /**
          * Must have the bd staff user flag to use.
-         * del_post_ids][]=1&takedown[del_post_ids][=2
+         * takedown[del_post_ids][]=1&takedown[del_post_ids][]=2
          *
          */
-        del_post_ids?: Array<number>;
+        'takedown[del_post_ids][]'?: Array<number>;
         /**
          * Must have the bd staff user flag to use.
          */
-        status?: string;
+        'takedown[status]'?: string;
     };
     path?: never;
     query?: never;
@@ -10657,8 +10731,8 @@ export type TakedownsShowResponse = TakedownsShowResponses[keyof TakedownsShowRe
 
 export type TakedownsUpdateData = {
     body?: {
-        notes?: string;
-        reason_hidden?: boolean;
+        'takedown[notes]'?: string;
+        'takedown[reason_hidden]'?: boolean;
         takedown_posts?: string;
         /**
          * If not truthy, the takedown will be denied.
@@ -10964,13 +11038,13 @@ export type TicketsShowResponse = TicketsShowResponses[keyof TicketsShowResponse
 
 export type TicketsUpdateData = {
     body?: {
-        status?: 'partial' | 'approved';
-        response: string;
-        record_type?: WarningType;
+        'ticket[status]'?: 'partial' | 'approved';
+        'ticket[response]': string;
+        'ticket[record_type]'?: WarningRecordType;
         /**
          * An update dmail will always be sent when the status is changed.
          */
-        send_update_dmail?: boolean;
+        'ticket[send_update_dmail]'?: boolean;
     };
     path: {
         /**
@@ -11071,6 +11145,57 @@ export type TicketsUnclaimResponses = {
 };
 
 export type TicketsUnclaimResponse = TicketsUnclaimResponses[keyof TicketsUnclaimResponses];
+
+export type UploadKarmaEventsIndexData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * The maximum number of results to return. Between 0 and 320.
+         */
+        limit?: number;
+        /**
+         * The page number of results to get. Between 1 and 750.
+         */
+        page?: number;
+        /**
+         * Search for a specific id. Multiple can be separated by commas, up to 320.
+         */
+        'search[id]'?: string | number;
+        /**
+         * The order of the results.
+         */
+        'search[order]'?: 'id_asc' | 'id_desc';
+        'search[user_id]'?: number;
+        'search[user_name]'?: string;
+        'search[creator_id]'?: number;
+        'search[creator_name]'?: string;
+        'search[post_id]'?: number;
+        'search[reason]'?: 'approved' | 'unapproved' | 'deleted' | 'undeleted' | 'replacement_penalty' | 'replacement_penalty_reversed' | 'replacement_transfer' | 'owner_change' | 'staff_override' | 'queue_bypass';
+    };
+    url: '/upload_karma_events.json';
+};
+
+export type UploadKarmaEventsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<{
+        id: number;
+        user_id: number;
+        creator_id: number;
+        post_id: number | null;
+        reason: 'approved' | 'unapproved' | 'deleted' | 'undeleted' | 'replacement_penalty' | 'replacement_penalty_reversed' | 'replacement_transfer' | 'owner_change' | 'staff_override' | 'queue_bypass';
+        delta: number;
+        balance: number;
+        extra_data: {
+            [key: string]: unknown;
+        };
+        created_at: string;
+    }>;
+};
+
+export type UploadKarmaEventsIndexResponse = UploadKarmaEventsIndexResponses[keyof UploadKarmaEventsIndexResponses];
 
 export type UploadsIndexData = {
     body?: never;
@@ -11250,12 +11375,12 @@ export type UploadWhitelistsIndexResponse = UploadWhitelistsIndexResponses[keyof
 
 export type UploadWhitelistsCreateData = {
     body?: {
-        allowed: string;
-        domain: string;
-        path: string;
-        reason?: string;
-        note?: string;
-        hidden?: boolean;
+        'upload_whitelist[allowed]': string;
+        'upload_whitelist[domain]': string;
+        'upload_whitelist[path]': string;
+        'upload_whitelist[reason]'?: string;
+        'upload_whitelist[note]'?: string;
+        'upload_whitelist[hidden]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -11322,11 +11447,11 @@ export type UploadWhitelistsDestroyResponse = UploadWhitelistsDestroyResponses[k
 
 export type UploadWhitelistsUpdateData = {
     body?: {
-        allowed?: string;
-        pattern?: string;
-        reason?: string;
-        note?: string;
-        hidden?: boolean;
+        'upload_whitelist[allowed]'?: string;
+        'upload_whitelist[pattern]'?: string;
+        'upload_whitelist[reason]'?: string;
+        'upload_whitelist[note]'?: string;
+        'upload_whitelist[hidden]'?: boolean;
     };
     path: {
         /**
@@ -11501,6 +11626,34 @@ export type UsersAvatarMenuResponses = {
 
 export type UsersAvatarMenuResponse = UsersAvatarMenuResponses[keyof UsersAvatarMenuResponses];
 
+export type UsersUploadTagsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/users/upload_tags.json';
+};
+
+export type UsersUploadTagsErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type UsersUploadTagsError = UsersUploadTagsErrors[keyof UsersUploadTagsErrors];
+
+export type UsersUploadTagsResponses = {
+    /**
+     * Success
+     */
+    200: {
+        upload_tags: Array<TagWithCount>;
+        recent_tags: Array<TagWithCount>;
+    };
+};
+
+export type UsersUploadTagsResponse = UsersUploadTagsResponses[keyof UsersUploadTagsResponses];
+
 export type UsersCustomStyleData = {
     body?: never;
     path?: never;
@@ -11554,40 +11707,39 @@ export type UsersShowResponse = UsersShowResponses[keyof UsersShowResponses];
 
 export type UsersUpdateData = {
     body?: {
-        comment_threshold?: number;
-        default_image_size?: 'large' | 'fit' | 'fitv' | 'original';
-        favorite_tags?: string;
-        blacklisted_tags?: string;
+        'user[comment_threshold]'?: number;
+        'user[default_image_size]'?: 'large' | 'fit' | 'fitv' | 'original';
+        'user[favorite_tags]'?: string;
+        'user[blacklisted_tags]'?: string;
         /**
          * https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
          */
-        time_zone?: string;
-        per_page?: number;
-        custom_style?: string;
-        description_collapsed_initially?: boolean;
-        hide_comments?: boolean;
-        receive_email_notifications?: boolean;
-        enable_keyboard_navigation?: boolean;
-        enable_privacy_mode?: boolean;
-        disable_user_dmails?: boolean;
-        blacklist_users?: boolean;
-        show_post_statistics?: boolean;
-        style_usernames?: boolean;
-        show_hidden_comments?: boolean;
-        enable_autocomplete?: boolean;
-        disable_cropped_thumbnails?: boolean;
-        enable_safe_mode?: boolean;
-        disable_responsive_mode?: boolean;
-        'dmail_filter_attributes][id'?: number;
-        'dmail_filter_attributes][words'?: string;
-        profile_about?: string;
-        profile_artinfo?: string;
-        avatar_id?: number;
+        'user[time_zone]'?: string;
+        'user[per_page]'?: number;
+        'user[custom_style]'?: string;
+        'user[description_collapsed_initially]'?: boolean;
+        'user[hide_comments]'?: boolean;
+        'user[receive_email_notifications]'?: boolean;
+        'user[enable_keyboard_navigation]'?: boolean;
+        'user[enable_privacy_mode]'?: boolean;
+        'user[disable_user_dmails]'?: boolean;
+        'user[blacklist_users]'?: boolean;
+        'user[show_post_statistics]'?: boolean;
+        'user[show_hidden_comments]'?: boolean;
+        'user[enable_autocomplete]'?: boolean;
+        'user[disable_cropped_thumbnails]'?: boolean;
+        'user[enable_safe_mode]'?: boolean;
+        'user[disable_responsive_mode]'?: boolean;
+        'user[dmail_filter_attributes][id]'?: number;
+        'user[dmail_filter_attributes][words]'?: string;
+        'user[profile_about]'?: string;
+        'user[profile_artinfo]'?: string;
+        'user[avatar_id]'?: number;
         /**
          * You must have uploaded at least 10 posts.
          */
-        enable_compact_uploader?: boolean;
-        forum_notification_dot?: boolean;
+        'user[enable_compact_uploader]'?: boolean;
+        'user[forum_notification_dot]'?: boolean;
     };
     path: {
         /**
@@ -11847,7 +11999,7 @@ export type MaintenanceUserCountFixesCreateError = MaintenanceUserCountFixesCrea
 
 export type MaintenanceUserDmailFiltersUpdateData = {
     body?: {
-        words: string;
+        'dmail_filter[words]': string;
     };
     path?: never;
     query: {
@@ -11951,10 +12103,10 @@ export type UserFeedbacksIndexResponse = UserFeedbacksIndexResponses[keyof UserF
 
 export type UserFeedbacksCreateData = {
     body?: {
-        user_id?: number;
-        user_name?: string;
-        body: string;
-        category: UserFeedbackCategory;
+        'user_feedback[user_id]'?: number;
+        'user_feedback[user_name]'?: string;
+        'user_feedback[body]': string;
+        'user_feedback[category]': UserFeedbackCategory;
     };
     path?: never;
     query?: never;
@@ -12055,8 +12207,8 @@ export type UserFeedbacksShowResponse = UserFeedbacksShowResponses[keyof UserFee
 
 export type UserFeedbacksUpdateData = {
     body?: {
-        body?: string;
-        category?: UserFeedbackCategory;
+        'user_feedback[body]'?: string;
+        'user_feedback[category]'?: UserFeedbackCategory;
     };
     path: {
         /**
@@ -12203,8 +12355,8 @@ export type UserNameChangeRequestsIndexResponse = UserNameChangeRequestsIndexRes
 
 export type UserNameChangeRequestsCreateData = {
     body?: {
-        desired_name: string;
-        change_reason?: string;
+        'user_name_change_request[desired_name]': string;
+        'user_name_change_request[change_reason]'?: string;
     };
     path?: never;
     query?: never;
@@ -12323,29 +12475,29 @@ export type WikiPagesIndexResponse = WikiPagesIndexResponses[keyof WikiPagesInde
 
 export type WikiPagesCreateData = {
     body?: {
-        title: string;
-        body: string;
-        edit_reason?: string;
+        'wiki_page[title]': string;
+        'wiki_page[body]': string;
+        'wiki_page[edit_reason]'?: string;
         /**
          * Must be Privileged+ to use.
          */
-        parent?: string;
+        'wiki_page[parent]'?: string;
         /**
          * Must be Staff+ to use.
          */
-        is_locked?: boolean;
+        'wiki_page[is_locked]'?: boolean;
         /**
          * Must be Staff+ to use.
          */
-        is_deleted?: boolean;
+        'wiki_page[is_deleted]'?: boolean;
         /**
          * Must be Staff+ to use.
          */
-        skip_secondary_validations?: boolean;
+        'wiki_page[skip_secondary_validations]'?: boolean;
         /**
          * Space separated
          */
-        featured_posts_string?: string;
+        'wiki_page[featured_posts_string]'?: string;
     };
     path?: never;
     query?: never;
@@ -12442,37 +12594,32 @@ export type WikiPagesShowResponse = WikiPagesShowResponses[keyof WikiPagesShowRe
 
 export type WikiPagesUpdateData = {
     body?: {
-        body?: string;
-        edit_reason?: string;
+        'wiki_page[body]'?: string;
+        'wiki_page[edit_reason]'?: string;
         /**
          * Must be Privileged+ to use.
          */
-        parent?: string;
+        'wiki_page[parent]'?: string;
         /**
          * Must be Staff+ to use.
          */
-        title?: string;
+        'wiki_page[title]'?: string;
         /**
          * Must be Staff+ to use.
          */
-        is_locked?: boolean;
+        'wiki_page[is_locked]'?: boolean;
         /**
          * Must be Staff+ to use.
          */
-        is_deleted?: boolean;
+        'wiki_page[is_deleted]'?: boolean;
         /**
          * Must be Staff+ to use.
          */
-        skip_secondary_validations?: boolean;
-        category_id?: TagCategory;
-        /**
-         * Must be Admin+ to use.
-         */
-        category_is_locked?: boolean;
+        'wiki_page[skip_secondary_validations]'?: boolean;
         /**
          * Space separated
          */
-        featured_posts_string?: string;
+        'wiki_page[featured_posts_string]'?: string;
     };
     path: {
         /**
@@ -12657,24 +12804,24 @@ export type StaffUsersUpdateData = {
         /**
          * Must have the bd staff user flag to use.
          */
-        verified?: boolean;
-        level?: UserLevel;
-        name?: string;
-        profile_about?: string;
-        profile_artinfo?: string;
-        base_upload_limit?: number;
-        enable_privacy_mode?: boolean;
+        'user[verified]'?: boolean;
+        'user[level]'?: UserLevel;
+        'user[name]'?: string;
+        'user[profile_about]'?: string;
+        'user[profile_artinfo]'?: string;
+        'user[base_upload_limit]'?: number;
+        'user[enable_privacy_mode]'?: boolean;
         /**
          * Must have the bd staff user flag to use.
          */
-        email?: string;
-        can_approve_posts?: boolean;
-        can_upload_free?: boolean;
-        no_flagging?: boolean;
-        replacements_beta?: boolean;
-        custom_title?: string;
-        tag_warden?: boolean;
-        raised_favorite_limit?: boolean;
+        'user[email]'?: string;
+        'user[can_approve_posts]'?: boolean;
+        'user[can_upload_free]'?: boolean;
+        'user[no_flagging]'?: boolean;
+        'user[replacements_beta]'?: boolean;
+        'user[custom_title]'?: string;
+        'user[tag_warden]'?: boolean;
+        'user[raised_favorite_limit]'?: boolean;
     };
     path: {
         /**
@@ -12760,9 +12907,7 @@ export type StaffUsersTotpResetError = StaffUsersTotpResetErrors[keyof StaffUser
 
 export type StaffUsersUpdateBlacklistData = {
     body?: {
-        user: {
-            blacklisted_tags: string;
-        };
+        'user[blacklisted_tags]': string;
     };
     path: {
         /**
@@ -13726,9 +13871,9 @@ export type StaffPostDisapprovalsIndexResponse = StaffPostDisapprovalsIndexRespo
 
 export type StaffPostDisapprovalsCreateData = {
     body?: {
-        post_id: number;
-        reason: 'borderline_quality' | 'borderline_relevancy' | 'other';
-        message?: string;
+        'post_disapproval[post_id]': number;
+        'post_disapproval[reason]': 'borderline_quality' | 'borderline_relevancy' | 'other';
+        'post_disapproval[message]'?: string;
     };
     path?: never;
     query?: never;

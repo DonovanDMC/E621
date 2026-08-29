@@ -76,7 +76,7 @@ export default class Takedowns extends Base {
     async create(options: CreateTakedownOptions): Promise<Takedown> {
         return takedowns_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "takedown"),
         }).then(res => this._handleResponse(res, 201, true, Takedown));
     }
 

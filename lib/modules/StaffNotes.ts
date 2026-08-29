@@ -27,7 +27,7 @@ export default class StaffNotes extends Base {
     async create(options: CreateStaffNoteOptions): Promise<StaffNote> {
         return staffNotes_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "staff_note"),
         }).then(res => this._handleResponse(res, 201, true, StaffNote));
     }
 
@@ -68,7 +68,7 @@ export default class StaffNotes extends Base {
         return staffNotes_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "staff_note"),
         }).then(res => this._handleResponse(res, 200, true, StaffNote));
     }
 }

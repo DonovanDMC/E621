@@ -35,7 +35,7 @@ export default class BulkUpdateRequests extends Base {
     async create(options: CreateBulkUpdateRequestOptions): Promise<BulkUpdateRequest> {
         return bulkUpdateRequests_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "bulk_update_request"),
         }).then(res => this._handleResponse(res, 201, true, BulkUpdateRequest));
     }
 
@@ -68,7 +68,7 @@ export default class BulkUpdateRequests extends Base {
         return bulkUpdateRequests_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "bulk_update_request"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

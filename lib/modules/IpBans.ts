@@ -18,7 +18,7 @@ export default class IpBans extends Base {
     async create(options: CreateIpBanOptions): Promise<IPBan> {
         return ipBans_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "ip_ban"),
         }).then(res => this._handleResponse(res, 201, true, IPBan));
     }
 

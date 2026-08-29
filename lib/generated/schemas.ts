@@ -116,8 +116,10 @@ export const ModActionActionSchema = {
         'tag_destroy',
         'tag_alias_create',
         'tag_alias_update',
+        'tag_alias_undo',
         'tag_implication_create',
         'tag_implication_update',
+        'tag_implication_undo',
         'ticket_claim',
         'ticket_unclaim',
         'ticket_update',
@@ -500,6 +502,16 @@ export const UserLevelNameSchema = {
         'Janitor',
         'Moderator',
         'Admin'
+    ]
+} as const;
+
+export const WarningRecordTypeSchema = {
+    type: 'string',
+    enum: [
+        'warning',
+        'record',
+        'ban',
+        'unmark'
     ]
 } as const;
 
@@ -994,25 +1006,6 @@ export const BlipSchema = {
     }
 } as const;
 
-export const BulkRelatedTagSchema = {
-    allOf: [
-        {
-            $ref: '#/components/schemas/RelatedTag'
-        },
-        {
-            type: 'object',
-            required: [
-                'count'
-            ],
-            properties: {
-                count: {
-                    type: 'integer'
-                }
-            }
-        }
-    ]
-} as const;
-
 export const BulkUpdateRequestSchema = {
     type: 'object',
     required: [
@@ -1200,7 +1193,6 @@ export const CurrentUserSchema = {
                 'receive_email_notifications',
                 'enable_keyboard_navigation',
                 'enable_privacy_mode',
-                'style_usernames',
                 'enable_auto_complete',
                 'disable_cropped_thumbnails',
                 'enable_safe_mode',
@@ -1254,9 +1246,6 @@ export const CurrentUserSchema = {
                     type: 'boolean'
                 },
                 enable_privacy_mode: {
-                    type: 'boolean'
-                },
-                style_usernames: {
                     type: 'boolean'
                 },
                 enable_auto_complete: {
@@ -4586,22 +4575,6 @@ export const RecommendedPostsSchema = {
     }
 } as const;
 
-export const RelatedTagSchema = {
-    type: 'object',
-    required: [
-        'name',
-        'category_id'
-    ],
-    properties: {
-        name: {
-            type: 'string'
-        },
-        category_id: {
-            $ref: '#/components/schemas/TagCategory'
-        }
-    }
-} as const;
-
 export const RisingSearchTrendSchema = {
     type: 'object',
     required: [
@@ -5025,7 +4998,7 @@ export const StatsSchema = {
         'blocked_users',
         'member_users',
         'privileged_users',
-        'former staff_users',
+        'former_staff_users',
         'staff_users',
         'janitor_users',
         'moderator_users',
@@ -5167,7 +5140,7 @@ export const StatsSchema = {
         privileged_users: {
             type: 'integer'
         },
-        'former staff_users': {
+        former_staff_users: {
             type: 'integer'
         },
         staff_users: {
@@ -5547,6 +5520,26 @@ export const TagTypeVersionSchema = {
             type: 'integer'
         },
         creator_id: {
+            type: 'integer'
+        }
+    }
+} as const;
+
+export const TagWithCountSchema = {
+    type: 'object',
+    required: [
+        'name',
+        'category_id',
+        'count'
+    ],
+    properties: {
+        name: {
+            type: 'string'
+        },
+        category_id: {
+            $ref: '#/components/schemas/TagCategory'
+        },
+        count: {
             type: 'integer'
         }
     }
@@ -6320,24 +6313,6 @@ export const VoteTrendUploaderSchema = {
         },
         uploader: {
             $ref: '#/components/schemas/User'
-        }
-    }
-} as const;
-
-export const WarningRecordTypeSchema = {
-    type: 'object',
-    required: [
-        'record_type'
-    ],
-    properties: {
-        record_type: {
-            type: 'string',
-            enum: [
-                'unmark',
-                'ban',
-                'record',
-                'warning'
-            ]
         }
     }
 } as const;

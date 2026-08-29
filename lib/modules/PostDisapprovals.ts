@@ -19,7 +19,7 @@ export default class PostDisapprovals extends Base {
     async create(options: CreatePostDisapprovalOptions): Promise<PostDisapproval> {
         return staffPostDisapprovals_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "post_disapproval"),
         }).then(res => this._handleResponse(res, 201, true, PostDisapproval));
     }
 

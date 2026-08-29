@@ -7,7 +7,7 @@ import Base from "./Base.js";
 import type { ForumPostVotesCreateData, ForumPostVotesCreateResponses } from "../generated/types.js";
 
 /** @category Modules/Types */
-export type ForumPostVoteScore = ExtractValue<"score", ForumPostVotesCreateData>;
+export type ForumPostVoteScore = ExtractValue<"forum_post_vote[score]", ForumPostVotesCreateData>;
 /** @category Modules/Types */
 export interface ForumPostVotesCreateResponse extends GetResponse<ForumPostVotesCreateResponses, 200> {}
 
@@ -19,7 +19,7 @@ export default class ForumPostVotes extends Base {
         return forumPostVotes_create({
             client: this.client,
             path: { id },
-            body: { score },
+            body: { "forum_post_vote[score]": score },
         }).then(res => this._handleResponse(res, 200, true));
     }
 

@@ -1,6 +1,6 @@
 import { staffUsers_anonymizeConfirm, staffUsers_update, staffUsers_altList, staffUsers_totpReset, staffUsers_updateBlacklist } from "../generated/sdk.js";
 import { type StaffUsersUpdateData } from "../generated/types.js";
-import { OperationID, type TransformDataBodyToOptions } from "../util.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
@@ -38,7 +38,7 @@ export default class StaffUsers extends Base {
         return staffUsers_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "user"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -47,7 +47,7 @@ export default class StaffUsers extends Base {
         return staffUsers_updateBlacklist({
             client: this.client,
             path: { id },
-            body: { user: { blacklisted_tags } },
+            body: { "user[blacklisted_tags]": blacklisted_tags },
         }).then(res => this._handleResponse(res, 302, true));
     }
 }

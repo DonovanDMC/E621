@@ -40,7 +40,7 @@ export default class PostSets extends Base {
         return postSets_addPosts({
             client: this.client,
             path: { id },
-            body: { post_ids },
+            body: { "post_ids[]": post_ids },
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
@@ -48,7 +48,7 @@ export default class PostSets extends Base {
     async create(options: CreatePostSetOptions): Promise<PostSet> {
         return postSets_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "post_set"),
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
@@ -88,7 +88,7 @@ export default class PostSets extends Base {
         return postSets_removePosts({
             client: this.client,
             path: { id },
-            body: { post_ids },
+            body: { "post_ids[]": post_ids },
         }).then(res => this._handleResponse(res, 201, true, PostSet));
     }
 
@@ -105,7 +105,7 @@ export default class PostSets extends Base {
         return postSets_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "post_set"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -114,7 +114,7 @@ export default class PostSets extends Base {
         return postSets_updatePosts({
             client: this.client,
             path: { id },
-            body: { post_ids_string: post_ids.join(" ") },
+            body: { "post_set[post_ids_string]": post_ids.join(" ") },
         }).then(res => this._handleResponse(res, 200, true, PostSet));
     }
 }

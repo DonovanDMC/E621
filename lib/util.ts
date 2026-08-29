@@ -6,7 +6,14 @@ export type ExtractValue<K extends string, T extends { body?: Partial<Record<K, 
         : Exclude<Exclude<T["query"], undefined>[K], undefined>
         : Exclude<Exclude<T["body"], undefined>[K], undefined>;
 /** @category Types */
-type TransformNestedKey<T extends string | number | symbol> = T extends `${string}[${infer U}]` ? U : T;
+// Array-valued form fields are always spec'd as `root[key][]` (e.g. `takedown[post_ids][]`) - the `[]`
+// marker is what tells Rails' param parser to build an array instead of overwriting a scalar, so it has to
+// be stripped (and, in `PrefixKeys`, re-added) separately from the single `root[key]` case below.
+type TransformNestedKey<T extends string | number | symbol> = T extends `${string}[${infer U}][]`
+    ? U
+    : T extends `${string}[${infer U}]`
+        ? U
+        : T;
 
 /** @category Types */
 type OptionalKeys<T extends object> = {
@@ -78,6 +85,9 @@ type UnprefixedKeysOf<Raw, Root extends string> = [Raw] extends [Record<string, 
         }[keyof Raw]
     : never;
 
+/** Mirrors the `root[key][]` array convention {@link TransformNestedKey} strips - re-added here so prefixing round-trips. */
+type ArraySuffix<V> = NonNullable<V> extends ReadonlyArray<unknown> ? "[]" : "";
+
 /** @category Types */
 export type PrefixKeys<
     T extends Record<string, unknown>,
@@ -86,7 +96,7 @@ export type PrefixKeys<
 > = {
     [K in keyof Omit<T, typeof RawQueryShape | typeof RawBodyShape> as K extends Excluded
         ? K
-        : `${Root}[${Extract<K, string>}]`]: T[K];
+        : `${Root}[${Extract<K, string>}]${ArraySuffix<T[K]>}`]: T[K];
 };
 
 /**
@@ -133,7 +143,8 @@ export function prefixKeys<
         if (excludeSet.has(key)) {
             result[key] = obj[key];
         } else {
-            result[`${root}[${key}]`] = obj[key];
+            const value = obj[key];
+            result[`${root}[${key}]${Array.isArray(value) ? "[]" : ""}`] = value;
         }
     }
 

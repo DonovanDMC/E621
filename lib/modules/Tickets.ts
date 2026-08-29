@@ -57,7 +57,7 @@ export default class Tickets extends Base {
         return tickets_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "ticket"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

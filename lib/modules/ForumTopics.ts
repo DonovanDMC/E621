@@ -17,21 +17,52 @@ import Base from "./Base.js";
 
 import type { ForumTopicsCreateData, ForumTopicsIndexData, ForumTopicsUpdateData } from "../generated/types.js";
 
+// The `original_post_attributes` sub-object is doubly-nested (`forum_topic[original_post_attributes][id]`)
+// - the generic bracket-stripping `TransformDataBodyToOptions` only understands one level of nesting, so
+// these fields are pulled out and typed/flattened by hand instead (see `create`/`update` below).
+type CreateForumTopicBody = NonNullable<ForumTopicsCreateData["body"]>;
+type UpdateForumTopicBody = NonNullable<ForumTopicsUpdateData["body"]>;
+
 /** @category Modules/Types */
-export interface CreateForumTopicOptions extends TransformDataBodyToOptions<ForumTopicsCreateData> {}
+export interface ForumTopicOriginalPostAttributes {
+    body?: CreateForumTopicBody["forum_topic[original_post_attributes][body]"];
+    id?: CreateForumTopicBody["forum_topic[original_post_attributes][id]"];
+}
+
+/** Mangled (bracket-stripped) names {@link TransformDataBodyToOptions} produces for the doubly-nested `original_post_attributes` keys - excluded so the clean, hand-typed `original_post_attributes` field can take their place. */
+type MangledOriginalPostAttributesKeys = "original_post_attributes][id" | "original_post_attributes][body";
+
 /** @category Modules/Types */
-export interface UpdateForumTopicOptions extends TransformDataBodyToOptions<ForumTopicsUpdateData> {}
+export interface CreateForumTopicOptions extends Omit<TransformDataBodyToOptions<ForumTopicsCreateData>, MangledOriginalPostAttributesKeys> {
+    original_post_attributes?: ForumTopicOriginalPostAttributes;
+}
+/** @category Modules/Types */
+export interface UpdateForumTopicOptions extends Omit<TransformDataBodyToOptions<ForumTopicsUpdateData>, MangledOriginalPostAttributesKeys> {
+    original_post_attributes?: ForumTopicOriginalPostAttributes;
+}
 /** @category Modules/Types */
 export interface SearchForumTopicsOptions extends TransformDataQueryToOptions<ForumTopicsIndexData> {}
+
+function flattenOriginalPostAttributes(original_post_attributes?: ForumTopicOriginalPostAttributes): Partial<UpdateForumTopicBody> {
+    if (!original_post_attributes) return {};
+    return {
+        "forum_topic[original_post_attributes][id]": original_post_attributes.id,
+        "forum_topic[original_post_attributes][body]": original_post_attributes.body,
+    };
+}
 
 /** @category Modules */
 export default class ForumTopics extends Base {
     static readonly moduleKey = "forumTopics" as const;
     @OperationID("forum_topics#create")
     async create(options: CreateForumTopicOptions): Promise<ForumTopic> {
+        const { original_post_attributes, ...rest } = options;
         return forumTopics_create({
             client: this.client,
-            body: options,
+            body: {
+                ...prefixKeys(rest, "forum_topic"),
+                ...flattenOriginalPostAttributes(original_post_attributes),
+            },
         }).then(res => this._handleResponse(res, 201, true, ForumTopic));
     }
 
@@ -100,10 +131,14 @@ export default class ForumTopics extends Base {
 
     @OperationID("forum_topics#update")
     async update(id: number, options: UpdateForumTopicOptions): Promise<null> {
+        const { original_post_attributes, ...rest } = options;
         return forumTopics_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: {
+                ...prefixKeys(rest, "forum_topic"),
+                ...flattenOriginalPostAttributes(original_post_attributes),
+            },
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

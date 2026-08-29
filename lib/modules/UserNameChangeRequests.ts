@@ -18,7 +18,7 @@ export default class UserNameChangeRequests extends Base {
     async create(options: CreateUserNameChangeRequestOptions): Promise<unknown> {
         return userNameChangeRequests_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "user_name_change_request"),
         }).then(res => this._handleResponse(res, 200, true));
     }
 

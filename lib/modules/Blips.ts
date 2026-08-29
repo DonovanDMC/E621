@@ -43,7 +43,7 @@ export default class Blips extends Base {
     async create(options: CreateBlipOptions): Promise<Blip> {
         return blips_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "blip"),
         }).then(res => this._handleResponse(res, 201, true, Blip));
     }
 
@@ -73,7 +73,7 @@ export default class Blips extends Base {
     }
 
     @OperationID("blips#warning")
-    async mark(id: number, type: WarningRecordType["record_type"]): Promise<BlipsWarningResponse> {
+    async mark(id: number, type: WarningRecordType): Promise<BlipsWarningResponse> {
         return blips_warning({
             client: this.client,
             path: { id },
@@ -103,7 +103,7 @@ export default class Blips extends Base {
         return blips_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "blip"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

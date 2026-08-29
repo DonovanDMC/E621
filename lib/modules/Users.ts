@@ -6,6 +6,7 @@ import {
     users_me,
     users_show,
     users_uploadLimit,
+    users_uploadTags,
     users_index,
     users_fixCounts,
     users_toggleUploads,
@@ -30,6 +31,7 @@ import type {
     UsersUpdateData,
     UsersDisableUploadsData,
     UsersDisableKarmaFreeData,
+    UsersUploadTagsResponses,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
@@ -42,12 +44,14 @@ export interface UpdateAvatarCropOptions extends TransformDataBodyToOptions<Main
 export interface DisableUserUploadsOptions extends TransformDataBodyToOptions<UsersDisableUploadsData> {}
 /** @category Modules/Types */
 export interface DisableUserKarmaFreeOptions extends TransformDataBodyToOptions<UsersDisableKarmaFreeData> {}
+/** @category Modules/Types */
+export interface UsersUploadTagsResponse extends GetResponse<UsersUploadTagsResponses, 200> {}
 /**
  * The spec's `dmail_filter_attributes` keys are malformed (missing an opening bracket) - use {@link Users.updateDmailFilter} or {@link DMail.updateFilter} instead.
  *
  * @category Modules/Types
  */
-export interface UpdateCurrentUserOptions extends Omit<TransformDataBodyToOptions<UsersUpdateData>, "id" | "words"> {}
+export interface UpdateCurrentUserOptions extends Omit<TransformDataBodyToOptions<UsersUpdateData>, "dmail_filter_attributes][id" | "dmail_filter_attributes][words"> {}
 
 /** @category Modules */
 export default class Users extends Base {
@@ -158,7 +162,7 @@ export default class Users extends Base {
         return users_update({
             client: this.client,
             path: { idOrName },
-            body: options,
+            body: prefixKeys(options, "user"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 
@@ -175,7 +179,7 @@ export default class Users extends Base {
     async updateDmailFilter(dmail_id: number, words: string): Promise<null> {
         return maintenanceUserDmailFilters_update({
             client: this.client,
-            body: { words },
+            body: { "dmail_filter[words]": words },
             query: {
                 dmail_id,
             },
@@ -191,5 +195,12 @@ export default class Users extends Base {
             const data = this._handleResponse(res, 200, false);
             return data === null ? null : "blacklisted_tags" in data ? new FullCurrentUser(this.e621, data) : new FullUser(this.e621, data);
         });
+    }
+
+    @OperationID("users#upload_tags")
+    async uploadTags(): Promise<UsersUploadTagsResponse> {
+        return users_uploadTags({
+            client: this.client,
+        }).then(res => this._handleResponse(res, 200, true));
     }
 }

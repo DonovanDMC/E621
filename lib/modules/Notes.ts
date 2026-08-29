@@ -27,7 +27,7 @@ export default class Notes extends Base {
     async create(options: CreateNoteOptions): Promise<Note> {
         return notes_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "note"),
         }).then(res => this._handleResponse(res, 201, true, Note));
     }
 
@@ -69,7 +69,7 @@ export default class Notes extends Base {
         return notes_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "note"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

@@ -5,6 +5,7 @@ import {
     tagAliases_show,
     tagAliases_destroy,
     tagAliases_index,
+    tagAliases_undo,
 } from "../generated/sdk.js";
 import { type TagAliasesUpdateData, type TagAliasRequestsCreateData, type TagAliasesIndexData } from "../generated/types.js";
 import TagAlias from "../models/TagAlias.js";
@@ -34,7 +35,7 @@ export default class TagAliases extends Base {
     async create(options: CreateTagAliasOptions): Promise<unknown> {
         return tagAliasRequests_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "tag_alias_request"),
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -62,12 +63,20 @@ export default class TagAliases extends Base {
         }).then(res => this._handleResponse(res, 200, true, TagAlias));
     }
 
+    @OperationID("tag_aliases#undo")
+    async undo(id: number): Promise<null> {
+        return tagAliases_undo({
+            client: this.client,
+            path: { id },
+        }).then(res => this._handleResponse(res, 204, true));
+    }
+
     @OperationID("tag_aliases#update")
     async update(id: number, options: UpdateTagAliasOptions): Promise<null> {
         return tagAliases_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "tag_alias"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

@@ -1,7 +1,7 @@
 import { searchTrends_clearCache, searchTrends_purge, searchTrends_rising, searchTrends_index, searchTrends_updateSettings, searchTrends_track } from "../generated/sdk.js";
 import RisingSearchTrend from "../models/RisingSearchTrend.js";
 import SearchTrend from "../models/SearchTrend.js";
-import { GetResponse, OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
+import { GetResponse, OperationID, prefixKeys, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
@@ -72,7 +72,7 @@ export default class SearchTrends extends Base {
     async updateSettings(options: UpdateSearchTrendsSettingsOptions): Promise<SearchTrendsUpdateSettingsResponse> {
         return searchTrends_updateSettings({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "search_trend_settings"),
         }).then(res => this._handleResponse(res, 200, true));
     }
 }

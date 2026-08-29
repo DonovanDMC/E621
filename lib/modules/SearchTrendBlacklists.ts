@@ -1,6 +1,6 @@
 import { searchTrendBlacklists_create, searchTrendBlacklists_destroy, searchTrendBlacklists_index, searchTrendBlacklists_update } from "../generated/sdk.js";
 import SearchTrendBlacklist from "../models/SearchTrendBlacklist.js";
-import { OperationID, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
+import { OperationID, prefixKeys, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
@@ -20,7 +20,7 @@ export default class SearchTrendBlacklists extends Base {
     async create(options: CreateSearchTrendBlacklistsOptions): Promise<SearchTrendBlacklist> {
         return searchTrendBlacklists_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "search_trend_blacklist"),
         }).then(res => this._handleResponse(res, 200, true, SearchTrendBlacklist));
     }
 
@@ -45,7 +45,7 @@ export default class SearchTrendBlacklists extends Base {
         return searchTrendBlacklists_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "search_trend_blacklist"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

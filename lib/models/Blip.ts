@@ -1,8 +1,8 @@
-import { type ExtractValue, OperationID, Schema } from "../util.js";
+import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Blip as BlipData, BlipsWarningData } from "../generated/types.js";
+import type { Blip as BlipData, WarningRecordType } from "../generated/types.js";
 import type { UpdateBlipOptions, BlipsWarningResponse } from "../modules/Blips.js";
 
 interface Blip extends BlipData {}
@@ -20,7 +20,7 @@ class Blip extends Base<BlipData> {
     }
 
     @OperationID("blips#warning")
-    async mark(type: ExtractValue<"record_type", BlipsWarningData>): Promise<BlipsWarningResponse> {
+    async mark(type: WarningRecordType): Promise<BlipsWarningResponse> {
         return this.e621.blips.mark(this.id, type);
     }
 

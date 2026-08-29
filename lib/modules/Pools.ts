@@ -46,7 +46,7 @@ export default class Pools extends Base {
     async create(options: CreatePoolOptions): Promise<Pool> {
         return pools_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "pool"),
         }).then(res => this._handleResponse(res, 201, true, Pool));
     }
 
@@ -103,7 +103,7 @@ export default class Pools extends Base {
         return pools_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "pool"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

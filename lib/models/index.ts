@@ -61,6 +61,7 @@ export { default as Takedown } from "./Takedown.js";
 export { default as ThumbnailPost } from "./ThumbnailPost.js";
 export { default as Ticket } from "./Ticket.js";
 export { default as Upload } from "./Upload.js";
+export { default as UploadKarmaEvent } from "./UploadKarmaEvent.js";
 export { default as UploadWhitelist } from "./UploadWhitelist.js";
 export { default as User } from "./User.js";
 export { default as UserAlt } from "./UserAlt.js";

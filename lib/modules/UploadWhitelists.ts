@@ -42,7 +42,7 @@ export default class UploadWhitelists extends Base {
     async create(options: CreateUploadWhitelistOptions): Promise<UploadWhitelist> {
         return uploadWhitelists_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "upload_whitelist"),
         }).then(res => this._handleResponse(res, 201, true, UploadWhitelist));
     }
 
@@ -67,7 +67,7 @@ export default class UploadWhitelists extends Base {
         return uploadWhitelists_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "upload_whitelist"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

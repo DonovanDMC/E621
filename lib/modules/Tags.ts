@@ -58,7 +58,7 @@ export default class Tags extends Base {
         return tags_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "tag"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

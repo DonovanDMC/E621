@@ -12,7 +12,6 @@ import {
 import Comment from "../models/Comment.js";
 import {
     OperationID,
-    type ExtractValue,
     prefixKeys,
     type TransformDataBodyToOptions,
     type TransformDataQueryToOptions,
@@ -24,10 +23,10 @@ import Base from "./Base.js";
 import type {
     CommentsCreateData,
     CommentsUpdateData,
-    CommentsWarningData,
     CommentsWarningResponses,
     CommentsIndexData,
     CommentsForPostResponses,
+    WarningRecordType,
 } from "../generated/types.js";
 
 /** @category Modules/Types */
@@ -48,7 +47,7 @@ export default class Comments extends Base {
     async create(options: CreateCommentOptions): Promise<Comment> {
         return comments_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "comment"),
         }).then(res => this._handleResponse(res, 201, true, Comment));
     }
 
@@ -85,7 +84,7 @@ export default class Comments extends Base {
     }
 
     @OperationID("comments#warning")
-    async mark(id: number, type: ExtractValue<"record_type", CommentsWarningData>): Promise<CommentsWarningResponse> {
+    async mark(id: number, type: WarningRecordType): Promise<CommentsWarningResponse> {
         return comments_warning({
             client: this.client,
             path: { id },
@@ -114,7 +113,7 @@ export default class Comments extends Base {
         return comments_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "comment"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

@@ -343,7 +343,10 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
             client: this.client,
             path: { id },
             query: { v2, mode },
-            body,
+            // `body` is typed as `UpdatePostOptions` minus `v2`/`mode`, which still carries the query
+            // transform's raw shape alongside the body one - cast to just the body transform so
+            // `prefixKeys` resolves against the right raw shape.
+            body: prefixKeys(body as TransformDataBodyToOptions<PostsUpdateData>, "post"),
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;

@@ -27,7 +27,7 @@ export default class PostFlags extends Base {
     async create(options: CreatePostFlagOptions): Promise<PostFlag> {
         return postFlags_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "post_flag"),
         }).then(res => this._handleResponse(res, 201, true, PostFlag));
     }
 

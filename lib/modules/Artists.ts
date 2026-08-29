@@ -27,7 +27,7 @@ export default class Artists extends Base {
     async create(options: CreateArtistOptions): Promise<Artist> {
         return artists_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "artist"),
         }).then(res => this._handleResponse(res, 201, true, Artist));
     }
 
@@ -69,7 +69,7 @@ export default class Artists extends Base {
         return artists_update({
             client: this.client,
             path: { idOrName },
-            body: options,
+            body: prefixKeys(options, "artist"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

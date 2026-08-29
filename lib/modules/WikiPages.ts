@@ -27,7 +27,7 @@ export default class WikiPages extends Base {
     async create(options: CreateWikiPageOptions): Promise<WikiPage> {
         return wikiPages_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "wiki_page"),
         }).then(res => this._handleResponse(res, 201, true, WikiPage));
     }
 
@@ -69,7 +69,7 @@ export default class WikiPages extends Base {
         return wikiPages_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "wiki_page"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

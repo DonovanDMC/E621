@@ -7,7 +7,7 @@ import {
     help_list,
 } from "../generated/sdk.js";
 import HelpPage from "../models/HelpPage.js";
-import { OperationID, type TransformDataBodyToOptions } from "../util.js";
+import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
@@ -25,7 +25,7 @@ export default class HelpPages extends Base {
     async create(options: CreateHelpPageOptions): Promise<HelpPage> {
         return help_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "help_page"),
         }).then(res => this._handleResponse(res, 201, true, HelpPage));
     }
 
@@ -64,7 +64,7 @@ export default class HelpPages extends Base {
         return help_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "help_page"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

@@ -20,7 +20,7 @@ export default class NewsUpdates extends Base {
     async create(options: CreateNewsUpdateOptions): Promise<NewsUpdate> {
         return newsUpdates_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "news_update"),
         }).then(res => this._handleResponse(res, 201, true, NewsUpdate));
     }
 
@@ -45,7 +45,7 @@ export default class NewsUpdates extends Base {
         return newsUpdates_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "news_update"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

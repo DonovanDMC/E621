@@ -55,7 +55,7 @@ export default class Appeals extends Base {
         return appeals_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "appeal"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

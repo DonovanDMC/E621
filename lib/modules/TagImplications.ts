@@ -5,6 +5,7 @@ import {
     tagImplications_show,
     tagImplications_destroy,
     tagImplications_index,
+    tagImplications_undo,
 } from "../generated/sdk.js";
 import { type TagImplicationsUpdateData, type TagImplicationRequestsCreateData, type TagImplicationsIndexData } from "../generated/types.js";
 import TagImplication from "../models/TagImplication.js";
@@ -34,7 +35,7 @@ export default class TagImplications extends Base {
     async create(options: CreateTagImplicationOptions): Promise<unknown> {
         return tagImplicationRequests_create({
             client: this.client,
-            body: options,
+            body: prefixKeys(options, "tag_implication_request"),
         }).then(res => this._handleResponse(res, 200, true));
     }
 
@@ -62,12 +63,20 @@ export default class TagImplications extends Base {
         }).then(res => this._handleResponse(res, 200, true, TagImplication));
     }
 
+    @OperationID("tag_implications#undo")
+    async undo(id: number): Promise<null> {
+        return tagImplications_undo({
+            client: this.client,
+            path: { id },
+        }).then(res => this._handleResponse(res, 204, true));
+    }
+
     @OperationID("tag_implications#update")
     async update(id: number, options: UpdateTagImplicationOptions): Promise<null> {
         return tagImplications_update({
             client: this.client,
             path: { id },
-            body: options,
+            body: prefixKeys(options, "tag_implication"),
         }).then(res => this._handleResponse(res, 204, true));
     }
 }

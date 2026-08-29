@@ -3,7 +3,7 @@ import { type ExtractValue, OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Comment as CommentData, CommentVotesCreateData, CommentsWarningData } from "../generated/types.js";
+import type { Comment as CommentData, CommentVotesCreateData, WarningRecordType } from "../generated/types.js";
 import type { UpdateCommentOptions, CommentsWarningResponse } from "../modules/Comments.js";
 
 interface Comment extends CommentData {}
@@ -26,7 +26,7 @@ class Comment extends Base<CommentData> {
     }
 
     @OperationID("comments#warning")
-    async mark(type: ExtractValue<"record_type", CommentsWarningData>): Promise<CommentsWarningResponse> {
+    async mark(type: WarningRecordType): Promise<CommentsWarningResponse> {
         return this.e621.comments.mark(this.id, type);
     }
 

@@ -1,10 +1,10 @@
-import { ForumPostVotesCreateResponse } from "../modules/ForumPostVotes.js";
-import { type ExtractValue, OperationID, Schema } from "../util.js";
+import { type ForumPostVoteScore, ForumPostVotesCreateResponse } from "../modules/ForumPostVotes.js";
+import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 import ForumPostVote from "./ForumPostVote.js";
 
-import type { ForumPostVotesCreateData, ForumPost as ForumPostData, ForumPostsWarningData } from "../generated/types.js";
+import type { ForumPost as ForumPostData, WarningRecordType } from "../generated/types.js";
 import type { UpdateForumPostOptions, ForumPostsWarningResponse } from "../modules/ForumPosts.js";
 
 interface ForumPost extends ForumPostData {}
@@ -22,7 +22,7 @@ class ForumPost extends Base<ForumPostData> {
     }
 
     @OperationID("forum_posts#warning")
-    async mark(type: ExtractValue<"record_type", ForumPostsWarningData>): Promise<ForumPostsWarningResponse> {
+    async mark(type: WarningRecordType): Promise<ForumPostsWarningResponse> {
         return this.e621.forumPosts.mark(this.id, type);
     }
 
@@ -42,7 +42,7 @@ class ForumPost extends Base<ForumPostData> {
     }
 
     @OperationID("forum_post_votes#create")
-    async vote(score: ExtractValue<"score", ForumPostVotesCreateData>): Promise<ForumPostVotesCreateResponse> {
+    async vote(score: ForumPostVoteScore): Promise<ForumPostVotesCreateResponse> {
         return this.e621.forumPostVotes.create(this.id, score);
     }
 
