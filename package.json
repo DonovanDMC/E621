@@ -67,7 +67,7 @@
   "homepage": "https://github.com/DonovanDMC/E621#readme",
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "@hey-api/openapi-ts": "^0.97.0",
+    "@hey-api/openapi-ts": "^0.99.0",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/debug": "^4.1.13",
     "@types/node": "^25.9.5",
