@@ -555,12 +555,14 @@ export type LegacyPost = {
         width: number;
         height: number;
         url: string | null;
+        alt?: string | null;
     };
     sample: {
         has: boolean;
         height: number | null;
         width: number | null;
         url: string | null;
+        alt?: string | null;
         alternates: {
             has?: boolean;
             original?: PostSampleAlternate;
@@ -880,6 +882,18 @@ export type PostFiles = {
     original: PostFilesOriginal;
     preview: PostFilesPreview;
     sample: PostFilesSample;
+    video?: {
+        has: boolean;
+        original: PostSampleAlternate;
+        variants: {
+            webm?: PostSampleAlternate;
+            mp4?: PostSampleAlternate;
+        };
+        samples: {
+            '480p'?: PostSampleAlternate;
+            '720p'?: PostSampleAlternate;
+        };
+    };
 };
 
 export type PostFilesMeta = {
@@ -978,11 +992,11 @@ export type PostReplacement = {
 
 export type PostSampleAlternate = {
     fps: number;
-    codec: string;
+    codec: string | null;
     size: number;
     width: number;
     height: number;
-    url: string;
+    url: string | null;
 };
 
 export type PostSet = {
@@ -1005,6 +1019,7 @@ export type PostStats = {
     is_favorited: boolean;
     vote: UpDownMehVote;
     comment_count: number;
+    hotness: number;
 };
 
 export type PostStatsScore = {
@@ -3856,7 +3871,7 @@ export type CommentVotesIndexData = {
          * The order of the results. You must be Admin+.
          */
         'search[order]'?: 'id_asc' | 'id_desc' | 'ip_addr';
-        'search[post_id]'?: number;
+        'search[comment_id]'?: number;
         'search[user_name]'?: string;
         'search[user_id]'?: number;
         /**
@@ -3868,13 +3883,14 @@ export type CommentVotesIndexData = {
          */
         'search[comment_creator_id]'?: number;
         /**
-         * You must be Admin+. Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
+         * You must be Admin+. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[user_ip_addr]'?: string;
-        /**
-         * Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided.
-         */
         'search[score]'?: UpDownVote;
+        /**
+         * Only return votes updated within the last N days.
+         */
+        'search[timeframe]'?: number;
         /**
          * You must be Admin+. Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided.
          */
@@ -7567,7 +7583,7 @@ export type PostFlagsDestroyResponses = {
     /**
      * Success
      */
-    204: void;
+    200: RawPost;
 };
 
 export type PostFlagsDestroyResponse = PostFlagsDestroyResponses[keyof PostFlagsDestroyResponses];
@@ -8932,13 +8948,14 @@ export type PostVotesIndexData = {
          */
         'search[post_creator_id]'?: number;
         /**
-         * You must be Admin+. Only usable if one of `post_id`, `user_name`, or `user_id` is also provided. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
+         * You must be Admin+. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
          */
         'search[user_ip_addr]'?: string;
-        /**
-         * Only usable if one of `post_id`, `user_name`, or `user_id` is also provided.
-         */
         'search[score]'?: UpDownVote;
+        /**
+         * Only return votes updated within the last N days.
+         */
+        'search[timeframe]'?: number;
         /**
          * You must be Admin+. Only usable if one of `post_id`, `user_name`, or `user_id` is also provided.
          */

@@ -2453,6 +2453,10 @@ export const LegacyPostSchema = {
                 url: {
                     type: 'string',
                     nullable: true
+                },
+                alt: {
+                    type: 'string',
+                    nullable: true
                 }
             }
         },
@@ -2478,6 +2482,10 @@ export const LegacyPostSchema = {
                     nullable: true
                 },
                 url: {
+                    type: 'string',
+                    nullable: true
+                },
+                alt: {
                     type: 'string',
                     nullable: true
                 },
@@ -3651,6 +3659,45 @@ export const PostFilesSchema = {
         },
         sample: {
             $ref: '#/components/schemas/PostFilesSample'
+        },
+        video: {
+            type: 'object',
+            required: [
+                'has',
+                'original',
+                'variants',
+                'samples'
+            ],
+            properties: {
+                has: {
+                    type: 'boolean'
+                },
+                original: {
+                    $ref: '#/components/schemas/PostSampleAlternate'
+                },
+                variants: {
+                    type: 'object',
+                    properties: {
+                        webm: {
+                            $ref: '#/components/schemas/PostSampleAlternate'
+                        },
+                        mp4: {
+                            $ref: '#/components/schemas/PostSampleAlternate'
+                        }
+                    }
+                },
+                samples: {
+                    type: 'object',
+                    properties: {
+                        '480p': {
+                            $ref: '#/components/schemas/PostSampleAlternate'
+                        },
+                        '720p': {
+                            $ref: '#/components/schemas/PostSampleAlternate'
+                        }
+                    }
+                }
+            }
         }
     }
 } as const;
@@ -4014,7 +4061,8 @@ export const PostSampleAlternateSchema = {
             format: 'float'
         },
         codec: {
-            type: 'string'
+            type: 'string',
+            nullable: true
         },
         size: {
             type: 'integer',
@@ -4028,7 +4076,8 @@ export const PostSampleAlternateSchema = {
         },
         url: {
             type: 'string',
-            format: 'uri'
+            format: 'uri',
+            nullable: true
         }
     }
 } as const;
@@ -4097,7 +4146,8 @@ export const PostStatsSchema = {
         'fav_count',
         'is_favorited',
         'vote',
-        'comment_count'
+        'comment_count',
+        'hotness'
     ],
     properties: {
         score: {
@@ -4114,6 +4164,10 @@ export const PostStatsSchema = {
         },
         comment_count: {
             type: 'integer'
+        },
+        hotness: {
+            type: 'number',
+            format: 'float'
         }
     }
 } as const;

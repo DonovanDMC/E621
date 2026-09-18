@@ -12,10 +12,10 @@
       "name": "Donovan_DMC",
       "url": "https://e621.net/forum_topics/46279"
     },
-    "version": "56cac5e",
-    "x-e621ng-commit": "a460a25ed0e2ebec16a2f17b83722661b8001751",
+    "version": "6e7877a",
+    "x-e621ng-commit": "495637130a6ec5078dc9f362ab71bfa76f979d23",
     "x-e621ng-master-behind-by": 0,
-    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/a460a25ed0e2ebec16a2f17b83722661b8001751...master",
+    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/495637130a6ec5078dc9f362ab71bfa76f979d23...master",
     "x-mcp-server": "https://mcp.e621.wiki"
   },
   "servers": [
@@ -2545,6 +2545,10 @@
               "url": {
                 "type": "string",
                 "nullable": true
+              },
+              "alt": {
+                "type": "string",
+                "nullable": true
               }
             }
           },
@@ -2570,6 +2574,10 @@
                 "nullable": true
               },
               "url": {
+                "type": "string",
+                "nullable": true
+              },
+              "alt": {
                 "type": "string",
                 "nullable": true
               },
@@ -3724,6 +3732,45 @@
           },
           "sample": {
             "$ref": "#/components/schemas/PostFilesSample"
+          },
+          "video": {
+            "type": "object",
+            "required": [
+              "has",
+              "original",
+              "variants",
+              "samples"
+            ],
+            "properties": {
+              "has": {
+                "type": "boolean"
+              },
+              "original": {
+                "$ref": "#/components/schemas/PostSampleAlternate"
+              },
+              "variants": {
+                "type": "object",
+                "properties": {
+                  "webm": {
+                    "$ref": "#/components/schemas/PostSampleAlternate"
+                  },
+                  "mp4": {
+                    "$ref": "#/components/schemas/PostSampleAlternate"
+                  }
+                }
+              },
+              "samples": {
+                "type": "object",
+                "properties": {
+                  "480p": {
+                    "$ref": "#/components/schemas/PostSampleAlternate"
+                  },
+                  "720p": {
+                    "$ref": "#/components/schemas/PostSampleAlternate"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -4076,7 +4123,8 @@
             "format": "float"
           },
           "codec": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "size": {
             "type": "integer",
@@ -4090,7 +4138,8 @@
           },
           "url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "nullable": true
           }
         }
       },
@@ -4157,7 +4206,8 @@
           "fav_count",
           "is_favorited",
           "vote",
-          "comment_count"
+          "comment_count",
+          "hotness"
         ],
         "properties": {
           "score": {
@@ -4174,6 +4224,10 @@
           },
           "comment_count": {
             "type": "integer"
+          },
+          "hotness": {
+            "type": "number",
+            "format": "float"
           }
         }
       },
@@ -9906,7 +9960,7 @@
           },
           {
             "in": "query",
-            "name": "search[post_id]",
+            "name": "search[comment_id]",
             "schema": {
               "type": "integer"
             }
@@ -9944,7 +9998,7 @@
           {
             "in": "query",
             "name": "search[user_ip_addr]",
-            "description": "You must be Admin+. Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
+            "description": "You must be Admin+. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
             "schema": {
               "type": "string"
             }
@@ -9952,9 +10006,16 @@
           {
             "in": "query",
             "name": "search[score]",
-            "description": "Only usable if one of `comment_id`, `user_name`, or `user_id` is also provided.",
             "schema": {
               "$ref": "#/components/schemas/UpDownVote"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[timeframe]",
+            "description": "Only return votes updated within the last N days.",
+            "schema": {
+              "type": "integer"
             }
           },
           {
@@ -14872,8 +14933,15 @@
           }
         },
         "responses": {
-          "204": {
-            "description": "Success"
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RawPost"
+                }
+              }
+            }
           },
           "403": {
             "$ref": "#/components/responses/AccessDenied"
@@ -16920,7 +16988,7 @@
           {
             "in": "query",
             "name": "search[user_ip_addr]",
-            "description": "You must be Admin+. Only usable if one of `post_id`, `user_name`, or `user_id` is also provided. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
+            "description": "You must be Admin+. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, \"is contained within or equals\" (`<<=`).",
             "schema": {
               "type": "string"
             }
@@ -16928,9 +16996,16 @@
           {
             "in": "query",
             "name": "search[score]",
-            "description": "Only usable if one of `post_id`, `user_name`, or `user_id` is also provided.",
             "schema": {
               "$ref": "#/components/schemas/UpDownVote"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[timeframe]",
+            "description": "Only return votes updated within the last N days.",
+            "schema": {
+              "type": "integer"
             }
           },
           {

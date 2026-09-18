@@ -1,7 +1,7 @@
 import { postFlags_clearNote, postFlags_create, postFlags_destroy, postFlags_show, postFlags_index } from "../generated/sdk.js";
-import { type PostFlagsCreateData, type PostFlagsIndexData } from "../generated/types.js";
+import { type PostFlagsCreateData, type PostFlagsDestroyResponses, type PostFlagsIndexData } from "../generated/types.js";
 import PostFlag from "../models/PostFlag.js";
-import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
+import { GetResponse, OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
@@ -11,6 +11,8 @@ export interface CreatePostFlagOptions extends TransformDataBodyToOptions<PostFl
 export interface FlagPostOptions extends Omit<CreatePostFlagOptions, "post_id"> {}
 /** @category Modules/Types */
 export interface SearchPostFlagsOptions extends TransformDataQueryToOptions<PostFlagsIndexData> {}
+/** @category Modules/Types */
+export interface ResolvePostFlagResponse extends GetResponse<PostFlagsDestroyResponses, 200> {}
 
 /** @category Modules */
 export default class PostFlags extends Base {
@@ -40,11 +42,11 @@ export default class PostFlags extends Base {
     }
 
     @OperationID("post_flags#destroy")
-    async resolve(post_id: number): Promise<null> {
+    async resolve(post_id: number): Promise<ResolvePostFlagResponse> {
         return postFlags_destroy({
             client: this.client,
             path: { id: post_id },
-        }).then(res => this._handleResponse(res, 204, true));
+        }).then(res => this._handleResponse(res, 200, true));
     }
 
     @OperationID("post_flags#index")

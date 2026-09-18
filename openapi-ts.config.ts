@@ -2,7 +2,7 @@
 import { defineConfig } from "@hey-api/openapi-ts";
 import "dotenv/config";
 
-const commit = "27b52e08b2f35ac8a45ab72025faeba0a1d0a3d9";
+const commit = "1fcdc22ec52884ad45eac9f2c1451ac664a02323";
 // Set E621_OPENAPI_INPUT to a local openapi.yaml path (e.g. a sibling checkout of E621OpenAPI) to generate
 // against it instead of fetching the pinned commit - useful for developing against unpushed spec changes.
 const input = process.env.E621_OPENAPI_INPUT ?? `https://raw.githubusercontent.com/DonovanDMC/E621OpenAPI/${commit}/openapi.yaml`;

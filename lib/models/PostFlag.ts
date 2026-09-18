@@ -3,6 +3,7 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 
 import type { PostFlag as PostFlagData } from "../generated/types.js";
+import type { ResolvePostFlagResponse } from "../modules/PostFlags.js";
 
 interface PostFlag extends PostFlagData {}
 /** @category Models */
@@ -14,7 +15,7 @@ class PostFlag extends Base<PostFlagData> {
     }
 
     @OperationID("post_flags#destroy")
-    async resolve(): Promise<null> {
+    async resolve(): Promise<ResolvePostFlagResponse> {
         return this.e621.postFlags.resolve(this.post_id);
     }
 }
