@@ -175,7 +175,7 @@ export function createE621Client<const PF extends PostFormatOptions = NoV2Option
             if (input instanceof Request) {
                 url = input.url;
                 method = input.method.toLowerCase();
-                if (!input.headers.has("Auithorization") && resolved.authKey && resolved.authUser) {
+                if (!input.headers.has("Authorization") && resolved.authKey && resolved.authUser) {
                     input.headers.set("Authorization", `Basic ${btoa(`${resolved.authUser}:${resolved.authKey}`)}`);
                 }
             } else if (init) {
