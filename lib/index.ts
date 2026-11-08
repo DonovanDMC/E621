@@ -9,7 +9,7 @@ export type * from "./modules/index.js";
 export * from "./models/index.js";
 export * from "./errors.js";
 export * as Generated from "./generated.js";
-export type { Options } from "./client.js";
+export type { Options, RatelimitInfo, RatelimitOptions } from "./client.js";
 
 interface E621<PF extends PostFormatOptions = NoV2Options> extends Modules<PF> {}
 /** @category Main */

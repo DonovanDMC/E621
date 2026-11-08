@@ -1,10 +1,60 @@
 import Debug from "./Debug.js";
+import { parseRetryAfter } from "./errors.js";
 import { createClient } from "./generated/client/client.js";
 import { createConfig } from "./generated/client/utils.js";
 import { VERSION } from "./version.js";
 
 import type { Client, Config } from "./generated/client/types.js";
 import type { NoV2Options, PostFormatOptions } from "./modules/posts/Format.js";
+
+/** @category Main */
+export interface RatelimitInfo {
+    /** The 1-indexed attempt that just got rate limited. */
+    attempt: number;
+    /** The configured {@link RatelimitOptions.maxRetries}, for context. */
+    maxRetries: number;
+    request: Request;
+    response: Response;
+    /** Seconds parsed from the response's `Retry-After` header - `null` if missing/unparsable. */
+    retryAfter: number | null;
+    /** Whether this request will be retried, or is about to fail with a {@link RatelimitError}. */
+    willRetry: boolean;
+}
+
+/** @category Main */
+export interface RatelimitOptions {
+    /**
+     * The maximum number of times to retry a rate limited (HTTP 429) request before giving up and
+     * throwing a {@link RatelimitError}.
+     * @default 3
+     */
+    maxRetries?: number;
+    /**
+     * The maximum delay, in seconds, to wait before retrying, regardless of what the `Retry-After` header
+     * says or how many attempts have been made.
+     * @default 60
+     */
+    maxRetryDelay?: number;
+    /**
+     * Called every time a request gets rate limited, before the retry delay (or before throwing, if
+     * retries are exhausted or disabled). Useful for logging/metrics.
+     * @default none
+     */
+    onRatelimit?: (info: RatelimitInfo) => void;
+    /**
+     * Whether to automatically retry requests that get rate limited (HTTP 429), waiting for the duration
+     * in the response's `Retry-After` header (or `retryDelay`, backed off exponentially per attempt, if
+     * the header is missing or unusable) before retrying.
+     * @default true
+     */
+    retry?: boolean;
+    /**
+     * The delay, in seconds, to wait before retrying a rate limited request when the response has no (or
+     * an unusable) `Retry-After` header. Doubled per attempt (capped at `maxRetryDelay`).
+     * @default 1
+     */
+    retryDelay?: number;
+}
 
 /** @category Main */
 export interface Options<PF extends PostFormatOptions = NoV2Options> {
@@ -32,6 +82,11 @@ export interface Options<PF extends PostFormatOptions = NoV2Options> {
      */
     defaultPostFormat?: PF;
     /**
+     * Controls how rate limited (HTTP 429) requests are retried.
+     * @default \{ retry: true, maxRetries: 3, retryDelay: 1, maxRetryDelay: 60 \}
+     */
+    ratelimit?: RatelimitOptions;
+    /**
      * The number of seconds before a request times out
      * @default 30
      */
@@ -56,10 +111,20 @@ export interface Options<PF extends PostFormatOptions = NoV2Options> {
 }
 
 /** @category Main */
+export interface ResolvedRatelimitOptions {
+    maxRetries: number;
+    maxRetryDelay: number;
+    onRatelimit?: (info: RatelimitInfo) => void;
+    retry: boolean;
+    retryDelay: number;
+}
+
+/** @category Main */
 export interface InstanceOptions {
     authKey: string | null;
     authUser: string | null;
     baseURL: string;
+    ratelimit: ResolvedRatelimitOptions;
     requestTimeout: number;
     statusCheckURL: string;
     userAgent: string;
@@ -86,6 +151,13 @@ export function createE621Client<const PF extends PostFormatOptions = NoV2Option
         authKey: options?.authKey ?? null,
         authUser: options?.authUser ?? null,
         baseURL: options?.baseURL ?? "https://e621.net",
+        ratelimit: {
+            maxRetries: options?.ratelimit?.maxRetries ?? 3,
+            maxRetryDelay: options?.ratelimit?.maxRetryDelay ?? 60,
+            onRatelimit: options?.ratelimit?.onRatelimit,
+            retry: options?.ratelimit?.retry ?? true,
+            retryDelay: options?.ratelimit?.retryDelay ?? 1,
+        },
         requestTimeout: options?.requestTimeout ?? 30,
         statusCheckURL: options?.statusCheckURL ?? "https://status.e621.church/json",
         userAgent: options?.userAgent ?? `E621/${VERSION} (https://github.com/DonovanDMC/E621${options?.authUser ? `; "${options.authUser}"` : ""})`,
@@ -124,8 +196,31 @@ export function createE621Client<const PF extends PostFormatOptions = NoV2Option
                 url = requestURL.toString();
             }
             Debug(`request:${method}`, `-> ${url}`);
-            const res = await fetch(input, init);
-            Debug(`response:${method}`, `<- ${url} ${res.status} ${res.statusText}`);
+            let attempt = 0, res: Response;
+            for (;;) {
+                // clone so a retry can re-send the body - `input` itself is never fetched directly, so it's
+                // never disturbed and can be cloned again on the next attempt
+                res = await fetch(input instanceof Request ? input.clone() : input, init);
+                Debug(`response:${method}`, `<- ${url} ${res.status} ${res.statusText}`);
+                if (res.status !== 429) break;
+                const retryAfter = parseRetryAfter(res);
+                const willRetry = resolved.ratelimit.retry && attempt < resolved.ratelimit.maxRetries;
+                resolved.ratelimit.onRatelimit?.({
+                    attempt: attempt + 1,
+                    maxRetries: resolved.ratelimit.maxRetries,
+                    request: input instanceof Request ? input : new Request(url, init),
+                    response: res,
+                    retryAfter,
+                    willRetry,
+                });
+                if (!willRetry) break;
+                const delay = Math.min(retryAfter ?? resolved.ratelimit.retryDelay * 2 ** attempt, resolved.ratelimit.maxRetryDelay);
+                Debug(`response:${method}`, `<- ${url} ratelimited, retrying in ${delay}s (attempt ${attempt + 1}/${resolved.ratelimit.maxRetries})`);
+                // free the connection, the body of a response we're discarding is never read
+                await res.body?.cancel().catch(() => {});
+                await new Promise(resolve => setTimeout(resolve, delay * 1000));
+                attempt++;
+            }
             return res;
         },
     };

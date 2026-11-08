@@ -1,5 +1,5 @@
 export { createE621Client } from "./client.js";
-export type { E621ClientResult, InstanceOptions, Options } from "./client.js";
+export type { E621ClientResult, InstanceOptions, Options, RatelimitInfo, RatelimitOptions, ResolvedRatelimitOptions } from "./client.js";
 
 import { createE621Client, type E621ClientResult } from "./client.js";
 

@@ -52,6 +52,29 @@ await post?.update({ tags: "foo" }); // also resolves to ExtendedPost
 const legacy = await e621.posts.get(123, { v2: false });
 ```
 
+### Ratelimit Handling
+
+Every request that comes back `429 Too Many Requests` is retried automatically, waiting for the duration in the response's `Retry-After` header (or an exponential backoff starting at `ratelimit.retryDelay` seconds if that header is missing). If it's still ratelimited after `ratelimit.maxRetries` attempts, or `ratelimit.retry` is turned off, a `RatelimitError` (see `retryAfter`) is thrown instead:
+```typescript
+import { RatelimitError } from "e621";
+
+const e621 = new E621({
+	ratelimit: {
+		maxRetries: 5,     // default: 3
+		retryDelay: 2,     // default: 1 (seconds, doubled per attempt as a fallback)
+		maxRetryDelay: 30, // default: 60 (seconds, caps both the header and the fallback)
+		onRatelimit: (info) => console.warn(`ratelimited, retrying in ${info.retryAfter}s`),
+	}
+});
+
+try {
+	await e621.posts.get(123);
+} catch (err) {
+	if (err instanceof RatelimitError) console.error(`still ratelimited, retry after ${err.retryAfter}s`);
+}
+```
+Set `ratelimit: { retry: false }` to disable automatic retries and just throw `RatelimitError` on the first `429`.
+
 ## Browser Usage
 
 A pre-bundled, browser-only build (no Node built-ins) is published at `e621/browser`, for use with a plain `<script type="module">` or a CDN like jsDelivr/unpkg:

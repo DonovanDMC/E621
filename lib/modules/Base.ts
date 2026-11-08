@@ -1,4 +1,4 @@
-import { UnexpectedResponseError } from "../errors.js";
+import { RatelimitError, UnexpectedResponseError } from "../errors.js";
 
 import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
@@ -60,6 +60,7 @@ export default abstract class Base<PF extends PostFormatOptions = NoV2Options> {
                 } else return res.data as never;
             }
         } else if (res.response?.status === 404 && !throwOnNotFound) return null as never;
+        else if (res.response?.status === 429) throw new RatelimitError(res.request, res.response, res.error);
         else throw new UnexpectedResponseError(res.request, res.response, res.error);
     }
 }

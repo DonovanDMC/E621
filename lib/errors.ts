@@ -1,3 +1,13 @@
+/** Parses a response's `Retry-After` header (seconds or an HTTP-date) into seconds - `null` if missing/unparsable. @category Errors */
+export function parseRetryAfter(response?: Response): number | null {
+    const header = response?.headers.get("Retry-After");
+    if (!header) return null;
+    const seconds = Number(header);
+    if (!Number.isNaN(seconds)) return Math.max(0, seconds);
+    const timestamp = Date.parse(header);
+    return Number.isNaN(timestamp) ? null : Math.max(0, Math.round((timestamp - Date.now()) / 1000));
+}
+
 /** @category Errors */
 export class UnexpectedResponseError extends Error {
     error!: unknown;
@@ -31,5 +41,21 @@ export class UnexpectedResponseError extends Error {
             response: { value: response, enumerable: false },
             error: { value: error, enumerable: false },
         });
+    }
+}
+
+/**
+ * Thrown when e621 responds with `429 Too Many Requests` and the request either wasn't set to retry (see
+ * {@link RatelimitOptions.retry}) or ran out of retries.
+ * @category Errors
+ */
+export class RatelimitError extends UnexpectedResponseError {
+    override name = "RatelimitError";
+    /** Seconds to wait before retrying, parsed from the response's `Retry-After` header - `null` if it was missing or unparsable. */
+    retryAfter: number | null;
+    constructor(request: Request | undefined, response: Response | undefined, error: unknown) {
+        super(request, response, error);
+        this.retryAfter = parseRetryAfter(response);
+        this.message = this.message.replace("Unexpected", "Ratelimited") + (this.retryAfter === null ? "" : `\nRetry after ${this.retryAfter}s`);
     }
 }
