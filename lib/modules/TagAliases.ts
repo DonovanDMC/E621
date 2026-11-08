@@ -32,11 +32,12 @@ export default class TagAliases extends Base {
     }
 
     @OperationID("tag_alias_requests#create")
-    async create(options: CreateTagAliasOptions): Promise<unknown> {
+    async create(options: CreateTagAliasOptions): Promise<string> {
         return tagAliasRequests_create({
             client: this.client,
             body: prefixKeys(options, "tag_alias_request"),
-        }).then(res => this._handleResponse(res, 200, true));
+            redirect: "manual",
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("tag_aliases#show")

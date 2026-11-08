@@ -149,8 +149,12 @@ import RailsHealth from "./RailsHealth.js";
 export type * from "./RailsHealth.js";
 import SearchTrendHourlies from "./SearchTrendHourlies.js";
 export type * from "./SearchTrendHourlies.js";
+import SavedSearches from "./SavedSearches.js";
+export type * from "./SavedSearches.js";
 import Sessions from "./Sessions.js";
 export type * from "./Sessions.js";
+import TagSubscriptions from "./TagSubscriptions.js";
+export type * from "./TagSubscriptions.js";
 import StaffIpAddrs from "./StaffIpAddrs.js";
 export type * from "./StaffIpAddrs.js";
 import StaffReowner from "./StaffReowner.js";
@@ -218,6 +222,7 @@ export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     postVotes: PostVotes;
     railsHealth: RailsHealth;
     relatedTags: RelatedTags;
+    savedSearches: SavedSearches;
     searchTrendBlacklists: SearchTrendBlacklists;
     searchTrendHourlies: SearchTrendHourlies;
     searchTrends: SearchTrends;
@@ -242,6 +247,7 @@ export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     tagCorrections: TagCorrections;
     tagImplications: TagImplications;
     tags: Tags;
+    tagSubscriptions: TagSubscriptions;
     tagTypeVersions: TagTypeVersions;
     takedowns: Takedowns;
     tickets: Tickets;
@@ -308,6 +314,7 @@ export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>
         posts: new Posts(e621, client, defaultPostFormat),
         railsHealth: new RailsHealth(baseE621, client),
         relatedTags: new RelatedTags(baseE621, client),
+        savedSearches: new SavedSearches(baseE621, client),
         searchTrendBlacklists: new SearchTrendBlacklists(baseE621, client),
         searchTrendHourlies: new SearchTrendHourlies(baseE621, client),
         searchTrends: new SearchTrends(baseE621, client),
@@ -333,6 +340,7 @@ export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>
         tagImplications: new TagImplications(baseE621, client),
         tagTypeVersions: new TagTypeVersions(baseE621, client),
         tags: new Tags(baseE621, client),
+        tagSubscriptions: new TagSubscriptions(baseE621, client),
         takedowns: new Takedowns(baseE621, client),
         tickets: new Tickets(baseE621, client),
         uploadKarmaEvents: new UploadKarmaEvents(baseE621, client),

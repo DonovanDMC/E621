@@ -2,7 +2,7 @@ import { PostVotesCreateResponse } from "../../modules/PostVotes.js";
 import { type ExtractValue, OperationID } from "../../util.js";
 import Base from "../Base.js";
 
-import type { PostVotesCreateData } from "../../generated/types.js";
+import type { PostVotesCreateData, RawPost } from "../../generated/types.js";
 import type { FavoritesCreateResponse, FavoritesDestroyResponse } from "../../modules/Favorites.js";
 import type { DisapprovePostOptions } from "../../modules/PostDisapprovals.js";
 import type { FlagPostOptions } from "../../modules/PostFlags.js";
@@ -50,7 +50,7 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("staff/post/posts#delete")
-    async delete(options: DeletePostOptions): Promise<unknown> {
+    async delete(options: DeletePostOptions): Promise<RawPost> {
         return this.e621.posts.delete(this.id, options);
     }
 
@@ -60,7 +60,7 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("staff/post/posts#expunge")
-    async expunge(reason: string): Promise<Post<PF>> {
+    async expunge(reason: string): Promise<RawPost> {
         return this.e621.posts.expunge(this.id, reason);
     }
 
@@ -85,7 +85,7 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("staff/post/posts#move_favorites")
-    async moveFavorites(options: MovePostFavoritesOptions): Promise<unknown> {
+    async moveFavorites(options: MovePostFavoritesOptions): Promise<string> {
         return this.e621.posts.moveFavorites(this.id, options);
     }
 
@@ -115,7 +115,7 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("staff/post/posts#reowner")
-    async reown(options: ReownPostOptions): Promise<string> {
+    async reown(options: ReownPostOptions): Promise<RawPost | null> {
         return this.e621.posts.reown(this.id, options);
     }
 
@@ -135,7 +135,7 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("staff/post/posts#undelete")
-    async undelete(): Promise<Post<PF>> {
+    async undelete(): Promise<RawPost> {
         return this.e621.posts.undelete(this.id);
     }
 

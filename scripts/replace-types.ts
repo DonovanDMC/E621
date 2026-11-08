@@ -9,6 +9,9 @@ const dir = `${root}/lib/generated`;
 
 const REPLACEMENTS = {
     "BodyInit": "RequestInit['body']",
+    // the spec types page as a string so it can take `a<id>`/`b<id>`, keep accepting plain numbers
+    "        page?: string;": "        page?: number | `${number}` | `${'a' | 'b'}${number}`;",
+    "status: 'completed' | 'duplicate' | 'failed' | 'processing' | 'queued' | 'pending';": "status: 'completed' | `duplicate: ${number}` | 'failed' | 'processing' | 'queued' | 'pending';",
     "export type TagRequestStatus = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | string": "export type TagRequestStatus = 'active' | 'deleted' | 'processing' | 'queued' | 'retired' | 'pending' | `error: ${string}`",
 };
 

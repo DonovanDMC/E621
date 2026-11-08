@@ -34,12 +34,14 @@ export default class StaffUsers extends Base {
     }
 
     @OperationID("staff/users#update")
-    async update(id: number, options: UpdateStaffUserOptions): Promise<null> {
+    async update(id: number, options: UpdateStaffUserOptions): Promise<string> {
         return staffUsers_update({
             client: this.client,
             path: { id },
             body: prefixKeys(options, "user"),
-        }).then(res => this._handleResponse(res, 204, true));
+            // the spec says 200, but that's only after following the redirect
+            redirect: "manual",
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("staff/users#update_blacklist")

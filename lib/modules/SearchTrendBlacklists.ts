@@ -21,7 +21,7 @@ export default class SearchTrendBlacklists extends Base {
         return searchTrendBlacklists_create({
             client: this.client,
             body: prefixKeys(options, "search_trend_blacklist"),
-        }).then(res => this._handleResponse(res, 200, true, SearchTrendBlacklist));
+        }).then(res => this._handleResponse(res, 201, true, SearchTrendBlacklist));
     }
 
     @OperationID("search_trend_blacklists#destroy")

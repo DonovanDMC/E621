@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "E621",
-    "description": "OpenAPI definition for E621's API. You can find the source [here](https://github.com/DonovanDMC/E621OpenAPI)<br>\nThis document is intended to compliment E621's existing [API Documentation](https://e621.net/help/api).<br>\nIf the api is not working, you can check this [Unofficial Status Page](https://status.e621.church).<br>\nAn MCP server exposing this API to Claude and other MCP clients is available at [mcp.e621.wiki](https://mcp.e621.wiki) (also reachable at [e621.wiki/mcp](https://e621.wiki/mcp)); see its [README](https://github.com/DonovanDMC/E621OpenAPI/tree/master/mcp) for details.\n",
+    "description": "OpenAPI definition for E621's API. You can find the source [here](https://github.com/DonovanDMC/E621OpenAPI)<br>\nThis document is intended to compliment E621's existing [API Documentation](https://e621.net/help/api).<br>\nGuides: [Authentication](https://e621.wiki/authentication/), [Pagination](https://e621.wiki/pagination/), [Errors and Rate Limits](https://e621.wiki/errors/), [Search Syntax](https://e621.wiki/searching/), [Post Files](https://e621.wiki/post-files/), [DText](https://e621.wiki/dtext/), [User Levels](https://e621.wiki/user-levels/), [Tag Categories](https://e621.wiki/tag-categories/), [DB Exports](https://e621.wiki/db-exports/).<br>\nIf the api is not working, you can check this [Unofficial Status Page](https://status.e621.church).<br>\nAn MCP server exposing this API to Claude and other MCP clients is available at [mcp.e621.wiki](https://mcp.e621.wiki) (also reachable at [e621.wiki/mcp](https://e621.wiki/mcp)); see its [README](https://github.com/DonovanDMC/E621OpenAPI/tree/master/mcp) for details.\n",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -12,10 +12,10 @@
       "name": "Donovan_DMC",
       "url": "https://e621.net/forum_topics/46279"
     },
-    "version": "6e7877a",
-    "x-e621ng-commit": "495637130a6ec5078dc9f362ab71bfa76f979d23",
+    "version": "aac2254",
+    "x-e621ng-commit": "f7c916997c870b4ce1c614dbf4e89827b73e8d61",
     "x-e621ng-master-behind-by": 0,
-    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/495637130a6ec5078dc9f362ab71bfa76f979d23...master",
+    "x-e621ng-master-compare-url": "https://github.com/e621ng/e621ng/compare/f7c916997c870b4ce1c614dbf4e89827b73e8d61...master",
     "x-mcp-server": "https://mcp.e621.wiki"
   },
   "servers": [
@@ -36,7 +36,8 @@
     "securitySchemes": {
       "basicAuth": {
         "type": "http",
-        "scheme": "basic"
+        "scheme": "basic",
+        "description": "Your username and API key. See [Authentication](https://e621.wiki/authentication/)."
       },
       "browserAuth": {
         "type": "apiKey",
@@ -73,7 +74,7 @@
       "limitQuery": {
         "name": "limit",
         "in": "query",
-        "description": "The maximum number of results to return. Between 0 and 320.",
+        "description": "The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).",
         "schema": {
           "type": "integer",
           "minimum": 0,
@@ -83,11 +84,10 @@
       "pageQuery": {
         "name": "page",
         "in": "query",
-        "description": "The page number of results to get. Between 1 and 750.",
+        "description": "A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.\nSee [Pagination](https://e621.wiki/pagination/).\n",
         "schema": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 750
+          "type": "string",
+          "pattern": "^([1-9]\\d*|[ab]\\d+)$"
         }
       },
       "ipAddrQuery": {
@@ -113,7 +113,7 @@
       "v2Query": {
         "in": "query",
         "name": "v2",
-        "description": "Use the new V2 format. See the `v2=true` responses.",
+        "description": "Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).",
         "schema": {
           "type": "boolean"
         }
@@ -121,7 +121,7 @@
       "modeQuery": {
         "in": "query",
         "name": "mode",
-        "description": "Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.",
+        "description": "Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).",
         "schema": {
           "type": "string",
           "enum": [
@@ -1875,7 +1875,10 @@
           "created_at",
           "updated_at",
           "warning_type",
-          "warning_user_id"
+          "warning_user_id",
+          "vote_score",
+          "creator_name",
+          "updater_name"
         ],
         "properties": {
           "id": {
@@ -1910,6 +1913,17 @@
           "warning_user_id": {
             "type": "integer",
             "nullable": true
+          },
+          "vote_score": {
+            "type": "string",
+            "nullable": true,
+            "description": "Net votes divided by total votes, from -1 to 1. Null if the post has never been voted on."
+          },
+          "creator_name": {
+            "type": "string"
+          },
+          "updater_name": {
+            "type": "string"
           }
         }
       },
@@ -1963,7 +1977,10 @@
           "is_hidden",
           "created_at",
           "updated_at",
-          "category_id"
+          "category_id",
+          "last_bumped_at",
+          "creator_name",
+          "updater_name"
         ],
         "properties": {
           "id": {
@@ -2000,6 +2017,16 @@
           },
           "category_id": {
             "type": "integer"
+          },
+          "last_bumped_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "creator_name": {
+            "type": "string"
+          },
+          "updater_name": {
+            "type": "string"
           }
         }
       },
@@ -4266,6 +4293,7 @@
           "locked_tags",
           "added_tags",
           "removed_tags",
+          "original_tags",
           "added_locked_tags",
           "removed_locked_tags",
           "rating_changed",
@@ -4325,6 +4353,13 @@
           },
           "removed_tags": {
             "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "original_tags": {
+            "type": "array",
+            "description": "The tag changes as the user submitted them, before aliases, implications, and automatic tags. Removed tags are prefixed with `-`. May include metatags such as `rating:`, `pool:`, `parent:`, and `source:`.",
             "items": {
               "type": "string"
             }
@@ -4703,6 +4738,61 @@
           },
           "category": {
             "$ref": "#/components/schemas/TagCategory"
+          }
+        }
+      },
+      "SavedSearch": {
+        "type": "object",
+        "required": [
+          "id",
+          "query",
+          "name",
+          "is_tracked",
+          "is_subscription",
+          "last_seen_post_id",
+          "created_at",
+          "updated_at",
+          "new_count"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "query": {
+            "type": "string",
+            "description": "Empty for the subscription search, its tags are managed through tag subscriptions."
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_tracked": {
+            "type": "boolean"
+          },
+          "is_subscription": {
+            "type": "boolean",
+            "description": "True for the search that holds the user's tag subscriptions."
+          },
+          "last_seen_post_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tag_count": {
+            "type": "integer",
+            "description": "Only present on the subscription search."
+          },
+          "new_count": {
+            "type": "integer",
+            "nullable": true,
+            "description": "New posts since the search was last seen, capped at 100. Null for untracked searches, when no counts are cached, or when the search could not be evaluated."
           }
         }
       },
@@ -5573,6 +5663,34 @@
           }
         }
       },
+      "TagSubscription": {
+        "type": "object",
+        "required": [
+          "id",
+          "tag_id",
+          "created_at",
+          "tag_name",
+          "category"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "tag_id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tag_name": {
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/TagCategory"
+          }
+        }
+      },
       "TagTypeVersion": {
         "type": "object",
         "required": [
@@ -5687,6 +5805,7 @@
           "width",
           "height",
           "size",
+          "duration",
           "preview_url",
           "preview_webp",
           "sample_url",
@@ -5728,6 +5847,10 @@
           "size": {
             "type": "integer",
             "format": "int64"
+          },
+          "duration": {
+            "type": "number",
+            "nullable": true
           },
           "preview_url": {
             "type": "string",
@@ -5882,9 +6005,7 @@
           "uploader_id",
           "tag_string",
           "status",
-          "backtrace",
           "post_id",
-          "md5_confirmation",
           "created_at",
           "updated_at",
           "parent_id",
@@ -5894,7 +6015,21 @@
           "image_width",
           "image_height",
           "description",
-          "uploader_name"
+          "processing_step",
+          "error_message",
+          "warning_messages",
+          "is_animated",
+          "duration",
+          "has_sound",
+          "locked_tags",
+          "locked_rating",
+          "as_pending",
+          "submitted_tag_string",
+          "processing_started_at",
+          "processed_at",
+          "requeued_at",
+          "uploader_name",
+          "duplicate_post_id"
         ],
         "properties": {
           "id": {
@@ -5914,18 +6049,20 @@
           },
           "status": {
             "type": "string",
-            "description": "Note: The \"error\" status will be proceeded by an error, ex: \"error: RuntimeError - No file or source URL provided\"\n",
+            "description": "Note: The \"duplicate\" status will be followed by the duplicate post's id, ex: \"duplicate: 123\"\n",
             "enum": [
               "completed",
               "duplicate",
-              "error",
+              "failed",
               "processing",
+              "queued",
               "pending"
             ]
           },
           "backtrace": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "description": "Only visible to Staff+."
           },
           "post_id": {
             "type": "integer",
@@ -5934,7 +6071,8 @@
           "md5_confirmation": {
             "type": "string",
             "nullable": true,
-            "deprecated": true
+            "deprecated": true,
+            "description": "Only visible to Staff+."
           },
           "created_at": {
             "type": "string",
@@ -5971,8 +6109,73 @@
           "description": {
             "type": "string"
           },
+          "processing_step": {
+            "type": "string",
+            "nullable": true,
+            "description": "The step currently being processed.",
+            "enum": [
+              "integrity",
+              "thumbnail",
+              "sound",
+              "post",
+              null
+            ]
+          },
+          "error_message": {
+            "type": "string",
+            "nullable": true
+          },
+          "warning_messages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "is_animated": {
+            "type": "boolean"
+          },
+          "duration": {
+            "type": "string",
+            "nullable": true
+          },
+          "has_sound": {
+            "type": "boolean"
+          },
+          "locked_tags": {
+            "type": "string",
+            "nullable": true
+          },
+          "locked_rating": {
+            "type": "boolean"
+          },
+          "as_pending": {
+            "type": "boolean"
+          },
+          "submitted_tag_string": {
+            "type": "string",
+            "nullable": true
+          },
+          "processing_started_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "processed_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "requeued_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "uploader_name": {
             "type": "string"
+          },
+          "duplicate_post_id": {
+            "type": "integer",
+            "nullable": true
           }
         }
       },
@@ -6541,9 +6744,8 @@
           },
           "reason": {
             "type": "string",
-            "enum": [
-              "Access Denied"
-            ]
+            "description": "Usually `Access Denied`, but may include more detail, ex: `Access Denied: Must be logged in`.",
+            "example": "Access Denied"
           }
         }
       },
@@ -7617,7 +7819,7 @@
             "basicAuth": []
           }
         ],
-        "description": "`other_names` & `urls` are silently truncated to 25 entries.\n`notes` is silently truncated to the wiki page limit (250,000).\nIndividual `other_names` are silently truncated to 100 characters.\n",
+        "description": "`other_names` & `urls` are silently truncated to 25 entries.\n`notes` is silently truncated to the wiki page limit (250,000).\nIndividual `other_names` are silently truncated to 100 characters.\nIndividual `urls` cannot be longer than 512 characters.\n",
         "requestBody": {
           "content": {
             "application/x-www-form-urlencoded": {
@@ -7762,7 +7964,7 @@
             "basicAuth": []
           }
         ],
-        "description": "If an artist is locked, you must be Staff+ to edit them.\n`other_names` & `urls` are silently truncated to 25 entries.\n`notes` is silently truncated to the wiki page limit (250,000).\nIndividual `other_names` are silently truncated to 100 characters.\nIf an artist is on the avoid posting list, you must have the bd staff user flag to edit name, other_names, or group_name.\n",
+        "description": "If an artist is locked, you must be Staff+ to edit them.\n`other_names` & `urls` are silently truncated to 25 entries.\n`notes` is silently truncated to the wiki page limit (250,000).\nIndividual `other_names` are silently truncated to 100 characters.\nIndividual `urls` cannot be longer than 512 characters.\nIf an artist is on the avoid posting list, you must have the bd staff user flag to edit name, other_names, or group_name.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/idOrNamePath"
@@ -9100,7 +9302,9 @@
                 "id_desc",
                 "status_desc",
                 "updated_at_desc",
-                "updated_at_asc"
+                "updated_at_asc",
+                "score_desc",
+                "score_asc"
               ]
             }
           },
@@ -9456,7 +9660,7 @@
           {
             "in": "query",
             "name": "search[post_tags_match]",
-            "description": "Only usable by Member+",
+            "description": "Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).",
             "schema": {
               "type": "string"
             }
@@ -10794,13 +10998,10 @@
         "tags": [
           "DText"
         ],
-        "description": "Note while this route does not require auth, without auth it requires a CSRF token. For that reason it has been marked as requiring auth.",
+        "description": "Limited to 20 requests per minute.",
         "security": [
           {
             "basicAuth": []
-          },
-          {
-            "csrfToken": []
           }
         ],
         "requestBody": {
@@ -10813,7 +11014,11 @@
                 ],
                 "properties": {
                   "body": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 250000
+                  },
+                  "allow_color": {
+                    "type": "boolean"
                   }
                 }
               }
@@ -10827,6 +11032,29 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DTextResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "413": {
+            "description": "The body or the rendered output is too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Ratelimited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
                 }
               }
             }
@@ -11385,6 +11613,10 @@
                   },
                   "forum_post[topic_id]": {
                     "type": "integer"
+                  },
+                  "forum_post[do_not_bump_topic]": {
+                    "type": "boolean",
+                    "description": "Don't bump the topic."
                   }
                 }
               }
@@ -11785,12 +12017,21 @@
           {
             "name": "search[order]",
             "in": "query",
+            "description": "`sticky` sorts by last bumped, `sticky_updated` by last updated.",
             "schema": {
               "type": "string",
               "enum": [
                 "id_asc",
                 "id_desc",
-                "sticky"
+                "sticky",
+                "sticky_updated",
+                "created_at",
+                "created_at_desc",
+                "created_at_asc",
+                "updated_at",
+                "updated_at_desc",
+                "updated_at_asc",
+                "bumped"
               ]
             }
           },
@@ -11996,6 +12237,10 @@
                   "forum_topic[is_sticky]": {
                     "type": "boolean",
                     "description": "You must be Moderator+."
+                  },
+                  "forum_topic[do_not_bump]": {
+                    "type": "boolean",
+                    "description": "Don't bump the topic when changing the title or category."
                   },
                   "forum_topic[is_locked]": {
                     "type": "boolean",
@@ -12701,8 +12946,48 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid input, or IQDB is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
           "403": {
             "$ref": "#/components/responses/AccessDenied"
+          },
+          "422": {
+            "description": "The file could not be downloaded, or is too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Ratelimited, or IQDB is busy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "IQDB is unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
           }
         }
       },
@@ -12789,8 +13074,48 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid input, or IQDB is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
           "403": {
             "$ref": "#/components/responses/AccessDenied"
+          },
+          "422": {
+            "description": "The file could not be downloaded, or is too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Ratelimited, or IQDB is busy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "IQDB is unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -13315,7 +13640,7 @@
           {
             "in": "query",
             "name": "search[post_tags_match]",
-            "description": "Only usable by Member+",
+            "description": "Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).",
             "schema": {
               "type": "string"
             }
@@ -14312,6 +14637,7 @@
           {
             "in": "query",
             "name": "tags",
+            "description": "See [Search Syntax](https://e621.wiki/searching/).",
             "schema": {
               "type": "string"
             }
@@ -14440,6 +14766,7 @@
           },
           {
             "name": "tags",
+            "description": "See [Search Syntax](https://e621.wiki/searching/).",
             "in": "query",
             "schema": {
               "type": "string"
@@ -14467,6 +14794,7 @@
           {
             "in": "query",
             "name": "tags",
+            "description": "See [Search Syntax](https://e621.wiki/searching/).",
             "required": true,
             "schema": {
               "type": "string"
@@ -15814,7 +16142,7 @@
           {
             "name": "search[post_tags_match]",
             "in": "query",
-            "description": "Only usable by Member+",
+            "description": "Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).",
             "schema": {
               "type": "string"
             }
@@ -16006,7 +16334,7 @@
           {
             "in": "query",
             "name": "search[post_tags_match]",
-            "description": "Only usable by Member+",
+            "description": "Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).",
             "schema": {
               "type": "string"
             }
@@ -16160,7 +16488,7 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "Success",
             "content": {
               "application/json": {
@@ -16648,11 +16976,10 @@
           {
             "name": "page",
             "in": "query",
-            "description": "The page number of results to get. Between 1 and 750. Note that for post versions specifically, you can only go through the 10,000 most recent results with page numbers.",
+            "description": "A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.\nPage numbers can only reach the 10,000 most recent results, use `b<id>` to go further.\nSee [Pagination](https://e621.wiki/pagination/).\n",
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 750
+              "type": "string",
+              "pattern": "^([1-9]\\d*|[ab]\\d+)$"
             }
           },
           {
@@ -17108,6 +17435,307 @@
         }
       }
     },
+    "/saved_searches.json": {
+      "get": {
+        "summary": "List Saved Searches",
+        "operationId": "saved_searches#index",
+        "tags": [
+          "Saved Searches"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Lists the current user's saved searches. New post counts are refreshed when this is called.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SavedSearch"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Saved Search",
+        "operationId": "saved_searches#create",
+        "tags": [
+          "Saved Searches"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Users can have up to 250 saved searches, and track up to 50 of them.\nSaved search queries cannot contain wildcard tags or `search:` metatags.\n",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "saved_search[query]"
+                ],
+                "properties": {
+                  "saved_search[query]": {
+                    "description": "See [Search Syntax](https://e621.wiki/searching/).",
+                    "type": "string",
+                    "maxLength": 500
+                  },
+                  "saved_search[name]": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 100,
+                    "pattern": "^\\d*[a-z_]\\w*$",
+                    "description": "Used to reference the search with `search:<name>`. Cannot be `subscriptions`."
+                  },
+                  "saved_search[is_tracked]": {
+                    "type": "boolean",
+                    "description": "Track new posts matching the search."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedSearch"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "422": {
+            "$ref": "#/components/responses/MessageError"
+          }
+        }
+      }
+    },
+    "/saved_searches/{id}.json": {
+      "get": {
+        "summary": "Get Saved Search",
+        "operationId": "saved_searches#show",
+        "tags": [
+          "Saved Searches"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be the owner of the saved search. `new_count` is read from cache and may be stale.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedSearch"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Saved Search",
+        "operationId": "saved_searches#update",
+        "tags": [
+          "Saved Searches"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be the owner of the saved search. The subscription search cannot be updated.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "saved_search[query]": {
+                    "description": "See [Search Syntax](https://e621.wiki/searching/).",
+                    "type": "string",
+                    "maxLength": 500
+                  },
+                  "saved_search[name]": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 100,
+                    "pattern": "^\\d*[a-z_]\\w*$",
+                    "description": "Used to reference the search with `search:<name>`. Cannot be `subscriptions`."
+                  },
+                  "saved_search[is_tracked]": {
+                    "type": "boolean",
+                    "description": "Track new posts matching the search. Changing this resets the seen post."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedSearch"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied, or the saved search is the subscription search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/MessageError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Saved Search",
+        "operationId": "saved_searches#destroy",
+        "tags": [
+          "Saved Searches"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be the owner of the saved search.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/saved_searches/mark_all_seen.json": {
+      "post": {
+        "summary": "Mark All Saved Searches Seen",
+        "operationId": "saved_searches#mark_all_seen",
+        "tags": [
+          "Saved Searches"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      }
+    },
+    "/saved_searches/badge.json": {
+      "get": {
+        "summary": "Get Saved Search Badge",
+        "operationId": "saved_searches#badge",
+        "tags": [
+          "Saved Searches"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Total new post count across the current user's tracked saved searches. Read from cache only.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "fresh"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "nullable": true,
+                      "description": "Null when nothing is cached."
+                    },
+                    "fresh": {
+                      "type": "boolean",
+                      "description": "False when the cached count is stale or missing."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      }
+    },
     "/tags.json": {
       "get": {
         "summary": "Tags Index",
@@ -17544,7 +18172,9 @@
                 "created_at",
                 "updated_at",
                 "name",
-                "tag_count"
+                "tag_count",
+                "score_desc",
+                "score_asc"
               ]
             }
           },
@@ -17897,7 +18527,9 @@
                 "created_at",
                 "updated_at",
                 "name",
-                "tag_count"
+                "tag_count",
+                "score_desc",
+                "score_asc"
               ]
             }
           },
@@ -18218,6 +18850,151 @@
           },
           "406": {
             "description": "Failure"
+          }
+        }
+      }
+    },
+    "/tag_subscriptions.json": {
+      "get": {
+        "summary": "List Tag Subscriptions",
+        "operationId": "tag_subscriptions#index",
+        "tags": [
+          "Tag Subscriptions"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Lists the current user's tag subscriptions, ordered by tag name.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TagSubscription"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Tag Subscriptions",
+        "operationId": "tag_subscriptions#create",
+        "tags": [
+          "Tag Subscriptions"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Subscribes to one or more tags, following aliases. Users can subscribe to up to 500 tags.\nSubscribed tags can be searched with the `search:subscriptions` metatag.\n",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tag_name": {
+                    "type": "string",
+                    "description": "A single tag. Ignored if `tag_names` is present."
+                  },
+                  "tag_names": {
+                    "type": "string",
+                    "description": "Space separated list of tags."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "added",
+                    "skipped"
+                  ],
+                  "properties": {
+                    "added": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TagSubscription"
+                      }
+                    },
+                    "skipped": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "reason"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "reason": {
+                            "type": "string",
+                            "description": "One of `does not exist`, `already subscribed`, `over the limit of <limit>`, or `too many tags in one request`."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "422": {
+            "$ref": "#/components/responses/MessageError"
+          }
+        }
+      }
+    },
+    "/tag_subscriptions/{id}.json": {
+      "delete": {
+        "summary": "Delete Tag Subscription",
+        "operationId": "tag_subscriptions#destroy",
+        "tags": [
+          "Tag Subscriptions"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must be the owner of the tag subscription.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
           }
         }
       }
@@ -19782,6 +20559,7 @@
                 ],
                 "properties": {
                   "post_tags": {
+                    "description": "See [Search Syntax](https://e621.wiki/searching/).",
                     "type": "string"
                   }
                 }
@@ -19836,7 +20614,7 @@
             "basicAuth": []
           }
         ],
-        "description": "You must have the bd staff user flag.",
+        "description": "You must have the bd staff user flag. Deleted posts are not counted.",
         "parameters": [
           {
             "$ref": "#/components/parameters/idPath"
@@ -19852,6 +20630,7 @@
                 ],
                 "properties": {
                   "post_tags": {
+                    "description": "See [Search Syntax](https://e621.wiki/searching/).",
                     "type": "string"
                   }
                 }
@@ -19925,6 +20704,52 @@
         "responses": {
           "204": {
             "description": "Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDenied"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/takedowns/{id}/clear_posts.json": {
+      "post": {
+        "summary": "Clear Posts",
+        "operationId": "takedowns#clear_posts",
+        "tags": [
+          "Takedowns"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "You must have the bd staff user flag. Removes all posts from the takedown.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/idPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "removed_count"
+                  ],
+                  "properties": {
+                    "removed_count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
           },
           "403": {
             "$ref": "#/components/responses/AccessDenied"
@@ -20447,6 +21272,7 @@
           {
             "in": "query",
             "name": "search[post_tags_match]",
+            "description": "See [Search Syntax](https://e621.wiki/searching/).",
             "schema": {
               "type": "string"
             }
@@ -20456,13 +21282,20 @@
             "name": "search[status]",
             "schema": {
               "type": "string",
-              "description": "Note: The \"error\" status will be proceeded by an error, ex: \"error: RuntimeError - No file or source URL provided\"\n",
               "enum": [
                 "completed",
+                "failed",
                 "processing",
-                "pending",
-                "error"
+                "queued",
+                "pending"
               ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "search[error_message]",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -20569,7 +21402,7 @@
                   "required": [
                     "success",
                     "location",
-                    "post_id"
+                    "upload_id"
                   ],
                   "properties": {
                     "success": {
@@ -20579,9 +21412,14 @@
                       ]
                     },
                     "location": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "The post, or the upload if it is still being processed."
                     },
                     "post_id": {
+                      "type": "integer",
+                      "description": "Not present if the upload is still being processed."
+                    },
+                    "upload_id": {
                       "type": "integer"
                     }
                   }
@@ -20593,7 +21431,71 @@
             "$ref": "#/components/responses/AccessDenied"
           },
           "412": {
-            "$ref": "#/components/responses/MessageError"
+            "description": "The upload was invalid, failed, or is a duplicate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "success",
+                        "reason",
+                        "message"
+                      ],
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "enum": [
+                            false
+                          ]
+                        },
+                        "reason": {
+                          "type": "string",
+                          "enum": [
+                            "invalid"
+                          ]
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "success",
+                        "reason",
+                        "location",
+                        "post_id"
+                      ],
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "enum": [
+                            false
+                          ]
+                        },
+                        "reason": {
+                          "type": "string",
+                          "enum": [
+                            "duplicate"
+                          ]
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "The duplicate post."
+                        },
+                        "post_id": {
+                          "type": "integer",
+                          "description": "The duplicate post's id."
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -20605,7 +21507,7 @@
         "tags": [
           "Uploads"
         ],
-        "description": "You must be Staff+.",
+        "description": "You must be the uploader, or Staff+. Can be polled while an upload is processing.",
         "parameters": [
           {
             "$ref": "#/components/parameters/idPath"
@@ -22900,8 +23802,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success"
+          "302": {
+            "description": "Success, redirects to the user"
           },
           "400": {
             "$ref": "#/components/responses/MessageError"
@@ -23497,14 +24399,43 @@
           }
         },
         "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RawPost"
+                }
+              }
+            }
+          },
           "302": {
-            "description": "Success"
+            "description": "No reason was given, redirects to the confirmation page"
           },
           "403": {
             "$ref": "#/components/responses/AccessDenied"
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "description": "The post is already deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "reason"
+                  ],
+                  "properties": {
+                    "reason": {
+                      "type": "string",
+                      "example": "Post #123 is already deleted"
+                    }
+                  }
+                }
+              }
+            }
           },
           "422": {
             "$ref": "#/components/responses/ExpectedError"
@@ -23536,15 +24467,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "required": [
-                    "post"
-                  ],
-                  "properties": {
-                    "post": {
-                      "$ref": "#/components/schemas/Post"
-                    }
-                  }
+                  "$ref": "#/components/schemas/RawPost"
                 }
               }
             }
@@ -23682,15 +24605,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "required": [
-                    "post"
-                  ],
-                  "properties": {
-                    "post": {
-                      "$ref": "#/components/schemas/Post"
-                    }
-                  }
+                  "$ref": "#/components/schemas/RawPost"
                 }
               }
             }
@@ -23909,6 +24824,16 @@
           },
           "404": {
             "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "description": "The new owner could not be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageErrorResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -24280,6 +25205,7 @@
           {
             "in": "query",
             "name": "search[post_tags_match]",
+            "description": "See [Search Syntax](https://e621.wiki/searching/).",
             "schema": {
               "type": "string"
             }

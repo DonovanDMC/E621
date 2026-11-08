@@ -10,7 +10,7 @@ interface User extends UserData {}
 @Schema("User")
 class User<D extends UserData = UserData> extends Base<D> {
     @OperationID("staff/users#update")
-    async adminEdit(options: UpdateStaffUserOptions): Promise<null> {
+    async adminEdit(options: UpdateStaffUserOptions): Promise<string> {
         return this.e621.staffUsers.update(this.id, options);
     }
 

@@ -393,6 +393,12 @@ export type ForumPost = {
     updated_at: string;
     warning_type: WarningType;
     warning_user_id: number | null;
+    /**
+     * Net votes divided by total votes, from -1 to 1. Null if the post has never been voted on.
+     */
+    vote_score: string | null;
+    creator_name: string;
+    updater_name: string;
 };
 
 export type ForumPostVote = {
@@ -417,6 +423,9 @@ export type ForumTopic = {
     created_at: string;
     updated_at: string;
     category_id: number;
+    last_bumped_at: string;
+    creator_name: string;
+    updater_name: string;
 };
 
 export type FullCurrentUser = CurrentUser & FullUser;
@@ -1042,6 +1051,10 @@ export type PostVersion = {
     locked_tags: string | null;
     added_tags: Array<string>;
     removed_tags: Array<string>;
+    /**
+     * The tag changes as the user submitted them, before aliases, implications, and automatic tags. Removed tags are prefixed with `-`. May include metatags such as `rating:`, `pool:`, `parent:`, and `source:`.
+     */
+    original_tags: Array<string>;
     added_locked_tags: Array<string>;
     removed_locked_tags: Array<string>;
     rating_changed: boolean;
@@ -1135,6 +1148,31 @@ export type RisingSearchTrend = {
     pretty_name: string;
     post_count: number;
     category: TagCategory;
+};
+
+export type SavedSearch = {
+    id: number;
+    /**
+     * Empty for the subscription search, its tags are managed through tag subscriptions.
+     */
+    query: string;
+    name: string | null;
+    is_tracked: boolean;
+    /**
+     * True for the search that holds the user's tag subscriptions.
+     */
+    is_subscription: boolean;
+    last_seen_post_id: number | null;
+    created_at: string;
+    updated_at: string;
+    /**
+     * Only present on the subscription search.
+     */
+    tag_count?: number;
+    /**
+     * New posts since the search was last seen, capped at 100. Null for untracked searches, when no counts are cached, or when the search could not be evaluated.
+     */
+    new_count: number | null;
 };
 
 export type SearchTrend = {
@@ -1375,6 +1413,14 @@ export type TagPreview = {
     implies?: Array<string>;
 };
 
+export type TagSubscription = {
+    id: number;
+    tag_id: number;
+    created_at: string;
+    tag_name: string;
+    category: TagCategory;
+};
+
 export type TagTypeVersion = {
     id: number;
     created_at: string;
@@ -1410,6 +1456,7 @@ export type ThumbnailPost = {
     width: number;
     height: number;
     size: number;
+    duration: number | null;
     preview_url: string | null;
     preview_webp: string | null;
     sample_url: string | null;
@@ -1470,16 +1517,21 @@ export type Upload = {
     uploader_id: number;
     tag_string: string;
     /**
-     * Note: The "error" status will be proceeded by an error, ex: "error: RuntimeError - No file or source URL provided"
+     * Note: The "duplicate" status will be followed by the duplicate post's id, ex: "duplicate: 123"
      *
      */
-    status: 'completed' | 'duplicate' | 'error' | 'processing' | 'pending';
-    backtrace: string | null;
+    status: 'completed' | `duplicate: ${number}` | 'failed' | 'processing' | 'queued' | 'pending';
+    /**
+     * Only visible to Staff+.
+     */
+    backtrace?: string | null;
     post_id: number | null;
     /**
+     * Only visible to Staff+.
+     *
      * @deprecated
      */
-    md5_confirmation: string | null;
+    md5_confirmation?: string | null;
     created_at: string;
     updated_at: string;
     parent_id: number | null;
@@ -1489,7 +1541,24 @@ export type Upload = {
     image_width: number | null;
     image_height: number | null;
     description: string;
+    /**
+     * The step currently being processed.
+     */
+    processing_step: 'integrity' | 'thumbnail' | 'sound' | 'post' | null;
+    error_message: string | null;
+    warning_messages: Array<string>;
+    is_animated: boolean;
+    duration: string | null;
+    has_sound: boolean;
+    locked_tags: string | null;
+    locked_rating: boolean;
+    as_pending: boolean;
+    submitted_tag_string: string | null;
+    processing_started_at: string | null;
+    processed_at: string | null;
+    requeued_at: string | null;
     uploader_name: string;
+    duplicate_post_id: number | null;
 };
 
 export type UploadWhitelist = {
@@ -1637,7 +1706,10 @@ export type WikiPageVersion = {
 
 export type AccessDeniedResponse = {
     success: boolean;
-    reason: 'Access Denied';
+    /**
+     * Usually `Access Denied`, but may include more detail, ex: `Access Denied: Must be logged in`.
+     */
+    reason: string;
 };
 
 export type DTextResponse = {
@@ -1692,14 +1764,16 @@ export type OAuthError = {
 export type idQuery = string | number;
 
 /**
- * The maximum number of results to return. Between 0 and 320.
+ * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
  */
 export type limitQuery = number;
 
 /**
- * The page number of results to get. Between 1 and 750.
+ * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+ * See [Pagination](https://e621.wiki/pagination/).
+ *
  */
-export type pageQuery = number;
+export type pageQuery = string;
 
 /**
  * Must be Admin+ to use. See [the PostgreSQL documentation](https://www.postgresql.org/docs/9.3/functions-net.html) for information on how this is parsed. Specifically, "is contained within or equals" (`<<=`).
@@ -1712,12 +1786,12 @@ export type ipAddrQuery = string;
 export type orderQuery = 'id_asc' | 'id_desc';
 
 /**
- * Use the new V2 format. See the `v2=true` responses.
+ * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
  */
 export type v2Query = boolean;
 
 /**
- * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+ * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
  */
 export type modeQuery = 'basic' | 'extended' | 'thumbnail';
 
@@ -1740,13 +1814,15 @@ export type ApiKeysIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -1899,13 +1975,15 @@ export type AppealsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -2114,13 +2192,15 @@ export type ArtistsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -2372,13 +2452,15 @@ export type ArtistVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -2425,13 +2507,15 @@ export type ArtistUrlsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -2500,13 +2584,15 @@ export type AvoidPostingsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -2794,13 +2880,15 @@ export type AvoidPostingVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -2863,13 +2951,15 @@ export type BansIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -2950,13 +3040,15 @@ export type BlipsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -3220,18 +3312,20 @@ export type BulkUpdateRequestsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: string | number;
-        'search[order]'?: 'id_asc' | 'id_desc' | 'status_desc' | 'updated_at_desc' | 'updated_at_asc';
+        'search[order]'?: 'id_asc' | 'id_desc' | 'status_desc' | 'updated_at_desc' | 'updated_at_asc' | 'score_desc' | 'score_asc';
         'search[user_id]'?: number;
         'search[user_name]'?: string;
         'search[approver_id]'?: number;
@@ -3453,13 +3547,15 @@ export type CommentsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -3476,7 +3572,7 @@ export type CommentsIndexData = {
          */
         'search[post_id]'?: string;
         /**
-         * Only usable by Member+
+         * Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).
          */
         'search[post_tags_match]'?: string;
         'search[post_note_updater_name]'?: string;
@@ -3856,13 +3952,15 @@ export type CommentVotesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -4249,13 +4347,15 @@ export type DmailsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -4452,11 +4552,29 @@ export type DmailsMarkAllAsReadResponse = DmailsMarkAllAsReadResponses[keyof Dma
 export type DtextPreviewsCreateData = {
     body?: {
         body: string;
+        allow_color?: boolean;
     };
     path?: never;
     query?: never;
     url: '/dtext_preview.json';
 };
+
+export type DtextPreviewsCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * The body or the rendered output is too large
+     */
+    413: MessageErrorResponse;
+    /**
+     * Ratelimited
+     */
+    429: MessageErrorResponse;
+};
+
+export type DtextPreviewsCreateError = DtextPreviewsCreateErrors[keyof DtextPreviewsCreateErrors];
 
 export type DtextPreviewsCreateResponses = {
     /**
@@ -4472,13 +4590,15 @@ export type EditHistoriesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -4559,13 +4679,15 @@ export type EmailBlacklistsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -4655,19 +4777,21 @@ export type FavoritesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
     };
@@ -4788,13 +4912,15 @@ export type ForumPostsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -4827,6 +4953,10 @@ export type ForumPostsCreateData = {
     body?: {
         'forum_post[body]': string;
         'forum_post[topic_id]': number;
+        /**
+         * Don't bump the topic.
+         */
+        'forum_post[do_not_bump_topic]'?: boolean;
     };
     path?: never;
     query?: never;
@@ -5196,18 +5326,23 @@ export type ForumTopicsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: string | number;
-        'search[order]'?: 'id_asc' | 'id_desc' | 'sticky';
+        /**
+         * `sticky` sorts by last bumped, `sticky_updated` by last updated.
+         */
+        'search[order]'?: 'id_asc' | 'id_desc' | 'sticky' | 'sticky_updated' | 'created_at' | 'created_at_desc' | 'created_at_asc' | 'updated_at' | 'updated_at_desc' | 'updated_at_asc' | 'bumped';
         'search[title]'?: string;
         'search[title_matches]'?: string;
         'search[category_id]'?: number;
@@ -5353,6 +5488,10 @@ export type ForumTopicsUpdateData = {
          * You must be Moderator+.
          */
         'forum_topic[is_sticky]'?: boolean;
+        /**
+         * Don't bump the topic when changing the title or category.
+         */
+        'forum_topic[do_not_bump]'?: boolean;
         /**
          * You must be Moderator+.
          */
@@ -5768,13 +5907,15 @@ export type IpBansIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -5876,7 +6017,7 @@ export type IqdbQueriesShowData = {
     path?: never;
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         'search[score_cutoff]'?: number;
@@ -5889,9 +6030,25 @@ export type IqdbQueriesShowData = {
 
 export type IqdbQueriesShowErrors = {
     /**
+     * Invalid input, or IQDB is disabled
+     */
+    400: MessageErrorResponse;
+    /**
      * Access Denied
      */
     403: AccessDeniedResponse;
+    /**
+     * The file could not be downloaded, or is too large
+     */
+    422: MessageErrorResponse;
+    /**
+     * Ratelimited, or IQDB is busy
+     */
+    429: MessageErrorResponse;
+    /**
+     * IQDB is unavailable
+     */
+    503: MessageErrorResponse;
 };
 
 export type IqdbQueriesShowError = IqdbQueriesShowErrors[keyof IqdbQueriesShowErrors];
@@ -5915,7 +6072,7 @@ export type IqdbQueriesShowPostData = {
     path?: never;
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
     };
@@ -5924,9 +6081,25 @@ export type IqdbQueriesShowPostData = {
 
 export type IqdbQueriesShowPostErrors = {
     /**
+     * Invalid input, or IQDB is disabled
+     */
+    400: MessageErrorResponse;
+    /**
      * Access Denied
      */
     403: AccessDeniedResponse;
+    /**
+     * The file could not be downloaded, or is too large
+     */
+    422: MessageErrorResponse;
+    /**
+     * Ratelimited, or IQDB is busy
+     */
+    429: MessageErrorResponse;
+    /**
+     * IQDB is unavailable
+     */
+    503: MessageErrorResponse;
 };
 
 export type IqdbQueriesShowPostError = IqdbQueriesShowPostErrors[keyof IqdbQueriesShowPostErrors];
@@ -5945,13 +6118,15 @@ export type MascotsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -6105,13 +6280,15 @@ export type ModActionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -6172,13 +6349,15 @@ export type NewsUpdatesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
     };
     url: '/news_updates.json';
 };
@@ -6306,13 +6485,15 @@ export type NotesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -6325,7 +6506,7 @@ export type NotesIndexData = {
         'search[is_active]'?: boolean;
         'search[post_id]'?: number;
         /**
-         * Only usable by Member+
+         * Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).
          */
         'search[post_tags_match]'?: string;
         'search[post_note_updater_id]'?: number;
@@ -6552,13 +6733,15 @@ export type NoteVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -6595,13 +6778,15 @@ export type PoolsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -6936,13 +7121,15 @@ export type PoolVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -6976,11 +7163,11 @@ export type PopularIndexData = {
     path?: never;
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
         /**
@@ -7024,21 +7211,26 @@ export type PostsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
         tags?: string;
         md5?: string;
         random?: string;
@@ -7066,13 +7258,16 @@ export type PostsRandomData = {
     path?: never;
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
         tags?: string;
     };
     url: '/posts/random.json';
@@ -7104,6 +7299,9 @@ export type PostsCountData = {
     body?: never;
     path?: never;
     query: {
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
         tags: string;
     };
     url: '/posts/count.json';
@@ -7140,11 +7338,11 @@ export type PostsShowData = {
     };
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
     };
@@ -7255,11 +7453,11 @@ export type PostsUpdateData = {
     };
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
     };
@@ -7308,11 +7506,11 @@ export type PostsUpdateIqdbData = {
     };
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
     };
@@ -7364,11 +7562,11 @@ export type PostsMarkAsTranslatedData = {
     };
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
     };
@@ -7502,11 +7700,11 @@ export type PostsShowSeqData = {
     };
     query?: {
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         /**
-         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses.
+         * Set the mode for the V2 format. Ignored if `v2` is not set or false. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         mode?: 'basic' | 'extended' | 'thumbnail';
         /**
@@ -7602,9 +7800,11 @@ export type PostFavoritesIndexData = {
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
     };
     url: '/posts/{id}/favorites.json';
 };
@@ -7759,13 +7959,15 @@ export type PostRecommendationsArtistData = {
     };
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
     };
     url: '/posts/{id}/similar/artist.json';
 };
@@ -7798,13 +8000,15 @@ export type PostRecommendationsTagsData = {
     };
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
     };
     url: '/posts/{id}/similar/tags.json';
 };
@@ -7832,13 +8036,15 @@ export type PostSetsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -8223,13 +8429,15 @@ export type PostApprovalsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -8239,7 +8447,7 @@ export type PostApprovalsIndexData = {
          */
         'search[order]'?: 'id_asc' | 'id_desc';
         /**
-         * Only usable by Member+
+         * Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).
          */
         'search[post_tags_match]'?: string;
         'search[user_id]'?: number;
@@ -8263,13 +8471,15 @@ export type PostEventsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -8279,7 +8489,7 @@ export type PostEventsIndexData = {
          */
         'search[order]'?: 'id_asc' | 'id_desc';
         /**
-         * Use the new V2 format. See the `v2=true` responses.
+         * Use the new V2 format. See the `v2=true` responses, and [Post Files](https://e621.wiki/post-files/#formats).
          */
         v2?: boolean;
         'search[post_id]'?: number;
@@ -8306,13 +8516,15 @@ export type PostFlagsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -8330,7 +8542,7 @@ export type PostFlagsIndexData = {
         'search[creator_name]'?: string;
         'search[post_id]'?: number;
         /**
-         * Only usable by Member+
+         * Only usable by Member+. See [Search Syntax](https://e621.wiki/searching/).
          */
         'search[post_tags_match]'?: string;
         'search[type]'?: string;
@@ -8443,7 +8655,7 @@ export type PostFlagsClearNoteResponses = {
     /**
      * Success
      */
-    201: PostFlag;
+    200: PostFlag;
 };
 
 export type PostFlagsClearNoteResponse = PostFlagsClearNoteResponses[keyof PostFlagsClearNoteResponses];
@@ -8453,13 +8665,15 @@ export type PostReplacementsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -8789,13 +9003,16 @@ export type PostVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750. Note that for post versions specifically, you can only go through the 10,000 most recent results with page numbers.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * Page numbers can only reach the 10,000 most recent results, use `b<id>` to go further.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -8921,13 +9138,15 @@ export type PostVotesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -9043,18 +9262,265 @@ export type PostVotesDeleteResponses = {
 
 export type PostVotesDeleteResponse = PostVotesDeleteResponses[keyof PostVotesDeleteResponses];
 
+export type SavedSearchesIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/saved_searches.json';
+};
+
+export type SavedSearchesIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type SavedSearchesIndexError = SavedSearchesIndexErrors[keyof SavedSearchesIndexErrors];
+
+export type SavedSearchesIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<SavedSearch>;
+};
+
+export type SavedSearchesIndexResponse = SavedSearchesIndexResponses[keyof SavedSearchesIndexResponses];
+
+export type SavedSearchesCreateData = {
+    body?: {
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
+        'saved_search[query]': string;
+        /**
+         * Used to reference the search with `search:<name>`. Cannot be `subscriptions`.
+         */
+        'saved_search[name]'?: string;
+        /**
+         * Track new posts matching the search.
+         */
+        'saved_search[is_tracked]'?: boolean;
+    };
+    path?: never;
+    query?: never;
+    url: '/saved_searches.json';
+};
+
+export type SavedSearchesCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Error
+     */
+    422: MessageErrorResponse;
+};
+
+export type SavedSearchesCreateError = SavedSearchesCreateErrors[keyof SavedSearchesCreateErrors];
+
+export type SavedSearchesCreateResponses = {
+    /**
+     * Success
+     */
+    200: SavedSearch;
+};
+
+export type SavedSearchesCreateResponse = SavedSearchesCreateResponses[keyof SavedSearchesCreateResponses];
+
+export type SavedSearchesDestroyData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/saved_searches/{id}.json';
+};
+
+export type SavedSearchesDestroyErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type SavedSearchesDestroyError = SavedSearchesDestroyErrors[keyof SavedSearchesDestroyErrors];
+
+export type SavedSearchesDestroyResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type SavedSearchesDestroyResponse = SavedSearchesDestroyResponses[keyof SavedSearchesDestroyResponses];
+
+export type SavedSearchesShowData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/saved_searches/{id}.json';
+};
+
+export type SavedSearchesShowErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type SavedSearchesShowError = SavedSearchesShowErrors[keyof SavedSearchesShowErrors];
+
+export type SavedSearchesShowResponses = {
+    /**
+     * Success
+     */
+    200: SavedSearch;
+};
+
+export type SavedSearchesShowResponse = SavedSearchesShowResponses[keyof SavedSearchesShowResponses];
+
+export type SavedSearchesUpdateData = {
+    body?: {
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
+        'saved_search[query]'?: string;
+        /**
+         * Used to reference the search with `search:<name>`. Cannot be `subscriptions`.
+         */
+        'saved_search[name]'?: string;
+        /**
+         * Track new posts matching the search. Changing this resets the seen post.
+         */
+        'saved_search[is_tracked]'?: boolean;
+    };
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/saved_searches/{id}.json';
+};
+
+export type SavedSearchesUpdateErrors = {
+    /**
+     * Access Denied, or the saved search is the subscription search
+     */
+    403: MessageErrorResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+    /**
+     * Error
+     */
+    422: MessageErrorResponse;
+};
+
+export type SavedSearchesUpdateError = SavedSearchesUpdateErrors[keyof SavedSearchesUpdateErrors];
+
+export type SavedSearchesUpdateResponses = {
+    /**
+     * Success
+     */
+    200: SavedSearch;
+};
+
+export type SavedSearchesUpdateResponse = SavedSearchesUpdateResponses[keyof SavedSearchesUpdateResponses];
+
+export type SavedSearchesMarkAllSeenData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/saved_searches/mark_all_seen.json';
+};
+
+export type SavedSearchesMarkAllSeenErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type SavedSearchesMarkAllSeenError = SavedSearchesMarkAllSeenErrors[keyof SavedSearchesMarkAllSeenErrors];
+
+export type SavedSearchesMarkAllSeenResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type SavedSearchesMarkAllSeenResponse = SavedSearchesMarkAllSeenResponses[keyof SavedSearchesMarkAllSeenResponses];
+
+export type SavedSearchesBadgeData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/saved_searches/badge.json';
+};
+
+export type SavedSearchesBadgeErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type SavedSearchesBadgeError = SavedSearchesBadgeErrors[keyof SavedSearchesBadgeErrors];
+
+export type SavedSearchesBadgeResponses = {
+    /**
+     * Success
+     */
+    200: {
+        /**
+         * Null when nothing is cached.
+         */
+        count: number | null;
+        /**
+         * False when the cached count is stale or missing.
+         */
+        fresh: boolean;
+    };
+};
+
+export type SavedSearchesBadgeResponse = SavedSearchesBadgeResponses[keyof SavedSearchesBadgeResponses];
+
 export type TagsIndexData = {
     body?: never;
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -9285,13 +9751,15 @@ export type TagTypeVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -9317,18 +9785,20 @@ export type TagAliasesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: string | number;
-        'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count';
+        'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count' | 'score_desc' | 'score_asc';
         'search[name_matches]'?: string;
         'search[antecedent_name]'?: string;
         'search[consequent_name]'?: string;
@@ -9573,18 +10043,20 @@ export type TagImplicationsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
         'search[id]'?: string | number;
-        'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count';
+        'search[order]'?: 'id_asc' | 'id_desc' | 'created_at' | 'updated_at' | 'name' | 'tag_count' | 'score_desc' | 'score_asc';
         'search[name_matches]'?: string;
         'search[antecedent_name]'?: string;
         'search[consequent_name]'?: string;
@@ -9824,6 +10296,112 @@ export type TagImplicationRequestsCreateErrors = {
 
 export type TagImplicationRequestsCreateError = TagImplicationRequestsCreateErrors[keyof TagImplicationRequestsCreateErrors];
 
+export type TagSubscriptionsIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/tag_subscriptions.json';
+};
+
+export type TagSubscriptionsIndexErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+};
+
+export type TagSubscriptionsIndexError = TagSubscriptionsIndexErrors[keyof TagSubscriptionsIndexErrors];
+
+export type TagSubscriptionsIndexResponses = {
+    /**
+     * Success
+     */
+    200: Array<TagSubscription>;
+};
+
+export type TagSubscriptionsIndexResponse = TagSubscriptionsIndexResponses[keyof TagSubscriptionsIndexResponses];
+
+export type TagSubscriptionsCreateData = {
+    body?: {
+        /**
+         * A single tag. Ignored if `tag_names` is present.
+         */
+        tag_name?: string;
+        /**
+         * Space separated list of tags.
+         */
+        tag_names?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/tag_subscriptions.json';
+};
+
+export type TagSubscriptionsCreateErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Error
+     */
+    422: MessageErrorResponse;
+};
+
+export type TagSubscriptionsCreateError = TagSubscriptionsCreateErrors[keyof TagSubscriptionsCreateErrors];
+
+export type TagSubscriptionsCreateResponses = {
+    /**
+     * Success
+     */
+    200: {
+        added: Array<TagSubscription>;
+        skipped: Array<{
+            name: string;
+            /**
+             * One of `does not exist`, `already subscribed`, `over the limit of <limit>`, or `too many tags in one request`.
+             */
+            reason: string;
+        }>;
+    };
+};
+
+export type TagSubscriptionsCreateResponse = TagSubscriptionsCreateResponses[keyof TagSubscriptionsCreateResponses];
+
+export type TagSubscriptionsDestroyData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/tag_subscriptions/{id}.json';
+};
+
+export type TagSubscriptionsDestroyErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type TagSubscriptionsDestroyError = TagSubscriptionsDestroyErrors[keyof TagSubscriptionsDestroyErrors];
+
+export type TagSubscriptionsDestroyResponses = {
+    /**
+     * Success
+     */
+    204: void;
+};
+
+export type TagSubscriptionsDestroyResponse = TagSubscriptionsDestroyResponses[keyof TagSubscriptionsDestroyResponses];
+
 export type RelatedTagsBulkData = {
     body?: {
         query?: string;
@@ -9858,13 +10436,15 @@ export type SearchTrendsIndexData = {
     query?: {
         day?: string;
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
     };
     url: '/search_trends.json';
 };
@@ -10018,13 +10598,15 @@ export type SearchTrendBlacklistsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * The order of the results.
          */
@@ -10165,13 +10747,15 @@ export type SearchTrendHourliesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         'search[name_matches]'?: string;
         hour?: string;
     };
@@ -10327,13 +10911,15 @@ export type StaffNotesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -10550,13 +11136,15 @@ export type TakedownsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -10836,6 +11424,9 @@ export type TakedownsAddByIdsResponse = TakedownsAddByIdsResponses[keyof Takedow
 
 export type TakedownsAddByTagsData = {
     body?: {
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
         post_tags: string;
     };
     path: {
@@ -10875,6 +11466,9 @@ export type TakedownsAddByTagsResponse = TakedownsAddByTagsResponses[keyof Taked
 
 export type TakedownsCountMatchingPostsData = {
     body?: {
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
         post_tags: string;
     };
     path: {
@@ -10947,18 +11541,56 @@ export type TakedownsRemoveByIdsResponses = {
 
 export type TakedownsRemoveByIdsResponse = TakedownsRemoveByIdsResponses[keyof TakedownsRemoveByIdsResponses];
 
+export type TakedownsClearPostsData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of the item.
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/takedowns/{id}/clear_posts.json';
+};
+
+export type TakedownsClearPostsErrors = {
+    /**
+     * Access Denied
+     */
+    403: AccessDeniedResponse;
+    /**
+     * Not Found
+     */
+    404: NotFoundResponse;
+};
+
+export type TakedownsClearPostsError = TakedownsClearPostsErrors[keyof TakedownsClearPostsErrors];
+
+export type TakedownsClearPostsResponses = {
+    /**
+     * Success
+     */
+    200: {
+        removed_count: number;
+    };
+};
+
+export type TakedownsClearPostsResponse = TakedownsClearPostsResponses[keyof TakedownsClearPostsResponses];
+
 export type TicketsIndexData = {
     body?: never;
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -11168,13 +11800,15 @@ export type UploadKarmaEventsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -11219,13 +11853,15 @@ export type UploadsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -11242,12 +11878,12 @@ export type UploadsIndexData = {
         'search[parent_id]'?: number;
         'search[post_id]'?: number;
         'search[has_post]'?: boolean;
-        'search[post_tags_match]'?: string;
         /**
-         * Note: The "error" status will be proceeded by an error, ex: "error: RuntimeError - No file or source URL provided"
-         *
+         * See [Search Syntax](https://e621.wiki/searching/).
          */
-        'search[status]'?: 'completed' | 'processing' | 'pending' | 'error';
+        'search[post_tags_match]'?: string;
+        'search[status]'?: 'completed' | 'failed' | 'processing' | 'queued' | 'pending';
+        'search[error_message]'?: string;
         'search[backtrace]'?: string;
         'search[tag_string]'?: string;
     };
@@ -11302,9 +11938,24 @@ export type UploadsCreateErrors = {
      */
     403: AccessDeniedResponse;
     /**
-     * Error
+     * The upload was invalid, failed, or is a duplicate
      */
-    412: MessageErrorResponse;
+    412: {
+        success: false;
+        reason: 'invalid';
+        message: string;
+    } | {
+        success: false;
+        reason: 'duplicate';
+        /**
+         * The duplicate post.
+         */
+        location: string;
+        /**
+         * The duplicate post's id.
+         */
+        post_id: number;
+    };
 };
 
 export type UploadsCreateError = UploadsCreateErrors[keyof UploadsCreateErrors];
@@ -11315,8 +11966,15 @@ export type UploadsCreateResponses = {
      */
     200: {
         success: true;
+        /**
+         * The post, or the upload if it is still being processed.
+         */
         location: string;
-        post_id: number;
+        /**
+         * Not present if the upload is still being processed.
+         */
+        post_id?: number;
+        upload_id: number;
     };
 };
 
@@ -11361,13 +12019,15 @@ export type UploadWhitelistsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -11555,13 +12215,15 @@ export type UsersIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -12080,13 +12742,15 @@ export type UserFeedbacksIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -12338,13 +13002,15 @@ export type UserNameChangeRequestsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -12455,13 +13121,15 @@ export type WikiPagesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -12726,13 +13394,15 @@ export type WikiPageVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -12873,13 +13543,6 @@ export type StaffUsersUpdateErrors = {
 
 export type StaffUsersUpdateError = StaffUsersUpdateErrors[keyof StaffUsersUpdateErrors];
 
-export type StaffUsersUpdateResponses = {
-    /**
-     * Success
-     */
-    200: unknown;
-};
-
 export type StaffUsersAnonymizeConfirmData = {
     body?: never;
     path: {
@@ -12959,13 +13622,15 @@ export type StaffDmailsIndexData = {
     };
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
     };
     url: '/staff/users/{user_id}/dmails.json';
 };
@@ -13035,13 +13700,15 @@ export type StaffAutomodDmailsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -13175,13 +13842,15 @@ export type StaffExceptionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * The order of the results.
          */
@@ -13296,6 +13965,12 @@ export type StaffPostPostsDeleteErrors = {
      */
     404: NotFoundResponse;
     /**
+     * The post is already deleted
+     */
+    409: {
+        reason: string;
+    };
+    /**
      * Invalid Input Data
      */
     422: {
@@ -13304,6 +13979,15 @@ export type StaffPostPostsDeleteErrors = {
 };
 
 export type StaffPostPostsDeleteError = StaffPostPostsDeleteErrors[keyof StaffPostPostsDeleteErrors];
+
+export type StaffPostPostsDeleteResponses = {
+    /**
+     * Success
+     */
+    201: RawPost;
+};
+
+export type StaffPostPostsDeleteResponse = StaffPostPostsDeleteResponses[keyof StaffPostPostsDeleteResponses];
 
 export type StaffPostPostsUndeleteData = {
     body?: never;
@@ -13340,9 +14024,7 @@ export type StaffPostPostsUndeleteResponses = {
     /**
      * Success
      */
-    201: {
-        post: Post;
-    };
+    201: RawPost;
 };
 
 export type StaffPostPostsUndeleteResponse = StaffPostPostsUndeleteResponses[keyof StaffPostPostsUndeleteResponses];
@@ -13466,9 +14148,7 @@ export type StaffPostPostsExpungeResponses = {
     /**
      * Success
      */
-    201: {
-        post: Post;
-    };
+    201: RawPost;
 };
 
 export type StaffPostPostsExpungeResponse = StaffPostPostsExpungeResponses[keyof StaffPostPostsExpungeResponses];
@@ -13608,6 +14288,10 @@ export type StaffPostPostsReownerErrors = {
      * Not Found
      */
     404: NotFoundResponse;
+    /**
+     * The new owner could not be found
+     */
+    422: MessageErrorResponse;
 };
 
 export type StaffPostPostsReownerError = StaffPostPostsReownerErrors[keyof StaffPostPostsReownerErrors];
@@ -13854,13 +14538,15 @@ export type StaffPostDisapprovalsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -13870,6 +14556,9 @@ export type StaffPostDisapprovalsIndexData = {
         'search[creator_name]'?: string;
         'search[post_id]'?: number;
         'search[message]'?: string;
+        /**
+         * See [Search Syntax](https://e621.wiki/searching/).
+         */
         'search[post_tags_match]'?: string;
         'search[reason]'?: string;
         'search[has_message]'?: boolean;
@@ -13926,13 +14615,15 @@ export type StaffFilesIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -14115,13 +14806,15 @@ export type StaffWikisIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -14510,13 +15203,15 @@ export type StaffWikiVersionsIndexData = {
     path?: never;
     query?: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**
-         * The page number of results to get. Between 1 and 750.
+         * A page number between 1 and 750, or `b<id>`/`a<id>` for the results before or after an id.
+         * See [Pagination](https://e621.wiki/pagination/).
+         *
          */
-        page?: number;
+        page?: number | `${number}` | `${'a' | 'b'}${number}`;
         /**
          * Search for a specific id. Multiple can be separated by commas, up to 320.
          */
@@ -14588,7 +15283,7 @@ export type StaffVoteTrendsIndexData = {
     path?: never;
     query: {
         /**
-         * The maximum number of results to return. Between 0 and 320.
+         * The maximum number of results to return. Between 0 and 320. See [Pagination](https://e621.wiki/pagination/).
          */
         limit?: number;
         /**

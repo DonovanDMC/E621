@@ -32,11 +32,12 @@ export default class TagImplications extends Base {
     }
 
     @OperationID("tag_implication_requests#create")
-    async create(options: CreateTagImplicationOptions): Promise<unknown> {
+    async create(options: CreateTagImplicationOptions): Promise<string> {
         return tagImplicationRequests_create({
             client: this.client,
             body: prefixKeys(options, "tag_implication_request"),
-        }).then(res => this._handleResponse(res, 200, true));
+            redirect: "manual",
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("tag_implications#show")

@@ -3,7 +3,7 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 
 import type { Takedown as TakedownData } from "../generated/types.js";
-import type { TakedownsAddByIdsResponse, TakedownsAddByTagsResponse, TakedownsCountMatchingPostsResponse, UpdateTakedownOptions } from "../modules/Takedowns.js";
+import type { TakedownsAddByIdsResponse, TakedownsAddByTagsResponse, TakedownsClearPostsResponse, TakedownsCountMatchingPostsResponse, UpdateTakedownOptions } from "../modules/Takedowns.js";
 
 interface Takedown extends TakedownData {}
 /** @category Models */
@@ -17,6 +17,11 @@ class Takedown extends Base<TakedownData> {
     @OperationID("takedowns#add_by_tags")
     async addByTags(tags: Array<string>): Promise<TakedownsAddByTagsResponse> {
         return this.e621.takedowns.addByTags(this.id, tags);
+    }
+
+    @OperationID("takedowns#clear_posts")
+    async clearPosts(): Promise<TakedownsClearPostsResponse> {
+        return this.e621.takedowns.clearPosts(this.id);
     }
 
     @OperationID("takedowns#count_matching_posts")

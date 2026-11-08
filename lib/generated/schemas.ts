@@ -1773,7 +1773,10 @@ export const ForumPostSchema = {
         'created_at',
         'updated_at',
         'warning_type',
-        'warning_user_id'
+        'warning_user_id',
+        'vote_score',
+        'creator_name',
+        'updater_name'
     ],
     properties: {
         id: {
@@ -1808,6 +1811,17 @@ export const ForumPostSchema = {
         warning_user_id: {
             type: 'integer',
             nullable: true
+        },
+        vote_score: {
+            type: 'string',
+            nullable: true,
+            description: 'Net votes divided by total votes, from -1 to 1. Null if the post has never been voted on.'
+        },
+        creator_name: {
+            type: 'string'
+        },
+        updater_name: {
+            type: 'string'
         }
     }
 } as const;
@@ -1863,7 +1877,10 @@ export const ForumTopicSchema = {
         'is_hidden',
         'created_at',
         'updated_at',
-        'category_id'
+        'category_id',
+        'last_bumped_at',
+        'creator_name',
+        'updater_name'
     ],
     properties: {
         id: {
@@ -1900,6 +1917,16 @@ export const ForumTopicSchema = {
         },
         category_id: {
             type: 'integer'
+        },
+        last_bumped_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        creator_name: {
+            type: 'string'
+        },
+        updater_name: {
+            type: 'string'
         }
     }
 } as const;
@@ -4208,6 +4235,7 @@ export const PostVersionSchema = {
         'locked_tags',
         'added_tags',
         'removed_tags',
+        'original_tags',
         'added_locked_tags',
         'removed_locked_tags',
         'rating_changed',
@@ -4267,6 +4295,13 @@ export const PostVersionSchema = {
         },
         removed_tags: {
             type: 'array',
+            items: {
+                type: 'string'
+            }
+        },
+        original_tags: {
+            type: 'array',
+            description: 'The tag changes as the user submitted them, before aliases, implications, and automatic tags. Removed tags are prefixed with `-`. May include metatags such as `rating:`, `pool:`, `parent:`, and `source:`.',
             items: {
                 type: 'string'
             }
@@ -4649,6 +4684,62 @@ export const RisingSearchTrendSchema = {
         },
         category: {
             $ref: '#/components/schemas/TagCategory'
+        }
+    }
+} as const;
+
+export const SavedSearchSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'query',
+        'name',
+        'is_tracked',
+        'is_subscription',
+        'last_seen_post_id',
+        'created_at',
+        'updated_at',
+        'new_count'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        query: {
+            type: 'string',
+            description: 'Empty for the subscription search, its tags are managed through tag subscriptions.'
+        },
+        name: {
+            type: 'string',
+            nullable: true
+        },
+        is_tracked: {
+            type: 'boolean'
+        },
+        is_subscription: {
+            type: 'boolean',
+            description: 'True for the search that holds the user\'s tag subscriptions.'
+        },
+        last_seen_post_id: {
+            type: 'integer',
+            nullable: true
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        updated_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        tag_count: {
+            type: 'integer',
+            description: 'Only present on the subscription search.'
+        },
+        new_count: {
+            type: 'integer',
+            nullable: true,
+            description: 'New posts since the search was last seen, capped at 100. Null for untracked searches, when no counts are cached, or when the search could not be evaluated.'
         }
     }
 } as const;
@@ -5537,6 +5628,35 @@ export const TagPreviewSchema = {
     }
 } as const;
 
+export const TagSubscriptionSchema = {
+    type: 'object',
+    required: [
+        'id',
+        'tag_id',
+        'created_at',
+        'tag_name',
+        'category'
+    ],
+    properties: {
+        id: {
+            type: 'integer'
+        },
+        tag_id: {
+            type: 'integer'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        tag_name: {
+            type: 'string'
+        },
+        category: {
+            $ref: '#/components/schemas/TagCategory'
+        }
+    }
+} as const;
+
 export const TagTypeVersionSchema = {
     type: 'object',
     required: [
@@ -5654,6 +5774,7 @@ export const ThumbnailPostSchema = {
         'width',
         'height',
         'size',
+        'duration',
         'preview_url',
         'preview_webp',
         'sample_url',
@@ -5695,6 +5816,10 @@ export const ThumbnailPostSchema = {
         size: {
             type: 'integer',
             format: 'int64'
+        },
+        duration: {
+            type: 'number',
+            nullable: true
         },
         preview_url: {
             type: 'string',
@@ -5852,9 +5977,7 @@ export const UploadSchema = {
         'uploader_id',
         'tag_string',
         'status',
-        'backtrace',
         'post_id',
-        'md5_confirmation',
         'created_at',
         'updated_at',
         'parent_id',
@@ -5864,7 +5987,21 @@ export const UploadSchema = {
         'image_width',
         'image_height',
         'description',
-        'uploader_name'
+        'processing_step',
+        'error_message',
+        'warning_messages',
+        'is_animated',
+        'duration',
+        'has_sound',
+        'locked_tags',
+        'locked_rating',
+        'as_pending',
+        'submitted_tag_string',
+        'processing_started_at',
+        'processed_at',
+        'requeued_at',
+        'uploader_name',
+        'duplicate_post_id'
     ],
     properties: {
         id: {
@@ -5884,18 +6021,20 @@ export const UploadSchema = {
         },
         status: {
             type: 'string',
-            description: 'Note: The "error" status will be proceeded by an error, ex: "error: RuntimeError - No file or source URL provided"\n',
+            description: 'Note: The "duplicate" status will be followed by the duplicate post\'s id, ex: "duplicate: 123"\n',
             enum: [
                 'completed',
                 'duplicate',
-                'error',
+                'failed',
                 'processing',
+                'queued',
                 'pending'
             ]
         },
         backtrace: {
             type: 'string',
-            nullable: true
+            nullable: true,
+            description: 'Only visible to Staff+.'
         },
         post_id: {
             type: 'integer',
@@ -5904,7 +6043,8 @@ export const UploadSchema = {
         md5_confirmation: {
             type: 'string',
             nullable: true,
-            deprecated: true
+            deprecated: true,
+            description: 'Only visible to Staff+.'
         },
         created_at: {
             type: 'string',
@@ -5941,8 +6081,73 @@ export const UploadSchema = {
         description: {
             type: 'string'
         },
+        processing_step: {
+            type: 'string',
+            nullable: true,
+            description: 'The step currently being processed.',
+            enum: [
+                'integrity',
+                'thumbnail',
+                'sound',
+                'post',
+                null
+            ]
+        },
+        error_message: {
+            type: 'string',
+            nullable: true
+        },
+        warning_messages: {
+            type: 'array',
+            items: {
+                type: 'string'
+            }
+        },
+        is_animated: {
+            type: 'boolean'
+        },
+        duration: {
+            type: 'string',
+            nullable: true
+        },
+        has_sound: {
+            type: 'boolean'
+        },
+        locked_tags: {
+            type: 'string',
+            nullable: true
+        },
+        locked_rating: {
+            type: 'boolean'
+        },
+        as_pending: {
+            type: 'boolean'
+        },
+        submitted_tag_string: {
+            type: 'string',
+            nullable: true
+        },
+        processing_started_at: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        processed_at: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
+        requeued_at: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true
+        },
         uploader_name: {
             type: 'string'
+        },
+        duplicate_post_id: {
+            type: 'integer',
+            nullable: true
         }
     }
 } as const;
@@ -6524,9 +6729,8 @@ export const AccessDeniedResponseSchema = {
         },
         reason: {
             type: 'string',
-            enum: [
-                'Access Denied'
-            ]
+            description: 'Usually `Access Denied`, but may include more detail, ex: `Access Denied: Must be logged in`.',
+            example: 'Access Denied'
         }
     }
 } as const;

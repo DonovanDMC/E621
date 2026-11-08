@@ -1,6 +1,7 @@
 import {
     takedowns_addByIds,
     takedowns_addByTags,
+    takedowns_clearPosts,
     takedowns_countMatchingPosts,
     takedowns_create,
     takedowns_destroy,
@@ -23,6 +24,7 @@ import Base from "./Base.js";
 import type {
     TakedownsAddByIdsResponses,
     TakedownsAddByTagsResponses,
+    TakedownsClearPostsResponses,
     TakedownsCountMatchingPostsResponses,
     TakedownsCreateData,
     TakedownsUpdateData,
@@ -39,6 +41,8 @@ export interface SearchTakedownsOptions extends TransformDataQueryToOptions<Take
 export interface TakedownsAddByIdsResponse extends GetResponse<TakedownsAddByIdsResponses, 200> {}
 /** @category Modules/Types */
 export interface TakedownsAddByTagsResponse extends GetResponse<TakedownsAddByTagsResponses, 200> {}
+/** @category Modules/Types */
+export interface TakedownsClearPostsResponse extends GetResponse<TakedownsClearPostsResponses, 200> {}
 /** @category Modules/Types */
 export interface TakedownsCountMatchingPostsResponse extends GetResponse<TakedownsCountMatchingPostsResponses, 200> {}
 
@@ -60,6 +64,14 @@ export default class Takedowns extends Base {
             client: this.client,
             path: { id },
             body: { post_tags: tags.join(" ") },
+        }).then(res => this._handleResponse(res, 200, true));
+    }
+
+    @OperationID("takedowns#clear_posts")
+    async clearPosts(id: number): Promise<TakedownsClearPostsResponse> {
+        return takedowns_clearPosts({
+            client: this.client,
+            path: { id },
         }).then(res => this._handleResponse(res, 200, true));
     }
 

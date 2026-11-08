@@ -47,6 +47,7 @@ import type {
     PostsUpdateData,
     PostsUpdateIqdbData,
     PostsCountResponses,
+    RawPost,
 } from "../generated/types.js";
 import type E621 from "../index.js";
 
@@ -136,25 +137,21 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
     }
 
     @OperationID("staff/post/posts#delete")
-    async delete(id: number, options: DeletePostOptions): Promise<unknown> {
+    async delete(id: number, options: DeletePostOptions): Promise<RawPost> {
         return staffPostPosts_delete({
             client: this.client,
             path: { id },
             body: options,
-        }).then(res => this._handleResponse(res, 200, true));
+        }).then(res => this._handleResponse(res, 201, true));
     }
 
     @OperationID("staff/post/posts#expunge")
-    async expunge(id: number, reason: string): Promise<Post<PF>> {
+    async expunge(id: number, reason: string): Promise<RawPost> {
         return staffPostPosts_expunge({
             client: this.client,
             path: { id },
             body: { reason },
-        }).then((res) => {
-            const data = this._handleResponse(res, 201, true);
-            // NOTE: the spec still references the "Post" (v2 base) schema here, but this endpoint has no v2 param - the response is actually legacy-shaped.
-            return new Post(this.e621, data.post as unknown as LegacyPostData);
-        });
+        }).then(res => this._handleResponse(res, 201, true));
     }
 
     @OperationID("post_favorites#index")
@@ -198,12 +195,13 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
     }
 
     @OperationID("staff/post/posts#move_favorites")
-    async moveFavorites(id: number, options: MovePostFavoritesOptions): Promise<unknown> {
+    async moveFavorites(id: number, options: MovePostFavoritesOptions): Promise<string> {
         return staffPostPosts_moveFavorites({
             client: this.client,
             path: { id },
             body: options,
-        }).then(res => this._handleResponse(res, 200, true));
+            redirect: "manual",
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("staff/post/posts#previous_owners")
@@ -272,13 +270,13 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
     }
 
     @OperationID("staff/post/posts#reowner")
-    async reown(id: number, options: ReownPostOptions): Promise<string> {
+    async reown(id: number, options: ReownPostOptions): Promise<RawPost | null> {
         return staffPostPosts_reowner({
             client: this.client,
             path: { id },
             body: prefixKeys(options, "reowner"),
-            redirect: "manual",
-        }).then(res => this._handleResponse(res, 302, true));
+        // 204 means the post already belonged to the new owner
+        }).then(res => res.response?.status === 204 ? null : this._handleResponse(res, 201, true) as RawPost);
     }
 
     @OperationID("posts#revert")
@@ -324,14 +322,11 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
     }
 
     @OperationID("staff/post/posts#undelete")
-    async undelete(id: number): Promise<Post<PF>> {
+    async undelete(id: number): Promise<RawPost> {
         return staffPostPosts_undelete({
             client: this.client,
             path: { id },
-        }).then((res) => {
-            const data = this._handleResponse(res, 201, true);
-            return new Post(this.e621, data.post as unknown as LegacyPostData);
-        });
+        }).then(res => this._handleResponse(res, 201, true));
     }
 
     @OperationID("posts#update")

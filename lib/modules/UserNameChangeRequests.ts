@@ -15,19 +15,21 @@ export interface SearchUserNameChangeRequestsOptions extends TransformDataQueryT
 export default class UserNameChangeRequests extends Base {
     static readonly moduleKey = "userNameChangeRequests" as const;
     @OperationID("user_name_change_requests#create")
-    async create(options: CreateUserNameChangeRequestOptions): Promise<unknown> {
+    async create(options: CreateUserNameChangeRequestOptions): Promise<string> {
         return userNameChangeRequests_create({
             client: this.client,
             body: prefixKeys(options, "user_name_change_request"),
-        }).then(res => this._handleResponse(res, 200, true));
+            redirect: "manual",
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("user_name_change_requests#destroy")
-    async delete(id: number): Promise<unknown> {
+    async delete(id: number): Promise<string> {
         return userNameChangeRequests_destroy({
             client: this.client,
             path: { id },
-        }).then(res => this._handleResponse(res, 200, true));
+            redirect: "manual",
+        }).then(res => this._handleResponse(res, 302, true));
     }
 
     @OperationID("user_name_change_requests#show")
