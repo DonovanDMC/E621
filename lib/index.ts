@@ -9,7 +9,9 @@ export type * from "./modules/index.js";
 export * from "./models/index.js";
 export * from "./errors.js";
 export * as Generated from "./generated.js";
-export type { Options, RatelimitInfo, RatelimitOptions } from "./client.js";
+export type { AuthToken, Options, RatelimitInfo, RatelimitOptions } from "./client.js";
+export { default as OAuthClient } from "./OAuthClient.js";
+export type * from "./OAuthClient.js";
 
 interface E621<PF extends PostFormatOptions = NoV2Options> extends Modules<PF> {}
 /** @category Main */

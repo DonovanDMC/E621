@@ -22,6 +22,10 @@
       "types": "./dist/lib/generated/*.d.ts",
       "import": "./dist/lib/generated/*.js"
     },
+    "./oauth": {
+      "types": "./dist/lib/OAuthClient.d.ts",
+      "import": "./dist/lib/OAuthClient.js"
+    },
     "./standalone": {
       "types": "./dist/lib/standalone.d.ts",
       "import": "./dist/lib/standalone.js"

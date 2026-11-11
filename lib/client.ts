@@ -56,6 +56,13 @@ export interface RatelimitOptions {
     retryDelay?: number;
 }
 
+/**
+ * A bearer token, or a function returning one (e.g. {@link OAuthClient.getAccessToken}, to refresh tokens
+ * as they expire). Returning `null`/`undefined` sends the request without bearer auth.
+ * @category Main
+ */
+export type AuthToken = string | (() => string | null | undefined | Promise<string | null | undefined>);
+
 /** @category Main */
 export interface Options<PF extends PostFormatOptions = NoV2Options> {
     /**
@@ -64,7 +71,13 @@ export interface Options<PF extends PostFormatOptions = NoV2Options> {
      */
     authKey?: string;
     /**
-     * The uername of the user you want to authenticate with
+     * A bearer token (such as an OAuth access token) to authenticate with, or a function that returns one.
+     * Takes priority over {@link Options.authUser}/{@link Options.authKey} when both are provided.
+     * @default none
+     */
+    authToken?: AuthToken;
+    /**
+     * The username of the user you want to authenticate with
      * @default none
      */
     authUser?: string;
@@ -122,6 +135,7 @@ export interface ResolvedRatelimitOptions {
 /** @category Main */
 export interface InstanceOptions {
     authKey: string | null;
+    authToken: AuthToken | null;
     authUser: string | null;
     baseURL: string;
     ratelimit: ResolvedRatelimitOptions;
@@ -149,6 +163,7 @@ export interface E621ClientResult {
 export function createE621Client<const PF extends PostFormatOptions = NoV2Options>(options?: Options<PF>): E621ClientResult {
     const resolved: InstanceOptions = {
         authKey: options?.authKey ?? null,
+        authToken: options?.authToken ?? null,
         authUser: options?.authUser ?? null,
         baseURL: options?.baseURL ?? "https://e621.net",
         ratelimit: {
@@ -163,31 +178,39 @@ export function createE621Client<const PF extends PostFormatOptions = NoV2Option
         userAgent: options?.userAgent ?? `E621/${VERSION} (https://github.com/DonovanDMC/E621${options?.authUser ? `; "${options.authUser}"` : ""})`,
         userAgentInQuery: options?.userAgentInQuery ?? "window" in globalThis,
     };
-    let config: Config;
-    const commonConfig: Partial<Parameters<typeof createConfig>[0]> = {
+    // read at request time, so changing options.authToken etc. after construction still takes effect
+    const getAuthorization = async (): Promise<string | null> => {
+        if (resolved.authToken) {
+            const token = typeof resolved.authToken === "function" ? await resolved.authToken() : resolved.authToken;
+            if (token) return `Bearer ${token}`;
+        }
+        if (resolved.authKey && resolved.authUser) return `Basic ${btoa(`${resolved.authUser}:${resolved.authKey}`)}`;
+        return null;
+    };
+    const config: Config = createConfig({
         baseUrl: resolved.baseURL,
         headers: resolved.userAgentInQuery ? undefined : {
             "User-Agent": resolved.userAgent,
         },
         fetch: async (input, init): Promise<Response> => {
             let url = "unknown", method = "unknown";
-            // for some reason it doesn't seem to be inserting the Authorization header
+            // the generated client only inserts auth for operations with a matching security scheme, so it's done here instead
             if (input instanceof Request) {
                 url = input.url;
                 method = input.method.toLowerCase();
-                if (!input.headers.has("Authorization") && resolved.authKey && resolved.authUser) {
-                    input.headers.set("Authorization", `Basic ${btoa(`${resolved.authUser}:${resolved.authKey}`)}`);
+                if (!input.headers.has("Authorization")) {
+                    const authorization = await getAuthorization();
+                    if (authorization) input.headers.set("Authorization", authorization);
                 }
             } else if (init) {
                 url = input.toString();
                 method = init.method?.toLowerCase() ?? "get";
-                if (resolved.authKey && resolved.authUser) {
-                    const headers = new Headers(init.headers);
-                    if (!headers.has("Authorization")) {
-                        headers.set("Authorization", `Basic ${btoa(`${resolved.authUser}:${resolved.authKey}`)}`);
-                    }
-                    init.headers = headers;
+                const headers = new Headers(init.headers);
+                if (!headers.has("Authorization")) {
+                    const authorization = await getAuthorization();
+                    if (authorization) headers.set("Authorization", authorization);
                 }
+                init.headers = headers;
             }
             if (resolved.userAgentInQuery && input instanceof Request) {
                 const requestURL = new URL(input.url);
@@ -223,21 +246,7 @@ export function createE621Client<const PF extends PostFormatOptions = NoV2Option
             }
             return res;
         },
-    };
-    if (resolved.authKey && resolved.authUser) {
-        config = createConfig({
-            ...commonConfig,
-            auth: (auth) => {
-                if (auth.scheme === "basic") {
-                    return `${resolved.authUser}:${resolved.authKey}`;
-                }
-
-                return;
-            },
-        });
-    } else {
-        config = createConfig(commonConfig);
-    }
+    });
 
     return { client: createClient(config), options: resolved };
 }

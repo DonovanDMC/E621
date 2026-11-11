@@ -37,6 +37,39 @@ const e621 = new E621({
 // e.g. use e621.posts.METHOD(), e621.users.METHOD()
 ```
 
+### Bearer Tokens & OAuth
+
+Instead of `authUser`/`authKey`, you can authenticate with a bearer token (e.g. an OAuth access token). It can be a string, or a function that returns one, which is called for every request. If both are given, the bearer token wins.
+```typescript
+const e621 = new E621({ authToken: "..." });
+```
+
+`OAuthClient` handles the OAuth 2.0 authorization code flow (with PKCE) for you, and keeps the access token refreshed. **OAuth has not been publicly released on e621 yet.**
+```typescript
+import E621, { OAuthClient } from "e621"; // or from "e621/oauth"
+
+const oauth = new OAuthClient({
+	clientId:     "",
+	clientSecret: "", // leave out for public clients
+	redirectURI:  "https://example.com/callback",
+	scopes:       ["openid", "full"],
+	token:        savedToken, // optional, restore a previous token
+	onToken:      (token) => saveToken(token), // called when the token is exchanged, refreshed, or revoked
+});
+
+// keep state & codeVerifier (e.g. in the session), and send the user to url
+const { url, state, codeVerifier } = await oauth.createAuthorizationURL();
+
+// once they're redirected back, this checks the state and exchanges the code
+await oauth.handleCallback(callbackURL, { state, codeVerifier });
+
+// getAccessToken refreshes the token when it's about to expire
+const e621 = new E621({ authToken: oauth.getAccessToken });
+
+await oauth.userInfo();
+await oauth.revoke();
+```
+
 ### Default Post Format
 
 Post-returning methods (`posts.get()`, `posts.search()`, `favorites.search()`, `popular.get()`, `iqdbQueries.get()`/`.post()`, and convenience methods on returned post models like `post.update()`) accept per-call `v2`/`mode` options and default to the legacy format when omitted. Set `defaultPostFormat` once to change that default everywhere instead of repeating the same options on every call:

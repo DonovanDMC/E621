@@ -26,8 +26,11 @@ export class UnexpectedResponseError extends Error {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             else if (typeof error === "object" && error !== null) {
                 if ("message" in error && typeof error.message === "string") message += `\n${error.message}`;
-                else if ("error" in error && typeof error.error === "string") message += `\n${error.error}`;
-                else if ("errors" in error && typeof error.errors === "object" && error.errors !== null) {
+                else if ("error" in error && typeof error.error === "string") {
+                    message += `\n${error.error}`;
+                    // OAuth errors
+                    if ("error_description" in error && typeof error.error_description === "string") message += `: ${error.error_description}`;
+                } else if ("errors" in error && typeof error.errors === "object" && error.errors !== null) {
                     for (const [key, value] of Object.entries(error.errors)) {
                         if (typeof value === "string") message += `\n${key}: ${value}`;
                         else if (Array.isArray(value)) message += `\n${key}: ${value.join(", ")}`;
@@ -57,5 +60,24 @@ export class RatelimitError extends UnexpectedResponseError {
         super(request, response, error);
         this.retryAfter = parseRetryAfter(response);
         this.message = this.message.replace("Unexpected", "Ratelimited") + (this.retryAfter === null ? "" : `\nRetry after ${this.retryAfter}s`);
+    }
+}
+
+/**
+ * Thrown by {@link OAuthClient.handleCallback} when e621 redirected back with an error, or the callback is
+ * invalid (`invalid_state` if the state doesn't match).
+ * @category Errors
+ */
+export class OAuthCallbackError extends Error {
+    /** The OAuth error code, e.g. `access_denied`. */
+    error: string;
+    errorDescription: string | null;
+    override name = "OAuthCallbackError";
+    state: string | null;
+    constructor(error: string, errorDescription: string | null, state: string | null) {
+        super(errorDescription ? `${error}: ${errorDescription}` : error);
+        this.error = error;
+        this.errorDescription = errorDescription;
+        this.state = state;
     }
 }
