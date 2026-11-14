@@ -1,4 +1,5 @@
-import { type IQDBPost as IQDBPostData } from "../generated/types.js";
+import { type IQDBPost as IQDBPostData } from "e621-openapi/types";
+
 import { Schema } from "../util.js";
 
 import Base from "./Base.js";

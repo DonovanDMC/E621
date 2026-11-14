@@ -1,10 +1,11 @@
-import { searchTrendHourlies_index } from "../generated/sdk.js";
+import { searchTrendHourlies_index } from "e621-openapi/sdk";
+
 import SearchTrendHourly from "../models/SearchTrendHourly.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { SearchTrendHourliesIndexData } from "../generated/types.js";
+import type { SearchTrendHourliesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchSearchTrendHourliesOptions extends TransformDataQueryToOptions<SearchTrendHourliesIndexData> {}

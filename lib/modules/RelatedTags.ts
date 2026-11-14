@@ -1,5 +1,6 @@
-import { relatedTags_bulk } from "../generated/sdk.js";
-import { type RelatedTagsBulkResponses, type RelatedTagsBulkData } from "../generated/types.js";
+import { relatedTags_bulk } from "e621-openapi/sdk";
+import { type RelatedTagsBulkResponses, type RelatedTagsBulkData } from "e621-openapi/types";
+
 import { GetResponse, OperationID, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";

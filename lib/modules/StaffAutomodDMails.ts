@@ -1,10 +1,11 @@
-import { staffAutomodDmails_show, staffAutomodDmails_index, staffAutomodDmails_markAsRead, staffAutomodDmails_markAsUnread } from "../generated/sdk.js";
+import { staffAutomodDmails_show, staffAutomodDmails_index, staffAutomodDmails_markAsRead, staffAutomodDmails_markAsUnread } from "e621-openapi/sdk";
+
 import DMail from "../models/DMail.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffAutomodDmailsIndexData } from "../generated/types.js";
+import type { StaffAutomodDmailsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchStaffAutomodDMailsOptions extends TransformDataQueryToOptions<StaffAutomodDmailsIndexData> {}

@@ -7,7 +7,8 @@ import {
     blips_warning,
     blips_index,
     blips_undelete,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Blip from "../models/Blip.js";
 import {
     GetResponse,
@@ -25,7 +26,7 @@ import type {
     BlipsWarningResponses,
     BlipsIndexData,
     WarningRecordType,
-} from "../generated/types.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchBlipsOptions extends TransformDataQueryToOptions<BlipsIndexData> {}

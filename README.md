@@ -72,17 +72,17 @@ await oauth.revoke();
 
 ### Default Post Format
 
-Post-returning methods (`posts.get()`, `posts.search()`, `favorites.search()`, `popular.get()`, `iqdbQueries.get()`/`.post()`, and convenience methods on returned post models like `post.update()`) accept per-call `v2`/`mode` options and default to the legacy format when omitted. Set `defaultPostFormat` once to change that default everywhere instead of repeating the same options on every call:
+Post-returning methods (`posts.get()`, `posts.search()`, `favorites.search()`, `popular.get()`, `iqdbQueries.get()`/`.post()`, and convenience methods on returned post models like `post.update()`) accept per-call `v1`/`mode` options and default to the basic format when omitted (`v1: true` returns the deprecated legacy format). Set `defaultPostFormat` once to change that default everywhere instead of repeating the same options on every call:
 ```typescript
 const e621 = new E621({
-	defaultPostFormat: { v2: true, mode: "extended" }
+	defaultPostFormat: { mode: "extended" }
 });
 
 const post = await e621.posts.get(123); // ExtendedPost, typed accurately - no cast needed
 await post?.update({ tags: "foo" }); // also resolves to ExtendedPost
 
 // a per-call option still overrides the default for that one call
-const legacy = await e621.posts.get(123, { v2: false });
+const legacy = await e621.posts.get(123, { v1: true });
 ```
 
 ### Ratelimit Handling
@@ -143,6 +143,23 @@ const post = await e621.posts.random();
 await post.favorite(); // works — `favorites` was included, so the cross-module call resolves
 ```
 Convenience methods on returned models that call back into *other* modules (e.g. `post.favorite()`, which needs `favorites`) only work if you included that module in `createStandalone`'s array — otherwise they throw. Methods on the modules you did include work exactly as normal.
+
+## Raw Types & SDK
+
+The types, schemas, and request functions this library is built on come from [e621-openapi](https://www.npmjs.com/package/e621-openapi), which is generated directly from the [OpenAPI Spec](https://e621.wiki). If you only need the spec's types or the raw request functions, without models, convenience methods, or ratelimit handling, you can use that package on its own:
+```typescript
+import { posts_index } from "e621-openapi";
+import { client } from "e621-openapi/client";
+
+client.setConfig({
+	headers: {
+		"User-Agent": "MyProject/1.0 (by username on e621)"
+	}
+});
+
+const { data } = await posts_index({ query: { tags: "fox", limit: 10 } });
+```
+Types alone can be imported from `e621-openapi/types` (e.g. `import type { BasicPost } from "e621-openapi/types"`). The same exports are also available through this library as `Generated` (or `e621/generated`), if you already depend on it.
 
 ## Testing
 

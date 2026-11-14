@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { EmailBlacklist as EmailBlacklistData } from "../generated/types.js";
+import type { EmailBlacklist as EmailBlacklistData } from "e621-openapi/types";
 
 interface EmailBlacklist extends EmailBlacklistData {}
 /** @category Models */

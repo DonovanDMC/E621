@@ -1,10 +1,11 @@
-import { staffExceptions_show, staffExceptions_index } from "../generated/sdk.js";
+import { staffExceptions_show, staffExceptions_index } from "e621-openapi/sdk";
+
 import ExceptionLog from "../models/ExceptionLog.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffExceptionsIndexData } from "../generated/types.js";
+import type { StaffExceptionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchStaffExceptionLogsOptions extends TransformDataQueryToOptions<StaffExceptionsIndexData> {}

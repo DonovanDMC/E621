@@ -1,10 +1,11 @@
-import { tagSubscriptions_create, tagSubscriptions_destroy, tagSubscriptions_index } from "../generated/sdk.js";
+import { tagSubscriptions_create, tagSubscriptions_destroy, tagSubscriptions_index } from "e621-openapi/sdk";
+
 import TagSubscription from "../models/TagSubscription.js";
 import { GetResponse, OperationID } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TagSubscriptionsCreateResponses } from "../generated/types.js";
+import type { TagSubscriptionsCreateResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateTagSubscriptionsResponse extends Omit<GetResponse<TagSubscriptionsCreateResponses, 200>, "added"> {

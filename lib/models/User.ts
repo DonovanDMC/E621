@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { User as UserData } from "../generated/types.js";
 import type { UpdateStaffUserOptions } from "../modules/StaffUsers.js";
+import type { User as UserData } from "e621-openapi/types";
 
 interface User extends UserData {}
 /** @category Models */

@@ -1,10 +1,11 @@
-import { noteVersions_index } from "../generated/sdk.js";
+import { noteVersions_index } from "e621-openapi/sdk";
+
 import NoteVersion from "../models/NoteVersion.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { NoteVersionsIndexData } from "../generated/types.js";
+import type { NoteVersionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchNoteVersionsOptions extends TransformDataQueryToOptions<NoteVersionsIndexData> {}

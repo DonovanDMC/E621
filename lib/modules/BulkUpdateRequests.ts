@@ -5,13 +5,14 @@ import {
     bulkUpdateRequests_show,
     bulkUpdateRequests_destroy,
     bulkUpdateRequests_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import BulkUpdateRequest from "../models/BulkUpdateRequest.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { BulkUpdateRequestsCreateData, BulkUpdateRequestsUpdateData, BulkUpdateRequestsIndexData } from "../generated/types.js";
+import type { BulkUpdateRequestsCreateData, BulkUpdateRequestsUpdateData, BulkUpdateRequestsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchBulkUpdateRequestsOptions extends TransformDataQueryToOptions<BulkUpdateRequestsIndexData> {}

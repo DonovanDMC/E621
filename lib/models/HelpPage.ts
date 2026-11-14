@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { HelpPage as HelpPageData } from "../generated/types.js";
 import type { UpdateHelpPageOptions } from "../modules/HelpPages.js";
+import type { HelpPage as HelpPageData } from "e621-openapi/types";
 
 interface HelpPage extends HelpPageData {}
 /** @category Models */

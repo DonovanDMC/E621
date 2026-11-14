@@ -8,7 +8,8 @@ import {
     comments_index,
     comments_unhide,
     comments_forPost,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Comment from "../models/Comment.js";
 import {
     OperationID,
@@ -27,7 +28,7 @@ import type {
     CommentsIndexData,
     CommentsForPostResponses,
     WarningRecordType,
-} from "../generated/types.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchCommentsOptions extends TransformDataQueryToOptions<CommentsIndexData> {}

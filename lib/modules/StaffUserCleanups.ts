@@ -1,4 +1,5 @@
-import { staffUserCleanups_clearAvatar, staffUserCleanups_clearProfile, staffUserCleanups_hideBlips, staffUserCleanups_hideComments, staffUserCleanups_hideForumPosts } from "../generated/sdk.js";
+import { staffUserCleanups_clearAvatar, staffUserCleanups_clearProfile, staffUserCleanups_hideBlips, staffUserCleanups_hideComments, staffUserCleanups_hideForumPosts } from "e621-openapi/sdk";
+
 import { OperationID } from "../util.js";
 
 import Base from "./Base.js";

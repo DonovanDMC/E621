@@ -1,10 +1,11 @@
-import { searchTrendBlacklists_create, searchTrendBlacklists_destroy, searchTrendBlacklists_index, searchTrendBlacklists_update } from "../generated/sdk.js";
+import { searchTrendBlacklists_create, searchTrendBlacklists_destroy, searchTrendBlacklists_index, searchTrendBlacklists_update } from "e621-openapi/sdk";
+
 import SearchTrendBlacklist from "../models/SearchTrendBlacklist.js";
 import { OperationID, prefixKeys, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { SearchTrendBlacklistsCreateData, SearchTrendBlacklistsIndexData, SearchTrendBlacklistsUpdateData } from "../generated/types.js";
+import type { SearchTrendBlacklistsCreateData, SearchTrendBlacklistsIndexData, SearchTrendBlacklistsUpdateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateSearchTrendBlacklistsOptions extends TransformDataBodyToOptions<SearchTrendBlacklistsCreateData> {}

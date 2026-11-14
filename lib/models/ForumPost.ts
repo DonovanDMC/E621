@@ -4,8 +4,8 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 import ForumPostVote from "./ForumPostVote.js";
 
-import type { ForumPost as ForumPostData, WarningRecordType } from "../generated/types.js";
 import type { UpdateForumPostOptions, ForumPostsWarningResponse } from "../modules/ForumPosts.js";
+import type { ForumPost as ForumPostData, WarningRecordType } from "e621-openapi/types";
 
 interface ForumPost extends ForumPostData {}
 /** @category Models */

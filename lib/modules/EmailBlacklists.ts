@@ -1,10 +1,11 @@
-import { emailBlacklists_create, emailBlacklists_destroy, emailBlacklists_index } from "../generated/sdk.js";
+import { emailBlacklists_create, emailBlacklists_destroy, emailBlacklists_index } from "e621-openapi/sdk";
+
 import EmailBlacklist from "../models/EmailBlacklist.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { EmailBlacklistsCreateData, EmailBlacklistsIndexData } from "../generated/types.js";
+import type { EmailBlacklistsCreateData, EmailBlacklistsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateEmailBlacklistOptions extends TransformDataBodyToOptions<EmailBlacklistsCreateData> {}

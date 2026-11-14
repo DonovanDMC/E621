@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ForumPostVote as ForumPostVoteData } from "../generated/types.js";
+import type { ForumPostVote as ForumPostVoteData } from "e621-openapi/types";
 
 interface ForumPostVote extends ForumPostVoteData {}
 /** @category Models */

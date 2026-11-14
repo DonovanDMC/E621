@@ -1,5 +1,6 @@
-import { postFlags_clearNote, postFlags_create, postFlags_destroy, postFlags_show, postFlags_index } from "../generated/sdk.js";
-import { type PostFlagsCreateData, type PostFlagsDestroyResponses, type PostFlagsIndexData } from "../generated/types.js";
+import { postFlags_clearNote, postFlags_create, postFlags_destroy, postFlags_show, postFlags_index } from "e621-openapi/sdk";
+import { type PostFlagsCreateData, type PostFlagsDestroyResponses, type PostFlagsIndexData } from "e621-openapi/types";
+
 import PostFlag from "../models/PostFlag.js";
 import { GetResponse, OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 

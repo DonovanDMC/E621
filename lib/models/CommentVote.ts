@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { CommentVote as CommentVoteData } from "../generated/types.js";
+import type { CommentVote as CommentVoteData } from "e621-openapi/types";
 
 interface CommentVote extends CommentVoteData {}
 /** @category Models */

@@ -26,46 +26,54 @@ after(() => {
 });
 
 describe("defaultPostFormat", () => {
-    it("falls back to the legacy format when no default is configured", async () => {
+    it("falls back to the basic format when no default is configured", async () => {
         const e621 = new E621();
-        responseBody = { post: { id: 1, tags: "tag1" } };
+        responseBody = { id: 1, tags: ["tag1"] };
         const post = await e621.posts.get(1);
-        assert.equal(capturedURL.searchParams.get("v2"), null);
-        assert.ok(post instanceof Post);
+        assert.equal(capturedURL.searchParams.get("v1"), null);
+        assert.ok(post instanceof BasicPost);
     });
 
-    it("applies the configured default v2/mode to the actual request and the returned model", async () => {
-        const e621 = new E621({ defaultPostFormat: { v2: true, mode: "extended" } });
+    it("applies the configured default v1/mode to the actual request and the returned model", async () => {
+        const e621 = new E621({ defaultPostFormat: { mode: "extended" } });
         responseBody = { id: 1, tags: extendedTags };
         const post = await e621.posts.get(1);
-        assert.equal(capturedURL.searchParams.get("v2"), "true");
+        assert.equal(capturedURL.searchParams.get("v1"), null);
         assert.equal(capturedURL.searchParams.get("mode"), "extended");
         assert.ok(post instanceof ExtendedPost);
     });
 
     it("lets an explicit per-call option override the configured default", async () => {
-        const e621 = new E621({ defaultPostFormat: { v2: true, mode: "extended" } });
+        const e621 = new E621({ defaultPostFormat: { mode: "extended" } });
         responseBody = { post: { id: 1, tags: "tag1" } };
-        const post = await e621.posts.get(1, { v2: false });
-        assert.equal(capturedURL.searchParams.get("v2"), "false");
+        const post = await e621.posts.get(1, { v1: true });
+        assert.equal(capturedURL.searchParams.get("v1"), "true");
+        assert.ok(post instanceof Post);
+    });
+
+    it("returns the legacy format when v1 is the configured default", async () => {
+        const e621 = new E621({ defaultPostFormat: { v1: true } });
+        responseBody = { post: { id: 1, tags: "tag1" } };
+        const post = await e621.posts.get(1);
+        assert.equal(capturedURL.searchParams.get("v1"), "true");
         assert.ok(post instanceof Post);
     });
 
     it("applies the configured default to model convenience methods (e.g. post.update())", async () => {
-        const e621 = new E621({ defaultPostFormat: { v2: true, mode: "basic" } });
+        const e621 = new E621({ defaultPostFormat: { mode: "basic" } });
         responseBody = { id: 1, tags: ["tag1"] };
         const post = new BasicPost(e621, { id: 1, tags: ["tag1"] } as never);
         const updated = await post.update();
-        assert.equal(capturedURL.searchParams.get("v2"), "true");
+        assert.equal(capturedURL.searchParams.get("v1"), null);
         assert.equal(capturedURL.searchParams.get("mode"), "basic");
         assert.ok(updated instanceof BasicPost);
     });
 
     it("respects a default on favorites.search()/popular.get() too", async () => {
-        const e621 = new E621({ defaultPostFormat: { v2: true, mode: "extended" } });
+        const e621 = new E621({ defaultPostFormat: { mode: "extended" } });
         responseBody = [{ id: 1, tags: extendedTags }];
         const [post] = await e621.favorites.search();
-        assert.equal(capturedURL.searchParams.get("v2"), "true");
+        assert.equal(capturedURL.searchParams.get("v1"), null);
         assert.equal(capturedURL.searchParams.get("mode"), "extended");
         assert.ok(post instanceof ExtendedPost);
     });

@@ -1,10 +1,11 @@
-import { postVersions_hide, postVersions_index, postVersions_undo, postVersions_unhide } from "../generated/sdk.js";
+import { postVersions_hide, postVersions_index, postVersions_undo, postVersions_unhide } from "e621-openapi/sdk";
+
 import PostVersion from "../models/PostVersion.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { PostVersionsIndexData } from "../generated/types.js";
+import type { PostVersionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchPostVersionsOptions extends TransformDataQueryToOptions<PostVersionsIndexData> {}

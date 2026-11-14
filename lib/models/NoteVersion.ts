@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { NoteVersion as NoteVersionData } from "../generated/types.js";
+import type { NoteVersion as NoteVersionData } from "e621-openapi/types";
 
 interface NoteVersion extends NoteVersionData {}
 /** @category Models */

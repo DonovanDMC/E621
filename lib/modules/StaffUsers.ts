@@ -1,5 +1,6 @@
-import { staffUsers_anonymizeConfirm, staffUsers_update, staffUsers_altList, staffUsers_totpReset, staffUsers_updateBlacklist } from "../generated/sdk.js";
-import { type StaffUsersUpdateData } from "../generated/types.js";
+import { staffUsers_anonymizeConfirm, staffUsers_update, staffUsers_altList, staffUsers_totpReset, staffUsers_updateBlacklist } from "e621-openapi/sdk";
+import { type StaffUsersUpdateData } from "e621-openapi/types";
+
 import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";

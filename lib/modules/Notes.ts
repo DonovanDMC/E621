@@ -5,13 +5,14 @@ import {
     notes_show,
     notes_revert,
     notes_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Note from "../models/Note.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { NotesCreateData, NotesUpdateData, NotesIndexData } from "../generated/types.js";
+import type { NotesCreateData, NotesUpdateData, NotesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateNoteOptions extends TransformDataBodyToOptions<NotesCreateData> {}

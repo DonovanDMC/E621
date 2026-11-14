@@ -1,10 +1,11 @@
-import { bans_show, bans_index } from "../generated/sdk.js";
+import { bans_show, bans_index } from "e621-openapi/sdk";
+
 import Ban from "../models/Ban.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { BansIndexData } from "../generated/types.js";
+import type { BansIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchBansOptions extends TransformDataQueryToOptions<BansIndexData> {}

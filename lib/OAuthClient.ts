@@ -12,7 +12,7 @@ import type {
     OAuthTokenInfo,
     OAuthUserInfo,
     OpenIDConfiguration,
-} from "./generated/types.js";
+} from "e621-openapi/types";
 
 /** @category OAuth */
 export interface OAuthClientOptions extends Pick<Options, "baseURL" | "ratelimit" | "requestTimeout" | "userAgent" | "userAgentInQuery"> {

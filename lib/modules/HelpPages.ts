@@ -5,13 +5,14 @@ import {
     help_show,
     help_index,
     help_list,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import HelpPage from "../models/HelpPage.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { HelpCreateData, HelpUpdateData } from "../generated/types.js";
+import type { HelpCreateData, HelpUpdateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateHelpPageOptions extends TransformDataBodyToOptions<HelpCreateData> {}

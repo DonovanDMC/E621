@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { PostSet as PostSetData } from "../generated/types.js";
 import type { UpdatePostSetOptions } from "../modules/PostSets.js";
+import type { PostSet as PostSetData } from "e621-openapi/types";
 
 interface PostSet extends PostSetData {}
 /** @category Models */

@@ -6,13 +6,14 @@ import {
     userFeedbacks_show,
     userFeedbacks_index,
     userFeedbacks_undelete,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import UserFeedback from "../models/UserFeedback.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { UserFeedbacksCreateData, UserFeedbacksUpdateData, UserFeedbacksIndexData } from "../generated/types.js";
+import type { UserFeedbacksCreateData, UserFeedbacksUpdateData, UserFeedbacksIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateUserFeedbackOptions extends TransformDataBodyToOptions<UserFeedbacksCreateData> {}

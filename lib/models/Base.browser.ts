@@ -1,5 +1,5 @@
 import type E621 from "../index.js";
-import type { NoV2Options, PostFormatOptions } from "../modules/posts/Format.js";
+import type { NoV1Options, PostFormatOptions } from "../modules/posts/Format.js";
 
 /**
  * Browser build of {@link Base}. `node:util`'s `inspect` is Node-only and pulling it in breaks browser
@@ -8,7 +8,7 @@ import type { NoV2Options, PostFormatOptions } from "../modules/posts/Format.js"
  *
  * @category Models
  */
-export default abstract class Base<D = unknown, PF extends PostFormatOptions = NoV2Options> {
+export default abstract class Base<D = unknown, PF extends PostFormatOptions = NoV1Options> {
     protected data!: D;
     protected e621!: E621<PF>;
     constructor(e621: E621<PF>, data: D) {

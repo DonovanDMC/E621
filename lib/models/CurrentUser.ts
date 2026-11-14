@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import User from "./User.js";
 
-import type { CurrentUser as CurrentUserData } from "../generated/types.js";
 import type { UpdateAvatarCropOptions, UpdateCurrentUserOptions, UsersAvatarMenuResponse } from "../modules/Users.js";
+import type { CurrentUser as CurrentUserData } from "e621-openapi/types";
 
 interface CurrentUser extends Omit<CurrentUserData, "last_logged_in_at"> {}
 /** @category Models */

@@ -3,8 +3,8 @@ export type { AuthToken, E621ClientResult, InstanceOptions, Options, RatelimitIn
 
 import { createE621Client, type E621ClientResult } from "./client.js";
 
-import type { Client } from "./generated/client/types.js";
 import type E621 from "./index.js";
+import type { Client } from "e621-openapi/client/types";
 
 interface ModuleClass<Key extends string = string, T = unknown> {
     readonly moduleKey: Key;
@@ -19,10 +19,10 @@ export type StandaloneResult<T extends ReadonlyArray<ModuleClass>> = { [C in T[n
  * `favorites` is included). Unlike `new E621()`, only the modules you list here (and their own
  * dependencies) need to be bundled - useful when tree-shaking matters more than convenience.
  *
- * Post-format-aware modules (`Posts`, `Favorites`, `Popular`, `IqdbQueries`) always fall back to the legacy
+ * Post-format-aware modules (`Posts`, `Favorites`, `Popular`, `IqdbQueries`) always fall back to the basic
  * format here, matching `new E621()` when {@link Options.defaultPostFormat} isn't set - there's no way to
  * thread a type-accurate default through a plain array of module classes like this, so it isn't exposed as
- * an option. Pass `v2`/`mode` per call instead.
+ * an option. Pass `v1`/`mode` per call instead.
  *
  * @category Main
  */

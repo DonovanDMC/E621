@@ -6,8 +6,9 @@ import {
     tagAliases_destroy,
     tagAliases_index,
     tagAliases_undo,
-} from "../generated/sdk.js";
-import { type TagAliasesUpdateData, type TagAliasRequestsCreateData, type TagAliasesIndexData } from "../generated/types.js";
+} from "e621-openapi/sdk";
+import { type TagAliasesUpdateData, type TagAliasRequestsCreateData, type TagAliasesIndexData } from "e621-openapi/types";
+
 import TagAlias from "../models/TagAlias.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 

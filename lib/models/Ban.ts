@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Ban as BanData } from "../generated/types.js";
+import type { Ban as BanData } from "e621-openapi/types";
 
 interface Ban extends BanData {}
 /** @category Models */

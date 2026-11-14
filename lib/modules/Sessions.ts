@@ -1,9 +1,10 @@
-import { sessions_create, sessions_destroy, sessions_verifyTotp } from "../generated/sdk.js";
+import { sessions_create, sessions_destroy, sessions_verifyTotp } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { SessionsCreateData, SessionsCreateResponses, SessionsVerifyTotpData, SessionsVerifyTotpResponses } from "../generated/types.js";
+import type { SessionsCreateData, SessionsCreateResponses, SessionsVerifyTotpData, SessionsVerifyTotpResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface LoginOptions extends TransformDataBodyToOptions<SessionsCreateData> {}

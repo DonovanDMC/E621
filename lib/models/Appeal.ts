@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Appeal as AppealData } from "../generated/types.js";
 import type { UpdateAppealOptions } from "../modules/Appeals.js";
+import type { Appeal as AppealData } from "e621-openapi/types";
 
 interface Appeal extends AppealData {}
 /** @category Models */

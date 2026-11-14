@@ -1,9 +1,10 @@
-import { doorkeeperOpenidConnectDiscovery_keys, doorkeeperOpenidConnectDiscovery_provider } from "../generated/sdk.js";
+import { doorkeeperOpenidConnectDiscovery_keys, doorkeeperOpenidConnectDiscovery_provider } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { DoorkeeperOpenidConnectDiscoveryKeysResponses, DoorkeeperOpenidConnectDiscoveryProviderResponses } from "../generated/types.js";
+import type { DoorkeeperOpenidConnectDiscoveryKeysResponses, DoorkeeperOpenidConnectDiscoveryProviderResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface DoorkeeperOpenidConnectDiscoveryKeysResponse extends GetResponse<DoorkeeperOpenidConnectDiscoveryKeysResponses, 200> {}

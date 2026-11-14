@@ -1,4 +1,5 @@
-import { health_index } from "../generated/sdk.js";
+import { health_index } from "e621-openapi/sdk";
+
 import { OperationID } from "../util.js";
 
 import Base from "./Base.js";

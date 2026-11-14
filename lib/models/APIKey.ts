@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { APIKey as APIKeyData } from "../generated/types.js";
+import type { APIKey as APIKeyData } from "e621-openapi/types";
 
 interface APIKey extends APIKeyData {}
 /** @category Models */

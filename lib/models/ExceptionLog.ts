@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ExceptionLog as ExceptionLogData } from "../generated/types.js";
+import type { ExceptionLog as ExceptionLogData } from "e621-openapi/types";
 
 interface ExceptionLog extends ExceptionLogData {}
 /** @category Models */

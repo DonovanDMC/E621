@@ -1,4 +1,5 @@
-import { staffDmails_show, staffDmails_index } from "../generated/sdk.js";
+import { staffDmails_show, staffDmails_index } from "e621-openapi/sdk";
+
 import DMail from "../models/DMail.js";
 import { OperationID } from "../util.js";
 

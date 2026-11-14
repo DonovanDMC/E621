@@ -1,4 +1,5 @@
-import { dbExports_index } from "../generated/sdk.js";
+import { dbExports_index } from "e621-openapi/sdk";
+
 import DBExport from "../models/DBExport.js";
 import { OperationID } from "../util.js";
 

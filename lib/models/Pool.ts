@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Pool as PoolData } from "../generated/types.js";
 import type { UpdatePoolOptions } from "../modules/Pools.js";
+import type { Pool as PoolData } from "e621-openapi/types";
 
 interface Pool extends PoolData {}
 /** @category Models */

@@ -21,16 +21,18 @@ import {
     staffPostPosts_undelete,
     posts_update,
     posts_updateIqdb,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import MinimalUser from "../models/MinimalUser.js";
 import Post from "../models/Post.js";
 import ThumbnailPost from "../models/ThumbnailPost.js";
 import { GetResponse, OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
-import { type AnyPostData, type NoV2Options, type PostFormat, type PostFormatOptions, wrapPost, wrapPosts } from "./posts/Format.js";
+import { type AnyPostData, type NoV1Options, type PostFormat, type PostFormatOptions, wrapPost, wrapPosts } from "./posts/Format.js";
 
-import type { Client } from "../generated/client/types.js";
+import type E621 from "../index.js";
+import type { Client } from "e621-openapi/client/types";
 import type {
     StaffPostPostsDeleteData,
     PostsShowData,
@@ -48,8 +50,7 @@ import type {
     PostsUpdateIqdbData,
     PostsCountResponses,
     RawPost,
-} from "../generated/types.js";
-import type E621 from "../index.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface PostsCountResponse extends GetResponse<PostsCountResponses, 200> {}
@@ -83,25 +84,25 @@ export interface PostPreviousOwner {
     name: string;
 }
 /** @category Modules/Types */
-export interface RecommendedPostsResult<PF extends PostFormatOptions = NoV2Options> {
+export interface RecommendedPostsResult<PF extends PostFormatOptions = NoV1Options> {
     model_version: string;
     post_data: Array<ThumbnailPost<PF>>;
     post_id: number;
     results: Array<PostRecommendation>;
 }
 /** @category Modules/Types */
-export type PostSearchResult<O extends SearchPostsOptions, PF extends PostFormatOptions = NoV2Options>
+export type PostSearchResult<O extends SearchPostsOptions, PF extends PostFormatOptions = NoV1Options>
     = O extends { md5: string }
-        ? PostFormat<O["v2"], O["mode"], PF>
-        : Array<PostFormat<O["v2"], O["mode"], PF>>;
+        ? PostFormat<O["v1"], O["mode"], PF>
+        : Array<PostFormat<O["v1"], O["mode"], PF>>;
 
 /** @category Modules */
-export default class Posts<PF extends PostFormatOptions = NoV2Options> extends Base<PF> {
+export default class Posts<PF extends PostFormatOptions = NoV1Options> extends Base<PF> {
     static readonly moduleKey = "posts" as const;
     protected readonly defaultFormat: PF;
     /**
-     * @param defaultFormat - The v2/mode format to fall back to for any method here (or any convenience
-     * method on a returned post model) called without explicit v2/mode options. Defaults to the legacy
+     * @param defaultFormat - The v1/mode format to fall back to for any method here (or any convenience
+     * method on a returned post model) called without explicit v1/mode options. Defaults to the basic
      * format, matching `new E621()`'s behavior when {@link Options.defaultPostFormat} isn't set.
      */
     constructor(e621: E621<PF> | undefined, client: Client, defaultFormat: PF = {} as PF) {
@@ -164,33 +165,33 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
     }
 
     @OperationID("posts#show")
-    async get<const O extends GetPostOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"], PF> | null> {
-        const v2 = options?.v2 ?? this.defaultFormat.v2;
+    async get<const O extends GetPostOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v1"], O["mode"], PF> | null> {
+        const v1 = options?.v1 ?? this.defaultFormat.v1;
         const mode = options?.mode ?? this.defaultFormat.mode;
         return posts_show({
             client: this.client,
             path: { id },
-            query: { ...options, v2, mode },
+            query: { ...options, v1, mode },
         }).then((res) => {
             const data = this._handleResponse(res, 200, false);
             if (data === null) return null;
-            const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
-            return wrapPost(this.e621, raw, v2, mode) as PostFormat<O["v2"], O["mode"], PF>;
+            const raw = (v1 ? (data as { post: LegacyPostData }).post : data) as AnyPostData;
+            return wrapPost(this.e621, raw, v1, mode) as PostFormat<O["v1"], O["mode"], PF>;
         });
     }
 
     @OperationID("posts#mark_as_translated")
-    async markTranslated<const O extends MarkPostAsTranslatedOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
-        const v2 = options?.v2 ?? this.defaultFormat.v2;
+    async markTranslated<const O extends MarkPostAsTranslatedOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
+        const v1 = options?.v1 ?? this.defaultFormat.v1;
         const mode = options?.mode ?? this.defaultFormat.mode;
         return posts_markAsTranslated({
             client: this.client,
             path: { id },
-            query: { ...options, v2, mode },
+            query: { ...options, v1, mode },
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
-            return wrapPost(this.e621, raw, v2, mode) as PostFormat<O["v2"], O["mode"], PF>;
+            const raw = (v1 ? (data as { post: LegacyPostData }).post : data) as AnyPostData;
+            return wrapPost(this.e621, raw, v1, mode) as PostFormat<O["v1"], O["mode"], PF>;
         });
     }
 
@@ -213,16 +214,16 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
     }
 
     @OperationID("posts#random")
-    async random<const O extends GetRandomPostOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
-        const v2 = options?.v2 ?? this.defaultFormat.v2;
+    async random<const O extends GetRandomPostOptions = PF>(options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
+        const v1 = options?.v1 ?? this.defaultFormat.v1;
         const mode = options?.mode ?? this.defaultFormat.mode;
         return posts_random({
             client: this.client,
-            query: { ...options, v2, mode },
+            query: { ...options, v1, mode },
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
-            return wrapPost(this.e621, raw, v2, mode) as PostFormat<O["v2"], O["mode"], PF>;
+            const raw = (v1 ? (data as { post: LegacyPostData }).post : data) as AnyPostData;
+            return wrapPost(this.e621, raw, v1, mode) as PostFormat<O["v1"], O["mode"], PF>;
         });
     }
 
@@ -290,34 +291,34 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
 
     @OperationID("posts#index")
     async search<const O extends SearchPostsOptions = PF>(options?: O): Promise<PostSearchResult<O, PF>> {
-        const v2 = options?.v2 ?? this.defaultFormat.v2;
+        const v1 = options?.v1 ?? this.defaultFormat.v1;
         const mode = options?.mode ?? this.defaultFormat.mode;
         return posts_index({
             client: this.client,
-            query: { ...options, v2, mode },
+            query: { ...options, v1, mode },
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
             if (options?.md5) {
-                const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
-                return wrapPost(this.e621, raw, v2, mode) as PostSearchResult<O, PF>;
+                const raw = (v1 ? (data as { post: LegacyPostData }).post : data) as AnyPostData;
+                return wrapPost(this.e621, raw, v1, mode) as PostSearchResult<O, PF>;
             }
-            const raw = (v2 ? data : (data as { posts: Array<LegacyPostData> }).posts) as Array<AnyPostData>;
-            return wrapPosts(this.e621, raw, v2, mode) as PostSearchResult<O, PF>;
+            const raw = (v1 ? (data as { posts: Array<LegacyPostData> }).posts : data) as Array<AnyPostData>;
+            return wrapPosts(this.e621, raw, v1, mode) as PostSearchResult<O, PF>;
         });
     }
 
     @OperationID("posts#show_seq")
-    async sequence<const O extends GetPostInSequenceOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
-        const v2 = options?.v2 ?? this.defaultFormat.v2;
+    async sequence<const O extends GetPostInSequenceOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
+        const v1 = options?.v1 ?? this.defaultFormat.v1;
         const mode = options?.mode ?? this.defaultFormat.mode;
         return posts_showSeq({
             client: this.client,
             path: { id },
-            query: { ...options, v2, mode },
+            query: { ...options, v1, mode },
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
-            return wrapPost(this.e621, raw, v2, mode) as PostFormat<O["v2"], O["mode"], PF>;
+            const raw = (v1 ? (data as { post: LegacyPostData }).post : data) as AnyPostData;
+            return wrapPost(this.e621, raw, v1, mode) as PostFormat<O["v1"], O["mode"], PF>;
         });
     }
 
@@ -330,37 +331,37 @@ export default class Posts<PF extends PostFormatOptions = NoV2Options> extends B
     }
 
     @OperationID("posts#update")
-    async update<const O extends UpdatePostOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
-        const { v2: rawV2, mode: rawMode, ...body } = (options ?? {}) as UpdatePostOptions;
-        const v2 = rawV2 ?? this.defaultFormat.v2;
+    async update<const O extends UpdatePostOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
+        const { v1: rawV1, mode: rawMode, ...body } = (options ?? {}) as UpdatePostOptions;
+        const v1 = rawV1 ?? this.defaultFormat.v1;
         const mode = rawMode ?? this.defaultFormat.mode;
         return posts_update({
             client: this.client,
             path: { id },
-            query: { v2, mode },
-            // `body` is typed as `UpdatePostOptions` minus `v2`/`mode`, which still carries the query
+            query: { v1, mode },
+            // `body` is typed as `UpdatePostOptions` minus `v1`/`mode`, which still carries the query
             // transform's raw shape alongside the body one - cast to just the body transform so
             // `prefixKeys` resolves against the right raw shape.
             body: prefixKeys(body as TransformDataBodyToOptions<PostsUpdateData>, "post"),
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
-            return wrapPost(this.e621, raw, v2, mode) as PostFormat<O["v2"], O["mode"], PF>;
+            const raw = (v1 ? (data as { post: LegacyPostData }).post : data) as AnyPostData;
+            return wrapPost(this.e621, raw, v1, mode) as PostFormat<O["v1"], O["mode"], PF>;
         });
     }
 
     @OperationID("posts#update_iqdb")
-    async updateIqdb<const O extends UpdatePostIqdbOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
-        const v2 = options?.v2 ?? this.defaultFormat.v2;
+    async updateIqdb<const O extends UpdatePostIqdbOptions = PF>(id: number, options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
+        const v1 = options?.v1 ?? this.defaultFormat.v1;
         const mode = options?.mode ?? this.defaultFormat.mode;
         return posts_updateIqdb({
             client: this.client,
             path: { id },
-            query: { ...options, v2, mode },
+            query: { ...options, v1, mode },
         }).then((res) => {
             const data = this._handleResponse(res, 200, true);
-            const raw = (v2 ? data : (data as { post: LegacyPostData }).post) as AnyPostData;
-            return wrapPost(this.e621, raw, v2, mode) as PostFormat<O["v2"], O["mode"], PF>;
+            const raw = (v1 ? (data as { post: LegacyPostData }).post : data) as AnyPostData;
+            return wrapPost(this.e621, raw, v1, mode) as PostFormat<O["v1"], O["mode"], PF>;
         });
     }
 }

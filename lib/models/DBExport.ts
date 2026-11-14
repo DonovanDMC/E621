@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { DBExport as DBExportData } from "../generated/types.js";
+import type { DBExport as DBExportData } from "e621-openapi/types";
 
 interface DBExport extends DBExportData {}
 /** @category Models */

@@ -1,10 +1,11 @@
-import { newsUpdates_create, newsUpdates_destroy, newsUpdates_update, newsUpdates_index } from "../generated/sdk.js";
+import { newsUpdates_create, newsUpdates_destroy, newsUpdates_update, newsUpdates_index } from "e621-openapi/sdk";
+
 import NewsUpdate from "../models/NewsUpdate.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { NewsUpdatesCreateData, NewsUpdatesUpdateData, NewsUpdatesIndexData } from "../generated/types.js";
+import type { NewsUpdatesCreateData, NewsUpdatesUpdateData, NewsUpdatesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateNewsUpdateOptions extends TransformDataBodyToOptions<NewsUpdatesCreateData> {}

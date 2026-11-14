@@ -3,8 +3,8 @@ import { type ExtractValue, OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Comment as CommentData, CommentVotesCreateData, WarningRecordType } from "../generated/types.js";
 import type { UpdateCommentOptions, CommentsWarningResponse } from "../modules/Comments.js";
+import type { Comment as CommentData, CommentVotesCreateData, WarningRecordType } from "e621-openapi/types";
 
 interface Comment extends CommentData {}
 /** @category Models */

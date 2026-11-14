@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
-import source from "../lib/generated/source.json" with { type: "json" };
+import source from "../openapi.json" with { type: "json" };
 
 import type { OpenAPIV3 } from "openapi-types";
 
@@ -14,8 +14,6 @@ async function* walk(dir: string): AsyncGenerator<string> {
     for (const entry of await readdir(dir, { withFileTypes: true })) {
         const path = join(dir, entry.name);
         if (entry.isDirectory()) {
-            // the generated SDK itself isn't hand-written, so it can't have a typo'd @OperationID/@Schema
-            if (entry.name === "generated") continue;
             yield* walk(path);
         } else if (entry.name.endsWith(".ts")) {
             yield path;

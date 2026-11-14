@@ -1,9 +1,10 @@
-import { staffIpAddrs_export, staffIpAddrs_index } from "../generated/sdk.js";
+import { staffIpAddrs_export, staffIpAddrs_index } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffIpAddrsExportData, StaffIpAddrsExportResponses, StaffIpAddrsIndexData, StaffIpAddrsIndexResponses } from "../generated/types.js";
+import type { StaffIpAddrsExportData, StaffIpAddrsExportResponses, StaffIpAddrsIndexData, StaffIpAddrsIndexResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchStaffIpAddrsOptions extends TransformDataQueryToOptions<StaffIpAddrsIndexData> {}

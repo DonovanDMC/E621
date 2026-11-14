@@ -1,11 +1,12 @@
+import { createClient } from "e621-openapi/client/client";
+import { createConfig } from "e621-openapi/client/utils";
+
 import Debug from "./Debug.js";
 import { parseRetryAfter } from "./errors.js";
-import { createClient } from "./generated/client/client.js";
-import { createConfig } from "./generated/client/utils.js";
 import { VERSION } from "./version.js";
 
-import type { Client, Config } from "./generated/client/types.js";
-import type { NoV2Options, PostFormatOptions } from "./modules/posts/Format.js";
+import type { NoV1Options, PostFormatOptions } from "./modules/posts/Format.js";
+import type { Client, Config } from "e621-openapi/client/types";
 
 /** @category Main */
 export interface RatelimitInfo {
@@ -64,7 +65,7 @@ export interface RatelimitOptions {
 export type AuthToken = string | (() => string | null | undefined | Promise<string | null | undefined>);
 
 /** @category Main */
-export interface Options<PF extends PostFormatOptions = NoV2Options> {
+export interface Options<PF extends PostFormatOptions = NoV1Options> {
     /**
      * The api key you want to authenticate with (Account -> Manage API Access)
      * @default none
@@ -87,11 +88,11 @@ export interface Options<PF extends PostFormatOptions = NoV2Options> {
      */
     baseURL?: string;
     /**
-     * The v2/mode format every post-returning method across the lib falls back to when called without
-     * explicit `v2`/`mode` options (e.g. `posts.get()`, `posts.search()`, `favorites.search()`,
+     * The v1/mode format every post-returning method across the lib falls back to when called without
+     * explicit `v1`/`mode` options (e.g. `posts.get()`, `posts.search()`, `favorites.search()`,
      * `popular.get()`, `iqdbQueries.get()`/`.post()`, and convenience methods on returned post models like
      * `post.update()`). Per-call options still take priority over this.
-     * @default legacy (v2: false)
+     * @default basic (v1: false)
      */
     defaultPostFormat?: PF;
     /**
@@ -160,7 +161,7 @@ export interface E621ClientResult {
  *
  * @category Main
  */
-export function createE621Client<const PF extends PostFormatOptions = NoV2Options>(options?: Options<PF>): E621ClientResult {
+export function createE621Client<const PF extends PostFormatOptions = NoV1Options>(options?: Options<PF>): E621ClientResult {
     const resolved: InstanceOptions = {
         authKey: options?.authKey ?? null,
         authToken: options?.authToken ?? null,

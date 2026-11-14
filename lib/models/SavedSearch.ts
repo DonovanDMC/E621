@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { SavedSearch as SavedSearchData } from "../generated/types.js";
 import type { UpdateSavedSearchOptions } from "../modules/SavedSearches.js";
+import type { SavedSearch as SavedSearchData } from "e621-openapi/types";
 
 interface SavedSearch extends SavedSearchData {}
 /** @category Models */

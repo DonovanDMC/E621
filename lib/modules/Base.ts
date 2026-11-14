@@ -1,8 +1,8 @@
 import { RatelimitError, UnexpectedResponseError } from "../errors.js";
 
-import type { Client } from "../generated/client/types.js";
 import type E621 from "../index.js";
-import type { NoV2Options, PostFormatOptions } from "./posts/Format.js";
+import type { NoV1Options, PostFormatOptions } from "./posts/Format.js";
+import type { Client } from "e621-openapi/client/types";
 
 interface AnyResponse<D = unknown> {
     data?: D;
@@ -21,7 +21,7 @@ type UnwrapData<R extends AnyResponse> = DataType<R> extends Array<infer U> ? U 
  * under on {@link E621} (e.g. `"posts"`) - used by `createStandalone`. TypeScript can't enforce abstract
  * static members, so this is a convention rather than a compiler-checked contract.
  */
-export default abstract class Base<PF extends PostFormatOptions = NoV2Options> {
+export default abstract class Base<PF extends PostFormatOptions = NoV1Options> {
     protected client!: Client;
     protected e621!: E621<PF>;
     /**

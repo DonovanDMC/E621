@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TagSubscription as TagSubscriptionData } from "../generated/types.js";
+import type { TagSubscription as TagSubscriptionData } from "e621-openapi/types";
 
 interface TagSubscription extends TagSubscriptionData {}
 /** @category Models */

@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { UploadWhitelist as UploadWhitelistData } from "../generated/types.js";
 import type { UpdateUploadWhitelistOptions } from "../modules/UploadWhitelists.js";
+import type { UploadWhitelist as UploadWhitelistData } from "e621-openapi/types";
 
 interface UploadWhitelist extends UploadWhitelistData {}
 /** @category Models */

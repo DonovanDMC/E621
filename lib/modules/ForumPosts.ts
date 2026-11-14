@@ -7,7 +7,8 @@ import {
     forumPosts_warning,
     forumPosts_index,
     forumPosts_unhide,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import ForumPost from "../models/ForumPost.js";
 import {
     OperationID,
@@ -25,7 +26,7 @@ import type {
     ForumPostsWarningResponses,
     ForumPostsIndexData,
     WarningRecordType,
-} from "../generated/types.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateForumPostOptions extends TransformDataBodyToOptions<ForumPostsCreateData> {}

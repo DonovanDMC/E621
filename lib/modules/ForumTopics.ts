@@ -9,13 +9,14 @@ import {
     forumTopics_subscribe,
     forumTopics_unhide,
     forumTopics_unsubscribe,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import ForumTopic from "../models/ForumTopic.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ForumTopicsCreateData, ForumTopicsIndexData, ForumTopicsUpdateData } from "../generated/types.js";
+import type { ForumTopicsCreateData, ForumTopicsIndexData, ForumTopicsUpdateData } from "e621-openapi/types";
 
 // The `original_post_attributes` sub-object is doubly-nested (`forum_topic[original_post_attributes][id]`)
 // - the generic bracket-stripping `TransformDataBodyToOptions` only understands one level of nesting, so

@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffFile as StaffFileData } from "../generated/types.js";
 import type { UpdateStaffFileOptions } from "../modules/StaffFiles.js";
+import type { StaffFile as StaffFileData } from "e621-openapi/types";
 
 interface StaffFile extends StaffFileData {}
 /** @category Models */

@@ -1,10 +1,11 @@
-import { wikiPageVersions_show, wikiPageVersions_index } from "../generated/sdk.js";
+import { wikiPageVersions_show, wikiPageVersions_index } from "e621-openapi/sdk";
+
 import WikiPageVersion from "../models/WikiPageVersion.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { WikiPageVersionsIndexData } from "../generated/types.js";
+import type { WikiPageVersionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchWikiPageVersionsOptions extends TransformDataQueryToOptions<WikiPageVersionsIndexData> {}

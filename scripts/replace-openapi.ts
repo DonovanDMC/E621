@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 
 import { type OpenAPIV3 } from "openapi-types";
 
-import source from "../lib/generated/source.json" with { type: "json" };
+import source from "../openapi.json" with { type: "json" };
 import pkg from "../package.json" with { type: "json" };
 
 async function* walk(dir: string): AsyncGenerator<string> {

@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffWiki as StaffWikiData } from "../generated/types.js";
 import type { UpdateStaffWikiOptions } from "../modules/StaffWikis.js";
+import type { StaffWiki as StaffWikiData } from "e621-openapi/types";
 
 interface StaffWiki extends StaffWikiData {}
 /** @category Models */

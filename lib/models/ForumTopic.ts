@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ForumTopic as ForumTopicData } from "../generated/types.js";
 import type { UpdateForumTopicOptions } from "../modules/ForumTopics.js";
+import type { ForumTopic as ForumTopicData } from "e621-openapi/types";
 
 interface ForumTopic extends ForumTopicData {}
 /** @category Models */

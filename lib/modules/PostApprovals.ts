@@ -1,5 +1,6 @@
-import { staffPostApprovals_create, postApprovals_index, staffPostApprovals_destroy } from "../generated/sdk.js";
-import { type PostApprovalsIndexData } from "../generated/types.js";
+import { staffPostApprovals_create, postApprovals_index, staffPostApprovals_destroy } from "e621-openapi/sdk";
+import { type PostApprovalsIndexData } from "e621-openapi/types";
+
 import PostApproval from "../models/PostApproval.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 

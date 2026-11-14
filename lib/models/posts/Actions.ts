@@ -2,11 +2,10 @@ import { PostVotesCreateResponse } from "../../modules/PostVotes.js";
 import { type ExtractValue, OperationID } from "../../util.js";
 import Base from "../Base.js";
 
-import type { PostVotesCreateData, RawPost } from "../../generated/types.js";
 import type { FavoritesCreateResponse, FavoritesDestroyResponse } from "../../modules/Favorites.js";
 import type { DisapprovePostOptions } from "../../modules/PostDisapprovals.js";
 import type { FlagPostOptions } from "../../modules/PostFlags.js";
-import type { NoV2Options, PostFormat, PostFormatOptions } from "../../modules/posts/Format.js";
+import type { NoV1Options, PostFormat, PostFormatOptions } from "../../modules/posts/Format.js";
 import type {
     DeletePostOptions,
     GetPostInSequenceOptions,
@@ -24,9 +23,10 @@ import type MinimalUser from "../MinimalUser.js";
 import type Post from "../Post.js";
 import type PostDisapproval from "../PostDisapproval.js";
 import type PostFlag from "../PostFlag.js";
+import type { PostVotesCreateData, RawPost } from "e621-openapi/types";
 
 /** @category Models */
-export default abstract class PostActions<T extends { id: number }, PF extends PostFormatOptions = NoV2Options> extends Base<T, PF> {
+export default abstract class PostActions<T extends { id: number }, PF extends PostFormatOptions = NoV1Options> extends Base<T, PF> {
     declare id: number;
 
     @OperationID("staff/post/posts#ai_check")
@@ -80,7 +80,7 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("posts#mark_as_translated")
-    async markTranslated<const O extends MarkPostAsTranslatedOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
+    async markTranslated<const O extends MarkPostAsTranslatedOptions = PF>(options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
         return this.e621.posts.markTranslated(this.id, options);
     }
 
@@ -125,7 +125,7 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("posts#show_seq")
-    async sequence<const O extends GetPostInSequenceOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
+    async sequence<const O extends GetPostInSequenceOptions = PF>(options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
         return this.e621.posts.sequence(this.id, options);
     }
 
@@ -150,12 +150,12 @@ export default abstract class PostActions<T extends { id: number }, PF extends P
     }
 
     @OperationID("posts#update")
-    async update<const O extends UpdatePostOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
+    async update<const O extends UpdatePostOptions = PF>(options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
         return this.e621.posts.update(this.id, options);
     }
 
     @OperationID("posts#update_iqdb")
-    async updateIqdb<const O extends UpdatePostIqdbOptions = PF>(options?: O): Promise<PostFormat<O["v2"], O["mode"], PF>> {
+    async updateIqdb<const O extends UpdatePostIqdbOptions = PF>(options?: O): Promise<PostFormat<O["v1"], O["mode"], PF>> {
         return this.e621.posts.updateIqdb(this.id, options);
     }
 }

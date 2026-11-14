@@ -1,10 +1,11 @@
-import { poolVersions_index } from "../generated/sdk.js";
+import { poolVersions_index } from "e621-openapi/sdk";
+
 import PoolVersion from "../models/PoolVersion.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { PoolVersionsIndexData } from "../generated/types.js";
+import type { PoolVersionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchPoolVersionsOptions extends TransformDataQueryToOptions<PoolVersionsIndexData> {}

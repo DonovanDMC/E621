@@ -6,13 +6,14 @@ import {
     avoidPostings_show,
     avoidPostings_index,
     avoidPostings_undelete,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import AvoidPosting from "../models/AvoidPosting.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { AvoidPostingsCreateData, AvoidPostingsUpdateData, AvoidPostingsIndexData } from "../generated/types.js";
+import type { AvoidPostingsCreateData, AvoidPostingsUpdateData, AvoidPostingsIndexData } from "e621-openapi/types";
 
 // The `artist_attributes` sub-object is doubly-nested (`avoid_posting[artist_attributes][name]`) - the
 // generic bracket-stripping `TransformDataBodyToOptions` only understands one level of nesting, so these

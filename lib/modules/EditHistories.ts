@@ -1,10 +1,11 @@
-import { editHistories_show, editHistories_index } from "../generated/sdk.js";
+import { editHistories_show, editHistories_index } from "e621-openapi/sdk";
+
 import EditHistory from "../models/EditHistory.js";
 import { OperationID, type ExtractValue, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { EditHistoriesShowData, EditHistoriesIndexData } from "../generated/types.js";
+import type { EditHistoriesShowData, EditHistoriesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchEditHistoriesOptions extends TransformDataQueryToOptions<EditHistoriesIndexData> {}

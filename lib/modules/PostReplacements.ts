@@ -7,13 +7,14 @@ import {
     postReplacements_index,
     postReplacements_togglePenalize,
     postReplacements_transfer,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
 import {
     type PostReplacementsCreateResponses,
     type LegacyPost as LegacyPostData,
     type PostReplacementsIndexData,
     type PostReplacementsCreateData,
-} from "../generated/types.js";
+} from "e621-openapi/types";
+
 import Post from "../models/Post.js";
 import PostReplacement from "../models/PostReplacement.js";
 import {
@@ -67,7 +68,7 @@ export default class PostReplacements extends Base {
             path: { id },
         }).then((res) => {
             const data = this._handleResponse(res, 201, true);
-            // NOTE: the spec still references the "Post" (v2 base) schema here, but this endpoint has no v2 param - the response is actually legacy-shaped.
+            // NOTE: the spec still references the "Post" (base) schema here, but this endpoint has no v1 param - the response is actually legacy-shaped.
             return new Post(this.e621, data.post as unknown as LegacyPostData);
         });
     }

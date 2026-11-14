@@ -1,9 +1,10 @@
-import { staffWikiRefs_bulkCreate, staffWikiRefs_create, staffWikiRefs_destroy } from "../generated/sdk.js";
+import { staffWikiRefs_bulkCreate, staffWikiRefs_create, staffWikiRefs_destroy } from "e621-openapi/sdk";
+
 import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffWikiRefsCreateData } from "../generated/types.js";
+import type { StaffWikiRefsCreateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateStaffWikiRefOptions extends TransformDataBodyToOptions<StaffWikiRefsCreateData> {}

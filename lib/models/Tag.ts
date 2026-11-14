@@ -4,8 +4,8 @@ import Base from "./Base.js";
 
 import type TagCorrection from "./TagCorrection.js";
 import type TagPreview from "./TagPreview.js";
-import type { Tag as TagData } from "../generated/types.js";
 import type { UpdateTagOptions } from "../modules/Tags.js";
+import type { Tag as TagData } from "e621-openapi/types";
 
 interface Tag extends TagData {}
 /** @category Models */

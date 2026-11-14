@@ -1,9 +1,10 @@
-import { doorkeeperOpenidConnectUserinfo_show } from "../generated/sdk.js";
+import { doorkeeperOpenidConnectUserinfo_show } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { DoorkeeperOpenidConnectUserinfoShowResponses } from "../generated/types.js";
+import type { DoorkeeperOpenidConnectUserinfoShowResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface DoorkeeperOpenidConnectUserinfoShowResponse extends GetResponse<DoorkeeperOpenidConnectUserinfoShowResponses, 200> {}

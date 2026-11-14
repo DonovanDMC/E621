@@ -1,9 +1,10 @@
-import { stats_index } from "../generated/sdk.js";
+import { stats_index } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StatsIndexResponses } from "../generated/types.js";
+import type { StatsIndexResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface StatsIndexResponse extends GetResponse<StatsIndexResponses, 200> {}

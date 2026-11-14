@@ -1,4 +1,5 @@
-import { staffUserAlts_show } from "../generated/sdk.js";
+import { staffUserAlts_show } from "e621-openapi/sdk";
+
 import UserAlt from "../models/UserAlt.js";
 import { OperationID } from "../util.js";
 

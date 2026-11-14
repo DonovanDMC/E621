@@ -1,4 +1,5 @@
-import { searchTrends_clearCache, searchTrends_purge, searchTrends_rising, searchTrends_index, searchTrends_updateSettings, searchTrends_track } from "../generated/sdk.js";
+import { searchTrends_clearCache, searchTrends_purge, searchTrends_rising, searchTrends_index, searchTrends_updateSettings, searchTrends_track } from "e621-openapi/sdk";
+
 import RisingSearchTrend from "../models/RisingSearchTrend.js";
 import SearchTrend from "../models/SearchTrend.js";
 import { GetResponse, OperationID, prefixKeys, TransformDataBodyToOptions, TransformDataQueryToOptions } from "../util.js";
@@ -12,7 +13,7 @@ import type {
     SearchTrendsUpdateSettingsData,
     SearchTrendsUpdateSettingsResponses,
     SearchTrendsTrackResponses,
-} from "../generated/types.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface ListSearchTrendsOptions extends TransformDataQueryToOptions<SearchTrendsIndexData> {}

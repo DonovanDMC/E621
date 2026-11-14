@@ -1,10 +1,11 @@
-import { staffWikis_claim, staffWikis_create, staffWikis_destroy, staffWikis_update, staffWikis_show, staffWikis_index, staffWikis_unclaim, staffWikis_revert } from "../generated/sdk.js";
+import { staffWikis_claim, staffWikis_create, staffWikis_destroy, staffWikis_update, staffWikis_show, staffWikis_index, staffWikis_unclaim, staffWikis_revert } from "e621-openapi/sdk";
+
 import StaffWiki from "../models/StaffWiki.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffWikisCreateData, StaffWikisUpdateData, StaffWikisIndexData } from "../generated/types.js";
+import type { StaffWikisCreateData, StaffWikisUpdateData, StaffWikisIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchStaffWikisOptions extends TransformDataQueryToOptions<StaffWikisIndexData> {}

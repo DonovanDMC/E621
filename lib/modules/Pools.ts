@@ -8,7 +8,8 @@ import {
     poolElements_destroy,
     pools_revert,
     pools_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Pool from "../models/Pool.js";
 import {
     GetResponse,
@@ -20,7 +21,7 @@ import {
 
 import Base from "./Base.js";
 
-import type { PoolsCreateData, PoolsUpdateData, PoolElementsRecentResponses, PoolsIndexData } from "../generated/types.js";
+import type { PoolsCreateData, PoolsUpdateData, PoolElementsRecentResponses, PoolsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreatePoolOptions extends TransformDataBodyToOptions<PoolsCreateData> {}

@@ -3,8 +3,8 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 
 import type ArtistURL from "./ArtistURL.js";
-import type { Artist as ArtistData } from "../generated/types.js";
 import type { UpdateArtistOptions } from "../modules/Artists.js";
+import type { Artist as ArtistData } from "e621-openapi/types";
 
 interface Artist extends ArtistData {}
 /** @category Models */

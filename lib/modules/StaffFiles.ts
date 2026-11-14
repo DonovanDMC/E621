@@ -1,10 +1,11 @@
-import { staffFiles_create, staffFiles_destroy, staffFiles_update, staffFiles_show, staffFiles_index } from "../generated/sdk.js";
+import { staffFiles_create, staffFiles_destroy, staffFiles_update, staffFiles_show, staffFiles_index } from "e621-openapi/sdk";
+
 import StaffFile from "../models/StaffFile.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffFilesCreateData, StaffFilesUpdateData, StaffFilesIndexData } from "../generated/types.js";
+import type { StaffFilesCreateData, StaffFilesUpdateData, StaffFilesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchStaffFilesOptions extends TransformDataQueryToOptions<StaffFilesIndexData> {}

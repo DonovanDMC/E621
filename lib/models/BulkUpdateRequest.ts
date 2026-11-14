@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { BulkUpdateRequest as BulkUpdateRequestData } from "../generated/types.js";
 import type { UpdateBulkUpdateRequestOptions } from "../modules/BulkUpdateRequests.js";
+import type { BulkUpdateRequest as BulkUpdateRequestData } from "e621-openapi/types";
 
 interface BulkUpdateRequest extends BulkUpdateRequestData {}
 /** @category Models */

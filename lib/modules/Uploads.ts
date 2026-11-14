@@ -1,11 +1,12 @@
-import { uploads_show, uploads_index, uploads_create } from "../generated/sdk.js";
+import { uploads_show, uploads_index, uploads_create } from "e621-openapi/sdk";
+
 import Upload from "../models/Upload.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
-import { type NoV2Options, type PostFormat, type PostFormatOptions } from "./posts/Format.js";
+import { type NoV1Options, type PostFormat, type PostFormatOptions } from "./posts/Format.js";
 
-import type { UploadsIndexData, UploadsCreateData } from "../generated/types.js";
+import type { UploadsIndexData, UploadsCreateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchUploadsOptions extends TransformDataQueryToOptions<UploadsIndexData> {}
@@ -26,13 +27,13 @@ export interface WaitForUploadOptions {
 }
 
 /** @category Modules */
-export default class Uploads<PF extends PostFormatOptions = NoV2Options> extends Base<PF> {
+export default class Uploads<PF extends PostFormatOptions = NoV1Options> extends Base<PF> {
     static readonly moduleKey = "uploads" as const;
     /**
      * Uploads are processed asynchronously, if the upload isn't finished right away this waits for it (see {@link Uploads.wait}).
      */
     @OperationID("uploads#create")
-    async create(options: UploadPostOptions, waitOptions?: WaitForUploadOptions): Promise<PostFormat<PF["v2"], PF["mode"]>> {
+    async create(options: UploadPostOptions, waitOptions?: WaitForUploadOptions): Promise<PostFormat<PF["v1"], PF["mode"]>> {
         return uploads_create({
             client: this.client,
             body: prefixKeys(options, "upload"),
@@ -41,7 +42,7 @@ export default class Uploads<PF extends PostFormatOptions = NoV2Options> extends
             const postID = data.post_id ?? (await this.wait(data.upload_id, waitOptions)).post_id!;
             const post = await this.e621.posts.get(postID);
             if (post === null) throw new Error(`Post not found after upload: ${postID}`);
-            return post as PostFormat<PF["v2"], PF["mode"]>;
+            return post as PostFormat<PF["v1"], PF["mode"]>;
         });
     }
 

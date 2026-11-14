@@ -5,13 +5,14 @@ import {
     staffNotes_show,
     staffNotes_index,
     staffNotes_undelete,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import StaffNote from "../models/StaffNote.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffNotesCreateData, StaffNotesUpdateData, StaffNotesIndexData } from "../generated/types.js";
+import type { StaffNotesCreateData, StaffNotesUpdateData, StaffNotesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateStaffNoteOptions extends TransformDataBodyToOptions<StaffNotesCreateData> {}

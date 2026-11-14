@@ -1,10 +1,11 @@
-import { staffWikiVersions_show, staffWikiVersions_index } from "../generated/sdk.js";
+import { staffWikiVersions_show, staffWikiVersions_index } from "e621-openapi/sdk";
+
 import StaffWikiVersion from "../models/StaffWikiVersion.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffWikiVersionsIndexData } from "../generated/types.js";
+import type { StaffWikiVersionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchStaffWikiVersionsOptions extends TransformDataQueryToOptions<StaffWikiVersionsIndexData> {}

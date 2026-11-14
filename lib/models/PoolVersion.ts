@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { PoolVersion as PoolVersionData } from "../generated/types.js";
+import type { PoolVersion as PoolVersionData } from "e621-openapi/types";
 
 interface PoolVersion extends PoolVersionData {}
 /** @category Models */

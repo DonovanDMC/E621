@@ -1,9 +1,10 @@
-import { staffReowner_create } from "../generated/sdk.js";
+import { staffReowner_create } from "e621-openapi/sdk";
+
 import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffReownerCreateData } from "../generated/types.js";
+import type { StaffReownerCreateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateStaffReownerOptions extends TransformDataBodyToOptions<StaffReownerCreateData> {}

@@ -1,4 +1,5 @@
-import { tagCorrections_create, tagCorrections_show } from "../generated/sdk.js";
+import { tagCorrections_create, tagCorrections_show } from "e621-openapi/sdk";
+
 import TagCorrection from "../models/TagCorrection.js";
 import { OperationID } from "../util.js";
 

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { after, before, beforeEach, describe, it } from "node:test";
 
 import E621 from "../dist/lib/index.js";
-import { PostVersion, SavedSearch, TagSubscription } from "../dist/lib/models/index.js";
+import { ModAction, PostVersion, SavedSearch, TagSubscription } from "../dist/lib/models/index.js";
 
 type Handler = (request: Request) => Response;
 let routes: Array<[method: string, path: string, handler: Handler]>;
@@ -36,7 +36,7 @@ function upload(status: string, extra: Record<string, unknown> = {}): Record<str
     return { id: 5, status, post_id: null, error_message: null, duplicate_post_id: null, ...extra };
 }
 
-const post = { post: { id: 10, tags: "tag1" } };
+const post = { id: 10, tags: ["tag1"] };
 
 describe("response status codes", () => {
     it("post versions search reads the 200 array", async () => {
@@ -119,5 +119,18 @@ describe("saved searches and tag subscriptions", () => {
         assert.ok(result.added[0] instanceof TagSubscription);
         assert.equal(result.skipped[0]?.reason, "does not exist");
         assert.equal(new URLSearchParams(body).get("tag_names"), "fox nope");
+    });
+});
+
+describe("mod actions", () => {
+    it("keeps the action's values and narrows with is()", async () => {
+        const e621 = new E621();
+        routes.push(["GET", "/mod_actions/1.json", () => json({ id: 1, creator_id: 2, created_at: "", updated_at: "", action: "artist_delete", values: { artist_id: 3, artist_name: "foo" } })]);
+        const modAction = await e621.modActions.get(1);
+        assert.ok(modAction instanceof ModAction);
+        assert.equal(modAction.is("pool_delete"), false);
+        assert.ok(modAction.is("artist_delete"));
+        assert.equal(modAction.values.artist_name, "foo");
+        assert.equal(modAction.values.artist_id, 3);
     });
 });

@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { WikiPage as WikiPageData } from "../generated/types.js";
 import type { UpdateWikiPageOptions } from "../modules/WikiPages.js";
+import type { WikiPage as WikiPageData } from "e621-openapi/types";
 
 interface WikiPage extends WikiPageData {}
 /** @category Models */

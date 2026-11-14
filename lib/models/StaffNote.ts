@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffNote as StaffNoteData } from "../generated/types.js";
 import type { UpdateStaffNoteOptions } from "../modules/StaffNotes.js";
+import type { StaffNote as StaffNoteData } from "e621-openapi/types";
 
 interface StaffNote extends StaffNoteData {}
 /** @category Models */

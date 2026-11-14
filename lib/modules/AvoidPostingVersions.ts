@@ -1,10 +1,11 @@
-import { avoidPostingVersions_index } from "../generated/sdk.js";
+import { avoidPostingVersions_index } from "e621-openapi/sdk";
+
 import AvoidPostingVersion from "../models/AvoidPostingVersion.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { AvoidPostingVersionsIndexData } from "../generated/types.js";
+import type { AvoidPostingVersionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchAvoidPostingVersionsOptions extends TransformDataQueryToOptions<AvoidPostingVersionsIndexData> {}

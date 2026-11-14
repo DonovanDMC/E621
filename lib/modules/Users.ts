@@ -16,7 +16,8 @@ import {
     users_customStyle,
     users_disableKarmaFree,
     users_toggleKarmaFree,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import FullCurrentUser from "../models/FullCurrentUser.js";
 import FullUser from "../models/FullUser.js";
 import User from "../models/User.js";
@@ -32,7 +33,7 @@ import type {
     UsersDisableUploadsData,
     UsersDisableKarmaFreeData,
     UsersUploadTagsResponses,
-} from "../generated/types.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchUsersOptions extends TransformDataQueryToOptions<UsersIndexData> {}

@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { IPBan as IPBanData } from "../generated/types.js";
+import type { IPBan as IPBanData } from "e621-openapi/types";
 
 interface IPBan extends IPBanData {}
 /** @category Models */

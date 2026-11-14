@@ -4,13 +4,14 @@ import {
     tickets_show,
     tickets_index,
     tickets_unclaim,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Ticket from "../models/Ticket.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TicketsUpdateData, TicketsIndexData } from "../generated/types.js";
+import type { TicketsUpdateData, TicketsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface UpdateTicketOptions extends TransformDataBodyToOptions<TicketsUpdateData> {}

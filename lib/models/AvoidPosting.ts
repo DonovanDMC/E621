@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { AvoidPosting as AvoidPostingData } from "../generated/types.js";
 import type { UpdateAvoidPostingOptions } from "../modules/AvoidPostings.js";
+import type { AvoidPosting as AvoidPostingData } from "e621-openapi/types";
 
 interface AvoidPosting extends AvoidPostingData {}
 /** @category Models */

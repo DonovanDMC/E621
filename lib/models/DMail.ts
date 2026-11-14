@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { DMail as DMailData } from "../generated/types.js";
+import type { DMail as DMailData } from "e621-openapi/types";
 
 interface DMail extends DMailData {}
 /** @category Models */

@@ -1,9 +1,10 @@
-import { staffVoteTrends_index } from "../generated/sdk.js";
+import { staffVoteTrends_index } from "e621-openapi/sdk";
+
 import { OperationID, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffVoteTrendsIndexData, VoteTrend } from "../generated/types.js";
+import type { StaffVoteTrendsIndexData, VoteTrend } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface GetStaffVoteTrendsOptions extends TransformDataQueryToOptions<StaffVoteTrendsIndexData> {}

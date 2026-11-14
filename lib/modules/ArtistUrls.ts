@@ -1,10 +1,11 @@
-import { artistUrls_index } from "../generated/sdk.js";
+import { artistUrls_index } from "e621-openapi/sdk";
+
 import ArtistURL from "../models/ArtistURL.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ArtistUrlsIndexData } from "../generated/types.js";
+import type { ArtistUrlsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchArtistUrlsOptions extends TransformDataQueryToOptions<ArtistUrlsIndexData> {}

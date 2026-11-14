@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Blip as BlipData, WarningRecordType } from "../generated/types.js";
 import type { UpdateBlipOptions, BlipsWarningResponse } from "../modules/Blips.js";
+import type { Blip as BlipData, WarningRecordType } from "e621-openapi/types";
 
 interface Blip extends BlipData {}
 /** @category Models */

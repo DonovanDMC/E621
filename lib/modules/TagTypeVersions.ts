@@ -1,10 +1,11 @@
-import { tagTypeVersions_index } from "../generated/sdk.js";
+import { tagTypeVersions_index } from "e621-openapi/sdk";
+
 import TagTypeVersion from "../models/TagTypeVersion.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TagTypeVersionsIndexData } from "../generated/types.js";
+import type { TagTypeVersionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchTagTypeVersionsOptions extends TransformDataQueryToOptions<TagTypeVersionsIndexData> {}

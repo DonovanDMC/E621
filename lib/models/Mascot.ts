@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Mascot as MascotData } from "../generated/types.js";
 import type { UpdateMascotOptions } from "../modules/Mascots.js";
+import type { Mascot as MascotData } from "e621-openapi/types";
 
 interface Mascot extends MascotData {}
 /** @category Models */

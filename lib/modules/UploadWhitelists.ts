@@ -4,7 +4,8 @@ import {
     uploadWhitelists_destroy,
     uploadWhitelists_update,
     uploadWhitelists_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import UploadWhitelist from "../models/UploadWhitelist.js";
 import {
     GetResponse,
@@ -16,7 +17,7 @@ import {
 
 import Base from "./Base.js";
 
-import type { UploadWhitelistsIsAllowedResponses, UploadWhitelistsCreateData, UploadWhitelistsUpdateData, UploadWhitelistsIndexData } from "../generated/types.js";
+import type { UploadWhitelistsIsAllowedResponses, UploadWhitelistsCreateData, UploadWhitelistsUpdateData, UploadWhitelistsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateUploadWhitelistOptions extends TransformDataBodyToOptions<UploadWhitelistsCreateData> {}

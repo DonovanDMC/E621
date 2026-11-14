@@ -5,13 +5,14 @@ import {
     dmails_markAsRead,
     dmails_markAsUnread,
     dmails_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import DMail from "../models/DMail.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { DmailsIndexData } from "../generated/types.js";
+import type { DmailsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchDMailsOptions extends TransformDataQueryToOptions<DmailsIndexData> {}

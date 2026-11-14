@@ -1,10 +1,11 @@
-import { postVotes_create, postVotes_delete, postVotes_destroy, postVotes_lock, postVotes_index } from "../generated/sdk.js";
+import { postVotes_create, postVotes_delete, postVotes_destroy, postVotes_lock, postVotes_index } from "e621-openapi/sdk";
+
 import PostVote from "../models/PostVote.js";
 import { GetResponse, OperationID, type ExtractValue, TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { PostVotesCreateData, PostVotesCreateResponses, PostVotesIndexData } from "../generated/types.js";
+import type { PostVotesCreateData, PostVotesCreateResponses, PostVotesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export type PostVoteScore = ExtractValue<"score", PostVotesCreateData>;

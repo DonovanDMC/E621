@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { StaffWikiVersion as StaffWikiVersionData } from "../generated/types.js";
+import type { StaffWikiVersion as StaffWikiVersionData } from "e621-openapi/types";
 
 interface StaffWikiVersion extends StaffWikiVersionData {}
 /** @category Models */

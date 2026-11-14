@@ -5,13 +5,14 @@ import {
     artists_show,
     artists_revert,
     artists_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Artist from "../models/Artist.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ArtistsCreateData, ArtistsUpdateData, ArtistsIndexData } from "../generated/types.js";
+import type { ArtistsCreateData, ArtistsUpdateData, ArtistsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateArtistOptions extends TransformDataBodyToOptions<ArtistsCreateData> {}

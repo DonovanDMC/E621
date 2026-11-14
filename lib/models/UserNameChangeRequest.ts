@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { UserNameChangeRequest as UserNameChangeRequestData } from "../generated/types.js";
+import type { UserNameChangeRequest as UserNameChangeRequestData } from "e621-openapi/types";
 
 interface UserNameChangeRequest extends UserNameChangeRequestData {}
 /** @category Models */

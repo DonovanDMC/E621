@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { UserFeedback as UserFeedbackData } from "../generated/types.js";
 import type { UpdateUserFeedbackOptions } from "../modules/UserFeedbacks.js";
+import type { UserFeedback as UserFeedbackData } from "e621-openapi/types";
 
 interface UserFeedback extends UserFeedbackData {}
 /** @category Models */

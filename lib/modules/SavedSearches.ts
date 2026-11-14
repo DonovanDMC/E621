@@ -6,13 +6,14 @@ import {
     savedSearches_markAllSeen,
     savedSearches_show,
     savedSearches_update,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import SavedSearch from "../models/SavedSearch.js";
 import { GetResponse, OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { SavedSearchesBadgeResponses, SavedSearchesCreateData, SavedSearchesUpdateData } from "../generated/types.js";
+import type { SavedSearchesBadgeResponses, SavedSearchesCreateData, SavedSearchesUpdateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateSavedSearchOptions extends TransformDataBodyToOptions<SavedSearchesCreateData> {}

@@ -2,7 +2,7 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { WikiPageVersion as WikiPageVersionData } from "../generated/types.js";
+import type { WikiPageVersion as WikiPageVersionData } from "e621-openapi/types";
 
 interface WikiPageVersion extends WikiPageVersionData {}
 /** @category Models */

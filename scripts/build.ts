@@ -10,8 +10,8 @@ await rm("dist", { recursive: true, force: true });
 await rm("build", { recursive: true, force: true });
 
 execSync("pnpm run generate", { stdio: "inherit" });
-// Run as a subprocess, not `await import(...)` - replace-openapi.ts imports lib/generated/source.json,
-// and importing it in-process would keep it (and thus the whole lib/ dir) open for the rest of this
+// Run as a subprocess, not `await import(...)` - replace-openapi.ts reads lib/ in-process,
+// and importing it here would keep files in lib/ open for the rest of this
 // process's lifetime. On Windows that prevents withBuiltLib's rename(lib, ...) below from succeeding.
 execSync("tsx scripts/replace-openapi.ts", { stdio: "inherit" });
 

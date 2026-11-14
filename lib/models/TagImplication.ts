@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TagImplication as TagImplicationData } from "../generated/types.js";
 import type { UpdateTagImplicationOptions } from "../modules/TagImplications.js";
+import type { TagImplication as TagImplicationData } from "e621-openapi/types";
 
 interface TagImplication extends TagImplicationData {}
 /** @category Models */

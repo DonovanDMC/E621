@@ -5,13 +5,14 @@ import {
     wikiPages_show,
     wikiPages_revert,
     wikiPages_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import WikiPage from "../models/WikiPage.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { WikiPagesCreateData, WikiPagesUpdateData, WikiPagesIndexData } from "../generated/types.js";
+import type { WikiPagesCreateData, WikiPagesUpdateData, WikiPagesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateWikiPageOptions extends TransformDataBodyToOptions<WikiPagesCreateData> {}

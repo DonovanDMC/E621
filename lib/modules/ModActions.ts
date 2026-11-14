@@ -1,10 +1,11 @@
-import { modActions_show, modActions_index } from "../generated/sdk.js";
+import { modActions_show, modActions_index } from "e621-openapi/sdk";
+
 import ModAction from "../models/ModAction.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ModActionsIndexData } from "../generated/types.js";
+import type { ModActionsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchModActionsOptions extends TransformDataQueryToOptions<ModActionsIndexData> {}

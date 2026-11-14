@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TagAlias as TagAliasData } from "../generated/types.js";
 import type { UpdateTagAliasOptions } from "../modules/TagAliases.js";
+import type { TagAlias as TagAliasData } from "e621-openapi/types";
 
 interface TagAlias extends TagAliasData {}
 /** @category Models */

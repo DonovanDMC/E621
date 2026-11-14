@@ -6,8 +6,9 @@ import {
     tagImplications_destroy,
     tagImplications_index,
     tagImplications_undo,
-} from "../generated/sdk.js";
-import { type TagImplicationsUpdateData, type TagImplicationRequestsCreateData, type TagImplicationsIndexData } from "../generated/types.js";
+} from "e621-openapi/sdk";
+import { type TagImplicationsUpdateData, type TagImplicationRequestsCreateData, type TagImplicationsIndexData } from "e621-openapi/types";
+
 import TagImplication from "../models/TagImplication.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 

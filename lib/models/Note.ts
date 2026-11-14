@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Note as NoteData } from "../generated/types.js";
 import type { UpdateNoteOptions } from "../modules/Notes.js";
+import type { Note as NoteData } from "e621-openapi/types";
 
 interface Note extends NoteData {}
 /** @category Models */

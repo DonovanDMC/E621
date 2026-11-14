@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ArtistVersion as ArtistVersionData } from "../generated/types.js";
+import type { ArtistVersion as ArtistVersionData } from "e621-openapi/types";
 
 interface ArtistVersion extends ArtistVersionData {}
 /** @category Models */

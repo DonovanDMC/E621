@@ -4,14 +4,15 @@ import {
     tags_show,
     tags_preview,
     tags_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Tag from "../models/Tag.js";
 import TagPreview from "../models/TagPreview.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TagsIndexData, TagsUpdateData } from "../generated/types.js";
+import type { TagsIndexData, TagsUpdateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface UpdateTagOptions extends TransformDataBodyToOptions<TagsUpdateData> {}

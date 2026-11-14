@@ -9,7 +9,8 @@ import {
     postSets_index,
     postSets_updatePosts,
     postSets_postList,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import PostSet from "../models/PostSet.js";
 import {
     GetResponse,
@@ -21,7 +22,7 @@ import {
 
 import Base from "./Base.js";
 
-import type { PostSetsCreateData, PostSetsUpdateData, PostSetsForSelectResponses, PostSetsIndexData } from "../generated/types.js";
+import type { PostSetsCreateData, PostSetsUpdateData, PostSetsForSelectResponses, PostSetsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreatePostSetOptions extends TransformDataBodyToOptions<PostSetsCreateData> {}

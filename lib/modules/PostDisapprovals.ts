@@ -1,5 +1,6 @@
-import { staffPostDisapprovals_create, staffPostDisapprovals_index } from "../generated/sdk.js";
-import { type StaffPostDisapprovalsCreateData, type StaffPostDisapprovalsIndexData } from "../generated/types.js";
+import { staffPostDisapprovals_create, staffPostDisapprovals_index } from "e621-openapi/sdk";
+import { type StaffPostDisapprovalsCreateData, type StaffPostDisapprovalsIndexData } from "e621-openapi/types";
+
 import PostDisapproval from "../models/PostDisapproval.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 

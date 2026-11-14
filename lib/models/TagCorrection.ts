@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { TagCorrection as TagCorrectionData } from "../generated/types.js";
+import type { TagCorrection as TagCorrectionData } from "e621-openapi/types";
 
 interface TagCorrection extends TagCorrectionData {}
 /** @category Models */

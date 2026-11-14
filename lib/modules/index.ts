@@ -169,12 +169,12 @@ import Stats from "./Stats.js";
 export type * from "./Stats.js";
 import UserReverts from "./UserReverts.js";
 export type * from "./UserReverts.js";
-import type { Client } from "../generated/client/types.js";
+import type { Client } from "e621-openapi/client/types";
 import type E621 from "../index.js";
-import type { NoV2Options, PostFormatOptions } from "./posts/Format.js";
+import type { NoV1Options, PostFormatOptions } from "./posts/Format.js";
 
 /** @category Main */
-export interface Modules<PF extends PostFormatOptions = NoV2Options> {
+export interface Modules<PF extends PostFormatOptions = NoV1Options> {
     appeals: Appeals;
     artists: Artists;
     artistUrls: ArtistUrls;
@@ -262,7 +262,7 @@ export interface Modules<PF extends PostFormatOptions = NoV2Options> {
     wikiPageVersions: WikiPageVersions;
 }
 
-export function apply<PF extends PostFormatOptions = NoV2Options>(e621: E621<PF>, client: Client, defaultPostFormat: PF = {} as PF): void {
+export function apply<PF extends PostFormatOptions = NoV1Options>(e621: E621<PF>, client: Client, defaultPostFormat: PF = {} as PF): void {
     // Every module below except the post-format-aware ones (favorites/iqdb/popular/posts/uploads) is
     // generic over PF only via Base's default type param - cast down to the bare E621 type to satisfy them.
     const baseE621 = e621 as unknown as E621;

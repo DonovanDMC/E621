@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { Takedown as TakedownData } from "../generated/types.js";
 import type { TakedownsAddByIdsResponse, TakedownsAddByTagsResponse, TakedownsClearPostsResponse, TakedownsCountMatchingPostsResponse, UpdateTakedownOptions } from "../modules/Takedowns.js";
+import type { Takedown as TakedownData } from "e621-openapi/types";
 
 interface Takedown extends TakedownData {}
 /** @category Models */

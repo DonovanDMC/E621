@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { PostFlag as PostFlagData } from "../generated/types.js";
 import type { ResolvePostFlagResponse } from "../modules/PostFlags.js";
+import type { PostFlag as PostFlagData } from "e621-openapi/types";
 
 interface PostFlag extends PostFlagData {}
 /** @category Models */

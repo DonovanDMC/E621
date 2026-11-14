@@ -1,10 +1,11 @@
-import { uploadKarmaEvents_index } from "../generated/sdk.js";
+import { uploadKarmaEvents_index } from "e621-openapi/sdk";
+
 import UploadKarmaEvent from "../models/UploadKarmaEvent.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { UploadKarmaEventsIndexData } from "../generated/types.js";
+import type { UploadKarmaEventsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchUploadKarmaEventsOptions extends TransformDataQueryToOptions<UploadKarmaEventsIndexData> {}

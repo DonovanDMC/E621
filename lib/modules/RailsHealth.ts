@@ -1,9 +1,10 @@
-import { railsHealth_show } from "../generated/sdk.js";
+import { railsHealth_show } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { RailsHealthShowResponses } from "../generated/types.js";
+import type { RailsHealthShowResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface RailsHealthShowResponse extends GetResponse<RailsHealthShowResponses, 200> {}

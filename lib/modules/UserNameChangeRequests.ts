@@ -1,10 +1,11 @@
-import { userNameChangeRequests_create, userNameChangeRequests_destroy, userNameChangeRequests_show, userNameChangeRequests_index } from "../generated/sdk.js";
+import { userNameChangeRequests_create, userNameChangeRequests_destroy, userNameChangeRequests_show, userNameChangeRequests_index } from "e621-openapi/sdk";
+
 import UserNameChangeRequest from "../models/UserNameChangeRequest.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { UserNameChangeRequestsCreateData, UserNameChangeRequestsIndexData } from "../generated/types.js";
+import type { UserNameChangeRequestsCreateData, UserNameChangeRequestsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateUserNameChangeRequestOptions extends TransformDataBodyToOptions<UserNameChangeRequestsCreateData> {}
@@ -18,7 +19,7 @@ export default class UserNameChangeRequests extends Base {
     async create(options: CreateUserNameChangeRequestOptions): Promise<string> {
         return userNameChangeRequests_create({
             client: this.client,
-            body: prefixKeys(options, "user_name_change_request"),
+            body: prefixKeys(options, "user_name_change_request", ["authenticity_token"]),
             redirect: "manual",
         }).then(res => this._handleResponse(res, 302, true));
     }

@@ -1,4 +1,5 @@
-import { doorkeeperTokens_create, doorkeeperTokens_introspect, doorkeeperTokens_revoke } from "../generated/sdk.js";
+import { doorkeeperTokens_create, doorkeeperTokens_introspect, doorkeeperTokens_revoke } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
@@ -10,7 +11,7 @@ import type {
     DoorkeeperTokensIntrospectResponses,
     DoorkeeperTokensRevokeData,
     DoorkeeperTokensRevokeResponses,
-} from "../generated/types.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateOAuthTokenOptions extends TransformDataBodyToOptions<DoorkeeperTokensCreateData> {}

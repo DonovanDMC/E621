@@ -1,5 +1,6 @@
-import { dtextPreviews_create } from "../generated/sdk.js";
-import { type DtextPreviewsCreateResponses } from "../generated/types.js";
+import { dtextPreviews_create } from "e621-openapi/sdk";
+import { type DtextPreviewsCreateResponses } from "e621-openapi/types";
+
 import { GetResponse, OperationID } from "../util.js";
 
 import Base from "./Base.js";

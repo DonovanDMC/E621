@@ -2,8 +2,8 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { NewsUpdate as NewsUpdateData } from "../generated/types.js";
 import type { UpdateNewsUpdateOptions } from "../modules/NewsUpdates.js";
+import type { NewsUpdate as NewsUpdateData } from "e621-openapi/types";
 
 interface NewsUpdate extends NewsUpdateData {}
 /** @category Models */

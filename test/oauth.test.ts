@@ -30,7 +30,7 @@ function json(body: unknown, status = 200): Response {
     return new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
 }
 
-function token(overrides: Partial<Generated.OAuthToken> = {}): Generated.OAuthToken {
+function token(overrides: Partial<Generated.Types.OAuthToken> = {}): Generated.Types.OAuthToken {
     return {
         access_token:  "access",
         token_type:    "Bearer",
@@ -93,7 +93,7 @@ describe("OAuthClient", () => {
     });
 
     it("handles a callback, exchanging the code without user auth", async () => {
-        const saved: Array<Generated.OAuthToken | null> = [];
+        const saved: Array<Generated.Types.OAuthToken | null> = [];
         const oauth = new OAuthClient({ clientId: "id", clientSecret: "secret", redirectURI: "https://example.com/cb", onToken: t => void saved.push(t) });
         responses = [json(token())];
         const result = await oauth.handleCallback("https://example.com/cb?code=thecode&state=s1", { state: "s1", codeVerifier: "verifier" });
@@ -151,7 +151,7 @@ describe("OAuthClient", () => {
     });
 
     it("revokes and clears the token", async () => {
-        const saved: Array<Generated.OAuthToken | null> = [];
+        const saved: Array<Generated.Types.OAuthToken | null> = [];
         const oauth = new OAuthClient({ clientId: "id", token: token(), onToken: t => void saved.push(t) });
         responses = [json({})];
         await oauth.revoke();

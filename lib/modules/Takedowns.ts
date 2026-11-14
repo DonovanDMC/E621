@@ -9,7 +9,8 @@ import {
     takedowns_show,
     takedowns_removeByIds,
     takedowns_index,
-} from "../generated/sdk.js";
+} from "e621-openapi/sdk";
+
 import Takedown from "../models/Takedown.js";
 import {
     GetResponse,
@@ -29,7 +30,7 @@ import type {
     TakedownsCreateData,
     TakedownsUpdateData,
     TakedownsIndexData,
-} from "../generated/types.js";
+} from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateTakedownOptions extends TransformDataBodyToOptions<TakedownsCreateData> {}

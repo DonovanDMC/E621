@@ -1,10 +1,11 @@
-import { commentVotes_create, commentVotes_delete, commentVotes_destroy, commentVotes_lock, commentVotes_index } from "../generated/sdk.js";
+import { commentVotes_create, commentVotes_delete, commentVotes_destroy, commentVotes_lock, commentVotes_index } from "e621-openapi/sdk";
+
 import CommentVote from "../models/CommentVote.js";
 import { GetResponse, OperationID, type ExtractValue, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { CommentVotesCreateData, CommentVotesCreateResponses, CommentVotesIndexData } from "../generated/types.js";
+import type { CommentVotesCreateData, CommentVotesCreateResponses, CommentVotesIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export type CommentVoteScore = ExtractValue<"score", CommentVotesCreateData>;

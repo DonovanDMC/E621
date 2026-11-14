@@ -1,9 +1,10 @@
-import { doorkeeperTokenInfo_show } from "../generated/sdk.js";
+import { doorkeeperTokenInfo_show } from "e621-openapi/sdk";
+
 import { GetResponse, OperationID } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { DoorkeeperTokenInfoShowResponses } from "../generated/types.js";
+import type { DoorkeeperTokenInfoShowResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface DoorkeeperTokenInfoShowResponse extends GetResponse<DoorkeeperTokenInfoShowResponses, 200> {}

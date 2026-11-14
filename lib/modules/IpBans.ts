@@ -1,10 +1,11 @@
-import { ipBans_create, ipBans_destroy, ipBans_index } from "../generated/sdk.js";
+import { ipBans_create, ipBans_destroy, ipBans_index } from "e621-openapi/sdk";
+
 import IPBan from "../models/IPBan.js";
 import { OperationID, prefixKeys, type TransformDataQueryToOptions, type TransformDataBodyToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { IpBansCreateData, IpBansIndexData } from "../generated/types.js";
+import type { IpBansCreateData, IpBansIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateIpBanOptions extends TransformDataBodyToOptions<IpBansCreateData> {}

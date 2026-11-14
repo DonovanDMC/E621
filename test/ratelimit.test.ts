@@ -37,7 +37,7 @@ function ratelimited(retryAfter?: string): Response {
 }
 
 function ok(): Response {
-    return new Response(JSON.stringify({ post: { id: 1, tags: "tag1" } }), {
+    return new Response(JSON.stringify({ id: 1, tags: ["tag1"] }), {
         status: 200,
         headers: { "content-type": "application/json" },
     });

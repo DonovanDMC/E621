@@ -3,7 +3,7 @@ import { OperationID, Schema } from "../util.js";
 import Base from "./Base.js";
 
 import type Post from "./Post.js";
-import type { PostReplacement as PostReplacementData } from "../generated/types.js";
+import type { PostReplacement as PostReplacementData } from "e621-openapi/types";
 
 interface PostReplacement extends PostReplacementData {}
 /** @category Models */

@@ -1,4 +1,5 @@
-import { staffStuckDnp_create } from "../generated/sdk.js";
+import { staffStuckDnp_create } from "e621-openapi/sdk";
+
 import { OperationID } from "../util.js";
 
 import Base from "./Base.js";

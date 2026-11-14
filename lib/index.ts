@@ -1,9 +1,9 @@
 import { createE621Client } from "./client.js";
 import { apply, type Modules } from "./modules/index.js";
-import { type NoV2Options, type PostFormatOptions } from "./modules/posts/Format.js";
+import { type NoV1Options, type PostFormatOptions } from "./modules/posts/Format.js";
 
 import type { InstanceOptions, Options } from "./client.js";
-import type { Client } from "./generated/client/types.js";
+import type { Client } from "e621-openapi/client/types";
 
 export type * from "./modules/index.js";
 export * from "./models/index.js";
@@ -13,9 +13,9 @@ export type { AuthToken, Options, RatelimitInfo, RatelimitOptions } from "./clie
 export { default as OAuthClient } from "./OAuthClient.js";
 export type * from "./OAuthClient.js";
 
-interface E621<PF extends PostFormatOptions = NoV2Options> extends Modules<PF> {}
+interface E621<PF extends PostFormatOptions = NoV1Options> extends Modules<PF> {}
 /** @category Main */
-class E621<const PF extends PostFormatOptions = NoV2Options> {
+class E621<const PF extends PostFormatOptions = NoV1Options> {
     client: Client;
     options: InstanceOptions;
     constructor(options?: Options<PF>) {

@@ -2,7 +2,7 @@ import { Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { PostDisapproval as PostDisapprovalData } from "../generated/types.js";
+import type { PostDisapproval as PostDisapprovalData } from "e621-openapi/types";
 
 interface PostDisapproval extends PostDisapprovalData {}
 /** @category Models */

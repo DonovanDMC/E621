@@ -1,10 +1,11 @@
-import { appeals_claim, appeals_index, appeals_show, appeals_unclaim, appeals_update } from "../generated/sdk.js";
+import { appeals_claim, appeals_index, appeals_show, appeals_unclaim, appeals_update } from "e621-openapi/sdk";
+
 import Appeal from "../models/Appeal.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { AppealsIndexData, AppealsUpdateData } from "../generated/types.js";
+import type { AppealsIndexData, AppealsUpdateData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface SearchAppealsOptions extends TransformDataQueryToOptions<AppealsIndexData> {}

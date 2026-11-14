@@ -1,10 +1,11 @@
-import { mascots_create, mascots_destroy, mascots_update, mascots_index } from "../generated/sdk.js";
+import { mascots_create, mascots_destroy, mascots_update, mascots_index } from "e621-openapi/sdk";
+
 import Mascot from "../models/Mascot.js";
 import { OperationID, prefixKeys, type TransformDataBodyToOptions, type TransformDataQueryToOptions } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { MascotsCreateData, MascotsUpdateData, MascotsIndexData } from "../generated/types.js";
+import type { MascotsCreateData, MascotsUpdateData, MascotsIndexData } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export interface CreateMascotOptions extends TransformDataBodyToOptions<MascotsCreateData> {}

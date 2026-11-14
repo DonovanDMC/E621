@@ -1,10 +1,11 @@
-import { forumPostVotes_create, forumPostVotes_destroy, forumPostVotes_show } from "../generated/sdk.js";
+import { forumPostVotes_create, forumPostVotes_destroy, forumPostVotes_show } from "e621-openapi/sdk";
+
 import ForumPostVote from "../models/ForumPostVote.js";
 import { GetResponse, OperationID, type ExtractValue } from "../util.js";
 
 import Base from "./Base.js";
 
-import type { ForumPostVotesCreateData, ForumPostVotesCreateResponses } from "../generated/types.js";
+import type { ForumPostVotesCreateData, ForumPostVotesCreateResponses } from "e621-openapi/types";
 
 /** @category Modules/Types */
 export type ForumPostVoteScore = ExtractValue<"forum_post_vote[score]", ForumPostVotesCreateData>;
