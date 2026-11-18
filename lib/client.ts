@@ -222,9 +222,13 @@ export function createE621Client<const PF extends PostFormatOptions = NoV1Option
             Debug(`request:${method}`, `-> ${url}`);
             let attempt = 0, res: Response;
             for (;;) {
+                // per attempt, so time spent waiting out a ratelimit doesn't count against it
+                const userSignal = input instanceof Request ? input.signal : init?.signal;
+                const timeoutSignal = AbortSignal.timeout(resolved.requestTimeout * 1000);
+                const signal = userSignal ? AbortSignal.any([userSignal, timeoutSignal]) : timeoutSignal;
                 // clone so a retry can re-send the body - `input` itself is never fetched directly, so it's
                 // never disturbed and can be cloned again on the next attempt
-                res = await fetch(input instanceof Request ? input.clone() : input, init);
+                res = await fetch(input instanceof Request ? input.clone() : input, { ...init, signal });
                 Debug(`response:${method}`, `<- ${url} ${res.status} ${res.statusText}`);
                 if (res.status !== 429) break;
                 const retryAfter = parseRetryAfter(res);
