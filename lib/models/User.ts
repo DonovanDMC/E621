@@ -14,19 +14,9 @@ class User<D extends UserData = UserData> extends Base<D> {
         return this.e621.staffUsers.update(this.id, options);
     }
 
-    @OperationID("staff/users#anonymize_confirm")
-    async anonymize(): Promise<unknown> {
-        return this.e621.staffUsers.anonymize(this.id);
-    }
-
     @OperationID("users#flush_favorites")
     async clearFavorites(): Promise<unknown> {
         return this.e621.users.clearFavorites(this.id);
-    }
-
-    @OperationID("users#disable_uploads")
-    async disableUploads(reason?: string): Promise<string> {
-        return this.e621.users.disableUploads(this.id, reason === undefined ? undefined : { body: reason });
     }
 
     @OperationID("maintenance/user/count_fixes#create")
@@ -37,11 +27,6 @@ class User<D extends UserData = UserData> extends Base<D> {
     @OperationID("users#fix_counts")
     async staffFixCounts(): Promise<unknown> {
         return this.e621.users.staffFixCounts(this.id);
-    }
-
-    @OperationID("users#toggle_uploads")
-    async toggleUploads(): Promise<string> {
-        return this.e621.users.toggleUploads(this.id);
     }
 
     @OperationID("users#upload_limit")

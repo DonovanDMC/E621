@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { after, before, beforeEach, describe, it } from "node:test";
 
 import E621 from "../dist/lib/index.js";
-import { ModAction, PostVersion, SavedSearch, TagSubscription } from "../dist/lib/models/index.js";
+import { Artist, ModAction, PostVersion, SavedSearch, TagSubscription, UploadURLRule } from "../dist/lib/models/index.js";
 
 type Handler = (request: Request) => Response;
 let routes: Array<[method: string, path: string, handler: Handler]>;
@@ -132,5 +132,55 @@ describe("mod actions", () => {
         assert.ok(modAction.is("artist_delete"));
         assert.equal(modAction.values.artist_name, "foo");
         assert.equal(modAction.values.artist_id, 3);
+    });
+});
+
+describe("artists", () => {
+    it("getByName looks up by name and keeps domains and urls", async () => {
+        const e621 = new E621();
+        let name: string | null = null;
+        routes.push(["GET", "/artists/show_or_new.json", (request) => {
+            name = new URL(request.url).searchParams.get("name");
+            return json({ id: 1, name: "123", domains: [["e621.net", 1]], urls: [{ id: 2, url: "https://e621.net" }] });
+        }]);
+        const artist = await e621.artists.getByName("123");
+        assert.equal(name, "123");
+        assert.ok(artist instanceof Artist);
+        assert.deepEqual(artist.domains, [["e621.net", 1]]);
+        assert.equal(artist.urls.length, 1);
+    });
+
+    it("getByName returns null on 404", async () => {
+        const e621 = new E621();
+        routes.push(["GET", "/artists/show_or_new.json", () => json({ success: false, reason: "not found" }, 404)]);
+        assert.equal(await e621.artists.getByName("missing"), null);
+    });
+});
+
+describe("upload url rules", () => {
+    it("search returns UploadURLRule instances", async () => {
+        const e621 = new E621();
+        let handling: string | null = null;
+        routes.push(["GET", "/upload_url_rules.json", (request) => {
+            handling = new URL(request.url).searchParams.get("search[handling]");
+            return json([{ id: 1, label: "a", pattern: "b", handling: "block" }]);
+        }]);
+        const rules = await e621.uploadUrlRules.search({ handling: "block" });
+        assert.equal(handling, "block");
+        assert.equal(rules.length, 1);
+        assert.ok(rules[0] instanceof UploadURLRule);
+    });
+
+    it("check passes the url and returns the result", async () => {
+        const e621 = new E621();
+        let url: string | null = null;
+        routes.push(["GET", "/upload_url_rules/check.json", (request) => {
+            url = new URL(request.url).searchParams.get("url");
+            return json({ match: true, handling: "recommend", suggested_url: "https://example.com/b" });
+        }]);
+        const result = await e621.uploadUrlRules.check("https://example.com/a");
+        assert.equal(url, "https://example.com/a");
+        assert.equal(result.match, true);
+        assert.equal(result.suggested_url, "https://example.com/b");
     });
 });

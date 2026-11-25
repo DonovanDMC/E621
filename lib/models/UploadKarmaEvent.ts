@@ -1,12 +1,12 @@
+import { Schema } from "../util.js";
+
 import Base from "./Base.js";
 
-import type { UploadKarmaEventsIndexResponses } from "e621-openapi/types";
-
-// no `@Schema(...)` here - the spec defines this response inline rather than as a named component schema.
-export type UploadKarmaEventData = UploadKarmaEventsIndexResponses[200][number];
+import type { UploadKarmaEvent as UploadKarmaEventData } from "e621-openapi/types";
 
 interface UploadKarmaEvent extends UploadKarmaEventData {}
 /** @category Models */
+@Schema("UploadKarmaEvent")
 class UploadKarmaEvent extends Base<UploadKarmaEventData> {}
 
 export default UploadKarmaEvent;

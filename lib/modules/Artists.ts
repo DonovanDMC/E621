@@ -3,6 +3,7 @@ import {
     artists_destroy,
     artists_update,
     artists_show,
+    artists_showOrNew,
     artists_revert,
     artists_index,
 } from "e621-openapi/sdk";
@@ -45,6 +46,15 @@ export default class Artists extends Base {
         return artists_show({
             client: this.client,
             path: { idOrName },
+        }).then(res => this._handleResponse(res, 200, false, Artist));
+    }
+
+    /** Like {@link Artists.get}, but always looks up by name, even if it's numeric. */
+    @OperationID("artists#show_or_new")
+    async getByName(name: string): Promise<Artist | null> {
+        return artists_showOrNew({
+            client: this.client,
+            query: { name },
         }).then(res => this._handleResponse(res, 200, false, Artist));
     }
 

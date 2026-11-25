@@ -1,4 +1,4 @@
-import { staffUsers_anonymizeConfirm, staffUsers_update, staffUsers_altList, staffUsers_totpReset, staffUsers_updateBlacklist } from "e621-openapi/sdk";
+import { staffUsers_update, staffUsers_altList } from "e621-openapi/sdk";
 import { type StaffUsersUpdateData } from "e621-openapi/types";
 
 import { OperationID, prefixKeys, type TransformDataBodyToOptions } from "../util.js";
@@ -18,22 +18,6 @@ export default class StaffUsers extends Base {
         }).then(res => this._handleResponse(res, 200, true)) as never;
     }
 
-    @OperationID("staff/users#anonymize_confirm")
-    async anonymize(id: number): Promise<string> {
-        return staffUsers_anonymizeConfirm({
-            client: this.client,
-            path: { id },
-        }).then(res => this._handleResponse(res, 302, true));
-    }
-
-    @OperationID("staff/users#totp_reset")
-    async totpReset(id: number): Promise<string> {
-        return staffUsers_totpReset({
-            client: this.client,
-            path: { id },
-        }).then(res => this._handleResponse(res, 302, true));
-    }
-
     @OperationID("staff/users#update")
     async update(id: number, options: UpdateStaffUserOptions): Promise<string> {
         return staffUsers_update({
@@ -42,15 +26,6 @@ export default class StaffUsers extends Base {
             body: prefixKeys(options, "user"),
             // the spec says 200, but that's only after following the redirect
             redirect: "manual",
-        }).then(res => this._handleResponse(res, 302, true));
-    }
-
-    @OperationID("staff/users#update_blacklist")
-    async updateBlacklist(id: number, blacklisted_tags: string): Promise<string> {
-        return staffUsers_updateBlacklist({
-            client: this.client,
-            path: { id },
-            body: { "user[blacklisted_tags]": blacklisted_tags },
         }).then(res => this._handleResponse(res, 302, true));
     }
 }

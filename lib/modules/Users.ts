@@ -1,6 +1,5 @@
 import {
     users_flushFavorites,
-    users_disableUploads,
     maintenanceUserCountFixes_create,
     users_avatarMenu,
     users_me,
@@ -9,13 +8,9 @@ import {
     users_uploadTags,
     users_index,
     users_fixCounts,
-    users_toggleUploads,
     maintenanceUserAvatars_update,
     maintenanceUserDmailFilters_update,
     users_update,
-    users_customStyle,
-    users_disableKarmaFree,
-    users_toggleKarmaFree,
 } from "e621-openapi/sdk";
 
 import FullCurrentUser from "../models/FullCurrentUser.js";
@@ -30,8 +25,6 @@ import type {
     UsersIndexData,
     MaintenanceUserAvatarsUpdateData,
     UsersUpdateData,
-    UsersDisableUploadsData,
-    UsersDisableKarmaFreeData,
     UsersUploadTagsResponses,
 } from "e621-openapi/types";
 
@@ -41,10 +34,6 @@ export interface SearchUsersOptions extends TransformDataQueryToOptions<UsersInd
 export interface UsersAvatarMenuResponse extends GetResponse<UsersAvatarMenuResponses, 200> {}
 /** @category Modules/Types */
 export interface UpdateAvatarCropOptions extends TransformDataBodyToOptions<MaintenanceUserAvatarsUpdateData> {}
-/** @category Modules/Types */
-export interface DisableUserUploadsOptions extends TransformDataBodyToOptions<UsersDisableUploadsData> {}
-/** @category Modules/Types */
-export interface DisableUserKarmaFreeOptions extends TransformDataBodyToOptions<UsersDisableKarmaFreeData> {}
 /** @category Modules/Types */
 export interface UsersUploadTagsResponse extends GetResponse<UsersUploadTagsResponses, 200> {}
 /**
@@ -69,31 +58,6 @@ export default class Users extends Base {
         return users_flushFavorites({
             client: this.client,
             path: { idOrName },
-        }).then(res => this._handleResponse(res, 302, true));
-    }
-
-    @OperationID("users#custom_style")
-    async customStyle(): Promise<string> {
-        return users_customStyle({
-            client: this.client,
-        }).then(res => this._handleResponse(res, 200, true) as string);
-    }
-
-    @OperationID("users#disable_karma_free")
-    async disableKarmaFree(idOrName: string | number, options?: DisableUserKarmaFreeOptions): Promise<string> {
-        return users_disableKarmaFree({
-            client: this.client,
-            path: { idOrName },
-            body: prefixKeys(options, "staff_note"),
-        }).then(res => this._handleResponse(res, 302, true));
-    }
-
-    @OperationID("users#disable_uploads")
-    async disableUploads(idOrName: string | number, options?: DisableUserUploadsOptions): Promise<string> {
-        return users_disableUploads({
-            client: this.client,
-            path: { idOrName },
-            body: prefixKeys(options, "staff_note"),
         }).then(res => this._handleResponse(res, 302, true));
     }
 
@@ -137,22 +101,6 @@ export default class Users extends Base {
     @OperationID("users#fix_counts")
     async staffFixCounts(idOrName: string | number): Promise<string> {
         return users_fixCounts({
-            client: this.client,
-            path: { idOrName },
-        }).then(res => this._handleResponse(res, 302, true));
-    }
-
-    @OperationID("users#toggle_karma_free")
-    async toggleKarmaFree(idOrName: string | number): Promise<string> {
-        return users_toggleKarmaFree({
-            client: this.client,
-            path: { idOrName },
-        }).then(res => this._handleResponse(res, 302, true));
-    }
-
-    @OperationID("users#toggle_uploads")
-    async toggleUploads(idOrName: string | number): Promise<string> {
-        return users_toggleUploads({
             client: this.client,
             path: { idOrName },
         }).then(res => this._handleResponse(res, 302, true));

@@ -77,6 +77,8 @@ import UploadKarmaEvents from "./UploadKarmaEvents.js";
 export type * from "./UploadKarmaEvents.js";
 import Uploads from "./Uploads.js";
 export type * from "./Uploads.js";
+import UploadUrlRules from "./UploadUrlRules.js";
+export type * from "./UploadUrlRules.js";
 import UploadWhitelists from "./UploadWhitelists.js";
 export type * from "./UploadWhitelists.js";
 import Users from "./Users.js";
@@ -163,12 +165,8 @@ import StaffStuckDnp from "./StaffStuckDnp.js";
 export type * from "./StaffStuckDnp.js";
 import StaffUserAlts from "./StaffUserAlts.js";
 export type * from "./StaffUserAlts.js";
-import StaffWikiRefs from "./StaffWikiRefs.js";
-export type * from "./StaffWikiRefs.js";
 import Stats from "./Stats.js";
 export type * from "./Stats.js";
-import UserReverts from "./UserReverts.js";
-export type * from "./UserReverts.js";
 import type { Client } from "e621-openapi/client/types";
 import type E621 from "../index.js";
 import type { NoV1Options, PostFormatOptions } from "./posts/Format.js";
@@ -239,7 +237,6 @@ export interface Modules<PF extends PostFormatOptions = NoV1Options> {
     staffUserCleanups: StaffUserCleanups;
     staffUsers: StaffUsers;
     staffVoteTrends: StaffVoteTrends;
-    staffWikiRefs: StaffWikiRefs;
     staffWikis: StaffWikis;
     staffWikiVersions: StaffWikiVersions;
     stats: Stats;
@@ -253,10 +250,10 @@ export interface Modules<PF extends PostFormatOptions = NoV1Options> {
     tickets: Tickets;
     uploadKarmaEvents: UploadKarmaEvents;
     uploads: Uploads<PF>;
+    uploadUrlRules: UploadUrlRules;
     uploadWhitelists: UploadWhitelists;
     userFeedbacks: UserFeedbacks;
     userNameChangeRequests: UserNameChangeRequests;
-    userReverts: UserReverts;
     users: Users;
     wikiPages: WikiPages;
     wikiPageVersions: WikiPageVersions;
@@ -331,7 +328,6 @@ export function apply<PF extends PostFormatOptions = NoV1Options>(e621: E621<PF>
         staffUserCleanups: new StaffUserCleanups(baseE621, client),
         staffUsers: new StaffUsers(baseE621, client),
         staffVoteTrends: new StaffVoteTrends(baseE621, client),
-        staffWikiRefs: new StaffWikiRefs(baseE621, client),
         staffWikis: new StaffWikis(baseE621, client),
         staffWikiVersions: new StaffWikiVersions(baseE621, client),
         stats: new Stats(baseE621, client),
@@ -345,11 +341,11 @@ export function apply<PF extends PostFormatOptions = NoV1Options>(e621: E621<PF>
         tickets: new Tickets(baseE621, client),
         uploadKarmaEvents: new UploadKarmaEvents(baseE621, client),
         uploads: new Uploads(e621, client),
+        uploadUrlRules: new UploadUrlRules(baseE621, client),
         uploadWhitelists: new UploadWhitelists(baseE621, client),
         users: new Users(baseE621, client),
         userFeedbacks: new UserFeedbacks(baseE621, client),
         userNameChangeRequests: new UserNameChangeRequests(baseE621, client),
-        userReverts: new UserReverts(baseE621, client),
         wikiPages: new WikiPages(baseE621, client),
         wikiPageVersions: new WikiPageVersions(baseE621, client),
     };

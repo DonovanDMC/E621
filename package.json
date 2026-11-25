@@ -98,7 +98,7 @@
     "node": ">=20.19.0"
   },
   "dependencies": {
-    "e621-openapi": "1.0.347",
+    "e621-openapi": "1.0.364",
     "tslib": "^2.8.1"
   }
 }
