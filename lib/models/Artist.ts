@@ -2,7 +2,6 @@ import { OperationID, Schema } from "../util.js";
 
 import Base from "./Base.js";
 
-import type ArtistURL from "./ArtistURL.js";
 import type { UpdateArtistOptions } from "../modules/Artists.js";
 import type { Artist as ArtistData } from "e621-openapi/types";
 
@@ -10,7 +9,8 @@ interface Artist extends ArtistData {}
 /** @category Models */
 @Schema("Artist")
 class Artist extends Base<ArtistData> {
-    domains: Array<[string, number]> | undefined; urls: Array<ArtistURL> | undefined;
+    // declared, a class field would reset what Base copied in from the response
+    declare domains?: Array<[string, number]>;
     @OperationID("artists#destroy")
     async delete(): Promise<null> {
         return this.e621.artists.delete(this.id);
